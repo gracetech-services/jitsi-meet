@@ -100,8 +100,10 @@ export function isSupportedBrowser() {
  * @returns {boolean}
  */
 export function isSupportedMobileBrowser() {
-    return (Platform.OS === 'android' && browser.isSupportedAndroidBrowser())
-        || (Platform.OS === 'ios' && browser.isSupportedIOSBrowser());
+    // TODO: [Wei] Allow all mobile browser for now
+    return true;
+//    return (Platform.OS === 'android' && browser.isSupportedAndroidBrowser())
+//        || (Platform.OS === 'ios' && browser.isSupportedIOSBrowser());
 }
 
 /**
