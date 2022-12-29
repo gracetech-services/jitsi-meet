@@ -1,6 +1,6 @@
-/* eslint-disable lines-around-comment */
 // @ts-ignore
 import Bourne from '@hapi/bourne';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import { jitsiLocalStorage } from '@jitsi/js-utils';
 import _ from 'lodash';
@@ -60,7 +60,7 @@ export function getMeetingRegion(state: IReduxState) {
  * @returns {boolean}
  */
 export function getMultipleVideoSendingSupportFeatureFlag(state: IReduxState) {
-    return navigator.product !== 'ReactNative' && isUnifiedPlanEnabled(state);
+    return isUnifiedPlanEnabled(state);
 }
 
 /**

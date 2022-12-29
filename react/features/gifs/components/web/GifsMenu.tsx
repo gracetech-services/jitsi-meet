@@ -1,7 +1,5 @@
-/* eslint-disable lines-around-comment */
 import { GiphyFetch, TrendingOptions } from '@giphy/js-fetch-api';
 import { Grid } from '@giphy/react-components';
-import { Theme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { batch, useDispatch, useSelector } from 'react-redux';
@@ -14,8 +12,8 @@ import Input from '../../../base/ui/components/web/Input';
 import { sendMessage } from '../../../chat/actions.any';
 import { SCROLL_SIZE } from '../../../filmstrip/constants';
 import { toggleReactionsMenuVisibility } from '../../../reactions/actions.web';
-// @ts-ignore
 import { setOverflowMenuVisible } from '../../../toolbox/actions.web';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import { Drawer, JitsiPortal } from '../../../toolbox/components/web';
 import { showOverflowDrawer } from '../../../toolbox/functions.web';
@@ -29,7 +27,7 @@ import {
 
 const OVERFLOW_DRAWER_PADDING = 16;
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         gifsMenu: {
             width: '100%',

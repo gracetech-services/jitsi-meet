@@ -1,5 +1,3 @@
-/* eslint-disable lines-around-comment */
-import { Theme } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +15,7 @@ import { findAncestorByClass } from '../../../base/ui/functions.web';
 import { isAddBreakoutRoomButtonVisible, isAutoAssignParticipantsVisible } from '../../../breakout-rooms/functions';
 // @ts-ignore
 import { MuteEveryoneDialog } from '../../../video-menu/components/';
+import MuteEveryoneDialog from '../../../video-menu/components/web/MuteEveryoneDialog';
 import { close } from '../../actions.web';
 import {
     getParticipantsPaneOpen,
@@ -25,6 +24,7 @@ import {
 } from '../../functions';
 import { AddBreakoutRoomButton } from '../breakout-rooms/components/web/AddBreakoutRoomButton';
 import { AutoAssignButton } from '../breakout-rooms/components/web/AutoAssignButton';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import { RoomList } from '../breakout-rooms/components/web/RoomList';
 
@@ -33,7 +33,7 @@ import LobbyParticipants from './LobbyParticipants';
 import MeetingParticipants from './MeetingParticipants';
 
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         container: {
             boxSizing: 'border-box' as const,

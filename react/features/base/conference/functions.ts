@@ -253,6 +253,34 @@ export function getConferenceOptions(stateful: IStateful) {
 }
 
 /**
+ * Returns an object aggregating the conference options.
+ *
+ * @param {IStateful} stateful - The redux store state.
+ * @param {Array<string>} params - The received parameters.
+ * @returns {void}
+ */
+export function generateVisitorConfig(stateful: IStateful, params: Array<string>) {
+    const [ vnode, focusJid ] = params;
+
+    const config = toState(stateful)['features/base/config'];
+
+    if (!config || !config.hosts) {
+        logger.warn('Wrong configuration, missing hosts.');
+
+        return;
+    }
+
+    const oldDomain = config.hosts.domain;
+
+    config.hosts.domain = `${vnode}.meet.jitsi`;
+    config.hosts.muc = config.hosts.muc.replace(oldDomain, config.hosts.domain);
+    config.hosts.visitorFocus = focusJid;
+
+    config.bosh += `?vnode=${vnode}`;
+    config.websocket += `?vnode=${vnode}`;
+}
+
+/**
 * Returns the UTC timestamp when the first participant joined the conference.
 *
 * @param {IStateful} stateful - Reference that can be resolved to Redux
@@ -454,18 +482,18 @@ export function sendLocalParticipant(
         name
     } = getLocalParticipant(stateful) ?? {};
 
-    avatarURL && conference.sendCommand(AVATAR_URL_COMMAND, {
+    avatarURL && conference?.sendCommand(AVATAR_URL_COMMAND, {
         value: avatarURL
     });
-    email && conference.sendCommand(EMAIL_COMMAND, {
+    email && conference?.sendCommand(EMAIL_COMMAND, {
         value: email
     });
 
     if (features && features['screen-sharing'] === 'true') {
-        conference.setLocalParticipantProperty('features_screen-sharing', true);
+        conference?.setLocalParticipantProperty('features_screen-sharing', true);
     }
 
-    conference.setDisplayName(name);
+    conference?.setDisplayName(name);
 }
 
 /**

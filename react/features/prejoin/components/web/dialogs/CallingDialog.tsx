@@ -1,6 +1,3 @@
-/* eslint-disable lines-around-comment */
-
-import { Theme } from '@mui/material';
 import React from 'react';
 import { WithTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
@@ -10,6 +7,7 @@ import { Avatar } from '../../../../base/avatar';
 import { translate } from '../../../../base/i18n/functions';
 import Icon from '../../../../base/icons/components/Icon';
 import { IconCloseLarge } from '../../../../base/icons/svg';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import Label from '../Label';
 
@@ -36,7 +34,7 @@ interface IProps extends WithTranslation {
     status: string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         callingDialog: {
             padding: theme.spacing(3),

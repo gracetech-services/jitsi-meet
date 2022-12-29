@@ -4,7 +4,6 @@ import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 export const INSECURE_ROOM_NAME_LABEL_COLOR = BaseTheme.palette.actionDanger;
 
 const TITLE_BAR_BUTTON_SIZE = 24;
-const HEADER_ACTION_BUTTON_SIZE = 17;
 
 
 /**
@@ -35,29 +34,6 @@ export default {
         margin: 10
     },
 
-    headerNavigationButton: {
-        height: BaseTheme.spacing[6],
-        marginTop: 20,
-        width: BaseTheme.spacing[6]
-    },
-
-    headerNavigationIcon: {
-        marginLeft: 12
-    },
-
-    headerNavigationText: {
-        color: BaseTheme.palette.text01,
-        marginLeft: BaseTheme.spacing[3],
-        fontSize: HEADER_ACTION_BUTTON_SIZE
-    },
-
-    headerNavigationTextBold: {
-        ...BaseTheme.typography.labelButton,
-        color: BaseTheme.palette.text01,
-        marginRight: BaseTheme.spacing[3],
-        fontSize: HEADER_ACTION_BUTTON_SIZE
-    },
-
     /**
      * View that contains the indicators.
      */
@@ -82,10 +58,6 @@ export default {
             fontSize: TITLE_BAR_BUTTON_SIZE
         },
         underlayColor: 'transparent'
-    },
-
-    lonelyButton: {
-        borderRadius: BaseTheme.spacing[4]
     },
 
     lonelyMeetingContainer: {
@@ -157,17 +129,18 @@ export default {
     },
 
     roomTimer: {
-        color: BaseTheme.palette.text01,
         ...BaseTheme.typography.bodyShortBold,
-        paddingHorizontal: 8,
-        paddingVertical: 6,
+        color: BaseTheme.palette.text01,
         textAlign: 'center'
     },
 
     roomTimerView: {
         backgroundColor: BaseTheme.palette.ui03,
-        borderRadius: 3,
+        borderRadius: BaseTheme.shape.borderRadius,
+        height: 32,
         justifyContent: 'center',
+        paddingHorizontal: BaseTheme.spacing[2],
+        paddingVertical: BaseTheme.spacing[1],
         minWidth: 50
     },
 
@@ -210,16 +183,18 @@ export default {
     },
 
     insecureRoomNameLabel: {
-        backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR
+        backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR,
+        borderRadius: BaseTheme.shape.borderRadius,
+        height: 32
     },
 
     raisedHandsCountLabel: {
-        backgroundColor: BaseTheme.palette.warning02,
-        flexDirection: 'row',
         alignItems: 'center',
+        backgroundColor: BaseTheme.palette.warning02,
+        borderRadius: BaseTheme.shape.borderRadius,
+        flexDirection: 'row',
         marginLeft: BaseTheme.spacing[0],
-        marginBottom: BaseTheme.spacing[0],
-        marginRight: BaseTheme.spacing[1]
+        marginBottom: BaseTheme.spacing[0]
     },
 
     raisedHandsCountLabelText: {

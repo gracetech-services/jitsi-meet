@@ -1,5 +1,4 @@
 import groovy.json.JsonSlurper
-import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.util.VersionNumber
 
 // Top-level build file where you can add configuration options common to all
@@ -12,16 +11,16 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
     }
 }
 
 ext {
     buildToolsVersion = "31.0.0"
-    compileSdkVersion = 31
+    compileSdkVersion = 32
     minSdkVersion    = 23
-    targetSdkVersion = 31
+    targetSdkVersion = 32
     supportLibVersion = "28.0.0"
 
     if (System.properties['os.arch'] == "aarch64") {

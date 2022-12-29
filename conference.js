@@ -44,8 +44,10 @@ import {
     conferenceUniqueIdSet,
     conferenceWillJoin,
     conferenceWillLeave,
+    dataChannelClosed,
     dataChannelOpened,
     e2eRttChanged,
+    generateVisitorConfig,
     getConferenceOptions,
     kickedOut,
     lockStateChanged,
@@ -54,10 +56,7 @@ import {
     p2pStatusChanged,
     sendLocalParticipant
 } from './react/features/base/conference';
-import {
-    getMultipleVideoSendingSupportFeatureFlag,
-    getReplaceParticipant
-} from './react/features/base/config/functions';
+import { getReplaceParticipant } from './react/features/base/config/functions';
 import {
     checkAndNotifyForNewDevice,
     getAvailableDevices,
@@ -134,9 +133,12 @@ import {
 import { maybeSetLobbyChatMessageListener } from './react/features/lobby/actions.any';
 import { setNoiseSuppressionEnabled } from './react/features/noise-suppression/actions';
 import {
+    DATA_CHANNEL_CLOSED_NOTIFICATION_ID,
     NOTIFICATION_TIMEOUT_TYPE,
+    hideNotification,
     isModerationNotificationDisplayed,
-    showNotification
+    showNotification,
+    showWarningNotification
 } from './react/features/notifications';
 import { mediaPermissionPromptVisibilityChanged } from './react/features/overlay';
 import { suspendDetected } from './react/features/power-monitor';
@@ -276,7 +278,8 @@ class ConferenceConnector {
     /**
      *
      */
-    constructor(resolve, reject) {
+    constructor(resolve, reject, conference) {
+        this._conference = conference;
         this._resolve = resolve;
         this._reject = reject;
         this.reconnectTimeout = null;
@@ -332,6 +335,26 @@ class ConferenceConnector {
             const [ code, msg ] = params;
 
             APP.UI.notifyReservationError(code, msg);
+            break;
+        }
+
+        case JitsiConferenceErrors.REDIRECTED: {
+            generateVisitorConfig(APP.store.getState(), params);
+
+            connection.disconnect().then(() => {
+                connect(this._conference.roomName).then(con => {
+                    const localTracks = getLocalTracks(APP.store.getState()['features/base/tracks']);
+
+                    const jitsiTracks = localTracks.map(t => t.jitsiTrack);
+
+                    // visitors connect muted
+                    jitsiTracks.forEach(t => t.mute());
+
+                    // TODO disable option to unmute audio or video
+                    this._conference.startConference(con, jitsiTracks);
+                });
+            });
+
             break;
         }
 
@@ -457,6 +480,11 @@ export default {
      * the tracks won't exist).
      */
     _localTracksInitialized: false,
+
+    /**
+     * Flag used to prevent the creation of another local video track in this.muteVideo if one is already in progress.
+     */
+    isCreatingLocalTrack: false,
 
     isSharingScreen: false,
 
@@ -726,7 +754,7 @@ export default {
         // XXX The API will take care of disconnecting from the XMPP
         // server (and, thus, leaving the room) on unload.
         return new Promise((resolve, reject) => {
-            new ConferenceConnector(resolve, reject).connect();
+            new ConferenceConnector(resolve, reject, this).connect();
         });
     },
 
@@ -1027,10 +1055,12 @@ export default {
 
         const localVideo = getLocalJitsiVideoTrack(APP.store.getState());
 
-        if (!localVideo && !mute) {
+        if (!localVideo && !mute && !this.isCreatingLocalTrack) {
             const maybeShowErrorDialog = error => {
                 showUI && APP.store.dispatch(notifyCameraError(error));
             };
+
+            this.isCreatingLocalTrack = true;
 
             // Try to create local video if there wasn't any.
             // This handles the case when user joined with no video
@@ -1053,6 +1083,9 @@ export default {
                     logger.debug(`muteVideo: calling useVideoStream for track: ${videoTrack}`);
 
                     return this.useVideoStream(videoTrack);
+                })
+                .finally(() => {
+                    this.isCreatingLocalTrack = false;
                 });
         } else {
             // FIXME show error dialog if it fails (should be handled by react)
@@ -1338,7 +1371,7 @@ export default {
         this._createRoom(localTracks);
 
         return new Promise((resolve, reject) => {
-            new ConferenceConnector(resolve, reject).connect();
+            new ConferenceConnector(resolve, reject, this).connect();
         });
     },
 
@@ -1418,30 +1451,13 @@ export default {
                     return;
                 }
 
-                // In the multi-stream mode, add the track to the conference if there is no existing track, replace it
-                // otherwise.
-                if (getMultipleVideoSendingSupportFeatureFlag(state)) {
-                    const trackAction = oldTrack
-                        ? replaceLocalTrack(oldTrack, newTrack, room)
-                        : addLocalTrack(newTrack);
+                // Add the track to the conference if there is no existing track, replace it otherwise.
+                const trackAction = oldTrack
+                    ? replaceLocalTrack(oldTrack, newTrack, room)
+                    : addLocalTrack(newTrack);
 
-                    APP.store.dispatch(trackAction)
-                        .then(() => {
-                            this.setVideoMuteStatus();
-                        })
-                        .then(resolve)
-                        .catch(error => {
-                            logger.error(`useVideoStream failed: ${error}`);
-                            reject(error);
-                        })
-                        .then(onFinish);
-
-                    return;
-                }
-                APP.store.dispatch(
-                    replaceLocalTrack(oldTrack, newTrack, room))
+                APP.store.dispatch(trackAction)
                     .then(() => {
-                        this._setSharingScreen(newTrack);
                         this.setVideoMuteStatus();
                     })
                     .then(resolve)
@@ -2070,6 +2086,18 @@ export default {
         room.on(
             JitsiConferenceEvents.DATA_CHANNEL_OPENED, () => {
                 APP.store.dispatch(dataChannelOpened());
+                APP.store.dispatch(hideNotification(DATA_CHANNEL_CLOSED_NOTIFICATION_ID));
+            }
+        );
+
+        room.on(
+            JitsiConferenceEvents.DATA_CHANNEL_CLOSED, ev => {
+                APP.store.dispatch(dataChannelClosed(ev.code, ev.reason));
+                APP.store.dispatch(showWarningNotification({
+                    descriptionKey: 'notify.dataChannelClosedDescription',
+                    titleKey: 'notify.dataChannelClosed',
+                    uid: DATA_CHANNEL_CLOSED_NOTIFICATION_ID
+                }, NOTIFICATION_TIMEOUT_TYPE.STICKY));
             }
         );
 
@@ -2317,7 +2345,7 @@ export default {
      * @param {MediaDeviceInfo[]} devices
      * @returns {Promise}
      */
-    _onDeviceListChanged(devices) {
+    async _onDeviceListChanged(devices) {
         const oldDevices = APP.store.getState()['features/base/devices'].availableDevices;
         const localAudio = getLocalJitsiAudioTrack(APP.store.getState());
         const localVideo = getLocalJitsiVideoTrack(APP.store.getState());
@@ -2331,13 +2359,10 @@ export default {
         const newDevices
             = mediaDeviceHelper.getNewMediaDevicesAfterDeviceListChanged(
                 devices,
-                this.isSharingScreen,
                 localVideo,
                 localAudio,
                 newLabelsOnly);
         const promises = [];
-        const audioWasMuted = this.isLocalAudioMuted();
-        const videoWasMuted = this.isLocalVideoMuted();
         const requestedInput = {
             audio: Boolean(newDevices.audioinput),
             video: Boolean(newDevices.videoinput)
@@ -2348,7 +2373,6 @@ export default {
             const setAudioOutputPromise
                 = setAudioOutputDeviceId(newDevices.audiooutput, dispatch)
                     .catch(); // Just ignore any errors in catch block.
-
 
             promises.push(setAudioOutputPromise);
         }
@@ -2366,8 +2390,7 @@ export default {
         }
 
         // Let's handle unknown/non-preferred devices
-        const newAvailDevices
-            = APP.store.getState()['features/base/devices'].availableDevices;
+        const newAvailDevices = APP.store.getState()['features/base/devices'].availableDevices;
         let newAudioDevices = [];
         let oldAudioDevices = [];
 
@@ -2383,103 +2406,85 @@ export default {
 
         // check for audio
         if (newAudioDevices.length > 0) {
-            APP.store.dispatch(
-                checkAndNotifyForNewDevice(newAudioDevices, oldAudioDevices));
+            APP.store.dispatch(checkAndNotifyForNewDevice(newAudioDevices, oldAudioDevices));
         }
 
         // check for video
         if (!requestedInput.video) {
-            APP.store.dispatch(
-                checkAndNotifyForNewDevice(newAvailDevices.videoInput, oldDevices.videoInput));
+            APP.store.dispatch(checkAndNotifyForNewDevice(newAvailDevices.videoInput, oldDevices.videoInput));
         }
 
-        // When the 'default' mic needs to be selected, we need to
-        // pass the real device id to gUM instead of 'default' in order
-        // to get the correct MediaStreamTrack from chrome because of the
-        // following bug.
+        // When the 'default' mic needs to be selected, we need to pass the real device id to gUM instead of 'default'
+        // in order to get the correct MediaStreamTrack from chrome because of the following bug.
         // https://bugs.chromium.org/p/chromium/issues/detail?id=997689
         const hasDefaultMicChanged = newDevices.audioinput === 'default';
 
-        // This is the case when the local video is muted and a preferred device is connected.
+        // When the local video is muted and a preferred device is connected, update the settings and remove the track
+        // from the conference. A new track will be created and replaced when the user unmutes their camera.
         if (requestedInput.video && this.isLocalVideoMuted()) {
-            // We want to avoid creating a new video track in order to prevent turning on the camera.
-            requestedInput.video = false;
-            APP.store.dispatch(updateSettings({ // Update the current selected camera for the device selection dialog.
+            APP.store.dispatch(updateSettings({
                 cameraDeviceId: newDevices.videoinput
             }));
+            requestedInput.video = false;
             delete newDevices.videoinput;
 
-            // Removing the current video track in order to force the unmute to select the preferred device.
-            logger.debug('_onDeviceListChanged: Removing the current video track.');
-            this.useVideoStream(null);
-
+            // Remove the track from the conference.
+            if (localVideo) {
+                await this.useVideoStream(null);
+                logger.debug('_onDeviceListChanged: Removed the current video track.');
+            }
         }
 
-        promises.push(
-            mediaDeviceHelper.createLocalTracksAfterDeviceListChanged(
+        // When the local audio is muted and a preferred device is connected, update the settings and remove the track
+        // from the conference. A new track will be created and replaced when the user unmutes their mic.
+        if (requestedInput.audio && this.isLocalAudioMuted()) {
+            APP.store.dispatch(updateSettings({
+                micDeviceId: newDevices.audioinput
+            }));
+            requestedInput.audio = false;
+            delete newDevices.audioinput;
+
+            // Remove the track from the conference.
+            if (localAudio) {
+                await this.useAudioStream(null);
+                logger.debug('_onDeviceListChanged: Removed the current audio track.');
+            }
+        }
+
+        // Create the tracks and replace them only if the user is unmuted.
+        if (requestedInput.audio || requestedInput.video) {
+            let tracks = [];
+
+            try {
+                tracks = await mediaDeviceHelper.createLocalTracksAfterDeviceListChanged(
                     createLocalTracksF,
                     newDevices.videoinput,
                     hasDefaultMicChanged
                         ? getDefaultDeviceId(APP.store.getState(), 'audioInput')
-                        : newDevices.audioinput)
-                .then(tracks => {
-                    // If audio or video muted before, or we unplugged current
-                    // device and selected new one, then mute new track.
-                    const muteSyncPromises = tracks.map(track => {
-                        if ((track.isVideoTrack() && videoWasMuted)
-                            || (track.isAudioTrack() && audioWasMuted)) {
-                            return track.mute();
-                        }
+                        : newDevices.audioinput);
+            } catch (error) {
+                logger.error(`Track creation failed on device change, ${error}`);
 
-                        return Promise.resolve();
-                    });
+                return Promise.reject(error);
+            }
 
-                    return Promise.all(muteSyncPromises)
-                        .then(() =>
-                            Promise.all(Object.keys(requestedInput).map(mediaType => {
-                                if (requestedInput[mediaType]) {
-                                    const useStream
-                                        = mediaType === 'audio'
-                                            ? this.useAudioStream.bind(this)
-                                            : this.useVideoStream.bind(this);
-                                    const track = tracks.find(t => t.getType() === mediaType) || null;
-
-                                    // Use the new stream or null if we failed to obtain it.
-                                    return useStream(track)
-                                        .then(() => {
-                                            if (track?.isAudioTrack() && hasDefaultMicChanged) {
-                                                // workaround for the default device to be shown as selected in the
-                                                // settings even when the real device id was passed to gUM because of
-                                                // the above mentioned chrome bug.
-                                                track._realDeviceId = track.deviceId = 'default';
-                                            }
-                                            mediaType === 'audio'
-                                                ? this._updateAudioDeviceId()
-                                                : this._updateVideoDeviceId();
-                                        });
-                                }
-
-                                return Promise.resolve();
-                            })));
-                })
-                .then(() => {
-                    // Log and sync known mute state.
-                    if (audioWasMuted) {
-                        sendAnalytics(createTrackMutedEvent(
-                            'audio',
-                            'device list changed'));
-                        logger.log('Audio mute: device list changed');
-                        muteLocalAudio(true);
-                    }
-
-                    if (!this.isSharingScreen && videoWasMuted) {
-                        sendAnalytics(createTrackMutedEvent(
-                            'video',
-                            'device list changed'));
-                        logger.log('Video mute: device list changed');
-                        muteLocalVideo(true);
-                    }
-                }));
+            for (const track of tracks) {
+                if (track.isAudioTrack()) {
+                    promises.push(
+                        this.useAudioStream(track)
+                            .then(() => {
+                                hasDefaultMicChanged && (track._realDeviceId = track.deviceId = 'default');
+                                this._updateAudioDeviceId();
+                            }));
+                } else {
+                    promises.push(
+                        this.useVideoStream(track)
+                            .then(() => {
+                                this._updateVideoDeviceId();
+                            }));
+                }
+            }
+        }
 
         return Promise.all(promises)
             .then(() => {

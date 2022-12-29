@@ -26,14 +26,6 @@ export const fullScreenOptions = {
     headerShown: false
 };
 
-export const linkScreenOptions = {
-    gestureEnabled: true,
-    headerShown: true,
-    headerTitleStyle: {
-        color: BaseTheme.palette.text01
-    }
-};
-
 /**
  * Navigation container theme.
  */
@@ -67,19 +59,14 @@ export const conferenceScreenOptions = fullScreenOptions;
  * Tab bar options for chat screen.
  */
 export const chatTabBarOptions = {
-    tabBarActiveTintColor: BaseTheme.palette.field02,
-    tabBarLabelStyle: {
-        fontSize: BaseTheme.typography.labelRegular.fontSize,
-        textTransform: 'capitalize'
-    },
-    tabBarInactiveTintColor: BaseTheme.palette.text03,
+    swipeEnabled: false,
     tabBarIndicatorStyle: {
-        backgroundColor: BaseTheme.palette.field02
+        backgroundColor: BaseTheme.palette.link01Active
     },
     tabBarStyle: {
         backgroundColor: BaseTheme.palette.ui01,
         borderBottomColor: BaseTheme.palette.border05,
-        borderBottomWidth: 1
+        borderBottomWidth: 0.4
     }
 };
 

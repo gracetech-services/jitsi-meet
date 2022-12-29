@@ -1,18 +1,11 @@
-// @flow
-
 import React from 'react';
 import { Text, TouchableRipple } from 'react-native-paper';
 
 import { Icon } from '../../../base/icons';
-import type { StyleType } from '../../../base/styles';
-import styles from '../../../conference/components/native/styles';
+
+import { navigationStyles } from './styles';
 
 type Props = {
-
-    /**
-     * Style of the header button .
-     */
-    buttonStyle?: StyleType,
 
     /**
      * Is the button disabled?
@@ -42,7 +35,6 @@ type Props = {
 
 const HeaderNavigationButton
     = ({
-        buttonStyle,
         disabled,
         label,
         onPress,
@@ -55,25 +47,21 @@ const HeaderNavigationButton
                     src ? (
                         <TouchableRipple
                             onPress = { onPress }
-                            rippleColor = { 'transparent' }
-                            style = { [
-                                buttonStyle,
-                                styles.headerNavigationButton ] } >
+                            style = { navigationStyles.headerNavigationButtonIcon } >
                             <Icon
                                 size = { 24 }
-                                src = { src }
-                                style = { styles.headerNavigationIcon } />
+                                src = { src } />
                         </TouchableRipple>
                     ) : (
                         <TouchableRipple
                             disabled = { disabled }
                             onPress = { onPress }
-                            rippleColor = { 'transparent' }>
+                            style = { navigationStyles.headerNavigationButtonText } >
                             <Text
                                 style = {
                                     twoActions
-                                        ? styles.headerNavigationTextBold
-                                        : styles.headerNavigationText
+                                        ? navigationStyles.headerNavigationTextBold
+                                        : navigationStyles.headerNavigationText
                                 }>
                                 { label }
                             </Text>

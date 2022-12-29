@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import type { Node } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +77,7 @@ function ParticipantItem({
     children,
     displayName,
     disableModeratorIndicator,
-    isKnockingParticipant,
+    isKnockingParticipant = false,
     isModerator,
     local,
     onPress,
@@ -111,20 +109,20 @@ function ParticipantItem({
                             numberOfLines = { 1 }
                             style = { styles.participantName }>
                             { displayName }
-                            {local && ` (${t('chat.you')})` }
+                            { local && ` (${t('chat.you')})` }
                         </Text>
                     </View>
-                    {isModerator && !disableModeratorIndicator
-                        && <Text style = { styles.moderatorLabel }>{t('videothumbnail.moderator')}</Text>
+                    { isModerator && !disableModeratorIndicator
+                        && <Text style = { styles.moderatorLabel }>{ t('videothumbnail.moderator') }</Text>
                     }
                 </View>
                 {
                     !isKnockingParticipant
                     && <>
-                        {raisedHand && <RaisedHandIndicator />}
+                        { raisedHand && <RaisedHandIndicator /> }
                         <View style = { styles.participantStatesContainer }>
-                            <View style = { styles.participantStateVideo }>{VideoStateIcons[videoMediaState]}</View>
-                            <View>{AudioStateIcons[audioMediaState]}</View>
+                            <View style = { styles.participantStateVideo }>{ VideoStateIcons[videoMediaState] }</View>
+                            <View>{ AudioStateIcons[audioMediaState] }</View>
                         </View>
                     </>
                 }
