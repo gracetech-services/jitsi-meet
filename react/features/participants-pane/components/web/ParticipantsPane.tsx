@@ -139,6 +139,9 @@ const ParticipantsPane = () => {
         dispatch(openDialog(MuteEveryoneDialog));
     }, []);
 
+    const muteAllVideo = useCallback(
+        () => dispatch(openDialog(MuteEveryonesVideoDialog)), [ dispatch ]);
+
     const onToggleContext = useCallback(() => {
         setContextOpen(open => !open);
     }, []);
@@ -175,6 +178,11 @@ const ParticipantsPane = () => {
                                 onClick = { onMuteAll }
                                 type = { BUTTON_TYPES.SECONDARY } />
                         )}
+                        <Button
+                            accessibilityLabel = { t('participantsPane.actions.stopEveryonesVideo') }
+                            labelKey = { 'participantsPane.actions.stopEveryonesVideo' }
+                            onClick = { muteAllVideo }
+                            type = { BUTTON_TYPES.SECONDARY } />
                         {showMoreActionsButton && (
                             <div className = { classes.footerMoreContainer }>
                                 <Button

@@ -134,14 +134,7 @@ export const FooterContextMenu = ({ isOpen, onDrawerClose, onMouseLeave }: IProp
             text: t('participantsPane.actions.videoModeration')
         }
     ];
-
-    return (
-        <ContextMenu
-            className = { classes.contextMenu }
-            hidden = { !isOpen }
-            isDrawerOpen = { isOpen }
-            onDrawerClose = { onDrawerClose }
-            onMouseLeave = { onMouseLeave }>
+    /* Gracetech --- move this to the main footer in participant panel
             <ContextMenuItemGroup
                 actions = { [ {
                     accessibilityLabel: t('participantsPane.actions.stopEveryonesVideo'),
@@ -150,6 +143,14 @@ export const FooterContextMenu = ({ isOpen, onDrawerClose, onMouseLeave }: IProp
                     onClick: muteAllVideo,
                     text: t('participantsPane.actions.stopEveryonesVideo')
                 } ] } />
+    */
+    return (
+        <ContextMenu
+            className = { classes.contextMenu }
+            hidden = { !isOpen }
+            isDrawerOpen = { isOpen }
+            onDrawerClose = { onDrawerClose }
+            onMouseLeave = { onMouseLeave }>
             {!isBreakoutRoom && isModerationSupported && (participantCount === 1 || !allModerators) && (
                 <ContextMenuItemGroup actions = { actions }>
                     <div className = { classes.text }>
@@ -157,6 +158,9 @@ export const FooterContextMenu = ({ isOpen, onDrawerClose, onMouseLeave }: IProp
                     </div>
                 </ContextMenuItemGroup>
             )}
+        </ContextMenu>
+    );
+    /* // remove this from the bottom as it leads to a whole set of things..., keep it simple
             {isModeratorSettingsTabEnabled && (
                 <ContextMenuItemGroup
                     actions = { [ {
@@ -167,6 +171,6 @@ export const FooterContextMenu = ({ isOpen, onDrawerClose, onMouseLeave }: IProp
                         text: t('participantsPane.actions.moreModerationControls')
                     } ] } />
             )}
-        </ContextMenu>
-    );
+
+    */
 };
