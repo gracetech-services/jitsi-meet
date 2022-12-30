@@ -33,6 +33,7 @@ import { RoomList } from '../breakout-rooms/components/web/RoomList';
 import { FooterContextMenu } from './FooterContextMenu';
 import LobbyParticipants from './LobbyParticipants';
 import MeetingParticipants from './MeetingParticipants';
+import { MuteEveryonesVideoDialog } from '../../../video-menu/components';
 
 
 const useStyles = makeStyles()((theme: Theme) => {
