@@ -25,6 +25,8 @@ import {
 } from '../../functions';
 import { AddBreakoutRoomButton } from '../breakout-rooms/components/web/AddBreakoutRoomButton';
 import { AutoAssignButton } from '../breakout-rooms/components/web/AutoAssignButton';
+//import { CloseAllRoomsButton } from '../breakout-rooms/components/web/CloseAllRoomsButton';
+
 // @ts-ignore
 import { RoomList } from '../breakout-rooms/components/web/RoomList';
 
@@ -102,7 +104,7 @@ const ParticipantsPane = () => {
         .conference?.getBreakoutRooms()?.isSupported();
     const showAddRoomButton = useSelector(isAddBreakoutRoomButtonVisible);
     const showFooter = useSelector(isLocalParticipantModerator);
-    const showAutoAssign = useSelector(isAutoAssignParticipantsVisible);
+    const showAutoAssign = false; //useSelector(isAutoAssignParticipantsVisible);
     const showMuteAllButton = useSelector(isMuteAllVisible);
     const showMoreActionsButton = useSelector(isMoreActionsVisible);
     const dispatch = useDispatch();
