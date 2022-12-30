@@ -28,31 +28,18 @@ export const AutoAssignButton = () => {
     }
 
     const onAutoAssign = useCallback(() => {
-        //TODO:
         //we should prompt "how many room", and then
         //auto add that many room, and then auto assign.
         //so that if there is 100 people, it takes a 50 room
         //input, and all is automated. 
         //or 30 people, split into pairs of 15 room.
-        //this feature, right now, requires the creation
-        //of rooms first --- 
-        //we need to loop over below what AddBreakoutRoomButton does
-        //          dispatch(createBreakoutRoom())
-        //console.log("Getting rooms and participantcounts: ", rooms, participantsCount);
-        /*
-        if (participantsCount < 4) {
-            alert("This button will automatically create breakout rooms and evenly distributed people into breakout rooms. It will only function when there is more than 3 participlants so that each room can have at least 2 people")
-            return;
-        }
-        */
+        //this feature,
 
         const rooms = getBreakoutRooms(APP.store);
         const roomArr = Object.entries(rooms).filter((room)=>!room[1].isMainRoom);
         let nCurrentRooms = roomArr.length;
         console.log(rooms, roomArr, nCurrentRooms);
 
-        //const nRooms = prompt(`Enter the number of rooms for auto break out. 
-        //    The number should be no bigger than half of the participants`);
         const nRooms = prompt("Enter the number of rooms for auto break out. Cancel to auto assign to existing breakout rooms");    
         if (nRooms) {
             const nnn = parseInt(nRooms);
@@ -69,13 +56,6 @@ export const AutoAssignButton = () => {
                 }         
             }
         }
-
-        /*
-        if (nnn > participantsCount/2) {
-            alert("the number of rooms should be less than half of the participants so that each room has at least 2 partipants");
-            return;
-        }
-        */
 
         if (nCurrentRooms === roomArr.length)
             dispatch(autoAssignToBreakoutRooms());

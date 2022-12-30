@@ -14,19 +14,25 @@ export const CloseAllRoomsButton = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
-    const onCloseAll = useCallback(() => {
+    const removeAllRoom = (firstTime:boolean) => {
         const rooms = getBreakoutRooms(APP.store);
         const roomArr = Object.entries(rooms).filter((room)=>!room[1].isMainRoom);
-        console.log(rooms, roomArr);
-        let nCurrentRooms = roomArr.length;
-        console.log(rooms, roomArr, nCurrentRooms);
+        
+        const rooms2Close = roomArr.filter((room)=>Object.keys(room[1].participants).length > 0);
+        const n2Close = rooms2Close.length;
+        if (n2Close === 0) {
+          roomArr.forEach((room)=>dispatch(removeBreakoutRoom(room[1].jid)));
+        }
+        else {
+          if (firstTime) {
+            rooms2Close.forEach((room)=>dispatch(closeBreakoutRoom(room[1].id)));
+          }
+          setTimeout(()=>removeAllRoom(false), 100);
+        }
+    }
 
-        while (nCurrentRooms > 0) {
-            const room = roomArr[--nCurrentRooms];
-            dispatch(closeBreakoutRoom(room[1].id)).then(()=>dispatch(removeBreakoutRoom(room[1].jid)));
-            // the remove internally will also do close 
-            //dispatch(removeBreakoutRoom(room[1].jid));
-        }         
+    const onCloseAll = useCallback(() => {
+        removeAllRoom(true);
     }, [ dispatch ]);
 
     return (
