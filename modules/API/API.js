@@ -1451,6 +1451,22 @@ class API {
     }
 
     /**
+     * Notify external application that the data channel has been closed.
+     *
+     * @param {number} code - The close code.
+     * @param {string} reason - The close reason.
+     *
+     * @returns {void}
+     */
+    notifyDataChannelClosed(code: number, reason: string) {
+        this._sendEvent({
+            name: 'data-channel-closed',
+            code,
+            reason
+        });
+    }
+
+    /**
      * Notify external application that the data channel has been opened.
      *
      * @returns {void}
@@ -1652,22 +1668,6 @@ class API {
         this._sendEvent({
             name: 'filmstrip-display-changed',
             visible
-        });
-    }
-
-    /**
-     * Notify external application (if API is enabled) that the iframe
-     * docked state has been changed. The responsibility for implementing
-     * the dock / undock functionality lies with the external application.
-     *
-     * @param {boolean} docked - Whether or not the iframe has been set to
-     * be docked or undocked.
-     * @returns {void}
-     */
-    notifyIframeDockStateChanged(docked: boolean) {
-        this._sendEvent({
-            name: 'iframe-dock-state-changed',
-            docked
         });
     }
 
@@ -1917,6 +1917,27 @@ class API {
             mediaType,
             value,
             participantId
+        });
+    }
+
+    /**
+     * Notify the external application that a PeerConnection lost connectivity. This event is fired only if
+     * a PC `failed` but connectivity to the rtcstats server is still maintained signaling that there is a
+     * problem establishing a link between the app and the JVB server or the remote peer in case of P2P.
+     * Will only fire if rtcstats is enabled.
+     *
+     * @param {boolean} isP2P - Type of PC.
+     * @param {boolean} wasConnected - Was this connection previously connected. If it was it could mean
+     * that connectivity was disrupted, if not it most likely means that the app could not reach
+     * the JVB server, or the other peer in case of P2P.
+     *
+     * @returns {void}
+     */
+    notifyPeerConnectionFailure(isP2P, wasConnected) {
+        this._sendEvent({
+            name: 'peer-connection-failure',
+            isP2P,
+            wasConnected
         });
     }
 

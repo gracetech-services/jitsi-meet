@@ -1,9 +1,7 @@
-/* eslint-disable lines-around-comment */
 // @ts-ignore
 import { getGravatarURL } from '@jitsi/js-utils/avatar';
 
 import { IReduxState, IStore } from '../../app/types';
-// @ts-ignore
 import { isStageFilmstripAvailable } from '../../filmstrip/functions';
 import { IStateful } from '../app/types';
 import { GRAVATAR_BASE_URL } from '../avatar/constants';
@@ -20,6 +18,7 @@ import {
     PARTICIPANT_ROLE,
     WHITEBOARD_PARTICIPANT_ICON
 } from './constants';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import { preloadImage } from './preloadImage';
 import { FakeParticipant, IParticipant } from './types';
@@ -32,7 +31,7 @@ const AVATAR_CHECKED_URLS = new Map();
 /* eslint-disable arrow-body-style, no-unused-vars */
 const AVATAR_CHECKER_FUNCTIONS = [
     (participant: IParticipant) => {
-        return isJigasiParticipant(participant) ? JIGASI_PARTICIPANT_ICON : null;
+        return participant?.isJigasi ? JIGASI_PARTICIPANT_ICON : null;
     },
     (participant: IParticipant) => {
         return isWhiteboardParticipant(participant) ? WHITEBOARD_PARTICIPANT_ICON : null;
@@ -282,16 +281,6 @@ export function getFakeParticipants(stateful: IStateful) {
 }
 
 /**
- * Returns whether the fake participant is Jigasi.
- *
- * @param {IParticipant|undefined} participant - The participant entity.
- * @returns {boolean} - True if it's a Jigasi participant.
- */
-function isJigasiParticipant(participant?: IParticipant): boolean {
-    return participant?.fakeParticipant === FakeParticipant.Jigasi;
-}
-
-/**
  * Returns whether the fake participant is a local screenshare.
  *
  * @param {IParticipant|undefined} participant - The participant entity.
@@ -362,11 +351,11 @@ export function isWhiteboardParticipant(participant?: IParticipant): boolean {
  * features/base/participants.
  * @returns {number}
  */
-export function getRemoteParticipantCount(stateful: IStateful) {
+export function getRemoteParticipantCountWithFake(stateful: IStateful) {
     const state = toState(stateful);
     const participantsState = state['features/base/participants'];
 
-    return participantsState.remote.size - participantsState.sortedRemoteVirtualScreenshareParticipants.size;
+    return participantsState.remote.size;
 }
 
 /**

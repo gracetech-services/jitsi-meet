@@ -13,6 +13,8 @@ declare global {
         keyboardshortcut: {
             registerShortcut: Function;
             unregisterShortcut: Function;
+            openDialog: Function;
+            enable: Function;
         }
     };
     const interfaceConfig: any;
@@ -22,6 +24,7 @@ declare global {
         JITSI_MEET_LITE_SDK?: boolean;
         interfaceConfig?: any;
         JitsiMeetJS?: any;
+        JitsiMeetElectron?: any;
     }
 
     const config: IConfig;

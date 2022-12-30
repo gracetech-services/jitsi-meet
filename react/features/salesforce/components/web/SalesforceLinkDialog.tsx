@@ -1,6 +1,4 @@
-/* eslint-disable lines-around-comment */
 import Spinner from '@atlaskit/spinner';
-import { Theme } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -17,10 +15,10 @@ import { useSalesforceLinkDialog } from '../../useSalesforceLinkDialog';
 
 import { RecordItem } from './RecordItem';
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         container: {
-            minHeight: '450px',
+            height: '450px',
             overflowY: 'auto',
             position: 'relative'
         },
@@ -58,23 +56,38 @@ const useStyles = makeStyles()((theme: Theme) => {
         spinner: {
             alignItems: 'center',
             display: 'flex',
-            height: 'calc(100% - 100px)',
+            height: 'calc(100% - 70px)',
             justifyContent: 'center',
-            width: '100%'
+            width: '100%',
+
+            '@media (max-width: 448px)': {
+                height: 'auto',
+                marginTop: '24px'
+            }
         },
         noRecords: {
             height: 'calc(100% - 150px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+
+            '@media (max-width: 448px)': {
+                height: 'auto',
+                marginTop: '24px'
+            }
         },
         recordsError: {
-            height: 'calc(100% - 80px)',
+            height: 'calc(100% - 42px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+
+            '@media (max-width: 448px)': {
+                height: 'auto',
+                marginTop: '24px'
+            }
         },
         recordList: {
             listStyle: 'none',
@@ -103,6 +116,7 @@ const useStyles = makeStyles()((theme: Theme) => {
             border: '1px solid',
             borderColor: theme.palette.ui05,
             backgroundColor: theme.palette.field01,
+
             // @ts-ignore
             color: theme.palette.field02,
             borderRadius: theme.shape.borderRadius,
@@ -146,12 +160,13 @@ function SalesforceLinkDialog() {
 
     const handleSubmit = useCallback(() => {
         dispatch(hideDialog());
-        linkMeeting();
+        selectedRecord && linkMeeting();
     }, [ hideDialog, linkMeeting ]);
 
     const renderSpinner = () => (
         <div className = { classes.spinner }>
             <Spinner
+
                 // @ts-ignore
                 isCompleting = { false }
                 size = 'medium' />

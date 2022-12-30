@@ -6,7 +6,6 @@ import { batch } from 'react-redux';
 
 // @ts-expect-error
 import keyboardShortcut from '../../../../../modules/keyboardshortcut/keyboardshortcut';
-// @ts-ignore
 import { isSpeakerStatsDisabled } from '../../../../features/speaker-stats/functions';
 import { ACTION_SHORTCUT_TRIGGERED, createShortcutEvent, createToolbarEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
@@ -65,7 +64,6 @@ import {
     RecordButton
     // @ts-ignore
 } from '../../../recording';
-// @ts-ignore
 import { isSalesforceEnabled } from '../../../salesforce/functions';
 import {
     startScreenShareFlow
@@ -107,7 +105,6 @@ import {
     setOverflowMenuVisible,
     setToolbarHovered,
     showToolbox
-    // @ts-ignore
 } from '../../actions';
 import { NOTIFY_CLICK_MODE, NOT_APPLICABLE, THRESHOLDS } from '../../constants';
 import { isDesktopShareButtonDisabled, isToolboxVisible } from '../../functions';
@@ -121,8 +118,6 @@ import HelpButton from '../HelpButton';
 
 // @ts-ignore
 import AudioSettingsButton from './AudioSettingsButton';
-// @ts-ignore
-import DockIframeButton from './DockIframeButton';
 import { EndConferenceButton } from './EndConferenceButton';
 // @ts-ignore
 import FullscreenButton from './FullscreenButton';
@@ -140,8 +135,6 @@ import Separator from './Separator';
 import ShareDesktopButton from './ShareDesktopButton';
 // @ts-ignore
 import ToggleCameraButton from './ToggleCameraButton';
-// @ts-ignore
-import UndockIframeButton from './UndockIframeButton';
 // @ts-ignore
 import VideoSettingsButton from './VideoSettingsButton';
 
@@ -869,18 +862,6 @@ class Toolbox extends Component<IProps> {
             group: 3
         };
 
-        const dockIframe = {
-            key: 'dock-iframe',
-            Content: DockIframeButton,
-            group: 3
-        };
-
-        const undockIframe = {
-            key: 'undock-iframe',
-            Content: UndockIframeButton,
-            group: 3
-        };
-
         const speakerStats = !_isSpeakerStatsDisabled && {
             key: 'stats',
             Content: SpeakerStatsButton,
@@ -947,8 +928,6 @@ class Toolbox extends Component<IProps> {
             whiteboard,
             etherpad,
             virtualBackground,
-            dockIframe,
-            undockIframe,
             speakerStats,
             settings,
             shortcuts,

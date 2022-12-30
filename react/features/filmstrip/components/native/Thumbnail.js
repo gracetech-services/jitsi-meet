@@ -1,5 +1,3 @@
-// @flow
-
 import React, { PureComponent } from 'react';
 import { Image, View } from 'react-native';
 import type { Dispatch } from 'redux';
@@ -25,7 +23,7 @@ import {
     getVideoTrackByParticipant,
     trackStreamingStatusChanged
 } from '../../../base/tracks';
-import { ConnectionIndicator } from '../../../connection-indicator';
+import ConnectionIndicator from '../../../connection-indicator/components/native/ConnectionIndicator';
 import { DisplayNameLabel } from '../../../display-name';
 import { getGifDisplayMode, getGifForParticipant } from '../../../gifs/functions';
 import {
@@ -191,6 +189,8 @@ class Thumbnail extends PureComponent<Props> {
             dispatch(showSharedVideoMenu(_participantId));
         }
 
+        // TODO: add support for getting info about the virtual screen shares.
+
         if (!_fakeParticipant) {
             dispatch(showContextMenuDetails(_participantId, _local));
         }
@@ -224,11 +224,11 @@ class Thumbnail extends PureComponent<Props> {
                 ] }>
                 { !_isVirtualScreenshare && <ConnectionIndicator participantId = { participantId } /> }
                 { !_isVirtualScreenshare && <RaisedHandIndicator participantId = { participantId } /> }
-                {tileView && isScreenShare && (
+                { tileView && isScreenShare && (
                     <View style = { styles.indicatorContainer }>
                         <ScreenShareIndicator />
                     </View>
-                )}
+                ) }
             </View>);
             indicators.push(<Container
                 key = 'bottom-indicators'
@@ -367,7 +367,7 @@ class Thumbnail extends PureComponent<Props> {
                     _renderDominantSpeakerIndicator && !_isVirtualScreenshare ? styles.thumbnailDominantSpeaker : null
                 ] }
                 touchFeedback = { false }>
-                {_gifSrc ? <Image
+                { _gifSrc ? <Image
                     source = {{ uri: _gifSrc }}
                     style = { styles.thumbnailGif } />
                     : <>
