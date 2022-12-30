@@ -126,10 +126,11 @@ class WelcomePage extends AbstractWelcomePage {
      * @returns {void}
      */
     componentDidMount() {
-        //Gracetech
-        //We don't want this page.
-        //window.close only works if the window was opened through window.open
-        //which is the case, at least for our web idigest's launch
+        // Gracetech: 
+        // we don't want this page, and it's the page
+        // that leaving meeting end up to
+        // window.close() only works if the window is launched through
+        // window.open(), which is the case for iDigest, at least for web
         window.close();
 
         super.componentDidMount();
@@ -177,15 +178,15 @@ class WelcomePage extends AbstractWelcomePage {
      * @inheritdoc
      * @returns {ReactElement|null}
      */
-    render() {
+    render() {  
+
         //Gracetech
-        //We don't want this page. But if we do end up here,
-        //give instruction to launch meeting from iDgiest
+        //we don't want this page, but if ended here,
+        //we'll give some instruction to launch meeting from iDigest only          
         return (
             <h1 style={{textAlign:'center',marginTop:'40px'}}>
-                You can join meeting from within idigest
-            </h1>
-        );
+                You can join meeting from within iDigest
+            </h1>);
 
         const { _moderatedRoomServiceUrl, t } = this.props;
         const { DEFAULT_WELCOME_PAGE_LOGO_URL, DISPLAY_WELCOME_FOOTER } = interfaceConfig;
