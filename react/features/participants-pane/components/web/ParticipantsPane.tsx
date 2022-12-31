@@ -34,8 +34,7 @@ import { FooterContextMenu } from './FooterContextMenu';
 import LobbyParticipants from './LobbyParticipants';
 import MeetingParticipants from './MeetingParticipants';
 
-// @ts-ignore
-import { MuteEveryonesVideoDialog } from '../../../video-menu/components';
+import MuteEveryonesVideoDialog from '../../../video-menu/components/web/MuteEveryonesVideoDialog';
 
 
 const useStyles = makeStyles()((theme: Theme) => {
