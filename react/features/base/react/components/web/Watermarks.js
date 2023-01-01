@@ -102,17 +102,18 @@ class Watermarks extends Component<Props, State> {
      */
     render() {
         return (
-            <div>
-                {
-                    this._renderJitsiWatermark()
-                }
-                {
-                    this._renderBrandWatermark()
-                }
-                {
-                    this._renderPoweredBy()
-                }
-            </div>
+            // <div>
+            //     {
+            //         this._renderJitsiWatermark()
+            //     }
+            //     {
+            //         this._renderBrandWatermark()
+            //     }
+            //     {
+            //         this._renderPoweredBy()
+            //     }
+            // </div>
+            <></>
         );
     }
 
