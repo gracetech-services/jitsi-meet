@@ -185,15 +185,10 @@ MiddlewareRegistry.register(store => next => action => {
 
         if (oldRole && oldRole !== role && role === PARTICIPANT_ROLE.MODERATOR) {
 
-            /* we don't want to show this notification
-            //Gracetech-Moderator-feature
-            /// since everyone is a moderator
-
             store.dispatch(showNotification({
                 titleKey: 'notify.moderator'
             },
             NOTIFICATION_TIMEOUT_TYPE.SHORT));
-            */
         }
 
         return next(action);

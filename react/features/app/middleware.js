@@ -54,15 +54,6 @@ function _connectionEstablished(store, next, action) {
     // determined by when no one needs them anymore.
     const { history, location } = window;
 
-    //Gracetech-Moderator-feature
-    // if there is a local participant, 
-    // last chance to save the local query paramter into 
-    // the user's context
-    // myURLParameters?:string;  //added to local participant ===
-    // or just put in the store?
-    //
-    APP.store.href = location.href;
-    
     if (inIframe()) {
         return;
     }

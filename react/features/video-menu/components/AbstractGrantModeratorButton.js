@@ -67,10 +67,8 @@ export function _mapStateToProps(state: Object, ownProps: Props) {
     const localParticipant = getLocalParticipant(state);
     const targetParticipant = getParticipantById(state, participantID);
 
-    //Gracetech moderator feature -- no granting moderator to users 
     return {
-        visible: false //Boolean(localParticipant?.role === PARTICIPANT_ROLE.MODERATOR)
-        //visible: Boolean(localParticipant?.role === PARTICIPANT_ROLE.MODERATOR)
-        //  && !isParticipantModerator(targetParticipant)
+        visible: Boolean(localParticipant?.role === PARTICIPANT_ROLE.MODERATOR)
+          && !isParticipantModerator(targetParticipant)
     };
 }

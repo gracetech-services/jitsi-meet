@@ -523,7 +523,6 @@ export function getPinnedParticipant(stateful: IStateful) {
  * @returns {boolean}
  */
 export function isParticipantModerator(participant?: IParticipant) {
-    return false;
     return participant?.role === PARTICIPANT_ROLE.MODERATOR;
 }
 
@@ -553,8 +552,6 @@ export function getDominantSpeakerParticipant(stateful: IStateful) {
  * @returns {boolean}
  */
 export function isEveryoneModerator(stateful: IStateful) {
-    return false;
-    
     const state = toState(stateful)['features/base/participants'];
 
     return state.everyoneIsModerator === true;
@@ -579,8 +576,6 @@ export function isIconUrl(icon?: string | Object) {
  * @returns {boolean}
  */
 export function isLocalParticipantModerator(stateful: IStateful) {
-    return APP.store.href && APP.store.href.indexOf("moderator=1") !== -1;
-
     const state = toState(stateful)['features/base/participants'];
 
     const { local } = state;
@@ -588,8 +583,8 @@ export function isLocalParticipantModerator(stateful: IStateful) {
     if (!local) {
         return false;
     }
-    return local.role === PARTICIPANT_ROLE.MODERATOR;
-    //return isParticipantModerator(local);
+
+    return isParticipantModerator(local);
 }
 
 /**
