@@ -91,7 +91,7 @@ var config = {
     },
 
     // Disables moderator indicators.
-    disableModeratorIndicator: true,
+    // disableModeratorIndicator: false,
 
     // Disables the reactions feature.
     // disableReactions: true,
