@@ -1,6 +1,5 @@
 import JitsiMeetJS from '../lib-jitsi-meet';
 import Platform from '../react/Platform';
-
 import { isMobileBrowser } from './utils';
 
 const { browser } = JitsiMeetJS.util;
@@ -100,8 +99,10 @@ export function isSupportedBrowser() {
  * @returns {boolean}
  */
 export function isSupportedMobileBrowser() {
-    return (Platform.OS === 'android' && browser.isSupportedAndroidBrowser())
-        || (Platform.OS === 'ios' && browser.isSupportedIOSBrowser());
+    // Allow all mobile browser for now (fix iOS Edge problem)
+    return true;
+    // return (Platform.OS === 'android' && browser.isSupportedAndroidBrowser())
+    //     || (Platform.OS === 'ios' && browser.isSupportedIOSBrowser());
 }
 
 /**
