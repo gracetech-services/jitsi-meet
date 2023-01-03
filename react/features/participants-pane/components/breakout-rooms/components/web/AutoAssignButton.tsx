@@ -9,8 +9,9 @@ import {
 import Button from '../../../../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../../../../base/ui/constants.web';
 import { autoAssignToBreakoutRooms } from '../../../../../breakout-rooms/actions';
-import {createBreakoutRoom, closeBreakoutRoom, removeBreakoutRoom } from '../../../../../breakout-rooms/actions';
+import { createBreakoutRoom } from '../../../../../breakout-rooms/actions';
 
+import { removeAllRoomAndAdd } from './functions';
 
 export const AutoAssignButton = () => {
     const { t } = useTranslation();
@@ -39,36 +40,42 @@ export const AutoAssignButton = () => {
         const roomArr = Object.entries(rooms).filter((room)=>!room[1].isMainRoom);
         let nCurrentRooms = roomArr.length;
 
-        const nRooms = prompt(`Enter the number of rooms for auto break out. Cancel to auto assign to existing breakout rooms\nIt will add more rooms if needed. If there are too many rooms, you should first Close All Rooms, and then use Auto Assign again`);
-        if (nRooms) {
-            const nnn = parseInt(nRooms);
-            if (nnn > 0) {
-                while (nCurrentRooms < nnn) {
-                    dispatch(createBreakoutRoom());
-                    ++nCurrentRooms;
-                }
-                /* /// this is problematic, see CloseAllRoomsButton. First need to Close rooms that has people in it
-                //  and then remove the room. There needs waiting in between close and remove rooms.
-                // we simply will not cut down rooms, and let auto assign to all existing rooms if number of existing rooms
-                // is larger. If the user wants to be exact, he should click on "Close All Room" and then attempt auto
-                // assign again, that will get right.  === the user will learn this anyway, and this would not be the prime
-                // scenario/concern
-                while (nCurrentRooms > nnn) {
-                    const room = roomArr[--nCurrentRooms];
-                    //dispatch(closeBreakoutRoom(room[1].id)).then(()=>dispatch(removeBreakoutRoom(room[1].jid)));
-                    //dispatch(closeBreakoutRoom(room[1].id));
-                    dispatch(removeBreakoutRoom(room[1].jid));
-                }
-                */
+        const nRooms = prompt(`Enter total number of rooms for breakout`, nCurrentRooms);
+        if (!nRooms) return;
+
+        const nnn = parseInt(nRooms);
+        if (nnn === 0) return;
+        
+        if (nnn >= nCurrentRooms) {
+            while (nCurrentRooms < nnn) {
+                dispatch(createBreakoutRoom());
+                ++nCurrentRooms;
             }
+            /* /// this is problematic, see CloseAllRoomsButton. First need to Close rooms that has people in it
+            //  and then remove the room. There needs waiting in between close and remove rooms.
+            // we simply will not cut down rooms, and let auto assign to all existing rooms if number of existing rooms
+            // is larger. If the user wants to be exact, he should click on "Close All Room" and then attempt auto
+            // assign again, that will get right.  === the user will learn this anyway, and this would not be the prime
+            // scenario/concern
+            while (nCurrentRooms > nnn) {
+                const room = roomArr[--nCurrentRooms];
+                //dispatch(closeBreakoutRoom(room[1].id)).then(()=>dispatch(removeBreakoutRoom(room[1].jid)));
+                //dispatch(closeBreakoutRoom(room[1].id));
+                dispatch(removeBreakoutRoom(room[1].jid));
+            }
+            */
+            if (nCurrentRooms === roomArr.length)
+                dispatch(autoAssignToBreakoutRooms());
+            else {
+                //needs time for the breakroom creation to be propagated in the states
+                setTimeout(()=>wait2AutoAssign(nCurrentRooms), 100);
+            }
+        } else {
+            //we'll close all rooms if there is too many, and then recreate
+            removeAllRoomAndAdd(true, nnn);
+            setTimeout(()=>wait2AutoAssign(nnn), 100);
         }
 
-        if (nCurrentRooms === roomArr.length)
-            dispatch(autoAssignToBreakoutRooms());
-        else {
-            //needs time for the breakroom creation to be propagated in the states
-            setTimeout(()=>wait2AutoAssign(nCurrentRooms), 100);
-        }
     }, [ dispatch ]);
 
     return (
