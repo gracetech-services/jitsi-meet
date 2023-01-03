@@ -40,7 +40,7 @@ export const AutoAssignButton = () => {
         const roomArr = Object.entries(rooms).filter((room)=>!room[1].isMainRoom);
         let nCurrentRooms = roomArr.length;
 
-        const nRooms = prompt(`Enter total number of rooms for breakout`, nCurrentRooms);
+        const nRooms = prompt(t('breakoutRooms.prompts.EnterTotalRoom'), nCurrentRooms);
         if (!nRooms) return;
 
         const nnn = parseInt(nRooms);

@@ -1,4 +1,7 @@
 {
+   "GT": {
+    "LaunchFromIDigest": "You should launch meeting from iDigest"
+   },
     "addPeople": {
         "add": "Invite",
         "addContacts": "Invite your contacts",
@@ -57,6 +60,9 @@
             "joined": "Joining the \"{{name}}\" breakout room",
             "joinedMainRoom": "Joining the main room",
             "joinedTitle": "Breakout Rooms"
+        },
+        "prompts": {
+            "EnterTotalRoom": "Enter total number of rooms for breakout"
         }
     },
     "calendarSync": {

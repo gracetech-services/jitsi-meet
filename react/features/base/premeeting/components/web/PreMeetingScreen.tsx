@@ -1,6 +1,7 @@
 /* eslint-disable lines-around-comment */
 import { Theme } from '@mui/material';
 import React, { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
 
 import { IReduxState } from '../../../../app/types';
@@ -112,6 +113,7 @@ const PreMeetingScreen = ({
     videoMuted,
     videoTrack
 }: IProps) => {
+    const { t } = useTranslation();
     const { classes } = useStyles();
     const containerClassName = `premeeting-screen ${className ? className : ''}`;
     const style = _premeetingBackground ? {
@@ -119,6 +121,28 @@ const PreMeetingScreen = ({
         backgroundPosition: 'center',
         backgroundSize: 'cover'
     } : {};
+
+    /*
+    return (
+        <h1 style={{textAlign:'center',marginTop:'200px',color:'white'}}>
+            You should launch meeting from iDigest
+        </h1>
+    );
+    */
+
+    return (
+        <div className = { containerClassName }>
+            <div style = { style }>
+                <div className = 'content'>
+                    <div className = 'content-controls'>
+                        <h1 className = 'title'>
+                            {t('GT.LaunchFromIDigest')}
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 
     return (
         <div className = { containerClassName }>

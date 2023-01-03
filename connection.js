@@ -241,6 +241,12 @@ function requestAuth(roomName) {
         return new Promise(() => redirectToTokenAuthService(roomName));
     }
 
+    //alert("You should launch meeting from iDigest");
+    //window.close(); //this probably won't do, since it's user launching the window but
+    //for iDigest, we don't want to prompt, and this would end up in pre-meeting
+    //where we inform the user, that he should launch from idigest
+    return;
+
     return new Promise(resolve => {
         const onSuccess = connection => {
             resolve(connection);

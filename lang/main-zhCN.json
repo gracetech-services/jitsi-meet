@@ -57,6 +57,9 @@
             "joined": "正在加入“{{name}}”分组讨论室",
             "joinedMainRoom": "正在加入主会议室",
             "joinedTitle": "分组讨论室"
+        },
+        "prompts": {
+            "EnterTotalRoom": "Enter total number of rooms for breakout"
         }
     },
     "calendarSync": {
