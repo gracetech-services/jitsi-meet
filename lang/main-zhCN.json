@@ -41,8 +41,8 @@
     },
     "breakoutRooms": {
         "actions": {
-            "add": "添加分组讨论室",
-            "autoAssign": "自动分配到分组讨论室",
+            "add": "添加分会场",
+            "autoAssign": "自动分组讨论",
             "close": "关闭",
             "closeAll": "Close all rooms",
             "join": "加入",
@@ -738,7 +738,7 @@
             "mute": "静音",
             "muteAll": "全体静音",
             "muteEveryoneElse": "全体静音",
-            "stopEveryonesVideo": "禁用所有人视频",
+            "stopEveryonesVideo": "全体关视频",
             "stopVideo": "禁用视频",
             "unblockEveryoneMicCamera": "允许所有人的麦克风和摄像头",
             "videoModeration": "开启视频"
@@ -1098,7 +1098,7 @@
             "muteEveryoneElsesVideoStream": "禁用其他人的摄像头",
             "muteEveryonesVideoStream": "禁用所有人的摄像头",
             "noiseSuppression": "噪音抑制",
-            "participants": "参会者",
+            "participants": "参会者和分会场",
             "pip": "开启/关闭画中画模式",
             "privateMessage": "发送私聊",
             "profile": "编辑你的个人资料",
@@ -1184,7 +1184,7 @@
         "noisyAudioInputTitle": "你的麦克风似乎很嘈杂!",
         "openChat": "开启聊天窗口",
         "openReactionsMenu": "打开反应菜单",
-        "participants": "参会者",
+        "participants": "参会者和分会场",
         "pip": "进入画中画模式",
         "privateMessage": "发送私信",
         "profile": "编辑你的个人资料",

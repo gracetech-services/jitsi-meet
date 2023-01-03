@@ -41,8 +41,8 @@
     },
     "breakoutRooms": {
         "actions": {
-            "add": "新增討論室",
-            "autoAssign": "自動分配至討論室",
+            "add": "添加分會場",
+            "autoAssign": "自動分組討論",
             "close": "關閉",
             "closeAll": "Close all rooms",
             "join": "加入",
@@ -738,7 +738,7 @@
             "mute": "靜音",
             "muteAll": "靜音所有人",
             "muteEveryoneElse": "靜音其他人",
-            "stopEveryonesVideo": "停用所有人的視訊",
+            "stopEveryonesVideo": "全體關視頻",
             "stopVideo": "停用視訊",
             "unblockEveryoneMicCamera": "解除封鎖所有人的麥克風及網路攝影機",
             "videoModeration": "開啟視訊"
@@ -1098,7 +1098,7 @@
             "muteEveryoneElsesVideoStream": "停用其他人的網路攝影機",
             "muteEveryonesVideoStream": "停用所有人的網路攝影機",
             "noiseSuppression": "雜訊抑制",
-            "participants": "與會者",
+            "participants": "參會者和分會場",
             "pip": "啟用/停用子母畫面模式",
             "privateMessage": "發送私人訊息",
             "profile": "編輯您的個人資料",
@@ -1184,7 +1184,7 @@
         "noisyAudioInputTitle": "您的麥克風疑似有雜音！",
         "openChat": "開啟聊天",
         "openReactionsMenu": "開啟反應選單",
-        "participants": "與會者",
+        "participants": "參會者和分會場",
         "pip": "進入子母畫面模式",
         "privateMessage": "傳送私人訊息",
         "profile": "編輯您的個人資料",
