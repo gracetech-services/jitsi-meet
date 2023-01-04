@@ -11,6 +11,7 @@ import { BUTTON_TYPES } from '../../../../../base/ui/constants.web';
 import { autoAssignToBreakoutRooms } from '../../../../../breakout-rooms/actions';
 import { createBreakoutRoom } from '../../../../../breakout-rooms/actions';
 
+// @ts-ignore
 import { removeAllRoomAndAdd } from './functions';
 
 export const AutoAssignButton = () => {

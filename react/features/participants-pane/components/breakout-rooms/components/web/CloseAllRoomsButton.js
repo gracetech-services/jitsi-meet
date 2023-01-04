@@ -10,6 +10,7 @@ import Button from '../../../../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../../../../base/ui/constants.web';
 import {closeBreakoutRoom, removeBreakoutRoom } from '../../../../../breakout-rooms/actions';
 
+// @ts-ignore
 import { removeAllRoomAndAdd } from './functions';
 
 export const CloseAllRoomsButton = () => {
