@@ -1,13 +1,10 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-
 import {
     getBreakoutRooms,
 } from '../../../../../breakout-rooms/functions';
 
 import {createBreakoutRoom, closeBreakoutRoom, removeBreakoutRoom } from '../../../../../breakout-rooms/actions';
 
-export function removeAllRoomAndAdd (firstTime:boolean, nAdd) {
+export function removeAllRoomAndAdd (firstTime: boolean, nAdd: number): void {
   //const dispatch = useDispatch();
   const rooms = getBreakoutRooms(APP.store);
   const roomArr = Object.entries(rooms).filter((room)=>!room[1].isMainRoom);

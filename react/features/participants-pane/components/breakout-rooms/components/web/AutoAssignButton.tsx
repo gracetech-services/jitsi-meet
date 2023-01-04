@@ -11,7 +11,6 @@ import { BUTTON_TYPES } from '../../../../../base/ui/constants.web';
 import { autoAssignToBreakoutRooms } from '../../../../../breakout-rooms/actions';
 import { createBreakoutRoom } from '../../../../../breakout-rooms/actions';
 
-// @ts-ignore
 import { removeAllRoomAndAdd } from './functions';
 
 export const AutoAssignButton = () => {
@@ -41,7 +40,7 @@ export const AutoAssignButton = () => {
         const roomArr = Object.entries(rooms).filter((room)=>!room[1].isMainRoom);
         let nCurrentRooms = roomArr.length;
 
-        const nRooms = prompt(t('breakoutRooms.prompts.EnterTotalRoom'), nCurrentRooms);
+        const nRooms = prompt(t('breakoutRooms.prompts.EnterTotalRoom'), `${nCurrentRooms}`);
         if (!nRooms) return;
 
         const nnn = parseInt(nRooms);
