@@ -16,23 +16,21 @@ OUTPUT_DIR = .
 STYLES_BUNDLE = css/all.bundle.css
 STYLES_DESTINATION = css/all.css
 STYLES_MAIN = css/main.scss
+NODE_SIZE = 8192
 ifeq ($(OS),Windows_NT)
-	SET_NODE_OPTIONS = set NODE_OPTIONS=--max-old-space-size=8192
+	COMPILE = set NODE_OPTIONS=--max-old-space-size=$(NODE_SIZE) && .\node_modules\.bin\webpack --progress
 	REMOVE_FOLDER = rd /q /s
-	WEBPACK = .\node_modules\.bin\webpack
 	WEBPACK_DEV_SERVER = .\node_modules\.bin\webpack serve --mode development
 else
 	REMOVE_FOLDER = rm -fr
-	SET_NODE_OPTIONS = NODE_OPTIONS=--max-old-space-size=8192
-	WEBPACK = ./node_modules/.bin/webpack
+	COMPILE = NODE_OPTIONS=--max-old-space-size=$(NODE_SIZE) && ./node_modules/.bin/webpack --progress
 	WEBPACK_DEV_SERVER = ./node_modules/.bin/webpack serve --mode development
 endif
 
 all: compile deploy
 
 compile:
-	$(SET_NODE_OPTIONS)
-	$(WEBPACK) --progress
+	$(COMPILE)
 
 clean:
 	$(REMOVE_FOLDER) $(BUILD_DIR)
