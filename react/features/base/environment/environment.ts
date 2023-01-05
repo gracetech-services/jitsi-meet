@@ -100,8 +100,10 @@ export function isSupportedBrowser() {
  * @returns {boolean}
  */
 export function isSupportedMobileBrowser() {
-    return (Platform.OS === 'android' && browser.isSupportedAndroidBrowser())
-        || (Platform.OS === 'ios' && browser.isSupportedIOSBrowser());
+    // TODO: [Wei] Enable it for all mobile browsers for now (e.g. Edge on iOS)
+    return true;
+    // return (Platform.OS === 'android' && browser.isSupportedAndroidBrowser())
+    //     || (Platform.OS === 'ios' && browser.isSupportedIOSBrowser());
 }
 
 /**

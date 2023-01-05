@@ -17,9 +17,13 @@ STYLES_BUNDLE = css/all.bundle.css
 STYLES_DESTINATION = css/all.css
 STYLES_MAIN = css/main.scss
 ifeq ($(OS),Windows_NT)
+	SET_NODE_OPTIONS = set NODE_OPTIONS=--max-old-space-size=8192
+	REMOVE_FOLDER = rd /q /s
 	WEBPACK = .\node_modules\.bin\webpack
 	WEBPACK_DEV_SERVER = .\node_modules\.bin\webpack serve --mode development
 else
+	REMOVE_FOLDER = rm -fr
+	SET_NODE_OPTIONS = NODE_OPTIONS=--max-old-space-size=8192
 	WEBPACK = ./node_modules/.bin/webpack
 	WEBPACK_DEV_SERVER = ./node_modules/.bin/webpack serve --mode development
 endif
@@ -27,17 +31,17 @@ endif
 all: compile deploy
 
 compile:
-	NODE_OPTIONS=--max-old-space-size=8192 \
+	$(SET_NODE_OPTIONS)
 	$(WEBPACK) --progress
 
 clean:
-	rm -fr $(BUILD_DIR)
+	$(REMOVE_FOLDER) $(BUILD_DIR)
 
 .NOTPARALLEL:
 deploy: deploy-init deploy-appbundle deploy-rnnoise-binary deploy-excalidraw deploy-tflite deploy-meet-models deploy-lib-jitsi-meet deploy-olm deploy-tf-wasm deploy-css deploy-local deploy-face-landmarks
 
 deploy-init:
-	rm -fr $(DEPLOY_DIR)
+	$(REMOVE_FOLDER) $(DEPLOY_DIR)
 	mkdir -p $(DEPLOY_DIR)
 
 deploy-appbundle:
@@ -134,4 +138,10 @@ source-package:
 	cp -r *.js *.html resources/*.txt connection_optimization favicon.ico fonts images libs static sounds LICENSE lang source_package/jitsi-meet && \
 	cp css/all.css source_package/jitsi-meet/css && \
 	(cd source_package ; tar cjf ../jitsi-meet.tar.bz2 jitsi-meet) && \
-	rm -rf source_package
+	$(REMOVE_FOLDER) source_package
+
+# deploy to idigest server (for Gracetech only)
+deploy-idigest:
+	cp -rf lang /var/www/html/files
+	cp -rf libs /var/www/html/files
+	printf "\n /* BuildTime: $(date '+%Y.%m.%d-%H.%M.%S') */" >> /var/www/html/files/libs/app.bundle.min.js
