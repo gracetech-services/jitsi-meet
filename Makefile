@@ -23,7 +23,7 @@ ifeq ($(OS),Windows_NT)
 	WEBPACK_DEV_SERVER = .\node_modules\.bin\webpack serve --mode development
 else
 	REMOVE_FOLDER = rm -fr
-	COMPILE = NODE_OPTIONS=--max-old-space-size=$(NODE_SIZE) && ./node_modules/.bin/webpack --progress
+	COMPILE = NODE_OPTIONS=--max-old-space-size=$(NODE_SIZE) ./node_modules/.bin/webpack --progress
 	WEBPACK_DEV_SERVER = ./node_modules/.bin/webpack serve --mode development
 endif
 
