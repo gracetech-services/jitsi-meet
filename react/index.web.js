@@ -39,6 +39,10 @@ if (OS === 'ios') {
     });
 }
 
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault()
+  });
+
 const globalNS = getJitsiMeetGlobalNS();
 
 globalNS.entryPoints = {

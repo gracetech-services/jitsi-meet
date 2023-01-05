@@ -174,7 +174,7 @@ export function getRecordButtonProps(state: IReduxState) {
 
     visible = isModerator && (recordingService?.enabled || localRecordingEnabled || dropboxEnabled);
     visible = isJwtFeatureEnabled(state, 'recording', visible);
-    visible = isModerator && visible;
+    visible = isModerator && visible && supportsLocalRecording();
 
     // disable the button if the livestreaming is running.
     if (visible && getActiveSession(state, JitsiRecordingConstants.mode.STREAM)) {

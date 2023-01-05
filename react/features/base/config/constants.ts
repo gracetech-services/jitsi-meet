@@ -46,9 +46,9 @@ export const TOOLBAR_BUTTONS = [
     //'shortcuts',
     //'stats',
     //'tileview',
-    'toggle-camera',
+    //'toggle-camera',
     'videoquality',
-    'whiteboard'
+    //'whiteboard'
 ];
 
 /**
