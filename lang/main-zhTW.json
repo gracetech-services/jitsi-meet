@@ -1,4 +1,7 @@
 {
+    "GT": {
+        "LaunchFromIDigest": "錯誤：系統不支持這個操作. 請在'小鴿子'App或者網站進入會議, 如需更多信息. 請與會議主持人聯繫"
+       },
     "addPeople": {
         "add": "邀請",
         "addContacts": "邀請您的聯絡人",

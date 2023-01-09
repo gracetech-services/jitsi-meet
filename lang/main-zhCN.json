@@ -1,5 +1,8 @@
 {
-    "addPeople": {
+    "GT": {
+        "LaunchFromIDigest": "错误：系统不支持这个操作. 请在'小鸽子'App或者网站进入会议, 如需更多信息. 请与会议主持人联系"
+       },
+        "addPeople": {
         "add": "邀请",
         "addContacts": "邀请你的联系人",
         "contacts": "联系人",
