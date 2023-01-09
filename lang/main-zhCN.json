@@ -31,7 +31,7 @@
     "audioDevices": {
         "bluetooth": "蓝牙",
         "car": "汽车音响",
-        "headphones": "耳机",
+        "headphones": "耳机", 
         "none": "没有可用的音频设备",
         "phone": "电话",
         "speaker": "扬声器"
@@ -44,7 +44,7 @@
             "add": "添加分会场",
             "autoAssign": "自动分组讨论",
             "close": "关闭",
-            "closeAll": "Close all rooms",
+            "closeAll": "关闭所有分会场",
             "join": "加入",
             "leaveBreakoutRoom": "离开分组讨论室",
             "more": "更多",
