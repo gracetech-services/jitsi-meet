@@ -50,6 +50,9 @@ export function generateDeepLinkingURL() {
  * @returns {Promise<Component>}
  */
 export function getDeepLinkingPage(state) {
+    // Always disable user selection since we will always launch it directly via iDigest
+    return Promise.resolve();
+    /*
     const { room } = state['features/base/conference'];
     const { launchInWeb } = state['features/deep-linking'];
     const appScheme = typeof interfaceConfig !== 'undefined' && interfaceConfig.APP_SCHEME;
@@ -75,6 +78,7 @@ export function getDeepLinkingPage(state) {
     return _openDesktopApp(state).then(
         // eslint-disable-next-line no-confusing-arrow
         result => result ? DeepLinkingDesktopPage : undefined);
+    */
 }
 
 /**
