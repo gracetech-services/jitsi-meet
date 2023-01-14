@@ -197,12 +197,14 @@ export function maybeRedirectToWelcomePage(options: { feedbackSubmitted?: boolea
         }
 
         // else: show thankYou dialog only if there is no feedback
+        /* Remove showThankYou for iDigest
         if (options.showThankYou) {
             dispatch(showNotification({
                 titleArguments: { appName: getName() },
                 titleKey: 'dialog.thankYou'
             }, NOTIFICATION_TIMEOUT_TYPE.STICKY));
         }
+        */
 
         // if Welcome page is enabled redirect to welcome page after 3 sec, if
         // there is a thank you message to be shown, 0.5s otherwise.
