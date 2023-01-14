@@ -132,15 +132,7 @@ const PreMeetingScreen = ({
 
     return (
         <div className = { containerClassName }>
-            <div style = { style }>
-                <div className = 'content'>
-                    <div className = 'content-controls'>
-                        <h1 className = 'title'>
-                            {t('GT.LaunchFromIDigest')}
-                        </h1>
-                    </div>
-                </div>
-            </div>
+            {t('GT.LaunchFromIDigest')}
         </div>
     );
 

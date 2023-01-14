@@ -101,6 +101,9 @@ class Watermarks extends Component<Props, State> {
      * @returns {ReactElement}
      */
     render() {
+        // Remove watermark
+        return <></>;
+        /*
         return (
             <div>
                 {
@@ -114,6 +117,7 @@ class Watermarks extends Component<Props, State> {
                 }
             </div>
         );
+        */
     }
 
     /**

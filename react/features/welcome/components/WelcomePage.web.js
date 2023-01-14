@@ -172,6 +172,10 @@ class WelcomePage extends AbstractWelcomePage {
      * @returns {ReactElement|null}
      */
     render() {
+        const { t } = this.props;
+        return t('GT.LaunchFromIDigest');
+
+        /*
         const { _moderatedRoomServiceUrl, t } = this.props;
         const { DEFAULT_WELCOME_PAGE_LOGO_URL, DISPLAY_WELCOME_FOOTER } = interfaceConfig;
         const showAdditionalCard = this._shouldShowAdditionalCard();
@@ -278,6 +282,7 @@ class WelcomePage extends AbstractWelcomePage {
             </div>
 
         );
+        */
     }
 
     /**
