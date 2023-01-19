@@ -173,7 +173,7 @@ class WelcomePage extends AbstractWelcomePage {
      */
     render() {
         const { t } = this.props;
-        return t('GT.LaunchFromIDigest');
+        return <h1> {t('GT.LaunchFromIDigest')} </h1>;
 
         /*
         const { _moderatedRoomServiceUrl, t } = this.props;

@@ -7,7 +7,7 @@ export const CONFERENCE_INFO = {
         'participants-count',
         'e2ee',
         'transcribing',
-        'video-quality',
+        //'video-quality',
         'insecure-room',
         'top-panel-toggle'
     ]
