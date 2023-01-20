@@ -188,6 +188,7 @@ const ParticipantContextMenu = ({
                 participantID = { _getCurrentParticipantId() } />
             );
         }
+        /* /// redundant 
         if (!disableRemoteMute) {
             buttons.push(
                 <MuteButton
@@ -218,6 +219,7 @@ const ParticipantContextMenu = ({
                     participantID = { _getCurrentParticipantId() } />
             );
         }
+        */
 
         if (!disableKick) {
             buttons2.push(
