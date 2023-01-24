@@ -25,6 +25,9 @@ import {
 } from '../participants';
 import { MiddlewareRegistry } from '../redux';
 import { TRACK_ADDED, TRACK_REMOVED } from '../tracks';
+import {
+    maybeRedirectToWelcomePage
+} from '../../app/actions';
 
 import {
     CONFERENCE_FAILED,
@@ -140,7 +143,10 @@ function _conferenceFailed({ dispatch, getState }, next, action) {
                 APP.API.notifyReadyToClose();
             }
         }
-
+        
+        setTimeout(()=>APP.store.dispatch(maybeRedirectToWelcomePage(), 200));
+        //meeting ended
+        windows.close();
         break;
     }
     case JitsiConferenceErrors.CONFERENCE_RESTARTED: {

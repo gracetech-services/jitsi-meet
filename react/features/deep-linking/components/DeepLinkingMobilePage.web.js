@@ -100,6 +100,11 @@ class DeepLinkingMobilePage extends Component<Props> {
         const downloadButtonClassName
             = `${_SNS}__button ${_SNS}__button_primary`;
 
+        return (
+            <div className = { _SNS }>
+                <h1>{t('GT.LaunchFromIDigest')}</h1>
+            </div>
+        );    
 
         const onOpenLinkProperties = _downloadUrl
             ? {

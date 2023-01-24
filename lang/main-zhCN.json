@@ -408,7 +408,7 @@
         "streamKey": "直播密钥",
         "thankYou": "感谢你使用{{appName}}！",
         "token": "token",
-        "tokenAuthFailed": "很抱歉，你未被允许加入此会议。",
+        "tokenAuthFailed": "很抱歉，你未被允许加入此会议。请在'小鸽子'App或者网站进入会议",
         "tokenAuthFailedTitle": "验证失败",
         "transcribing": "转录中",
         "unlockRoom": "移除会议$t(lockRoomPassword)",
