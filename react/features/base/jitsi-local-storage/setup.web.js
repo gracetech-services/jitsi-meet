@@ -60,10 +60,16 @@ function shouldUseHostPageLocalStorage(urlParams) {
 function setupJitsiLocalStorage() {
     const urlParams = parseURLParams(window.location);
 
-    if (shouldUseHostPageLocalStorage(urlParams)) {
+    //if (shouldUseHostPageLocalStorage(urlParams)) {
         try {
-            const localStorageContent = Bourne.parse(urlParams['appData.localStorageContent']);
+            //console.log("urlParams['appData.localStorageContent']: ", urlParams['appData.localStorageContent']);
+            if (!urlParams['appData.localStorageContent'] || urlParams['appData.localStorageContent'] === 'null') {
+                //always start clean
+                jitsiLocalStorage.setItem('jitsiLocalStorage', null);
+                return;
+            }
 
+            const localStorageContent = Bourne.parse(urlParams['appData.localStorageContent']);
             if (typeof localStorageContent === 'object') {
                 Object.keys(localStorageContent).forEach(key => {
                     jitsiLocalStorage.setItem(key, localStorageContent[key]);
@@ -74,7 +80,7 @@ function setupJitsiLocalStorage() {
         }
 
         jitsiLocalStorage.on('changed', onFakeLocalStorageChanged);
-    }
+    //}
 }
 
 setupJitsiLocalStorage();
