@@ -102,9 +102,14 @@ class DeepLinkingMobilePage extends Component<Props> {
 
         return (
             <div className = { _SNS }>
-                <h1>{t('GT.LaunchFromIDigest')}</h1>
+                <h1> {t('GT.title')} </h1>
+                <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
+                <br></br>
+                <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
+                <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
+                <p style={{paddingLeft:"5em"}}>{t('GT.conferencelink')} </p>
             </div>
-        );    
+        );
 
         const onOpenLinkProperties = _downloadUrl
             ? {
