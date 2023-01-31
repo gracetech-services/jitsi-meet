@@ -110,9 +110,7 @@ function MeetingParticipants({
     return (
         <>
             <div className = { styles.heading }>
-                {currentRoom?.name
-                    ? `${currentRoom.name} (${participantsCount})`
-                    : t('participantsPane.headings.participantsList', { count: participantsCount })}
+                {t('participantsPane.headings.participantsList', { count: participantsCount })}
             </div>
             {showInviteButton && <InviteButton />}
             <Input
@@ -121,6 +119,11 @@ function MeetingParticipants({
                 onChange = { setSearchString }
                 placeholder = { t('participantsPane.search') }
                 value = { searchString } />
+            {Boolean(currentRoom?.name) && 
+                <div className = { styles.heading }>
+                    {currentRoom.name} ({participantsCount})
+                </div>
+            }
             <div>
                 <MeetingParticipantItems
                     askUnmuteText = { askUnmuteText }

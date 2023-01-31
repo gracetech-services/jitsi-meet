@@ -128,16 +128,19 @@ const PreMeetingScreen = ({
             You should launch meeting from iDigest
         </h1>
     );
+        <div style={{color:'white',backgroundColor:'black',zIndex: 300}}>
     */
 
     return (
-        <div>
-            <h1> {t('GT.title')} </h1>
-            <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
-            <br></br>
-            <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
-            <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
-            <p style={{paddingLeft:"5em"}}>{t('GT.conferencelink')} </p>
+        <div className = { containerClassName }>
+            <div style = { style }>
+                <h1> {t('GT.title')} </h1>
+                <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
+                <br></br>
+                <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
+                <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
+                <p style={{paddingLeft:"5em"}}>{t('GT.conferencelink')} </p>
+            </div>
         </div>
     );
 
