@@ -58,6 +58,7 @@ import { getParticipantsPaneOpen } from '../../../participants-pane/functions';
 import { addReactionToBuffer } from '../../../reactions/actions.any';
 import { toggleReactionsMenuVisibility } from '../../../reactions/actions.web';
 import ReactionsMenuButton from '../../../reactions/components/web/ReactionsMenuButton';
+import RaiseHandButton from '../../../reactions/components/web/RaiseHandButton';
 import { REACTIONS } from '../../../reactions/constants';
 import { isReactionsEnabled } from '../../../reactions/functions.any';
 import {
@@ -757,7 +758,7 @@ class Toolbox extends Component<IProps> {
 
         const raisehand = {
             key: 'raisehand',
-            Content: ReactionsMenuButton,
+            Content: this.props._reactionsEnabled? ReactionsMenuButton : RaiseHandButton,
             handleClick: this._onToolbarToggleRaiseHand,
             group: 2
         };
