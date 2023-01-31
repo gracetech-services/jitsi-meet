@@ -1018,7 +1018,6 @@ class Toolbox extends Component<IProps> {
         const { order } = THRESHOLDS.find(({ width }) => _clientWidth > width)
             || THRESHOLDS[THRESHOLDS.length - 1];
         let sliceIndex = order.length + 2;
-
         const keys = Object.keys(buttons);
 
         const filtered = [
@@ -1270,6 +1269,7 @@ class Toolbox extends Component<IProps> {
     _onToolbarToggleParticipantsPane() {
         const { dispatch, _participantsPaneOpen } = this.props;
 
+        this._closeOverflowMenuIfOpen();
         if (_participantsPaneOpen) {
             dispatch(closeParticipantsPane());
         } else {
@@ -1336,6 +1336,7 @@ class Toolbox extends Component<IProps> {
             'raise.hand',
             { enable: !this.props._raisedHand }));
 
+        this._closeOverflowMenuIfOpen();
         this._doToggleRaiseHand();
     }
 
@@ -1424,6 +1425,7 @@ class Toolbox extends Component<IProps> {
         const containerClassName = `toolbox-content toolbox-content-mobile`;
 
         const { mainMenuButtons, overflowMenuButtons } = this._getVisibleButtons();
+        console.log("Gracetech: showOverflow?: ", overflowMenuButtons);
 
         return (
             <div className = { containerClassName }>

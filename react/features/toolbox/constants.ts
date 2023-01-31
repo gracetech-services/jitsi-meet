@@ -24,7 +24,7 @@ export const THRESHOLDS = [
     },
     {
         width: 200,
-        order: [ 'microphone', 'camera' ]
+        order: [ 'microphone', 'camera', 'chat', 'raisehand', 'participants' ]
     }
 ];
 

@@ -101,7 +101,7 @@ class DeepLinkingMobilePage extends Component<Props> {
             = `${_SNS}__button ${_SNS}__button_primary`;
 
         return (
-            <div className = { _SNS }>
+            <div>
                 <h1> {t('GT.title')} </h1>
                 <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
                 <br></br>
