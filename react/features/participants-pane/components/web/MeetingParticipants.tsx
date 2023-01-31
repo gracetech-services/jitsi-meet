@@ -121,7 +121,7 @@ function MeetingParticipants({
                 value = { searchString } />
             {Boolean(currentRoom?.name) && 
                 <div className = { styles.heading }>
-                    {currentRoom.name} ({participantsCount})
+                    {currentRoom?.name} ({participantsCount})
                 </div>
             }
             <div>

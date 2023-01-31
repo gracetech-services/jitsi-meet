@@ -58,6 +58,7 @@ import { getParticipantsPaneOpen } from '../../../participants-pane/functions';
 import { addReactionToBuffer } from '../../../reactions/actions.any';
 import { toggleReactionsMenuVisibility } from '../../../reactions/actions.web';
 import ReactionsMenuButton from '../../../reactions/components/web/ReactionsMenuButton';
+// @ts-ignore
 import RaiseHandButton from '../../../reactions/components/web/RaiseHandButton';
 import { REACTIONS } from '../../../reactions/constants';
 import { isReactionsEnabled } from '../../../reactions/functions.any';
