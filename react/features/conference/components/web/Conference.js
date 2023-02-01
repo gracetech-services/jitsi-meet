@@ -224,7 +224,7 @@ class Conference extends AbstractConference<Props, *> {
                         onTouchStart = { this._onVidespaceTouchStart }>
                         <LargeVideo />
                         {
-                            _showPrejoin || _showLobby || (<>
+                            _showPrejoin || _showLobby || isMobileBrowser() || (<>
                                 <StageFilmstrip />
                                 <ScreenshareFilmstrip />
                                 <MainFilmstrip />
