@@ -278,7 +278,7 @@ function _mapStateToProps(state: IReduxState, ownProps: Partial<IProps>) {
     const videoTrack = getLocalVideoTrack(state['features/base/tracks']);
     const { overflowDrawer } = state['features/toolbox'];
     const { showConnectionInfo } = state['features/base/connection'];
-    const showHideSelfViewButton = !disableSelfViewSettings && !getHideSelfView(state);
+    const showHideSelfViewButton = false; //!disableSelfViewSettings && !getHideSelfView(state);
 
     let _menuPosition;
 
