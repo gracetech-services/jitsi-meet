@@ -45,7 +45,7 @@ export const TOOLBAR_BUTTONS = [
     //'sharedvideo',
     //'shortcuts',
     //'stats',
-    //'tileview',
+    'tileview',
     //'toggle-camera',
     //'videoquality', //TODO --- set default based on moderator ==
       //TODO: this remove it from the menu bar, but still on the top along with conf time...

@@ -777,7 +777,7 @@ class Toolbox extends Component<IProps> {
             group: 2
         };
 
-        const tileview = {
+        const tileview = !_isMobile && {
             key: 'tileview',
             Content: TileViewButton,
             group: 2
