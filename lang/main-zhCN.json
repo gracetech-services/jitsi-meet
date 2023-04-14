@@ -2,10 +2,10 @@
     "GT": {
         "LaunchFromIDigest": "错误：系统不支持这个操作. 请在'小鸽子'App或者网站进入会议, 如需更多信息. 请与会议主持人联系",
         "title":"小鸽子在线会议",
-        "choose": "请选择以下方式进入会议：",
+        "choose": "进入会议的几个方式如下：",
         "appName": "小鸽子App",
         "webUrl": "小鸽子网站: ",
-        "conferencelink": "会议主持人分享的会议链接和密码。注意，会议密码可能有更新，请与主持人联系获得最新的会议信息。"            
+        "conferencelink": "会议主持人分享的会议链接和密码。注意，会议密码可能有更新，请与主持人联系获得最新的会议信息。"
     },
         "addPeople": {
         "add": "邀请",
@@ -39,7 +39,7 @@
     "audioDevices": {
         "bluetooth": "蓝牙",
         "car": "汽车音响",
-        "headphones": "耳机", 
+        "headphones": "耳机",
         "none": "没有可用的音频设备",
         "phone": "电话",
         "speaker": "扬声器"

@@ -2,7 +2,7 @@
    "GT": {
     "LaunchFromIDigest": "The operation is not supported. Please launch meeting from iDigest App or web. For more information, you can contact the meeting moderator",
     "title":"iDigest Online Meeting",
-    "choose": "To join an online meeting, please chose one of following methods:",
+    "choose": "Following are several methods to join an online meeting:",
     "appName": "iDigest App",
     "webUrl": "iDigest website: ",
     "conferencelink": "A meeting URL and passcode from meeting moderator. Note, the meeting passcode may have been changed, please contact meeting moderator for latest meeting info"            

@@ -104,6 +104,24 @@ class DeepLinkingMobilePage extends Component<Props> {
             <div>
                 <h1> {t('GT.title')} </h1>
                 <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
+                {window.location.pathname.length > 2 &&
+                    <>
+                    <h2 style={{paddingLeft:"1em"}}>
+                        <a
+                            href = {"https://idigest.app/join#"+window.location.pathname.substring(1)}
+                            target = '_top'>
+                            <button>
+                                重返会议
+                            </button>
+                        </a>
+                    </h2>
+                    <h2 style={{paddingLeft:"1em"}}>
+                        <button onClick={()=>window.close()}>
+                            关闭
+                        </button>
+                    </h2>
+                    </>
+                }
                 <br></br>
                 <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
                 <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
