@@ -16,7 +16,7 @@ import { getLargeVideoParticipant } from '../../large-video/functions';
 import { SharedVideo } from '../../shared-video/components/web';
 import { Captions } from '../../subtitles/';
 import { setTileView } from '../../video-layout/actions';
-import Whiteboard from '../../whiteboard/components/web/Whiteboard';
+//import Whiteboard from '../../whiteboard/components/web/Whiteboard';
 import { isWhiteboardEnabled } from '../../whiteboard/functions';
 import { setSeeWhatIsBeingShared } from '../actions.web';
 
@@ -185,7 +185,6 @@ class LargeVideo extends Component<Props> {
                 ref = { this._containerRef }
                 style = { style }>
                 <SharedVideo />
-                {_whiteboardEnabled && <Whiteboard />}
                 <div id = 'etherpad' />
 
                 <Watermarks />

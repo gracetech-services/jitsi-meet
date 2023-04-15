@@ -10,7 +10,7 @@ import { IParticipant } from '../base/participants/types';
 import MiddlewareRegistry from '../base/redux/MiddlewareRegistry';
 import { TRACK_ADDED, TRACK_REMOVED, TRACK_UPDATED } from '../base/tracks/actionTypes';
 
-import FaceLandmarksDetector from './FaceLandmarksDetector';
+//import FaceLandmarksDetector from './FaceLandmarksDetector';
 import { ADD_FACE_EXPRESSION, NEW_FACE_COORDINATES, UPDATE_FACE_COORDINATES } from './actionTypes';
 import {
     addToFaceExpressionsBuffer
@@ -26,7 +26,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: any)
 
     if (action.type === CONFERENCE_JOINED) {
         if (isEnabled) {
-            FaceLandmarksDetector.init(store);
+            //FaceLandmarksDetector.init(store);
         }
 
         // allow using remote face centering data when local face centering is not enabled
@@ -56,7 +56,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: any)
 
     switch (action.type) {
     case CONFERENCE_WILL_LEAVE : {
-        FaceLandmarksDetector.stopDetection(store);
+        //FaceLandmarksDetector.stopDetection(store);
 
         return next(action);
     }
@@ -65,7 +65,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: any)
 
         if (videoType === 'camera' && isLocal() && !muted) {
             // need to pass this since the track is not yet added in the store
-            FaceLandmarksDetector.startDetection(store, action.track);
+            //FaceLandmarksDetector.startDetection(store, action.track);
         }
 
         return next(action);
@@ -82,9 +82,9 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: any)
         if (muted !== undefined) {
             // addresses video mute state changes
             if (muted) {
-                FaceLandmarksDetector.stopDetection(store);
+                //FaceLandmarksDetector.stopDetection(store);
             } else {
-                FaceLandmarksDetector.startDetection(store);
+                //FaceLandmarksDetector.startDetection(store);
             }
         }
 
@@ -94,7 +94,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: any)
         const { jitsiTrack: { isLocal, videoType } } = action.track;
 
         if (videoType === 'camera' && isLocal()) {
-            FaceLandmarksDetector.stopDetection(store);
+            //FaceLandmarksDetector.stopDetection(store);
         }
 
         return next(action);

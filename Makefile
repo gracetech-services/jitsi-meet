@@ -97,11 +97,15 @@ deploy-tflite:
 		$(DEPLOY_DIR)
 
 deploy-excalidraw:
+
+DDDdeploy-excalidraw:
 	cp -R \
 		$(EXCALIDRAW_DIR) \
 		$(DEPLOY_DIR)/
 
 deploy-excalidraw-dev:
+
+DDDdeploy-excalidraw-dev:
 	cp -R \
 		$(EXCALIDRAW_DIR_DEV) \
 		$(DEPLOY_DIR)/

@@ -146,7 +146,7 @@ import { disableReceiver, stopReceiver } from './react/features/remote-control';
 import { isScreenAudioShared, setScreenAudioShareState } from './react/features/screen-share/';
 import { toggleScreenshotCaptureSummary } from './react/features/screenshot-capture';
 import { AudioMixerEffect } from './react/features/stream-effects/audio-mixer/AudioMixerEffect';
-import { createRnnoiseProcessor } from './react/features/stream-effects/rnnoise';
+//import { createRnnoiseProcessor } from './react/features/stream-effects/rnnoise';
 import { endpointMessageReceived } from './react/features/subtitles';
 import { handleToggleVideoMuted } from './react/features/toolbox/actions.any';
 import { muteLocal } from './react/features/video-menu/actions.any';
@@ -210,6 +210,7 @@ function connect(roomName) {
     .catch(err => {
         if (err === JitsiConnectionErrors.PASSWORD_REQUIRED) {
             APP.UI.notifyTokenAuthFailed();
+            setTimeout(()=>APP.store.dispatch(maybeRedirectToWelcomePage(), 200));
         } else {
             APP.UI.notifyConnectionFailed(err);
         }
@@ -1389,7 +1390,7 @@ export default {
     _getConferenceOptions() {
         const options = getConferenceOptions(APP.store.getState());
 
-        options.createVADProcessor = createRnnoiseProcessor;
+        //options.createVADProcessor = createRnnoiseProcessor;
 
         return options;
     },
@@ -1967,7 +1968,9 @@ export default {
             APP.store.dispatch(kickedOut(room, participant));
 
             //Gracetech -- close the browser
-            window.close();
+            //console.log("Meeting closed or being kicked: redirecting -- ");
+            setTimeout(()=>APP.store.dispatch(maybeRedirectToWelcomePage(), 200));
+            //window.close();
         });
 
         room.on(JitsiConferenceEvents.PARTICIPANT_KICKED, (kicker, kicked) => {

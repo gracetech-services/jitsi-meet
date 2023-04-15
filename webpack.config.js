@@ -311,17 +311,21 @@ module.exports = (_env, argv) => {
 
             performance: getPerformanceHints(perfHintOptions, 5 * 1024 * 1024)
 
-        }),
+        })
+        ,
         Object.assign({}, config, {
             entry: {
                 'alwaysontop': './react/features/always-on-top/index.js'
             },
+            /*
             plugins: [
                 ...config.plugins,
                 ...getBundleAnalyzerPlugin(analyzeBundle, 'alwaysontop')
             ],
             performance: getPerformanceHints(perfHintOptions, 800 * 1024)
+            */
         }),
+        /*
         Object.assign({}, config, {
             entry: {
                 'dial_in_info_bundle': './react/features/invite/components/dial-in-info-page'
@@ -336,16 +340,22 @@ module.exports = (_env, argv) => {
             ],
             performance: getPerformanceHints(perfHintOptions, 500 * 1024)
         }),
+        */
+       
         Object.assign({}, config, {
             entry: {
                 'do_external_connect': './connection_optimization/do_external_connect.js'
             },
+            /*
             plugins: [
                 ...config.plugins,
                 ...getBundleAnalyzerPlugin(analyzeBundle, 'do_external_connect')
             ],
             performance: getPerformanceHints(perfHintOptions, 5 * 1024)
+            */
         }),
+        
+        /*
         Object.assign({}, config, {
             entry: {
                 'analytics-ga': './react/features/analytics/handlers/GoogleAnalyticsHandler.ts'
@@ -356,6 +366,8 @@ module.exports = (_env, argv) => {
             ],
             performance: getPerformanceHints(perfHintOptions, 5 * 1024)
         }),
+        */
+        
         Object.assign({}, config, {
             entry: {
                 'close3': './static/close3.js'
@@ -366,7 +378,7 @@ module.exports = (_env, argv) => {
             ],
             performance: getPerformanceHints(perfHintOptions, 128 * 1024)
         }),
-
+        /*
         Object.assign({}, config, {
             entry: {
                 'external_api': './modules/API/external/index.js'
@@ -380,7 +392,10 @@ module.exports = (_env, argv) => {
                 ...getBundleAnalyzerPlugin(analyzeBundle, 'external_api')
             ],
             performance: getPerformanceHints(perfHintOptions, 35 * 1024)
-        }),
+        })
+        */
+        /*
+        ,
         Object.assign({}, config, {
             entry: {
                 'face-landmarks-worker': './react/features/face-landmarks/faceLandmarksWorker.ts'
@@ -391,6 +406,8 @@ module.exports = (_env, argv) => {
             ],
             performance: getPerformanceHints(perfHintOptions, 1024 * 1024 * 2)
         }),
+        */
+       /*
         Object.assign({}, config, {
             /**
              * The NoiseSuppressorWorklet is loaded in an audio worklet which doesn't have the same
@@ -401,7 +418,7 @@ module.exports = (_env, argv) => {
              * those parts with the null-loader.
              * The dev server also expects a `self` global object that's not available in the `AudioWorkletGlobalScope`,
              * so we replace it.
-             */
+             //
             entry: {
                 'noise-suppressor-worklet':
                     './react/features/stream-effects/noise-suppression/NoiseSuppressorWorklet.ts'
@@ -424,5 +441,6 @@ module.exports = (_env, argv) => {
                 globalObject: 'AudioWorkletGlobalScope'
             }
         })
+        */
     ];
 };

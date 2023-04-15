@@ -106,7 +106,6 @@ const ParticipantsPane = () => {
         .conference?.getBreakoutRooms()?.isSupported();
     const showAddRoomButton = useSelector(isAddBreakoutRoomButtonVisible);
     const showFooter = useSelector(isLocalParticipantModerator);
-    const showAutoAssign = false; //useSelector(isAutoAssignParticipantsVisible);
     const showMuteAllButton = useSelector(isMuteAllVisible);
     const showMoreActionsButton = useSelector(isMoreActionsVisible);
     const dispatch = useDispatch();
@@ -172,7 +171,6 @@ const ParticipantsPane = () => {
                 </div>
                 {showFooter && (
                     <div className = { classes.footer }>
-                        {showAutoAssign && <AutoAssignButton />}
                         {showMuteAllButton && (
                             <Button
                                 accessibilityLabel = { t('participantsPane.actions.muteAll') }

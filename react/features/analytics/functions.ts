@@ -17,7 +17,7 @@ import { inIframe } from '../base/util/iframeUtils';
 import { loadScript } from '../base/util/loadScript';
 import { parseURIString } from '../base/util/uri';
 
-import AmplitudeHandler from './handlers/AmplitudeHandler';
+//import AmplitudeHandler from './handlers/AmplitudeHandler';
 import MatomoHandler from './handlers/MatomoHandler';
 import logger from './logger';
 
@@ -107,6 +107,7 @@ export async function createHandlers({ getState }: { getState: Function; }) {
     };
     const handlers = [];
 
+    /*
     if (amplitudeAPPKey) {
         try {
             const amplitude = new AmplitudeHandler(handlerConstructorOptions);
@@ -118,6 +119,7 @@ export async function createHandlers({ getState }: { getState: Function; }) {
             logger.error('Failed to initialize Amplitude handler', e);
         }
     }
+    */
 
     if (matomoEndpoint && matomoSiteID) {
         try {
