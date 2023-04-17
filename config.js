@@ -1444,7 +1444,7 @@ var config = {
     //     'notify.invitedThreePlusMembers', // shown when 3+ participants have been invited
     //     'notify.invitedTwoMembers', // shown when 2 participants have been invited
     //     'notify.kickParticipant', // shown when a participant is kicked
-    //     'notify.linkToSalesforce', // shown when joining a meeting with salesforce integration
+         'notify.linkToSalesforce':false, // shown when joining a meeting with salesforce integration
     //     'notify.moderationStartedTitle', // shown when AV moderation is activated
     //     'notify.moderationStoppedTitle', // shown when AV moderation is deactivated
     //     'notify.moderationInEffectTitle', // shown when user attempts to unmute audio during AV moderation
