@@ -1,5 +1,5 @@
 /* eslint-disable lines-around-comment */
-import { generateCollaborationLinkData } from '@jitsi/excalidraw';
+//import { generateCollaborationLinkData } from '@jitsi/excalidraw';
 
 import { IStore } from '../app/types';
 import { getCurrentConference } from '../base/conference/functions';
@@ -51,6 +51,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => async (action
     const state = getState();
     const conference = getCurrentConference(state);
 
+    /*
     switch (action.type) {
     case SET_WHITEBOARD_OPEN: {
         const existingCollabDetails = getCollabDetails(state);
@@ -83,6 +84,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => async (action
         break;
     }
     }
+    */
 
     return next(action);
 });

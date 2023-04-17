@@ -1,5 +1,5 @@
 /* eslint-disable lines-around-comment */
-import { ExcalidrawApp } from '@jitsi/excalidraw';
+//import { ExcalidrawApp } from '@jitsi/excalidraw';
 import clsx from 'clsx';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -114,6 +114,7 @@ const Whiteboard: () => JSX.Element = () => {
                 display: `${isInTileView || !isVisible ? 'none' : 'block'}`
             }}>
             {
+                /*
                 isOpen && (
                     <div className = 'excalidraw-wrapper'>
                         <ExcalidrawApp
@@ -129,6 +130,7 @@ const Whiteboard: () => JSX.Element = () => {
                             getCollabAPI = { getCollabAPI } />
                     </div>
                 )
+                */
             }
         </div>
     );
