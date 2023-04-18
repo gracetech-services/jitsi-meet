@@ -48,19 +48,9 @@ deploy-appbundle:
 		$(BUILD_DIR)/app.bundle.min.js.map \
 		$(BUILD_DIR)/do_external_connect.min.js \
 		$(BUILD_DIR)/do_external_connect.min.js.map \
-		$(BUILD_DIR)/external_api.min.js \
-		$(BUILD_DIR)/external_api.min.js.map \
-		$(BUILD_DIR)/dial_in_info_bundle.min.js \
-		$(BUILD_DIR)/dial_in_info_bundle.min.js.map \
 		$(BUILD_DIR)/alwaysontop.min.js \
 		$(BUILD_DIR)/alwaysontop.min.js.map \
 		$(OUTPUT_DIR)/analytics-ga.js \
-		$(BUILD_DIR)/analytics-ga.min.js \
-		$(BUILD_DIR)/analytics-ga.min.js.map \
-		$(BUILD_DIR)/face-landmarks-worker.min.js \
-		$(BUILD_DIR)/face-landmarks-worker.min.js.map \
-		$(BUILD_DIR)/noise-suppressor-worklet.min.js \
-		$(BUILD_DIR)/noise-suppressor-worklet.min.js.map \
 		$(DEPLOY_DIR)
 	cp \
 		$(BUILD_DIR)/close3.min.js \
