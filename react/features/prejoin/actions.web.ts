@@ -200,6 +200,7 @@ export function dialOut(onSuccess: Function, onFail: Function) {
  * @returns {Function}
  */
 export function initPrejoin(tracks: Object[], errors: Object) {
+    console.log("GT:conf:initPrejoin", tracks, errors);
     return async function(dispatch: IStore['dispatch']) {
         dispatch(setPrejoinDeviceErrors(errors));
         dispatch(prejoinInitialized());

@@ -751,6 +751,8 @@ export default {
 
         this.roomName = roomName;
 
+        logger.debug('GT:conf:init', this.roomName);
+
         try {
             // Initialize the device list first. This way, when creating tracks
             // based on preferred devices, loose label matching can be done in
@@ -776,7 +778,9 @@ export default {
             return tracks;
         };
 
+        logger.debug('GT:conf:isPrejoin?', isPrejoinPageVisible(APP.store.getState()));
         if (isPrejoinPageVisible(APP.store.getState())) {
+            logger.debug('GT:conf:isPrejoin true');
             _connectionPromise = connect(roomName).then(c => {
                 // we want to initialize it early, in case of errors to be able
                 // to gather logs
@@ -785,11 +789,16 @@ export default {
                 return c;
             });
 
+            logger.debug('GT:conf:isPrejoin true 2');
+
             if (_onConnectionPromiseCreated) {
                 _onConnectionPromiseCreated();
             }
 
+            logger.debug('GT:conf:isPrejoin true 3');
             APP.store.dispatch(makePrecallTest(this._getConferenceOptions()));
+
+            logger.debug('GT:conf:isPrejoin 3.1, tryCreateLocalTracks');
 
             const { tryCreateLocalTracks, errors } = this.createInitialLocalTracks(initialOptions);
             const tracks = await tryCreateLocalTracks;
@@ -799,6 +808,7 @@ export default {
             // they may remain as empty strings.
             this._initDeviceList(true);
 
+            logger.debug('GT:conf:isPrejoin 3', isPrejoinPageVisible(APP.store.getState()));
             if (isPrejoinPageVisible(APP.store.getState())) {
                 return APP.store.dispatch(initPrejoin(tracks, errors));
             }
