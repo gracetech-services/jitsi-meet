@@ -183,13 +183,13 @@ class WelcomePage extends AbstractWelcomePage {
                             href = {"https://idigest.app/join#"+window.location.pathname.substring(1)}
                             target = '_top'>
                             <button>
-                                重返会议
+                                {t('GT.relaunchIntoSameMeeting')}
                             </button>
                         </a>
                     </h2>
                     <h2 style={{paddingLeft:"1em"}}>
                         <button onClick={()=>window.close()}>
-                            关闭
+                            {t('GT.closeThisWebpage')}
                         </button>
                     </h2>
                     </>

@@ -5,6 +5,8 @@
         "choose": "进入会议的几个方式如下：",
         "appName": "小鸽子App",
         "webUrl": "小鸽子网站: ",
+        "relaunchIntoSameMeeting": "重返会议",
+        "closeThisWebpage": "关闭",
         "conferencelink": "会议主持人分享的会议链接和密码。注意，会议密码可能有更新，请与主持人联系获得最新的会议信息。"
     },
         "addPeople": {

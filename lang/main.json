@@ -5,6 +5,8 @@
     "choose": "Following are several methods to join an online meeting:",
     "appName": "iDigest App",
     "webUrl": "iDigest website: ",
+    "relaunchIntoSameMeeting": "Rejoin this meeting",
+    "closeThisWebpage": "Close this web page",
     "conferencelink": "A meeting URL and passcode from meeting moderator. Note, the meeting passcode may have been changed, please contact meeting moderator for latest meeting info"            
 },
     "addPeople": {

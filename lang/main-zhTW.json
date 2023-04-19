@@ -5,6 +5,8 @@
         "choose": "進入會議的幾個方式如下：",
         "appName": "小鴿子App",
         "webUrl": "小鴿子網站:",
+        "relaunchIntoSameMeeting": "重返會議",
+        "closeThisWebpage": "關閉",
         "conferencelink": "會議主持人分享的會議鏈接和密碼。注意，會議密碼可能有更新，請與主持人聯繫獲得最新的會議信息。"
     },
     "addPeople": {
