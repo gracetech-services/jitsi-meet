@@ -122,6 +122,7 @@ const PreMeetingScreen = ({
         backgroundSize: 'cover'
     } : {};
 
+    console.log("GT:PreMeetingScreen")
     /*
     return (
         <h1 style={{textAlign:'center',marginTop:'200px',color:'white'}}>

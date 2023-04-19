@@ -34,6 +34,8 @@ class LobbyScreen extends AbstractLobbyScreen<Props> {
     constructor(props: Props) {
         super(props);
 
+        console.log("GT:LobbyScreen");
+
         this._messageContainerRef = React.createRef();
     }
 

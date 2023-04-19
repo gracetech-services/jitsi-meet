@@ -58,8 +58,11 @@ function _maybeUpdateDisplayName({ dispatch, getState }: IStore) {
     const state = getState();
     const hasJwt = Boolean(state['features/base/jwt'].jwt);
 
+    console.log("GT:_maybeUpdateDisplayName: ", hasJwt);
     if (hasJwt) {
         const displayName = getJwtName(state);
+
+        console.log("GT:_maybeUpdateDisplayName2: ", hasJwt, displayName);
 
         if (displayName) {
             dispatch(updateSettings({

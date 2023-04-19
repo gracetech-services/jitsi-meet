@@ -137,6 +137,8 @@ class Prejoin extends Component<Props, State> {
     constructor(props) {
         super(props);
 
+        console.log("GT:Prejoin");
+
         this.state = {
             showError: false,
             showJoinByPhoneButtons: false
