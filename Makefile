@@ -136,4 +136,5 @@ source-package:
 deploy-idigest:
 	cp -rf lang /var/www/html/files
 	cp -rf libs /var/www/html/files
+	cp -rf css /var/www/html/files
 	printf "\n /* BuildTime: $$(date '+%Y.%m.%d-%H.%M.%S') */" >> /var/www/html/files/libs/app.bundle.min.js
