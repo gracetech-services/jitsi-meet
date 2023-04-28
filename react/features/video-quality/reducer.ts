@@ -18,6 +18,7 @@ import { VIDEO_QUALITY_LEVELS } from './constants';
 import { validateMinHeightForQualityLvl } from './functions';
 import logger from './logger';
 
+/*
 const DEFAULT_STATE = {
     maxReceiverVideoQualityForLargeVideo: VIDEO_QUALITY_LEVELS.ULTRA,
     maxReceiverVideoQualityForScreenSharingFilmstrip: VIDEO_QUALITY_LEVELS.HIGH,
@@ -26,6 +27,18 @@ const DEFAULT_STATE = {
     maxReceiverVideoQualityForVerticalFilmstrip: VIDEO_QUALITY_LEVELS.LOW,
     minHeightForQualityLvl: new Map(),
     preferredVideoQuality: VIDEO_QUALITY_LEVELS.ULTRA
+};
+*/
+
+// GT: default to low quality video === to get the meeting through...
+const DEFAULT_STATE = {
+    maxReceiverVideoQualityForLargeVideo: VIDEO_QUALITY_LEVELS.LOW,
+    maxReceiverVideoQualityForScreenSharingFilmstrip: VIDEO_QUALITY_LEVELS.LOW,
+    maxReceiverVideoQualityForStageFilmstrip: VIDEO_QUALITY_LEVELS.LOW,
+    maxReceiverVideoQualityForTileView: VIDEO_QUALITY_LEVELS.LOW,
+    maxReceiverVideoQualityForVerticalFilmstrip: VIDEO_QUALITY_LEVELS.LOW,
+    minHeightForQualityLvl: new Map(),
+    preferredVideoQuality: VIDEO_QUALITY_LEVELS.LOW
 };
 
 
