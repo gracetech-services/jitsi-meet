@@ -1427,7 +1427,7 @@ class Toolbox extends Component<IProps> {
         const containerClassName = `toolbox-content toolbox-content-mobile`;
 
         const { mainMenuButtons, overflowMenuButtons } = this._getVisibleButtons();
-        console.log("Gracetech: showOverflow?: ", overflowMenuButtons);
+        //console.log("Gracetech: showOverflow?: ", overflowMenuButtons);
 
         return (
             <div className = { containerClassName }>

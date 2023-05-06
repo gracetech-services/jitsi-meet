@@ -85,7 +85,8 @@ function logDeviceList(deviceList: IDevicesState['availableDevices']) {
 }
 
 function MicErrorOut() {
-    if (Platform.OS === 'android') {
+    //if (Platform.OS === 'android') 
+    {
         //const { t } = useTranslation();
         //const mmm = t('GT.MicError');
         const mmm = "麦克风打不开, 解决方案, 请看'小鸽子功能介绍演示 - 线上会议的备用工具'";
@@ -166,8 +167,6 @@ MiddlewareRegistry.register(store => next => action => {
         if (!action.error) {
             break;
         }
-        MicErrorOut();
-        break;
 
         const { message, name } = action.error;
 
@@ -191,6 +190,7 @@ MiddlewareRegistry.register(store => next => action => {
             store.dispatch(setDeviceStatusWarning(titleKey));
         }
 
+        MicErrorOut();
         break;
     }
     case SET_AUDIO_INPUT_DEVICE:
