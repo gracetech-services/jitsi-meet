@@ -1,5 +1,6 @@
 {
    "GT": {
+    "MicError": "Microphone can't be openeed. For solutions, please follow instruction on the next page",
     "LaunchFromIDigest": "The operation is not supported. Please launch meeting from iDigest App or web. For more information, you can contact the meeting moderator",
     "title":"iDigest Online Meeting",
     "choose": "Following are several methods to join an online meeting:",

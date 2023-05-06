@@ -270,6 +270,15 @@ export function setConfigFromURLParams(
     config && (json.config = {});
     interfaceConfig && (json.interfaceConfig = {});
 
+    json.interfaceConfig.DISABLE_FOCUS_INDICATOR = true;
+    json.interfaceConfig.DISABLE_DOMINANT_SPEAKER_INDICATOR = true;
+    json.interfaceConfig.DISABLE_VIDEO_BACKGROUND = true;
+    json.interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS = true;
+    config.disableAudioLevels = true;
+    config.resolution = 480;
+
+    logger.info("GT: config default: ", json, config);
+
     for (const param of Object.keys(params)) {
         let base = json;
         const names = param.split('.');

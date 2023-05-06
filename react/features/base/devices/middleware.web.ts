@@ -1,4 +1,11 @@
 import { AnyAction } from 'redux';
+//import { useTranslation } from 'react-i18next';
+export function helperFunction(props: any){
+   //do stuff
+
+   //use imported i18n and call the t() method
+   i18n.t("needTranslation");
+}
 
 // @ts-expect-error
 import UIEvents from '../../../../service/UI/UIEvents';
@@ -13,6 +20,7 @@ import JitsiMeetJS, { JitsiMediaDevicesEvents, JitsiTrackErrors } from '../lib-j
 import MiddlewareRegistry from '../redux/MiddlewareRegistry';
 import { updateSettings } from '../settings/actions';
 
+import { setLocationURL } from '../connection/actions.web';
 
 import {
     CHECK_AND_NOTIFY_FOR_NEW_DEVICE,
@@ -77,6 +85,15 @@ function logDeviceList(deviceList: IDevicesState['availableDevices']) {
         + `audioInput:\n${audioInputs}\n`
         + `audioOutput:\n${audioOutputs}\n`
         + `videoInput:\n${videoInputs}`);
+}
+
+function MicErrorOut() {
+    //const { t } = useTranslation();
+    //const mmm = t('GT.MicError');
+    const mmm = "麦克风打不开, 解决方案, 请看'小鸽子功能介绍演示 - 线上会议的备用工具'";
+    alert(mmm);
+    window.top.location = "https://idigest.app/#/lesson/120/12"; // "https://idigest.app";
+    return;
 }
 
 /**
@@ -150,6 +167,8 @@ MiddlewareRegistry.register(store => next => action => {
         if (!action.error) {
             break;
         }
+        MicErrorOut();
+        break;
 
         const { message, name } = action.error;
 

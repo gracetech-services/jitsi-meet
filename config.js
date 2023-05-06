@@ -137,7 +137,7 @@ var config = {
     // Audio
 
     // Disable measuring of audio levels.
-    // disableAudioLevels: false,
+    disableAudioLevels: true,
 
     // audioLevelsInterval: 200,
 
@@ -946,7 +946,7 @@ var config = {
         // through the JVB and use the peer to peer connection instead. When a
         // 3rd participant joins the conference will be moved back to the JVB
         // connection.
-        enabled: true,
+        enabled: false,
 
         // Enable unified plan implementation support on Chromium for p2p connection.
         // enableUnifiedOnChrome: false,
