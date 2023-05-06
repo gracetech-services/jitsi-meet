@@ -1,6 +1,9 @@
 import { AnyAction } from 'redux';
 //import { useTranslation } from 'react-i18next';
 
+/* @flow */
+import Platform from '../react/Platform';
+
 // @ts-expect-error
 import UIEvents from '../../../../service/UI/UIEvents';
 import { IStore } from '../../app/types';
@@ -82,12 +85,14 @@ function logDeviceList(deviceList: IDevicesState['availableDevices']) {
 }
 
 function MicErrorOut() {
-    //const { t } = useTranslation();
-    //const mmm = t('GT.MicError');
-    const mmm = "麦克风打不开, 解决方案, 请看'小鸽子功能介绍演示 - 线上会议的备用工具'";
-    alert(mmm);
-    window.top.location = "https://idigest.app/#/lesson/120/12"; // "https://idigest.app";
-    return;
+    if (Platform.OS === 'android') {
+        //const { t } = useTranslation();
+        //const mmm = t('GT.MicError');
+        const mmm = "麦克风打不开, 解决方案, 请看'小鸽子功能介绍演示 - 线上会议的备用工具'";
+        alert(mmm);
+        window!.top!.location = "https://idigest.app/#/lesson/120/12"; // "https://idigest.app";
+        return;
+    }
 }
 
 /**
