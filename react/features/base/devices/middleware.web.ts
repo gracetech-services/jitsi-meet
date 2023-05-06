@@ -1,11 +1,5 @@
 import { AnyAction } from 'redux';
 //import { useTranslation } from 'react-i18next';
-export function helperFunction(props: any){
-   //do stuff
-
-   //use imported i18n and call the t() method
-   i18n.t("needTranslation");
-}
 
 // @ts-expect-error
 import UIEvents from '../../../../service/UI/UIEvents';
