@@ -1,5 +1,3 @@
-/* eslint-disable lines-around-comment */
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
@@ -12,7 +10,6 @@ import {
 import { isScreenShareParticipantById } from '../../../base/participants/functions';
 import DisplayName from '../../../display-name/components/web/DisplayName';
 
-// @ts-ignore
 import StatusIndicators from './StatusIndicators';
 
 interface IProps {
@@ -40,7 +37,7 @@ interface IProps {
     /**
      * The type of thumbnail.
      */
-    thumbnailType: string;
+    thumbnailType?: string;
 }
 
 const useStyles = makeStyles()(() => {

@@ -57,7 +57,8 @@ export function isForceMuted(participant: IParticipant | undefined, mediaType: M
  * @param {IReduxState} state - The redux state.
  * @returns {MediaState}
  */
-export function getParticipantAudioMediaState(participant: IParticipant, muted: Boolean, state: IReduxState) {
+export function getParticipantAudioMediaState(participant: IParticipant | undefined,
+        muted: Boolean, state: IReduxState) {
     const dominantSpeaker = getDominantSpeakerParticipant(state);
 
     if (muted) {
@@ -83,7 +84,8 @@ export function getParticipantAudioMediaState(participant: IParticipant, muted: 
  * @param {IReduxState} state - The redux state.
  * @returns {MediaState}
  */
-export function getParticipantVideoMediaState(participant: IParticipant, muted: Boolean, state: IReduxState) {
+export function getParticipantVideoMediaState(participant: IParticipant | undefined,
+        muted: Boolean, state: IReduxState) {
     if (muted) {
         if (isForceMuted(participant, MEDIA_TYPE.VIDEO, state)) {
             return MEDIA_STATE.FORCE_MUTED;
@@ -131,14 +133,27 @@ export const getParticipantsPaneOpen = (state: IReduxState) => Boolean(getState(
  *
  * @param {IParticipant} participant - The participant.
  * @param {boolean} isAudioMuted - If audio is muted for the participant.
+ * @param {boolean} isVideoMuted - If audio is muted for the participant.
  * @param {IReduxState} state - The redux state.
  * @returns {string} - The type of the quick action button.
  */
-export function getQuickActionButtonType(participant: IParticipant, isAudioMuted: Boolean, state: IReduxState) {
+export function getQuickActionButtonType(
+        participant: IParticipant | undefined,
+        isAudioMuted: Boolean,
+        isVideoMuted: Boolean,
+        state: IReduxState) {
     // handled only by moderators
+    const isVideoForceMuted = isForceMuted(participant, MEDIA_TYPE.VIDEO, state);
+
     if (isLocalParticipantModerator(state)) {
         if (!isAudioMuted) {
             return QUICK_ACTION_BUTTON.MUTE;
+        }
+        if (!isVideoMuted) {
+            return QUICK_ACTION_BUTTON.STOP_VIDEO;
+        }
+        if (isVideoForceMuted) {
+            return QUICK_ACTION_BUTTON.ALLOW_VIDEO;
         }
         if (isSupported()(state)) {
             return QUICK_ACTION_BUTTON.ASK_TO_UNMUTE;
@@ -220,8 +235,9 @@ export function getSortedParticipantIds(stateful: IStateful) {
  * @param {string} searchString - The participants search string.
  * @returns {boolean}
  */
-export function participantMatchesSearch(participant: { displayName: string; jid: string; name?: string; },
-        searchString: string) {
+export function participantMatchesSearch(participant: IParticipant | undefined
+    | { displayName?: string; name?: string; },
+searchString: string) {
     if (searchString === '') {
         return true;
     }

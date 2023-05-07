@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { WithTranslation } from 'react-i18next';
+import { connect as reduxConnect } from 'react-redux';
 
 // @ts-expect-error
 import { connect } from '../../../../../connection';
@@ -9,7 +10,6 @@ import { IConfig } from '../../../base/config/configType';
 import { toJid } from '../../../base/connection/functions';
 import { translate, translateToHTML } from '../../../base/i18n/functions';
 import { JitsiConnectionErrors } from '../../../base/lib-jitsi-meet';
-import { connect as reduxConnect } from '../../../base/redux/functions';
 import Dialog from '../../../base/ui/components/web/Dialog';
 import Input from '../../../base/ui/components/web/Input';
 import {
@@ -26,7 +26,7 @@ interface IProps extends WithTranslation {
      * {@link JitsiConference} That needs authentication - will hold a valid
      * value in XMPP login + guest access mode.
      */
-    _conference: IJitsiConference;
+    _conference?: IJitsiConference;
 
     /**
      * The server hosts specified in the global config.
@@ -47,7 +47,7 @@ interface IProps extends WithTranslation {
      * The progress in the floating range between 0 and 1 of the authenticating
      * and upgrading the role of the local participant/user.
      */
-    _progress: number;
+    _progress?: number;
 
     /**
      * Redux store dispatch method.
@@ -207,7 +207,7 @@ class LoginDialog extends Component<IProps, IState> {
         let messageKey;
 
         if (progress && progress < 1) {
-            messageKey = t('connection.FETCH_SESSION_ID');
+            messageKey = 'connection.FETCH_SESSION_ID';
         } else if (error) {
             const { name } = error;
 
@@ -218,14 +218,14 @@ class LoginDialog extends Component<IProps, IState> {
                     && credentials.jid === toJid(username, configHosts ?? { authdomain: '',
                         domain: '' })
                     && credentials.password === password) {
-                    messageKey = t('dialog.incorrectPassword');
+                    messageKey = 'dialog.incorrectPassword';
                 }
             } else if (name) {
-                messageKey = t('dialog.connectErrorWithMsg');
+                messageKey = 'dialog.connectErrorWithMsg';
                 messageOptions.msg = `${name} ${error.message}`;
             }
         } else if (connecting) {
-            messageKey = t('connection.CONNECTING');
+            messageKey = 'connection.CONNECTING';
         }
 
         if (messageKey) {
@@ -253,6 +253,7 @@ class LoginDialog extends Component<IProps, IState> {
 
         return (
             <Dialog
+                disableAutoHideOnSubmit = { true }
                 disableBackdropClose = { true }
                 hideCloseButton = { true }
                 ok = {{

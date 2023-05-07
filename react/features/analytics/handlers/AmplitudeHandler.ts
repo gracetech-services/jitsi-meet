@@ -1,5 +1,3 @@
-/* eslint-disable lines-around-comment */
-
 import logger from '../logger';
 
 import AbstractHandler, { IEvent } from './AbstractHandler';
@@ -33,7 +31,7 @@ export default class AmplitudeHandler extends AbstractHandler {
         };
 
         if (navigator.product === 'ReactNative') {
-            amplitude.getInstance().init(amplitudeAPPKey); // @ts-ignore
+            amplitude.getInstance().init(amplitudeAPPKey);
             fixDeviceID(amplitude.getInstance()).then(() => {
                 amplitude.getInstance().getDeviceId()
 
@@ -43,7 +41,7 @@ export default class AmplitudeHandler extends AbstractHandler {
                     });
             });
         } else {
-            const amplitudeOptions = {
+            const amplitudeOptions: any = {
                 includeReferrer: true,
                 onError
             };
@@ -103,8 +101,10 @@ export default class AmplitudeHandler extends AbstractHandler {
 
         return {
             sessionId: amplitude.getInstance().getSessionId(),
+
             // @ts-ignore
             deviceId: amplitude.getInstance().options.deviceId,
+
             // @ts-ignore
             userId: amplitude.getInstance().options.userId
         };

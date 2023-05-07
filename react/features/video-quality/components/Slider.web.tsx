@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 
@@ -35,7 +34,7 @@ interface IProps {
     value: number;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     // keep the same height for all elements:
     // input, input track & fake track(div)
     const height = 6;
@@ -52,8 +51,8 @@ const useStyles = makeStyles()((theme: Theme) => {
         width: 24
     };
 
-    const focused = { // @ts-ignore
-        outline: `1px solid ${theme.palette.action03Focus}`
+    const focused = {
+        outline: `1px solid ${theme.palette.ui06}`
     };
 
     return {
@@ -95,7 +94,7 @@ const useStyles = makeStyles()((theme: Theme) => {
                 top: 0,
                 width: '100%',
 
-                '&:focus': {
+                '&.focus-visible': {
                     // override global styles in order to use our own color
                     outline: 'none !important',
 

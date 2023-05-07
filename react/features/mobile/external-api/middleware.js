@@ -11,39 +11,41 @@ import {
     CONFERENCE_JOINED,
     CONFERENCE_LEFT,
     CONFERENCE_WILL_JOIN,
-    JITSI_CONFERENCE_URL_KEY,
-    SET_ROOM,
+    SET_ROOM
+} from '../../base/conference/actionTypes';
+import { JITSI_CONFERENCE_URL_KEY } from '../../base/conference/constants';
+import {
     forEachConference,
     getCurrentConference,
     isRoomValid
-} from '../../base/conference';
+} from '../../base/conference/functions';
+import { CONNECTION_DISCONNECTED } from '../../base/connection/actionTypes';
 import {
-    CONNECTION_DISCONNECTED,
     JITSI_CONNECTION_CONFERENCE_KEY,
-    JITSI_CONNECTION_URL_KEY,
-    getURLWithoutParams
-} from '../../base/connection';
+    JITSI_CONNECTION_URL_KEY
+} from '../../base/connection/constants';
+import { getURLWithoutParams } from '../../base/connection/utils';
 import {
     JitsiConferenceEvents } from '../../base/lib-jitsi-meet';
-import { MEDIA_TYPE } from '../../base/media';
 import { SET_AUDIO_MUTED, SET_VIDEO_MUTED } from '../../base/media/actionTypes';
+import { MEDIA_TYPE } from '../../base/media/constants';
+import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from '../../base/participants/actionTypes';
 import {
-    PARTICIPANT_JOINED,
-    PARTICIPANT_LEFT,
     getLocalParticipant,
     getParticipantById,
     getRemoteParticipants,
     isScreenShareParticipant
-} from '../../base/participants';
-import { MiddlewareRegistry, StateListenerRegistry } from '../../base/redux';
-import { getLocalTracks, isLocalTrackMuted, toggleScreensharing } from '../../base/tracks';
-import { CLOSE_CHAT, OPEN_CHAT } from '../../chat';
+} from '../../base/participants/functions';
+import MiddlewareRegistry from '../../base/redux/MiddlewareRegistry';
+import StateListenerRegistry from '../../base/redux/StateListenerRegistry';
+import { toggleScreensharing } from '../../base/tracks/actions.native';
+import { getLocalTracks, isLocalTrackMuted } from '../../base/tracks/functions.native';
+import { CLOSE_CHAT, OPEN_CHAT } from '../../chat/actionTypes';
 import { openChat } from '../../chat/actions';
 import { closeChat, sendMessage, setPrivateMessageRecipient } from '../../chat/actions.any';
-import { SET_PAGE_RELOAD_OVERLAY_CANCELED } from '../../overlay/actionTypes';
-import { setRequestingSubtitles } from '../../subtitles';
+import { setRequestingSubtitles } from '../../subtitles/actions.any';
 import { muteLocal } from '../../video-menu/actions';
-import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture';
+import { ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture/actionTypes';
 
 import { READY_TO_CLOSE } from './actionTypes';
 import { setParticipantsWithScreenShare } from './actions';
@@ -214,16 +216,6 @@ MiddlewareRegistry.register(store => next => action => {
         }
         break;
 
-    case SET_PAGE_RELOAD_OVERLAY_CANCELED:
-        sendEvent(
-            store,
-            CONFERENCE_TERMINATED,
-            /* data */ {
-                error: _toErrorString(action.error),
-                url: _normalizeUrl(store.getState()['features/base/connection'].locationURL)
-            });
-
-        break;
     case SET_VIDEO_MUTED:
         sendEvent(
             store,

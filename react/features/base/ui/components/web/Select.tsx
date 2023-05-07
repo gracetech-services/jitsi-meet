@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React, { ChangeEvent } from 'react';
 import { makeStyles } from 'tss-react/mui';
 
@@ -53,7 +52,7 @@ interface ISelectProps {
     value: number | string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         container: {
             display: 'flex',
@@ -80,7 +79,7 @@ const useStyles = makeStyles()((theme: Theme) => {
             width: '100%',
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
             color: theme.palette.text01,
-            padding: '8px 16px',
+            padding: '10px 16px',
             paddingRight: '42px',
             border: 0,
             appearance: 'none',

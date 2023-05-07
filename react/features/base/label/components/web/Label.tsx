@@ -1,5 +1,4 @@
-import { Theme } from '@mui/material';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { makeStyles } from 'tss-react/mui';
 
 import Icon from '../../../icons/components/Icon';
@@ -45,16 +44,16 @@ interface IProps {
 
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         label: {
             ...withPixelLineHeight(theme.typography.labelRegular),
             alignItems: 'center',
             background: theme.palette.ui04,
-            borderRadius: Number(theme.shape.borderRadius) / 2,
+            borderRadius: '4px',
             color: theme.palette.text01,
             display: 'flex',
-            margin: '0 0 4px 4px',
+            margin: '0 2px',
             padding: '6px',
             height: 28,
             boxSizing: 'border-box'
@@ -93,13 +92,27 @@ const Label = ({
 }: IProps) => {
     const { classes, cx } = useStyles();
 
+    const onKeyPress = useCallback(event => {
+        if (!onClick) {
+            return;
+        }
+
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            onClick();
+        }
+    }, [ onClick ]);
+
     return (
         <div
             className = { cx(classes.label, onClick && classes.clickable,
                 color && classes[color], className
             ) }
             id = { id }
-            onClick = { onClick }>
+            onClick = { onClick }
+            onKeyPress = { onKeyPress }
+            role = { onClick ? 'button' : undefined }
+            tabIndex = { onClick ? 0 : undefined }>
             {icon && <Icon
                 color = { iconColor }
                 size = '16'

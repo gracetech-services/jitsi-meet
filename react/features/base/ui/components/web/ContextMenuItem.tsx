@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React, { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
@@ -6,6 +5,9 @@ import { makeStyles } from 'tss-react/mui';
 import { showOverflowDrawer } from '../../../../toolbox/functions.web';
 import Icon from '../../../icons/components/Icon';
 import { withPixelLineHeight } from '../../../styles/functions.web';
+import { TEXT_OVERFLOW_TYPES } from '../../constants.any';
+
+import TextWithOverflow from './TextWithOverflow';
 
 export interface IProps {
 
@@ -15,9 +17,21 @@ export interface IProps {
     accessibilityLabel: string;
 
     /**
+     * Component children.
+     */
+    children?: ReactNode;
+
+    /**
      * CSS class name used for custom styles.
      */
     className?: string;
+
+    /**
+     * Id of dom element controlled by this item. Matches aria-controls.
+     * Useful if you need this item as a tab element.
+     *
+     */
+    controls?: string;
 
     /**
      * Custom icon. If used, the icon prop is ignored.
@@ -43,17 +57,32 @@ export interface IProps {
     /**
      * Click handler.
      */
-    onClick?: (e?: React.MouseEvent) => void;
+    onClick?: (e?: React.MouseEvent<any>) => void;
 
     /**
      * Keydown handler.
      */
-    onKeyDown?: (e?: React.KeyboardEvent) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 
     /**
      * Keypress handler.
      */
     onKeyPress?: (e?: React.KeyboardEvent) => void;
+
+    /**
+     * Overflow type for item text.
+     */
+    overflowType?: TEXT_OVERFLOW_TYPES;
+
+    /**
+     * You can use this item as a tab. Defaults to button if not set.
+     */
+    role?: 'tab' | 'button';
+
+    /**
+     * Whether the item is marked as selected.
+     */
+    selected?: boolean;
 
     /**
      * TestId of the element, if any.
@@ -63,7 +92,7 @@ export interface IProps {
     /**
      * Action text.
      */
-    text: string;
+    text?: string;
 
     /**
      * Class name for the text.
@@ -71,7 +100,7 @@ export interface IProps {
     textClassName?: string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         contextMenuItem: {
             alignItems: 'center',
@@ -91,7 +120,17 @@ const useStyles = makeStyles()((theme: Theme) => {
 
             '&:active': {
                 backgroundColor: theme.palette.ui03
+            },
+
+            '&.focus-visible': {
+                boxShadow: `inset 0 0 0 2px ${theme.palette.action01Hover}`
             }
+        },
+
+        selected: {
+            borderLeft: `3px solid ${theme.palette.action01Hover}`,
+            paddingLeft: '13px',
+            backgroundColor: theme.palette.ui02
         },
 
         contextMenuItemDisabled: {
@@ -121,7 +160,9 @@ const useStyles = makeStyles()((theme: Theme) => {
 
 const ContextMenuItem = ({
     accessibilityLabel,
+    children,
     className,
+    controls,
     customIcon,
     disabled,
     id,
@@ -129,6 +170,9 @@ const ContextMenuItem = ({
     onClick,
     onKeyDown,
     onKeyPress,
+    overflowType,
+    role = 'button',
+    selected,
     testId,
     text,
     textClassName }: IProps) => {
@@ -137,11 +181,14 @@ const ContextMenuItem = ({
 
     return (
         <div
+            aria-controls = { controls }
             aria-disabled = { disabled }
             aria-label = { accessibilityLabel }
+            aria-selected = { role === 'tab' ? selected : undefined }
             className = { cx(styles.contextMenuItem,
                     _overflowDrawer && styles.contextMenuItemDrawer,
                     disabled && styles.contextMenuItemDisabled,
+                    selected && styles.selected,
                     className
             ) }
             data-testid = { testId }
@@ -149,13 +196,27 @@ const ContextMenuItem = ({
             key = { text }
             onClick = { disabled ? undefined : onClick }
             onKeyDown = { disabled ? undefined : onKeyDown }
-            onKeyPress = { disabled ? undefined : onKeyPress }>
+            onKeyPress = { disabled ? undefined : onKeyPress }
+            role = { role }
+            tabIndex = { role === 'tab'
+                ? selected ? 0 : -1
+                : disabled ? undefined : 0
+            }>
             {customIcon ? customIcon
                 : icon && <Icon
                     className = { styles.contextMenuItemIcon }
                     size = { 20 }
                     src = { icon } />}
-            <span className = { cx(textClassName) }>{text}</span>
+            {text && (
+                <TextWithOverflow
+                    className = { cx(styles.text,
+                    _overflowDrawer && styles.drawerText,
+                    textClassName) }
+                    overflowType = { overflowType } >
+                    {text}
+                </TextWithOverflow>
+            )}
+            {children}
         </div>
     );
 };

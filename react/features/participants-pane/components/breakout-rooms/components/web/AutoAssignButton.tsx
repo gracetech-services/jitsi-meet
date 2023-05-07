@@ -13,7 +13,11 @@ import { createBreakoutRoom } from '../../../../../breakout-rooms/actions';
 
 import { removeAllRoomAndAdd } from './functions';
 
-export const AutoAssignButton = () => {
+interface IProps {
+    className?: string;
+}
+
+export const AutoAssignButton = ({ className }: IProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
@@ -81,6 +85,7 @@ export const AutoAssignButton = () => {
     return (
         <Button
             accessibilityLabel = { t('breakoutRooms.actions.autoAssign') }
+            className = { className }
             fullWidth = { true }
             labelKey = { 'breakoutRooms.actions.autoAssign' }
             onClick = { onAutoAssign }

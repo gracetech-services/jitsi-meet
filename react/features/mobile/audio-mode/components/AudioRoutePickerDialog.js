@@ -1,19 +1,20 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { NativeModules, Text, TouchableHighlight, View } from 'react-native';
+import { connect } from 'react-redux';
 
-import { BottomSheet, hideSheet } from '../../../base/dialog';
+import { hideSheet } from '../../../base/dialog/actions';
+import BottomSheet from '../../../base/dialog/components/native/BottomSheet';
 import { bottomSheetStyles } from '../../../base/dialog/components/native/styles';
-import { translate } from '../../../base/i18n';
+import { translate } from '../../../base/i18n/functions';
+import Icon from '../../../base/icons/components/Icon';
 import {
-    Icon,
     IconBluetooth,
     IconCar,
     IconDeviceHeadphone,
     IconPhoneRinging,
     IconVolumeUp
-} from '../../../base/icons';
-import { connect } from '../../../base/redux';
+} from '../../../base/icons/svg';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
 import styles from './styles';
@@ -251,7 +252,7 @@ class AudioRoutePickerDialog extends Component<Props, State> {
                 key = { device.type }
                 onPress = { this._onSelectDeviceFn(device) }
                 style = { speakerDeviceIsNotSelected && borderRadiusHighlightStyles }
-                underlayColor = { BaseTheme.palette.underlay01 } >
+                underlayColor = { BaseTheme.palette.ui04 } >
                 <View style = { styles.deviceRow } >
                     <Icon
                         src = { icon }

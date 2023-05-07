@@ -1,10 +1,9 @@
-import { fixAndroidViewClipping } from '../../../base/styles';
+import { fixAndroidViewClipping } from '../../../base/styles/functions.native';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
 export const INSECURE_ROOM_NAME_LABEL_COLOR = BaseTheme.palette.actionDanger;
 
 const TITLE_BAR_BUTTON_SIZE = 24;
-const HEADER_ACTION_BUTTON_SIZE = 17;
 
 
 /**
@@ -15,6 +14,20 @@ const titleBarSafeView = {
     position: 'absolute',
     right: 0,
     top: 0
+};
+
+const alwaysOnTitleBar = {
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, .5)',
+    borderRadius: BaseTheme.shape.borderRadius,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: BaseTheme.spacing[3],
+    paddingRight: BaseTheme.spacing[0],
+    '&:not(:empty)': {
+        padding: BaseTheme.spacing[1]
+    }
 };
 
 /**
@@ -33,29 +46,6 @@ export default {
 
     displayNameContainer: {
         margin: 10
-    },
-
-    headerNavigationButton: {
-        height: BaseTheme.spacing[6],
-        marginTop: 20,
-        width: BaseTheme.spacing[6]
-    },
-
-    headerNavigationIcon: {
-        marginLeft: 12
-    },
-
-    headerNavigationText: {
-        color: BaseTheme.palette.text01,
-        marginLeft: BaseTheme.spacing[3],
-        fontSize: HEADER_ACTION_BUTTON_SIZE
-    },
-
-    headerNavigationTextBold: {
-        ...BaseTheme.typography.labelButton,
-        color: BaseTheme.palette.text01,
-        marginRight: BaseTheme.spacing[3],
-        fontSize: HEADER_ACTION_BUTTON_SIZE
     },
 
     /**
@@ -82,10 +72,6 @@ export default {
             fontSize: TITLE_BAR_BUTTON_SIZE
         },
         underlayColor: 'transparent'
-    },
-
-    lonelyButton: {
-        borderRadius: BaseTheme.spacing[4]
     },
 
     lonelyMeetingContainer: {
@@ -137,19 +123,13 @@ export default {
     },
 
     alwaysOnTitleBar: {
-        paddingRight: 0,
-        borderRadius: 6,
-        backgroundColor: 'rgba(0, 0, 0, .5)',
-        marginLeft: BaseTheme.spacing[2],
-        flexDirection: 'row',
-        alignSelf: 'flex-start',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: BaseTheme.spacing[2],
+        ...alwaysOnTitleBar,
+        marginRight: BaseTheme.spacing[2]
+    },
 
-        '&:not(:empty)': {
-            padding: 4
-        }
+    alwaysOnTitleBarWide: {
+        ...alwaysOnTitleBar,
+        marginRight: BaseTheme.spacing[12]
     },
 
     expandedLabelWrapper: {
@@ -157,17 +137,19 @@ export default {
     },
 
     roomTimer: {
-        color: BaseTheme.palette.text01,
         ...BaseTheme.typography.bodyShortBold,
-        paddingHorizontal: 8,
-        paddingVertical: 6,
+        color: BaseTheme.palette.text01,
+        lineHeight: 14,
         textAlign: 'center'
     },
 
     roomTimerView: {
         backgroundColor: BaseTheme.palette.ui03,
-        borderRadius: 3,
+        borderRadius: BaseTheme.shape.borderRadius,
+        height: 32,
         justifyContent: 'center',
+        paddingHorizontal: BaseTheme.spacing[2],
+        paddingVertical: BaseTheme.spacing[1],
         minWidth: 50
     },
 
@@ -210,16 +192,18 @@ export default {
     },
 
     insecureRoomNameLabel: {
-        backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR
+        backgroundColor: INSECURE_ROOM_NAME_LABEL_COLOR,
+        borderRadius: BaseTheme.shape.borderRadius,
+        height: 32
     },
 
     raisedHandsCountLabel: {
-        backgroundColor: BaseTheme.palette.warning02,
-        flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: BaseTheme.spacing[0],
+        backgroundColor: BaseTheme.palette.warning02,
+        borderRadius: BaseTheme.shape.borderRadius,
+        flexDirection: 'row',
         marginBottom: BaseTheme.spacing[0],
-        marginRight: BaseTheme.spacing[1]
+        marginLeft: BaseTheme.spacing[0]
     },
 
     raisedHandsCountLabelText: {

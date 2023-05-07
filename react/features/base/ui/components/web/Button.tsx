@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
@@ -47,7 +46,7 @@ interface IProps extends IButtonProps {
     testId?: string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         button: {
             backgroundColor: theme.palette.action01,
@@ -70,7 +69,7 @@ const useStyles = makeStyles()((theme: Theme) => {
                 backgroundColor: theme.palette.action01Active
             },
 
-            '&:focus': {
+            '&.focus-visible': {
                 outline: 0,
                 boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`
             },
@@ -155,7 +154,7 @@ const useStyles = makeStyles()((theme: Theme) => {
             ...withPixelLineHeight(theme.typography.labelBold),
 
             '&.iconButton': {
-                padding: '6px'
+                padding: theme.spacing(1)
             }
         },
 
@@ -188,6 +187,7 @@ const Button = React.forwardRef<any, any>(({
     label,
     labelKey,
     onClick = () => null,
+    onKeyPress = () => null,
     size = 'medium',
     testId,
     type = BUTTON_TYPES.PRIMARY
@@ -207,6 +207,7 @@ const Button = React.forwardRef<any, any>(({
             disabled = { disabled }
             { ...(id ? { id } : {}) }
             onClick = { onClick }
+            onKeyPress = { onKeyPress }
             ref = { ref }
             title = { accessibilityLabel }
             type = { isSubmit ? 'submit' : 'button' }>

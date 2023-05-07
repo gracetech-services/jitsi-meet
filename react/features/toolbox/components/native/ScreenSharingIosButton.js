@@ -3,13 +3,14 @@
 import React from 'react';
 import { NativeModules, Platform, findNodeHandle } from 'react-native';
 import { ScreenCapturePickerView } from 'react-native-webrtc';
+import { connect } from 'react-redux';
 
-import { IOS_SCREENSHARING_ENABLED, getFeatureFlag } from '../../../base/flags';
-import { translate } from '../../../base/i18n';
-import { IconScreenshare } from '../../../base/icons';
-import { connect } from '../../../base/redux';
-import { AbstractButton, type AbstractButtonProps } from '../../../base/toolbox/components';
-import { isLocalVideoTrackDesktop } from '../../../base/tracks';
+import { IOS_SCREENSHARING_ENABLED } from '../../../base/flags/constants';
+import { getFeatureFlag } from '../../../base/flags/functions';
+import { translate } from '../../../base/i18n/functions';
+import { IconScreenshare } from '../../../base/icons/svg';
+import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
+import { isLocalVideoTrackDesktop } from '../../../base/tracks/functions.native';
 
 /**
  * The type of the React {@code Component} props of {@link ScreenSharingIosButton}.

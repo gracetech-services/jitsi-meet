@@ -1,8 +1,8 @@
-/* eslint-disable lines-around-comment */
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
 
 import Icon from '../../../icons/components/Icon';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import styles from '../../../react/components/native/styles';
 import { IIconButtonProps } from '../../../react/types';
@@ -36,7 +36,7 @@ const IconButton: React.FC<IIconButtonProps> = ({
         iconButtonContainerStyles = styles.iconButtonContainerSecondary;
         rippleColor = BaseTheme.palette.action02;
     } else if (type === TERTIARY) {
-        color = BaseTheme.palette.icon01;
+        color = iconColor;
         iconButtonContainerStyles = styles.iconButtonContainer;
         rippleColor = BaseTheme.palette.action03;
     } else {
@@ -54,8 +54,6 @@ const IconButton: React.FC<IIconButtonProps> = ({
         <TouchableRipple
             accessibilityLabel = { accessibilityLabel }
             disabled = { disabled }
-
-            // @ts-ignore
             onPress = { onPress }
             rippleColor = { rippleColor }
             style = { [

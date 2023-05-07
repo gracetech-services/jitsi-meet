@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
@@ -12,9 +11,7 @@ import {
     IconOffice365,
     IconYahoo
 } from '../../../../base/icons/svg';
-// eslint-disable-next-line lines-around-comment
-// @ts-ignore
-import { Tooltip } from '../../../../base/tooltip';
+import Tooltip from '../../../../base/tooltip/components/Tooltip';
 import { copyText } from '../../../../base/util/copyText.web';
 
 interface IProps {
@@ -35,7 +32,7 @@ interface IProps {
     inviteTextiOS: string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         container: {
             marginTop: theme.spacing(4)

@@ -2,6 +2,13 @@ import { parseURLParams } from './parseURLParams';
 import { normalizeNFKC } from './strings';
 
 /**
+ * Http status codes.
+ */
+export enum StatusCode {
+    PaymentRequired = 402
+}
+
+/**
  * The app linking scheme.
  * TODO: This should be read from the manifest files later.
  */
@@ -256,7 +263,6 @@ export function parseStandardURIString(str: string) {
             authority = authority.substring(userinfoEndIndex + 1);
         }
 
-        // @ts-ignore
         obj.host = authority;
 
         // port

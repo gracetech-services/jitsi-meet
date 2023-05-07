@@ -81,6 +81,8 @@ public class JitsiMeetView extends FrameLayout {
                 result.putBoolean(key, (Boolean)bValue);
             } else if (valueType.contentEquals("String")) {
                 result.putString(key, (String)bValue);
+            } else if (valueType.contentEquals("Integer")) {
+                result.putInt(key, (int)bValue);
             } else if (valueType.contentEquals("Bundle")) {
                 result.putBundle(key, mergeProps((Bundle)aValue, (Bundle)bValue));
             } else {
@@ -153,6 +155,14 @@ public class JitsiMeetView extends FrameLayout {
      */
     public void join(@Nullable JitsiMeetConferenceOptions options) {
         setProps(options != null ? options.asProps() : new Bundle());
+    }
+
+    /**
+     * Internal method which aborts running RN by passing empty props.
+     * This is only meant to be used from the enclosing Activity's onDestroy.
+     */
+    public void abort() {
+        setProps(new Bundle());
     }
 
     /**

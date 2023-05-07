@@ -8,8 +8,6 @@ import {
     UPGRADE_ROLE_FINISHED,
     UPGRADE_ROLE_STARTED, WAIT_FOR_OWNER
 } from './actionTypes';
-// eslint-disable-next-line lines-around-comment
-// @ts-ignore
 import { LoginDialog, WaitForOwnerDialog } from './components';
 import logger from './logger';
 
@@ -98,7 +96,7 @@ function _upgradeRoleFinished(
             name: authenticationError || connectionError,
             ...other
         };
-        progress = authenticationError ? 0.5 : 0;
+        progress = 0;
     }
 
     return {

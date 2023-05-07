@@ -1,17 +1,17 @@
 /* eslint-disable lines-around-comment */
 import React, { PureComponent } from 'react';
 import { WithTranslation } from 'react-i18next';
-import { Text, View } from 'react-native';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
+import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import Avatar from '../../../base/avatar/components/Avatar';
+import { hideSheet } from '../../../base/dialog/actions';
 // @ts-ignore
-import { Avatar } from '../../../base/avatar';
-// @ts-ignore
-import { BottomSheet, hideSheet } from '../../../base/dialog';
+import BottomSheet from '../../../base/dialog/components/native/BottomSheet';
 // @ts-ignore
 import { bottomSheetStyles } from '../../../base/dialog/components/native/styles';
 import { translate } from '../../../base/i18n/functions';
-import { connect } from '../../../base/redux/functions';
 import { getBreakoutRooms } from '../../../breakout-rooms/functions';
 // @ts-ignore
 import SendToBreakoutRoom from '../../../video-menu/components/native/SendToBreakoutRoom';
@@ -85,8 +85,8 @@ class RoomParticipantMenu extends PureComponent<IProps> {
             <BottomSheet
                 renderHeader = { this._renderMenuHeader }
                 showSlidingView = { true }>
-                <View style = { styles.contextMenuItem }>
-                    <Text style = { styles.contextMenuItemText }>
+                <View style = { styles.contextMenuItem as ViewStyle }>
+                    <Text style = { styles.contextMenuItemText as ViewStyle }>
                         {t('breakoutRooms.actions.sendToBreakoutRoom')}
                     </Text>
                 </View>
@@ -120,11 +120,11 @@ class RoomParticipantMenu extends PureComponent<IProps> {
             <View
                 style = { [
                     bottomSheetStyles.sheet,
-                    styles.participantNameContainer ] }>
+                    styles.participantNameContainer ] as ViewStyle[] }>
                 <Avatar
                     displayName = { participantName }
                     size = { AVATAR_SIZE } />
-                <Text style = { styles.participantNameLabel }>
+                <Text style = { styles.participantNameLabel as TextStyle }>
                     { participantName }
                 </Text>
             </View>

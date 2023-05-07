@@ -1,9 +1,9 @@
-/* eslint-disable lines-around-comment */
 import { createStartMutedConfigurationEvent } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
 import { appNavigate } from '../../app/actions';
 import { IReduxState, IStore } from '../../app/types';
 import { endpointMessageReceived } from '../../subtitles/actions.any';
+import { iAmVisitor } from '../../visitors/functions';
 import { getReplaceParticipant } from '../config/functions';
 import { disconnect } from '../connection/actions';
 import { JITSI_CONNECTION_CONFERENCE_KEY } from '../connection/constants';
@@ -16,9 +16,11 @@ import {
     participantMutedUs,
     participantPresenceChanged,
     participantRoleChanged,
+    participantSourcesUpdated,
     participantUpdated
 } from '../participants/actions';
 import { getNormalizedDisplayName } from '../participants/functions';
+import { IJitsiParticipant } from '../participants/types';
 import { toState } from '../redux/functions';
 import {
     destroyLocalTracks,
@@ -41,6 +43,7 @@ import {
     CONFERENCE_UNIQUE_ID_SET,
     CONFERENCE_WILL_JOIN,
     CONFERENCE_WILL_LEAVE,
+    DATA_CHANNEL_CLOSED,
     DATA_CHANNEL_OPENED,
     E2E_RTT_CHANGED,
     KICKED_OUT,
@@ -110,6 +113,7 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
         JitsiConferenceEvents.CONFERENCE_LEFT,
         (...args: any[]) => {
             dispatch(conferenceTimestampChanged(0));
+
             // @ts-ignore
             dispatch(conferenceLeft(conference, ...args));
         });
@@ -126,6 +130,10 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
     conference.on(
         JitsiConferenceEvents.PARTICIPANT_KICKED,
         (kicker: any, kicked: any) => dispatch(participantKicked(kicker, kicked)));
+
+    conference.on(
+        JitsiConferenceEvents.PARTICIPANT_SOURCE_UPDATED,
+        (jitsiParticipant: IJitsiParticipant) => dispatch(participantSourcesUpdated(jitsiParticipant)));
 
     conference.on(
         JitsiConferenceEvents.LOCK_STATE_CHANGED, // @ts-ignore
@@ -377,7 +385,7 @@ export function conferenceJoinInProgress(conference: IJitsiConference) {
  *     conference: JitsiConference
  * }}
  */
-export function conferenceLeft(conference: Partial<IJitsiConference>) {
+export function conferenceLeft(conference?: IJitsiConference) {
     return {
         type: CONFERENCE_LEFT,
         conference
@@ -443,11 +451,12 @@ export function conferenceUniqueIdSet(conference: IJitsiConference) {
  */
 export function _conferenceWillJoin(conference: IJitsiConference) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const state = getState();
         const localTracks
-            = getLocalTracks(getState()['features/base/tracks'])
+            = getLocalTracks(state['features/base/tracks'])
                 .map(t => t.jitsiTrack);
 
-        if (localTracks.length) {
+        if (localTracks.length && !iAmVisitor(state)) {
             _addLocalTracksToConference(conference, localTracks);
         }
 
@@ -466,7 +475,7 @@ export function _conferenceWillJoin(conference: IJitsiConference) {
  *     conference: JitsiConference
  * }}
  */
-export function conferenceWillJoin(conference: IJitsiConference) {
+export function conferenceWillJoin(conference?: IJitsiConference) {
     return {
         type: CONFERENCE_WILL_JOIN,
         conference
@@ -486,7 +495,7 @@ export function conferenceWillJoin(conference: IJitsiConference) {
  *     conference: JitsiConference
  * }}
  */
-export function conferenceWillLeave(conference: IJitsiConference) {
+export function conferenceWillLeave(conference?: IJitsiConference) {
     return {
         type: CONFERENCE_WILL_LEAVE,
         conference
@@ -500,7 +509,7 @@ export function conferenceWillLeave(conference: IJitsiConference) {
  * from Redux.
  * @returns {Function}
  */
-export function createConference(overrideRoom?: string) {
+export function createConference(overrideRoom?: string | String) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         const { connection, locationURL } = state['features/base/connection'];
@@ -523,8 +532,6 @@ export function createConference(overrideRoom?: string) {
         if (tmp.domain) {
             // eslint-disable-next-line no-new-wrappers
             _room = new String(tmp);
-
-            // $FlowExpectedError
             _room.domain = tmp.domain;
         }
 
@@ -562,7 +569,6 @@ export function checkIfCanJoin() {
 
         const replaceParticipant = getReplaceParticipant(getState());
 
-        // @ts-ignore
         authRequired && dispatch(_conferenceWillJoin(authRequired));
         authRequired?.join(password, replaceParticipant);
     };
@@ -578,6 +584,26 @@ export function checkIfCanJoin() {
 export function dataChannelOpened() {
     return {
         type: DATA_CHANNEL_OPENED
+    };
+}
+
+/**
+ * Signals the data channel with the bridge was abruptly closed.
+ *
+ * @param {number} code - Close code.
+ * @param {string} reason - Close reason.
+ *
+ * @returns {{
+ *     type: DATA_CHANNEL_CLOSED,
+ *     code: number,
+ *     reason: string
+ * }}
+ */
+export function dataChannelClosed(code: number, reason: string) {
+    return {
+        type: DATA_CHANNEL_CLOSED,
+        code,
+        reason
     };
 }
 
@@ -782,7 +808,7 @@ export function setStartReactionsMuted(muted: boolean, updateBackend = false) {
 export function setPassword(
         conference: IJitsiConference | undefined,
         method: Function | undefined,
-        password: string) {
+        password?: string) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         if (!conference) {
             return;

@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import { hideDialog } from '../../../base/dialog/actions';
 import { translate } from '../../../base/i18n/functions';
-import { connect } from '../../../base/redux/functions';
 import Dialog from '../../../base/ui/components/web/Dialog';
 import Input from '../../../base/ui/components/web/Input';
 import AbstractSharedVideoDialog from '../AbstractSharedVideoDialog';
@@ -52,7 +53,9 @@ class SharedVideoDialog extends AbstractSharedVideoDialog<any> {
     _onSubmitValue() {
         const result = super._onSetVideoLink(this.state.value);
 
-        if (!result) {
+        if (result) {
+            this.props.dispatch(hideDialog());
+        } else {
             this.setState({
                 error: true
             });
@@ -72,6 +75,7 @@ class SharedVideoDialog extends AbstractSharedVideoDialog<any> {
 
         return (
             <Dialog
+                disableAutoHideOnSubmit = { true }
                 ok = {{
                     disabled: this.state.okDisabled,
                     translationKey: 'dialog.Share'

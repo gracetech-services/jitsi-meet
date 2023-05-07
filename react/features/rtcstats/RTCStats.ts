@@ -1,8 +1,17 @@
 // @ts-ignore
+import { PC_CON_STATE_CHANGE,
+    PC_STATE_CONNECTED,
+    PC_STATE_FAILED
+
+    // @ts-ignore
+} from '@jitsi/rtcstats/events';
+// eslint-disable-next-line lines-around-comment
+// @ts-ignore
 import rtcstatsInit from '@jitsi/rtcstats/rtcstats';
 // eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import traceInit from '@jitsi/rtcstats/trace-ws';
+
 
 import { createRTCStatsTraceCloseEvent } from '../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../analytics/functions';
@@ -38,7 +47,45 @@ function connectionFilter(config: any) {
  */
 class RTCStats {
     trace: any;
-    initialized = false;
+    options?: InitOptions;
+    isPeerConnectionWrapped = false;
+    connStateEvents: any = [];
+
+    /**
+     * Initialize the rtcstats components, if the options have changed.
+     *
+     * @param {Oject} newOptions -.
+     * @returns {void}
+     */
+    maybeInit(newOptions: InitOptions) {
+        const oldOptions = this.options;
+        const changed = !oldOptions || (oldOptions.endpoint !== newOptions.endpoint
+            || oldOptions.meetingFqn !== newOptions.meetingFqn
+            || oldOptions.pollInterval !== newOptions.pollInterval
+            || oldOptions.sendSdp !== newOptions.sendSdp
+            || oldOptions.useLegacy !== newOptions.useLegacy);
+
+        if (changed) {
+            this.reset();
+
+            if (newOptions.meetingFqn && newOptions.endpoint) {
+                this.init(newOptions);
+            } else {
+                logger.warn('RTCStats is enabled but it has not been configured.');
+            }
+        }
+    }
+
+    /**
+     * Wrapper method for the underlying trace object to be used as a static reference from inside the wrapped
+     * PeerConnection.
+     *
+     * @param {any[]} data - The stats entry to send to the rtcstats endpoint.
+     * @returns {void}
+     */
+    statsEntry(...data: any[]) {
+        this.trace?.statsEntry(...data);
+    }
 
     /**
      * Initialize the rtcstats components. First off we initialize the trace, which is a wrapped websocket
@@ -67,16 +114,22 @@ class RTCStats {
             useLegacy
         };
 
-        const rtcstatsOptions = {
-            connectionFilter,
-            pollInterval,
-            useLegacy,
-            sendSdp
-        };
-
         this.trace = traceInit(traceOptions);
-        rtcstatsInit(this.trace, rtcstatsOptions);
-        this.initialized = true;
+        if (!this.isPeerConnectionWrapped) {
+            const rtcstatsOptions = {
+                connectionFilter,
+                pollInterval,
+                useLegacy,
+                sendSdp,
+                eventCallback: this.handleRtcstatsEvent.bind(this)
+            };
+
+            const statsEntryCallback = { statsEntry: this.statsEntry.bind(this) };
+
+            rtcstatsInit(statsEntryCallback, rtcstatsOptions);
+            this.isPeerConnectionWrapped = true;
+        }
+        this.options = options;
     }
 
     /**
@@ -85,7 +138,21 @@ class RTCStats {
      * @returns {boolean}
      */
     isInitialized() {
-        return this.initialized;
+        return this.options !== undefined;
+    }
+
+    /**
+     * Resets the rtcstats.
+     *
+     * @returns {void}
+     */
+    reset() {
+        delete this.options;
+
+        if (this.trace) {
+            this.trace.close();
+            delete this.trace;
+        }
     }
 
     /**
@@ -183,6 +250,40 @@ class RTCStats {
      */
     close() {
         this.trace?.close();
+    }
+
+    /**
+     * RTCStats client can notify the APP of any PeerConnection related event that occurs.
+     *
+     * @param {Object} event - Rtcstats event.
+     * @returns {void}
+     */
+    handleRtcstatsEvent(event: any) {
+        switch (event.type) {
+        case PC_CON_STATE_CHANGE: {
+            const { body: { isP2P, state } = { state: null,
+                isP2P: null } } = event;
+
+            this.connStateEvents.push(event.body);
+
+            // We only report PC related connection issues. If the rtcstats websocket is not connected at this point
+            // it usually means that none of our services can be reached i.e. there's problem with the internet
+            // connection and not necessarily with reaching the JVB (due to a firewall or other reasons).
+            if (state === PC_STATE_FAILED && this.trace.isConnected()) {
+                const connectionType = isP2P ? 'P2P' : 'JVB';
+                const wasConnected = this.connStateEvents.some((connectionEvent: { isP2P: any; state: string; }) =>
+                    (connectionEvent.isP2P === isP2P) && (connectionEvent.state === PC_STATE_CONNECTED));
+
+                logger.info(`${connectionType} PeerConnection failed, previously connected: ${wasConnected}`);
+
+                if (typeof APP !== 'undefined') {
+                    APP.API.notifyPeerConnectionFailure(isP2P, wasConnected);
+                }
+            }
+
+            break;
+        }
+        }
     }
 
     /**

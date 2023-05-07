@@ -3,6 +3,7 @@ import { withStyles } from '@mui/styles';
 import clsx from 'clsx';
 import React, { Component } from 'react';
 import { WithTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
 
 import { createToolbarEvent } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
@@ -11,10 +12,7 @@ import { setAudioOnly } from '../../base/audio-only/actions';
 import { translate } from '../../base/i18n/functions';
 import { setLastN } from '../../base/lastn/actions';
 import { getLastNForQualityLevel } from '../../base/lastn/functions';
-import { connect } from '../../base/redux/functions';
 import { withPixelLineHeight } from '../../base/styles/functions.web';
-// eslint-disable-next-line lines-around-comment
-// @ts-ignore
 import { setPreferredVideoQuality } from '../actions';
 import { DEFAULT_LAST_N, VIDEO_QUALITY_LEVELS } from '../constants';
 import logger from '../logger';
@@ -57,12 +55,12 @@ interface IProps extends WithTranslation {
     /**
      * The channelLastN value configured for the conference.
      */
-    _channelLastN: number;
+    _channelLastN?: number;
 
     /**
      * Whether or not the conference is in peer to peer mode.
      */
-    _p2p: Boolean;
+    _p2p?: Object;
 
     /**
      * The currently configured maximum quality resolution to be sent and
@@ -119,7 +117,12 @@ const styles = (theme: Theme) => {
  * @augments Component
  */
 class VideoQualitySlider extends Component<IProps> {
-    _sliderOptions: Array<Object>;
+    _sliderOptions: Array<{
+        audioOnly?: boolean;
+        onSelect: Function;
+        textKey: string;
+        videoQuality?: number;
+    }>;
 
     /**
      * Initializes a new {@code VideoQualitySlider} instance.
@@ -280,15 +283,14 @@ class VideoQualitySlider extends Component<IProps> {
 
         if (_audioOnly) {
             const audioOnlyOption = _sliderOptions.find(
-                ({ audioOnly }: any) => audioOnly);
+                ({ audioOnly }) => audioOnly);
 
             // @ts-ignore
             return _sliderOptions.indexOf(audioOnlyOption);
         }
 
         for (let i = 0; i < _sliderOptions.length; i++) {
-            // @ts-ignore
-            if (_sliderOptions[i].videoQuality >= _sendrecvVideoQuality) {
+            if (Number(_sliderOptions[i].videoQuality) >= _sendrecvVideoQuality) {
                 return i;
             }
         }

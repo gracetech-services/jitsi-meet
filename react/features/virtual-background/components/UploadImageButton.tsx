@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React, { useCallback, useRef } from 'react';
 import { WithTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
@@ -7,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { translate } from '../../base/i18n/functions';
 import Icon from '../../base/icons/components/Icon';
 import { IconPlus } from '../../base/icons/svg';
+import { withPixelLineHeight } from '../../base/styles/functions.web';
 import { type Image, VIRTUAL_BACKGROUND_TYPE } from '../constants';
 import { resizeImage } from '../functions';
 import logger from '../logger';
@@ -39,24 +39,27 @@ interface IProps extends WithTranslation {
     storedImages: Array<Image>;
 }
 
-// @ts-ignore
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
-        addBackground: {
-            marginRight: theme.spacing(2)
-        },
-        button: {
-            display: 'none'
-        },
         label: {
-            fontSize: '14px',
-            fontWeight: '600',
-            lineHeight: '20px',
-            marginTop: theme.spacing(3),
-            marginBottom: theme.spacing(2),
-            color: '#669aec',
-            display: 'inline-flex',
-            cursor: 'pointer'
+            ...withPixelLineHeight(theme.typography.bodyShortBold),
+            color: theme.palette.link01,
+            marginBottom: theme.spacing(3),
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center'
+        },
+
+        addBackground: {
+            marginRight: theme.spacing(3),
+
+            '& svg': {
+                fill: `${theme.palette.link01} !important`
+            }
+        },
+
+        input: {
+            display: 'none'
         }
     };
 });
@@ -126,14 +129,14 @@ function UploadImageButton({
                 tabIndex = { 0 } >
                 <Icon
                     className = { classes.addBackground }
-                    size = { 20 }
+                    size = { 24 }
                     src = { IconPlus } />
                 {t('virtualBackground.addBackground')}
             </label>}
 
             <input
                 accept = 'image/*'
-                className = { classes.button }
+                className = { classes.input }
                 id = 'file-upload'
                 onChange = { uploadImage }
                 ref = { uploadImageButton }

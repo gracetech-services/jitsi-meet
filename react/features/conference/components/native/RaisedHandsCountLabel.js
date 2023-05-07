@@ -1,11 +1,9 @@
-// @flow
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { IconRaiseHand } from '../../../base/icons';
-import { Label } from '../../../base/label';
-import BaseTheme from '../../../base/ui/components/BaseTheme';
+import { IconRaiseHand } from '../../../base/icons/svg';
+import Label from '../../../base/label/components/native/Label';
+import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
 import styles from './styles';
 

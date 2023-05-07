@@ -1,7 +1,8 @@
 // @flow
 
-import { CALL_INTEGRATION_ENABLED, getFeatureFlag } from '../../base/flags';
-import { toState } from '../../base/redux';
+import { CALL_INTEGRATION_ENABLED } from '../../base/flags/constants';
+import { getFeatureFlag } from '../../base/flags/functions';
+import { toState } from '../../base/redux/functions';
 
 /**
  * Checks if call integration is enabled or not.

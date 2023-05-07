@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React, { useCallback } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { makeStyles } from 'tss-react/mui';
@@ -11,6 +10,7 @@ import { IInputProps } from '../types';
 
 interface IProps extends IInputProps {
     accessibilityLabel?: string;
+    autoComplete?: string;
     autoFocus?: boolean;
     bottomLabel?: string;
     className?: string;
@@ -20,13 +20,17 @@ interface IProps extends IInputProps {
     maxRows?: number;
     minRows?: number;
     name?: string;
+    onBlur?: (e: any) => void;
+    onFocus?: (event: React.FocusEvent) => void;
     onKeyPress?: (e: React.KeyboardEvent) => void;
     readOnly?: boolean;
+    required?: boolean;
+    testId?: string;
     textarea?: boolean;
     type?: 'text' | 'email' | 'number' | 'password';
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         inputContainer: {
             display: 'flex',
@@ -131,6 +135,7 @@ const useStyles = makeStyles()((theme: Theme) => {
 
 const Input = React.forwardRef<any, IProps>(({
     accessibilityLabel,
+    autoComplete,
     autoFocus,
     bottomLabel,
     className,
@@ -145,10 +150,14 @@ const Input = React.forwardRef<any, IProps>(({
     maxRows,
     minRows,
     name,
+    onBlur,
     onChange,
+    onFocus,
     onKeyPress,
     placeholder,
     readOnly = false,
+    required,
+    testId,
     textarea = false,
     type = 'text',
     value
@@ -174,11 +183,13 @@ const Input = React.forwardRef<any, IProps>(({
                 {textarea ? (
                     <TextareaAutosize
                         aria-label = { accessibilityLabel }
+                        autoComplete = { autoComplete }
                         autoFocus = { autoFocus }
                         className = { cx(styles.input, isMobile && 'is-mobile',
                             error && 'error', clearable && styles.clearableInput, icon && 'icon-input') }
                         disabled = { disabled }
                         { ...(id ? { id } : {}) }
+                        maxLength = { maxLength }
                         maxRows = { maxRows }
                         minRows = { minRows }
                         name = { name }
@@ -187,22 +198,28 @@ const Input = React.forwardRef<any, IProps>(({
                         placeholder = { placeholder }
                         readOnly = { readOnly }
                         ref = { ref }
+                        required = { required }
                         value = { value } />
                 ) : (
                     <input
                         aria-label = { accessibilityLabel }
+                        autoComplete = { autoComplete }
                         autoFocus = { autoFocus }
                         className = { cx(styles.input, isMobile && 'is-mobile',
                             error && 'error', clearable && styles.clearableInput, icon && 'icon-input') }
+                        data-testid = { testId }
                         disabled = { disabled }
                         { ...(id ? { id } : {}) }
                         maxLength = { maxLength }
                         name = { name }
+                        onBlur = { onBlur }
                         onChange = { handleChange }
+                        onFocus = { onFocus }
                         onKeyPress = { onKeyPress }
                         placeholder = { placeholder }
                         readOnly = { readOnly }
                         ref = { ref }
+                        required = { required }
                         type = { type }
                         value = { value } />
                 )}

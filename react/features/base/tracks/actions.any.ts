@@ -27,10 +27,10 @@ import {
     TRACK_CREATE_ERROR,
     TRACK_MUTE_UNMUTE_FAILED,
     TRACK_NO_DATA_FROM_SOURCE,
+    TRACK_OWNER_CHANGED,
     TRACK_REMOVED,
     TRACK_STOPPED,
     TRACK_UPDATED,
-    TRACK_UPDATE_LAST_VIDEO_MEDIA_EVENT,
     TRACK_WILL_CREATE
 } from './actionTypes';
 import {
@@ -158,7 +158,7 @@ export function createLocalTracksA(options: ITrackOptions = {}) {
                 throw new Error(`Local track for ${device} already exists`);
             }
 
-            const gumProcess
+            const gumProcess: any
                 = createLocalTracksF(
                     {
                         cameraDeviceId: options.cameraDeviceId,
@@ -168,7 +168,7 @@ export function createLocalTracksA(options: ITrackOptions = {}) {
                         micDeviceId: options.micDeviceId
                     },
                     store)
-                .then(
+                .then( // @ts-ignore
                     (localTracks: any[]) => {
                         // Because GUM is called for 1 device (which is actually
                         // a media type 'audio', 'video', 'screen', etc.) we
@@ -377,7 +377,9 @@ export function trackAdded(track: any) {
         track.on(
             JitsiTrackEvents.TRACK_VIDEOTYPE_CHANGED,
             (type: VideoType) => dispatch(trackVideoTypeChanged(track, type)));
-
+        track.on(
+            JitsiTrackEvents.TRACK_OWNER_CHANGED,
+            (owner: string) => dispatch(trackOwnerChanged(track, owner)));
         const local = track.isLocal();
         const isVirtualScreenshareParticipantCreated = !local || getMultipleVideoSendingSupportFeatureFlag(getState());
         const mediaType = track.getVideoType() === VIDEO_TYPE.DESKTOP && isVirtualScreenshareParticipantCreated
@@ -582,11 +584,14 @@ export function trackVideoStarted(track: any): {
  * }}
  */
 export function trackVideoTypeChanged(track: any, videoType: VideoType) {
+    const mediaType = videoType === VIDEO_TYPE.CAMERA ? MEDIA_TYPE.VIDEO : MEDIA_TYPE.SCREENSHARE;
+
     return {
         type: TRACK_UPDATED,
         track: {
             jitsiTrack: track,
-            videoType
+            videoType,
+            mediaType
         }
     };
 }
@@ -613,6 +618,32 @@ export function trackStreamingStatusChanged(track: any, streamingStatus: string)
         track: {
             jitsiTrack: track,
             streamingStatus
+        }
+    };
+}
+
+/**
+ * Create an action for when the owner of the track changes due to ssrc remapping.
+ *
+ * @param {(JitsiRemoteTrack)} track - JitsiTrack instance.
+ * @param {string} participantId - New owner's participant ID.
+ * @returns {{
+ *     type: TRACK_OWNER_CHANGED,
+ *     track: Track
+ * }}
+ */
+export function trackOwnerChanged(track: any, participantId: string): {
+    track: {
+        jitsiTrack: any;
+        participantId: string;
+    };
+    type: 'TRACK_OWNER_CHANGED';
+} {
+    return {
+        type: TRACK_OWNER_CHANGED,
+        track: {
+            jitsiTrack: track,
+            participantId
         }
     };
 }
@@ -791,29 +822,6 @@ export function setNoSrcDataNotificationUid(uid?: string) {
     return {
         type: SET_NO_SRC_DATA_NOTIFICATION_UID,
         uid
-    };
-}
-
-/**
- * Updates the last media event received for a video track.
- *
- * @param {JitsiRemoteTrack} track - JitsiTrack instance.
- * @param {string} name - The current media event name for the video.
- * @returns {{
- *     type: TRACK_UPDATE_LAST_VIDEO_MEDIA_EVENT,
- *     track: Track,
- *     name: string
- * }}
- */
-export function updateLastTrackVideoMediaEvent(track: any, name: string): {
-    name: string;
-    track: any;
-    type: 'TRACK_UPDATE_LAST_VIDEO_MEDIA_EVENT';
-} {
-    return {
-        type: TRACK_UPDATE_LAST_VIDEO_MEDIA_EVENT,
-        track,
-        name
     };
 }
 

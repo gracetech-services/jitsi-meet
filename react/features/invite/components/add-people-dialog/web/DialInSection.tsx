@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -6,8 +5,6 @@ import { makeStyles } from 'tss-react/mui';
 
 import { IReduxState } from '../../../../app/types';
 import { withPixelLineHeight } from '../../../../base/styles/functions.web';
-// eslint-disable-next-line lines-around-comment
-// @ts-ignore
 import { getDialInfoPageURL, hasMultipleNumbers } from '../../../functions';
 
 import DialInNumber from './DialInNumber';
@@ -21,7 +18,7 @@ interface IProps {
     phoneNumber: string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         container: {
             '& .info-label': {

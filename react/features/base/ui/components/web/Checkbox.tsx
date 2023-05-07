@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React from 'react';
 import { makeStyles } from 'tss-react/mui';
 
@@ -12,7 +11,7 @@ interface ICheckboxProps {
     /**
      * Whether the input is checked or not.
      */
-    checked: boolean;
+    checked?: boolean;
 
     /**
      * Class name for additional styles.
@@ -40,7 +39,7 @@ interface ICheckboxProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         formControl: {
             ...withPixelLineHeight(theme.typography.bodyLongRegular),
@@ -52,6 +51,10 @@ const useStyles = makeStyles()((theme: Theme) => {
                 ...withPixelLineHeight(theme.typography.bodyLongRegularLarge)
 
             }
+        },
+
+        disabled: {
+            cursor: 'not-allowed'
         },
 
         activeArea: {
@@ -67,14 +70,13 @@ const useStyles = makeStyles()((theme: Theme) => {
             '& input[type="checkbox"]': {
                 appearance: 'none',
                 backgroundColor: 'transparent',
-                margin: 0,
+                margin: '3px',
                 font: 'inherit',
                 color: theme.palette.icon03,
                 width: '18px',
                 height: '18px',
                 border: `2px solid ${theme.palette.icon03}`,
                 borderRadius: '3px',
-                cursor: 'pointer',
 
                 display: 'grid',
                 placeContent: 'center',
@@ -155,7 +157,7 @@ const Checkbox = ({
 
     return (
         <div className = { cx(styles.formControl, isMobile && 'is-mobile', className) }>
-            <label className = { cx(styles.activeArea, isMobile && 'is-mobile') }>
+            <label className = { cx(styles.activeArea, isMobile && 'is-mobile', disabled && styles.disabled) }>
                 <input
                     checked = { checked }
                     disabled = { disabled }

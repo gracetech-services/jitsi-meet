@@ -4,7 +4,7 @@ import conferenceStyles from '../conference/components/native/styles';
 import { SET_TILE_VIEW_DIMENSIONS } from './actionTypes';
 // eslint-disable-next-line lines-around-comment
 // @ts-ignore
-import { styles } from './components';
+import styles from './components/native/styles';
 import { SQUARE_TILE_ASPECT_RATIO, TILE_MARGIN } from './constants';
 import { getColumnCount, getTileViewParticipantCount } from './functions.native';
 
@@ -58,4 +58,25 @@ export function setTileViewDimensions() {
             }
         });
     };
+}
+
+/**
+ * Add participant to the active participants list.
+ *
+ * @param {string} _participantId - The Id of the participant to be added.
+ * @param {boolean?} _pinned - Whether the participant is pinned or not.
+ * @returns {Object}
+ */
+export function addStageParticipant(_participantId: string, _pinned = false): any {
+    return {};
+}
+
+/**
+ * Remove participant from the active participants list.
+ *
+ * @param {string} _participantId - The Id of the participant to be removed.
+ * @returns {Object}
+ */
+export function removeStageParticipant(_participantId: string): any {
+    return {};
 }

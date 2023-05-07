@@ -18,6 +18,7 @@ import {
     PARTICIPANT_JOINED,
     PARTICIPANT_KICKED,
     PARTICIPANT_LEFT,
+    PARTICIPANT_SOURCES_UPDATED,
     PARTICIPANT_UPDATED,
     PIN_PARTICIPANT,
     RAISE_HAND_UPDATED,
@@ -36,7 +37,7 @@ import {
     getVirtualScreenshareParticipantOwnerId
 } from './functions';
 import logger from './logger';
-import { FakeParticipant, IParticipant } from './types';
+import { FakeParticipant, IJitsiParticipant, IParticipant } from './types';
 
 /**
  * Create an action for when dominant speaker changes.
@@ -250,6 +251,39 @@ export function participantJoined(participant: IParticipant) {
                 participant
             });
         }
+    };
+}
+
+/**
+ * Updates the sources of a remote participant.
+ *
+ * @param {IJitsiParticipant} jitsiParticipant - The IJitsiParticipant instance.
+ * @returns {{
+ *      type: PARTICIPANT_SOURCES_UPDATED,
+ *      participant: IParticipant
+ * }}
+ */
+export function participantSourcesUpdated(jitsiParticipant: IJitsiParticipant) {
+    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const id = jitsiParticipant.getId();
+        const participant = getParticipantById(getState(), id);
+
+        if (participant?.local) {
+            return;
+        }
+        const sources = jitsiParticipant.getSources();
+
+        if (!sources?.size) {
+            return;
+        }
+
+        return dispatch({
+            type: PARTICIPANT_SOURCES_UPDATED,
+            participant: {
+                id,
+                sources
+            }
+        });
     };
 }
 
@@ -477,18 +511,19 @@ export function participantMutedUs(participant: any, track: any) {
 /**
  * Action to create a virtual screenshare participant.
  *
- * @param {(string)} sourceName - JitsiTrack instance.
- * @param {(boolean)} local - JitsiTrack instance.
+ * @param {(string)} sourceName - The source name of the JitsiTrack instance.
+ * @param {(boolean)} local - Whether it's a local or remote participant.
+ * @param {JitsiConference} conference - The conference instance for which the participant is to be created.
  * @returns {Function}
  */
-export function createVirtualScreenshareParticipant(sourceName: string, local: boolean) {
+export function createVirtualScreenshareParticipant(sourceName: string, local: boolean, conference: any) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         const ownerId = getVirtualScreenshareParticipantOwnerId(sourceName);
         const ownerName = getParticipantDisplayName(state, ownerId);
 
         dispatch(participantJoined({
-            conference: state['features/base/conference'].conference,
+            conference,
             fakeParticipant: local ? FakeParticipant.LocalScreenShare : FakeParticipant.RemoteScreenShare,
             id: sourceName,
             name: ownerName

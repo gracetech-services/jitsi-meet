@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 // @ts-expect-error
 import { AUDIO_ONLY_SCREEN_SHARE_NO_TRACK } from '../../../../modules/UI/UIErrors';
 import { IReduxState, IStore } from '../../app/types';
@@ -6,21 +5,18 @@ import { shouldShowModeratedNotification } from '../../av-moderation/functions';
 import { setNoiseSuppressionEnabled } from '../../noise-suppression/actions';
 import { showNotification } from '../../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../../notifications/constants';
-// @ts-ignore
 import { stopReceiver } from '../../remote-control/actions';
-// @ts-ignore
 import { setScreenAudioShareState, setScreenshareAudioTrack } from '../../screen-share/actions';
 import { isAudioOnlySharing, isScreenVideoShared } from '../../screen-share/functions';
-// @ts-ignore
-import { isScreenshotCaptureEnabled, toggleScreenshotCaptureSummary } from '../../screenshot-capture';
+import { toggleScreenshotCaptureSummary } from '../../screenshot-capture/actions';
+import { isScreenshotCaptureEnabled } from '../../screenshot-capture/functions';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import { AudioMixerEffect } from '../../stream-effects/audio-mixer/AudioMixerEffect';
-import { setAudioOnly } from '../audio-only/actions';
 import { getCurrentConference } from '../conference/functions';
 import { JitsiTrackErrors, JitsiTrackEvents } from '../lib-jitsi-meet';
 import { setScreenshareMuted } from '../media/actions';
 import { MEDIA_TYPE, VIDEO_TYPE } from '../media/constants';
-/* eslint-enable lines-around-comment */
 
 import {
     addLocalTrack,
@@ -123,7 +119,7 @@ async function _maybeApplyAudioMixerEffect(desktopAudioTrack: any, state: IRedux
     } else {
         // If no local stream is present ( i.e. no input audio devices) we use the screen share audio
         // stream as we would use a regular stream.
-        await conference.replaceTrack(null, desktopAudioTrack);
+        await conference?.replaceTrack(null, desktopAudioTrack);
     }
 }
 
@@ -228,12 +224,15 @@ async function _toggleScreenSharing(
             }
         }
 
-        // Disable audio-only or best performance mode if the user starts screensharing. This doesn't apply to
-        // audio-only screensharing.
+        // Show notification about more bandwidth usage in audio-only mode if the user starts screensharing. This
+        // doesn't apply to audio-only screensharing.
         const { enabled: bestPerformanceMode } = state['features/base/audio-only'];
 
         if (bestPerformanceMode && !audioOnly) {
-            dispatch(setAudioOnly(false));
+            dispatch(showNotification({
+                titleKey: 'notify.screenSharingAudioOnlyTitle',
+                descriptionKey: 'notify.screenSharingAudioOnlyDescription'
+            }, NOTIFICATION_TIMEOUT_TYPE.LONG));
         }
     } else {
         const { desktopAudioTrack } = state['features/screen-share'];
@@ -250,7 +249,7 @@ async function _toggleScreenSharing(
             if (localAudio) {
                 localAudio.setEffect(undefined);
             } else {
-                await conference.replaceTrack(desktopAudioTrack, null);
+                await conference?.replaceTrack(desktopAudioTrack, null);
             }
             desktopAudioTrack.dispose();
             dispatch(setScreenshareAudioTrack(null));

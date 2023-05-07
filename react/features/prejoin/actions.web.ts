@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { v4 as uuidv4 } from 'uuid';
 
 import { IStore } from '../app/types';
@@ -17,7 +16,6 @@ import {
     getLocalVideoTrack
 } from '../base/tracks/functions';
 import { openURLInBrowser } from '../base/util/openURLInBrowser';
-// @ts-ignore
 import { executeDialOutRequest, executeDialOutStatusRequest, getDialInfoPageURL } from '../invite/functions';
 import { showErrorNotification } from '../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
@@ -92,7 +90,7 @@ function pollForStatus(
                 return;
             }
 
-            const res = await executeDialOutStatusRequest(getDialOutStatusUrl(state), reqId);
+            const res = await executeDialOutStatusRequest(getDialOutStatusUrl(state) ?? '', reqId);
 
             switch (res) {
             case DIAL_OUT_STATUS.INITIATED:
@@ -153,7 +151,7 @@ export function dialOut(onSuccess: Function, onFail: Function) {
     return async function(dispatch: IStore['dispatch'], getState: IStore['getState']) {
         const state = getState();
         const reqId = uuidv4();
-        const url = getDialOutUrl(state);
+        const url = getDialOutUrl(state) ?? '';
         const conferenceUrl = getDialOutConferenceUrl(state);
         const phoneNumber = getFullDialOutNumber(state);
         const countryCode = getDialOutCountry(state).code.toUpperCase();

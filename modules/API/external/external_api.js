@@ -59,6 +59,7 @@ const commands = {
     sendEndpointTextMessage: 'send-endpoint-text-message',
     sendParticipantToRoom: 'send-participant-to-room',
     sendTones: 'send-tones',
+    setAssumedBandwidthBps: 'set-assumed-bandwidth-bps',
     setFollowMe: 'set-follow-me',
     setLargeVideoParticipant: 'set-large-video-participant',
     setMediaEncryptionKey: 'set-media-encryption-key',
@@ -89,7 +90,8 @@ const commands = {
     toggleSubtitles: 'toggle-subtitles',
     toggleTileView: 'toggle-tile-view',
     toggleVirtualBackgroundDialog: 'toggle-virtual-background',
-    toggleVideo: 'toggle-video'
+    toggleVideo: 'toggle-video',
+    toggleWhiteboard: 'toggle-whiteboard'
 };
 
 /**
@@ -106,6 +108,7 @@ const events = {
     'camera-error': 'cameraError',
     'chat-updated': 'chatUpdated',
     'content-sharing-participants-changed': 'contentSharingParticipantsChanged',
+    'data-channel-closed': 'dataChannelClosed',
     'data-channel-opened': 'dataChannelOpened',
     'device-list-changed': 'deviceListChanged',
     'display-name-change': 'displayNameChange',
@@ -116,7 +119,6 @@ const events = {
     'feedback-submitted': 'feedbackSubmitted',
     'feedback-prompt-displayed': 'feedbackPromptDisplayed',
     'filmstrip-display-changed': 'filmstripDisplayChanged',
-    'iframe-dock-state-changed': 'iframeDockStateChanged',
     'incoming-message': 'incomingMessage',
     'knocking-participant': 'knockingParticipant',
     'log': 'log',
@@ -127,6 +129,7 @@ const events = {
     'mouse-enter': 'mouseEnter',
     'mouse-leave': 'mouseLeave',
     'mouse-move': 'mouseMove',
+    'notification-triggered': 'notificationTriggered',
     'outgoing-message': 'outgoingMessage',
     'participant-joined': 'participantJoined',
     'participant-kicked-out': 'participantKickedOut',
@@ -134,11 +137,13 @@ const events = {
     'participant-role-changed': 'participantRoleChanged',
     'participants-pane-toggled': 'participantsPaneToggled',
     'password-required': 'passwordRequired',
+    'peer-connection-failure': 'peerConnectionFailure',
     'prejoin-screen-loaded': 'prejoinScreenLoaded',
     'proxy-connection-event': 'proxyConnectionEvent',
     'raise-hand-updated': 'raiseHandUpdated',
     'recording-link-available': 'recordingLinkAvailable',
     'recording-status-changed': 'recordingStatusChanged',
+    'participant-menu-button-clicked': 'participantMenuButtonClick',
     'video-ready-to-close': 'readyToClose',
     'video-conference-joined': 'videoConferenceJoined',
     'video-conference-left': 'videoConferenceLeft',
@@ -150,7 +155,8 @@ const events = {
     'subject-change': 'subjectChange',
     'suspend-detected': 'suspendDetected',
     'tile-view-changed': 'tileViewChanged',
-    'toolbar-button-clicked': 'toolbarButtonClicked'
+    'toolbar-button-clicked': 'toolbarButtonClicked',
+    'whiteboard-status-changed': 'whiteboardStatusChanged'
 };
 
 /**
@@ -386,8 +392,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
         const frameName = `jitsiConferenceFrame${id}`;
 
         this._frame = document.createElement('iframe');
-        this._frame.allow = 'camera; microphone; display-capture; autoplay; clipboard-write';
-        this._frame.src = this._url;
+        this._frame.allow = 'camera; microphone; display-capture; autoplay; clipboard-write; hid';
         this._frame.name = frameName;
         this._frame.id = frameName;
         this._setSize(height, width);
@@ -399,6 +404,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             // and fires event when it is done
             this._frame.onload = onload;
         }
+        this._frame.src = this._url;
 
         this._frame = this._parentNode.appendChild(this._frame);
     }

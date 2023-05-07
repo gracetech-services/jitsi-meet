@@ -17,8 +17,6 @@ import JitsiMeetJS, { JitsiMediaDevicesEvents, JitsiTrackErrors } from '../lib-j
 import MiddlewareRegistry from '../redux/MiddlewareRegistry';
 import { updateSettings } from '../settings/actions';
 
-import { setLocationURL } from '../connection/actions.web';
-
 import {
     CHECK_AND_NOTIFY_FOR_NEW_DEVICE,
     NOTIFY_CAMERA_ERROR,

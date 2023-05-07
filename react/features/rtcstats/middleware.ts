@@ -14,7 +14,8 @@ import MiddlewareRegistry from '../base/redux/MiddlewareRegistry';
 import { TRACK_ADDED, TRACK_UPDATED } from '../base/tracks/actionTypes';
 import { getCurrentRoomId, isInBreakoutRoom } from '../breakout-rooms/functions';
 import { extractFqnFromPath } from '../dynamic-branding/functions.any';
-import { ADD_FACE_EXPRESSION } from '../face-landmarks/actionTypes';
+import { ADD_FACE_LANDMARKS } from '../face-landmarks/actionTypes';
+import { FaceLandmarks } from '../face-landmarks/types';
 
 import RTCStats from './RTCStats';
 import {
@@ -40,7 +41,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
 
     switch (action.type) {
     case LIB_WILL_INIT: {
-        if (isRtcstatsEnabled(state) && !RTCStats.isInitialized()) {
+        if (isRtcstatsEnabled(state)) {
             // RTCStats "proxies" WebRTC functions such as GUM and RTCPeerConnection by rewriting the global
             // window functions. Because lib-jitsi-meet uses references to those functions that are taken on
             // init, we need to add these proxies before it initializes, otherwise lib-jitsi-meet will use the
@@ -53,7 +54,8 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
 
                 // Initialize but don't connect to the rtcstats server wss, as it will start sending data for all
                 // media calls made even before the conference started.
-                RTCStats.init({
+
+                RTCStats.maybeInit({
                     endpoint: analytics?.rtcstatsEndpoint,
                     meetingFqn: extractFqnFromPath(state),
                     useLegacy,
@@ -63,6 +65,8 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
             } catch (error) {
                 logger.error('Failed to initialize RTCStats: ', error);
             }
+        } else {
+            RTCStats.reset();
         }
         break;
     }
@@ -164,17 +168,19 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
         }
         break;
     }
-    case ADD_FACE_EXPRESSION:
+    case ADD_FACE_LANDMARKS: {
         if (canSendFaceLandmarksRtcstatsData(state)) {
-            const { duration, faceExpression, timestamp } = action;
+            const { duration, faceExpression, timestamp } = action.faceLandmarks as FaceLandmarks;
+            const durationSeconds = Math.round(duration / 1000);
 
             RTCStats.sendFaceLandmarksData({
-                duration,
+                duration: durationSeconds,
                 faceLandmarks: faceExpression,
                 timestamp
             });
         }
         break;
+    }
     case CONFERENCE_TIMESTAMP_CHANGED: {
         if (canSendRtcstatsData(state)) {
             const { conferenceTimestamp } = action;

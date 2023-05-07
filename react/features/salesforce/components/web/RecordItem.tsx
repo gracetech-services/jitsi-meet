@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
@@ -13,25 +12,25 @@ interface IProps {
     /**
      * The id of the record.
      */
-    id: string;
+    id?: string;
 
     /**
      * The name of the record.
      */
-    name: string;
+    name?: string;
 
     /**
      * The handler for the click event.
      */
-    onClick: (e?: React.MouseEvent) => void;
+    onClick?: (e?: React.MouseEvent) => void;
 
     /**
      * The type of the record.
      */
-    type: string;
+    type?: string;
 }
 
-const useStyles = makeStyles()((theme: Theme) => {
+const useStyles = makeStyles()(theme => {
     return {
         recordItem: {
             display: 'flex',
@@ -100,7 +99,7 @@ export const RecordItem = ({
                 <div
                     className = { classes.recordType }
                     key = { type }>
-                    {t(RECORD_TYPE[type].label)}
+                    {t(RECORD_TYPE[type ?? ''].label)}
                 </div>
             </div>
         </li>

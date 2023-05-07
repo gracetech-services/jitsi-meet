@@ -1,24 +1,14 @@
-/* eslint-disable lines-around-comment  */
 import { Component } from 'react';
 import { WithTranslation } from 'react-i18next';
 
 import { createRecordingDialogEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
 import { IReduxState } from '../../../app/types';
-// @ts-ignore
-import { ColorSchemeRegistry } from '../../../base/color-scheme';
-// @ts-ignore
-import {
-    _abstractMapStateToProps
-    // @ts-ignore
-} from '../../../base/dialog';
-// @ts-ignore
-import { StyleType } from '../../../base/styles';
-// @ts-ignore
-import { authorizeDropbox, updateDropboxToken } from '../../../dropbox';
+import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry';
+import { _abstractMapStateToProps } from '../../../base/dialog/functions';
+import { authorizeDropbox, updateDropboxToken } from '../../../dropbox/actions';
 import { isVpaasMeeting } from '../../../jaas/functions';
 import { RECORDING_TYPES } from '../../constants';
-// @ts-ignore
 import { supportsLocalRecording } from '../../functions';
 
 /**
@@ -30,7 +20,7 @@ export interface IProps extends WithTranslation {
     /**
      * Style of the dialogs feature.
      */
-    _dialogStyles: StyleType;
+    _dialogStyles: any;
 
     /**
      * Whether to hide the storage warning or not.
@@ -60,7 +50,7 @@ export interface IProps extends WithTranslation {
     /**
      * The color-schemed stylesheet of this component.
      */
-    _styles: StyleType;
+    _styles: any;
 
     /**
      * The redux dispatch function.
@@ -102,7 +92,7 @@ export interface IProps extends WithTranslation {
     /**
      * Whether or not we should only record the local streams.
      */
-    localRecordingOnlySelf: boolean;
+    localRecordingOnlySelf?: boolean;
 
     /**
      * The function will be called when there are changes related to the
@@ -113,7 +103,7 @@ export interface IProps extends WithTranslation {
     /**
      * Callback to change the local recording only self setting.
      */
-    onLocalRecordingSelfChange: () => void;
+    onLocalRecordingSelfChange?: () => void;
 
     /**
      * Callback to be invoked on sharing setting change.
@@ -133,12 +123,12 @@ export interface IProps extends WithTranslation {
     /**
      * Number of MiB of available space in user's Dropbox account.
      */
-    spaceLeft: number | null;
+    spaceLeft?: number;
 
     /**
      * The display name of the user's Dropbox account.
      */
-    userName: string | null;
+    userName?: string;
 }
 
 /**
@@ -343,7 +333,7 @@ export function mapStateToProps(state: IReduxState) {
     return {
         ..._abstractMapStateToProps(state),
         isVpaas: isVpaasMeeting(state),
-        _hideStorageWarning: recordingService?.hideStorageWarning,
+        _hideStorageWarning: Boolean(recordingService?.hideStorageWarning),
         _localRecordingAvailable,
         _localRecordingEnabled: !localRecording?.disable,
         _localRecordingSelfEnabled: !localRecording?.disableSelfRecording,

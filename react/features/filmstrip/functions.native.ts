@@ -10,14 +10,14 @@ import {
 import Platform from '../base/react/Platform.native';
 import { toState } from '../base/redux/functions';
 import { ASPECT_RATIO_NARROW } from '../base/responsive-ui/constants';
-import { shouldHideSelfView } from '../base/settings/functions.native';
+import { getHideSelfView } from '../base/settings/functions.any';
 // eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import conferenceStyles from '../conference/components/native/styles';
 import { shouldDisplayTileView } from '../video-layout/functions.native';
 
 // @ts-ignore
-import { styles } from './components';
+import styles from './components/native/styles';
 
 export * from './functions.any';
 
@@ -86,6 +86,16 @@ export function getActiveParticipantsIds(_state: any) {
 }
 
 /**
+ * Not implemented on mobile.
+ *
+ * @param {any} _state - Redux state.
+ * @returns {Array<Object>}
+ */
+export function getPinnedActiveParticipants(_state: any) {
+    return [];
+}
+
+/**
  * Returns the number of participants displayed in tile view.
  *
  * @param {Object | Function} stateful - The Object or Function that can be
@@ -94,7 +104,7 @@ export function getActiveParticipantsIds(_state: any) {
  */
 export function getTileViewParticipantCount(stateful: IStateful) {
     const state = toState(stateful);
-    const disableSelfView = shouldHideSelfView(state);
+    const disableSelfView = getHideSelfView(state);
     const localParticipant = getLocalParticipant(state);
     const participantCount = getParticipantCountWithFake(state) - (disableSelfView && localParticipant ? 1 : 0);
 
@@ -142,7 +152,7 @@ export function isFilmstripScrollVisible(state: IReduxState) {
 
     const { aspectRatio, clientWidth, clientHeight, safeAreaInsets = {} } = state['features/base/responsive-ui'];
     const isNarrowAspectRatio = aspectRatio === ASPECT_RATIO_NARROW;
-    const disableSelfView = shouldHideSelfView(state);
+    const disableSelfView = getHideSelfView(state);
     const localParticipant = Boolean(getLocalParticipant(state));
     const localParticipantVisible = localParticipant && !disableSelfView;
     const participantCount
