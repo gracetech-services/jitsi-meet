@@ -101,7 +101,7 @@ class DeepLinkingMobilePage extends Component<Props> {
             = `${_SNS}__button ${_SNS}__button_primary`;
 
         return (
-            <div>
+            <div style={{color:"black",marginLeft:"20px",marginTop:"20px"}}>
                 <h1> {t('GT.title')} </h1>
                 {window.location.pathname.length > 2 &&
                     <>

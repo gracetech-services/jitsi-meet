@@ -171,12 +171,12 @@ const PreMeetingScreen = ({
 }: IProps) => {
     const { t } = useTranslation();
     const { classes } = useStyles();
-    const containerClassName = `premeeting-screen ${className ? className : ''}`;
     const style = _premeetingBackground ? {
         background: _premeetingBackground,
         backgroundPosition: 'center',
-        backgroundSize: 'cover'
-    } : {};
+        backgroundSize: 'cover',
+        color:"black"
+    } : {color:"black", marginLeft:"20px"};
 
     console.log("GT:PreMeetingScreen:",window.location.pathname);
     /*
@@ -189,7 +189,7 @@ const PreMeetingScreen = ({
     */
 
     return (
-        <div className = { containerClassName }>
+        <div className = { clsx('premeeting-screen', classes.container, className) } style={{backgroundColor:"white"}}>
             <div style = { style }>
                 <h1> {t('GT.title')} </h1>
                 {window.location.pathname.length > 2 &&

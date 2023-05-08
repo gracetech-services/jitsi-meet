@@ -180,7 +180,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
     render() {
         const { t } = this.props;
         return (
-            <div>
+            <div style={{color:"black",marginLeft:"20px",marginTop:"20px"}}>
                 <h1> {t('GT.title')} </h1>
                 {window.location.pathname.length > 2 &&
                     <>
