@@ -1,5 +1,7 @@
+/* eslint-disable */
 import { connect } from 'react-redux';
 
+import { IReduxState } from '../../../../app/types';
 import { createToolbarEvent } from '../../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../../analytics/functions';
 import { translate } from '../../../../base/i18n/functions';
@@ -38,7 +40,7 @@ class InviteButton extends AbstractButton<AbstractButtonProps> {
  * @private
  * @returns {Props}
  */
-function _mapStateToProps(state): Object {
+function _mapStateToProps(state: IReduxState): Object {
     return {
         visible: isLocalParticipantModerator(state)
     };

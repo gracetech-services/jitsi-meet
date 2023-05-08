@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
 
@@ -170,6 +171,7 @@ const PreMeetingScreen = ({
 }: IProps) => {
     const { t } = useTranslation();
     const { classes } = useStyles();
+    const containerClassName = `premeeting-screen ${className ? className : ''}`;
     const style = _premeetingBackground ? {
         background: _premeetingBackground,
         backgroundPosition: 'center',

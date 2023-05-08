@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { AnyAction } from 'redux';
 
 import {
@@ -31,7 +33,9 @@ import {
 import MiddlewareRegistry from '../redux/MiddlewareRegistry';
 import { TRACK_ADDED, TRACK_REMOVED } from '../tracks/actionTypes';
 import { destroyLocalTracks } from '../tracks/actions.any';
-
+import {
+    maybeRedirectToWelcomePage
+} from '../../app/actions.web';
 import {
     CONFERENCE_FAILED,
     CONFERENCE_JOINED,
@@ -160,9 +164,9 @@ function _conferenceFailed({ dispatch, getState }: IStore, next: Function, actio
             setTimeout(() => dispatch(leaveConference()), CONFERENCE_DESTROYED_LEAVE_TIMEOUT);
         }
         
-        setTimeout(()=>APP.store.dispatch(maybeRedirectToWelcomePage(), 200));
+        setTimeout(()=> APP.store.dispatch(maybeRedirectToWelcomePage()), 200);
         //meeting ended
-        windows.close();
+        window.close();
         break;
     }
     case JitsiConferenceErrors.CONFERENCE_RESTARTED: {

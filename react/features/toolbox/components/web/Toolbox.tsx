@@ -53,10 +53,9 @@ import {
     addReactionToBuffer,
     toggleReactionsMenuVisibility
 } from '../../../reactions/actions.web';
-import RaiseHandButton from '../../../reactions/components/web/RaiseHandButton';
-import ReactionsMenuButton from '../../../reactions/components/web/ReactionsMenuButton';
 // @ts-ignore
 import RaiseHandButton from '../../../reactions/components/web/RaiseHandButton';
+import ReactionsMenuButton from '../../../reactions/components/web/ReactionsMenuButton';
 import { REACTIONS } from '../../../reactions/constants';
 import { isReactionsButtonEnabled, isReactionsEnabled } from '../../../reactions/functions.web';
 import LiveStreamButton from '../../../recording/components/LiveStream/web/LiveStreamButton';
