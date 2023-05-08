@@ -69,7 +69,7 @@ export const RoomList = ({ searchString }: IProps) => {
         <>
             {inBreakoutRoom && <LeaveButton className = { classes.topMargin } />}
             {showAutoAssign && <AutoAssignButton className = { classes.topMargin } />}
-            {showAutoAssign && rooms.length > 0 && <CloseAllRoomsButton />}
+            {showAutoAssign && rooms.length > 0 && <CloseAllRoomsButton className = { classes.topMargin } />}
             <div
                 className = { classes.topMargin }
                 id = 'breakout-rooms-list'>

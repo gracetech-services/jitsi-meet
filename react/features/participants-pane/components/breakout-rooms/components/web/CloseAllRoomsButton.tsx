@@ -8,7 +8,11 @@ import Button from "../../../../../base/ui/components/web/Button";
 import { BUTTON_TYPES } from "../../../../../base/ui/constants.web";
 import { removeAllRoomAndAdd } from "./functions";
 
-export const CloseAllRoomsButton = () => {
+interface IProps {
+    className?: string;
+}
+
+export const CloseAllRoomsButton = ({ className }: IProps) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
@@ -19,6 +23,7 @@ export const CloseAllRoomsButton = () => {
     return (
         <Button
             accessibilityLabel={t("breakoutRooms.actions.closeAll")}
+            className = { className }
             fullWidth={true}
             labelKey={"breakoutRooms.actions.closeAll"}
             onClick={onCloseAll}
