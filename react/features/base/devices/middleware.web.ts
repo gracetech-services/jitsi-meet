@@ -188,7 +188,7 @@ MiddlewareRegistry.register(store => next => action => {
             store.dispatch(setDeviceStatusWarning(titleKey));
         }
 
-        MicErrorOut();
+        //MicErrorOut();
         break;
     }
     case SET_AUDIO_INPUT_DEVICE:

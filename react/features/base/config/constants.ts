@@ -47,7 +47,7 @@ export const TOOLBAR_BUTTONS = [
     //'stats',
     'tileview',
     //'toggle-camera',
-    'videoquality', //TODO --- set default based on moderator ==
+    //'videoquality', //TODO --- set default based on moderator ==
       //TODO: this remove it from the menu bar, but still on the top along with conf time...
     //'whiteboard'
 ];
