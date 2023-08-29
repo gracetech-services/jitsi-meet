@@ -36,7 +36,6 @@ const commands = {
     cancelPrivateChat: 'cancel-private-chat',
     closeBreakoutRoom: 'close-breakout-room',
     displayName: 'display-name',
-    e2eeKey: 'e2ee-key',
     endConference: 'end-conference',
     email: 'email',
     grantModerator: 'grant-moderator',
@@ -55,6 +54,7 @@ const commands = {
     removeBreakoutRoom: 'remove-breakout-room',
     resizeFilmStrip: 'resize-film-strip',
     resizeLargeVideo: 'resize-large-video',
+    sendCameraFacingMode: 'send-camera-facing-mode-message',
     sendChatMessage: 'send-chat-message',
     sendEndpointTextMessage: 'send-endpoint-text-message',
     sendParticipantToRoom: 'send-participant-to-room',
@@ -107,11 +107,13 @@ const events = {
     'browser-support': 'browserSupport',
     'camera-error': 'cameraError',
     'chat-updated': 'chatUpdated',
+    'compute-pressure-changed': 'computePressureChanged',
     'content-sharing-participants-changed': 'contentSharingParticipantsChanged',
     'data-channel-closed': 'dataChannelClosed',
     'data-channel-opened': 'dataChannelOpened',
     'device-list-changed': 'deviceListChanged',
     'display-name-change': 'displayNameChange',
+    'dominant-speaker-changed': 'dominantSpeakerChanged',
     'email-change': 'emailChange',
     'error-occurred': 'errorOccurred',
     'endpoint-text-message-received': 'endpointTextMessageReceived',
@@ -129,8 +131,10 @@ const events = {
     'mouse-enter': 'mouseEnter',
     'mouse-leave': 'mouseLeave',
     'mouse-move': 'mouseMove',
+    'non-participant-message-received': 'nonParticipantMessageReceived',
     'notification-triggered': 'notificationTriggered',
     'outgoing-message': 'outgoingMessage',
+    'p2p-status-changed': 'p2pStatusChanged',
     'participant-joined': 'participantJoined',
     'participant-kicked-out': 'participantKickedOut',
     'participant-left': 'participantLeft',
@@ -151,7 +155,6 @@ const events = {
     'video-mute-status-changed': 'videoMuteStatusChanged',
     'video-quality-changed': 'videoQualityChanged',
     'screen-sharing-status-changed': 'screenSharingStatusChanged',
-    'dominant-speaker-changed': 'dominantSpeakerChanged',
     'subject-change': 'subjectChange',
     'suspend-detected': 'suspendDetected',
     'tile-view-changed': 'tileViewChanged',
@@ -316,6 +319,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
      * @param {string}  [options.e2eeKey] - The key used for End-to-End encryption.
      * THIS IS EXPERIMENTAL.
      * @param {string}  [options.release] - The key used for specifying release if enabled on the backend.
+     * @param {string} [options.sandbox] - Sandbox directive for the created iframe, if desired.
      */
     constructor(domain, ...args) {
         super();
@@ -333,7 +337,8 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             devices,
             userInfo,
             e2eeKey,
-            release
+            release,
+            sandbox = ''
         } = parseArguments(args);
         const localStorageContent = jitsiLocalStorage.getItem('jitsiLocalStorage');
 
@@ -351,7 +356,7 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             },
             release
         });
-        this._createIFrame(height, width, onload);
+        this._createIFrame(height, width, onload, sandbox);
         this._transport = new Transport({
             backend: new PostMessageTransportBackend({
                 postisOptions: {
@@ -384,20 +389,25 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
      * parseSizeParam for format details.
      * @param {Function} onload - The function that will listen
      * for onload event.
+     * @param {string} sandbox - Sandbox directive for the created iframe, if desired.
      * @returns {void}
      *
      * @private
      */
-    _createIFrame(height, width, onload) {
+    _createIFrame(height, width, onload, sandbox) {
         const frameName = `jitsiConferenceFrame${id}`;
 
         this._frame = document.createElement('iframe');
-        this._frame.allow = 'camera; microphone; display-capture; autoplay; clipboard-write; hid';
+        this._frame.allow = 'camera; microphone; display-capture; autoplay; clipboard-write; hid; screen-wake-lock';
         this._frame.name = frameName;
         this._frame.id = frameName;
         this._setSize(height, width);
         this._frame.setAttribute('allowFullScreen', 'true');
         this._frame.style.border = 0;
+
+        if (sandbox) {
+            this._frame.sandbox = sandbox;
+        }
 
         if (onload) {
             // waits for iframe resources to load
@@ -554,7 +564,22 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
             switch (name) {
             case 'video-conference-joined': {
                 if (typeof this._tmpE2EEKey !== 'undefined') {
-                    this.executeCommand(commands.e2eeKey, this._tmpE2EEKey);
+
+                    const hexToBytes = hex => {
+                        const bytes = [];
+
+                        for (let c = 0; c < hex.length; c += 2) {
+                            bytes.push(parseInt(hex.substring(c, c + 2), 16));
+                        }
+
+                        return bytes;
+                    };
+
+                    this.executeCommand('setMediaEncryptionKey', JSON.stringify({
+                        exportedKey: hexToBytes(this._tmpE2EEKey),
+                        index: 0
+                    }));
+
                     this._tmpE2EEKey = undefined;
                 }
 
@@ -672,7 +697,6 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
         this._numberOfParticipants = allParticipants;
     }
 
-
     /**
      * Returns the rooms info in the conference.
      *
@@ -681,6 +705,17 @@ export default class JitsiMeetExternalAPI extends EventEmitter {
     async getRoomsInfo() {
         return this._transport.sendRequest({
             name: 'rooms-info'
+        });
+    }
+
+    /**
+     * Returns whether the conference is P2P.
+     *
+     * @returns {Promise}
+     */
+    isP2pActive() {
+        return this._transport.sendRequest({
+            name: 'get-p2p-status'
         });
     }
 

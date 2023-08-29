@@ -69,6 +69,7 @@ const useStyles = makeStyles()(theme => {
 const DeviceSelector = ({
     devices,
     hasPermission,
+    id,
     isDisabled,
     label,
     onSelect,
@@ -103,6 +104,7 @@ const DeviceSelector = ({
 
         return (
             <Select
+                id = { id }
                 label = { t(label) }
                 onChange = { _onSelect }
                 options = { options.items }
@@ -128,7 +130,7 @@ const DeviceSelector = ({
         return _renderNoPermission();
     }
 
-    if (!devices || !devices.length) {
+    if (!devices?.length) {
         return _renderNoDevices();
     }
 

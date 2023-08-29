@@ -1,21 +1,18 @@
-/* eslint-disable lines-around-comment */
 import React, { PureComponent } from 'react';
 import { WithTranslation } from 'react-i18next';
 import { Text, TextStyle, View, ViewStyle } from 'react-native';
 import { connect } from 'react-redux';
 
-import { IReduxState } from '../../../app/types';
+import { IReduxState, IStore } from '../../../app/types';
 import Avatar from '../../../base/avatar/components/Avatar';
 import { hideSheet } from '../../../base/dialog/actions';
-// @ts-ignore
 import BottomSheet from '../../../base/dialog/components/native/BottomSheet';
-// @ts-ignore
 import { bottomSheetStyles } from '../../../base/dialog/components/native/styles';
 import { translate } from '../../../base/i18n/functions';
 import { getBreakoutRooms } from '../../../breakout-rooms/functions';
+// eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import SendToBreakoutRoom from '../../../video-menu/components/native/SendToBreakoutRoom';
-// @ts-ignore
 import styles from '../../../video-menu/components/native/styles';
 
 /**
@@ -33,7 +30,7 @@ interface IProps extends WithTranslation {
     /**
      * The Redux dispatch function.
      */
-    dispatch: Function;
+    dispatch: IStore['dispatch'];
 
     /**
      * The jid of the selected participant.

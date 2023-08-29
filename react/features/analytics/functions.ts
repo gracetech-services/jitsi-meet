@@ -175,7 +175,15 @@ export function initAnalytics(store: IStore, handlers: Array<Object>) {
     const { group, server } = state['features/base/jwt'];
     const { locationURL = { href: '' } } = state['features/base/connection'];
     const { tenant } = parseURIString(locationURL.href) || {};
-    const permanentProperties: any = {};
+    const permanentProperties: {
+        appName?: string;
+        externalApi?: boolean;
+        group?: string;
+        inIframe?: boolean;
+        server?: string;
+        tenant?: string;
+        websocket?: boolean;
+    } & typeof deploymentInfo = {};
 
     if (server) {
         permanentProperties.server = server;
@@ -204,7 +212,8 @@ export function initAnalytics(store: IStore, handlers: Array<Object>) {
     if (deploymentInfo) {
         for (const key in deploymentInfo) {
             if (deploymentInfo.hasOwnProperty(key)) {
-                permanentProperties[key] = deploymentInfo[key as keyof typeof deploymentInfo];
+                permanentProperties[key as keyof typeof deploymentInfo] = deploymentInfo[
+                    key as keyof typeof deploymentInfo];
             }
         }
     }
@@ -237,7 +246,7 @@ export function initAnalytics(store: IStore, handlers: Array<Object>) {
  * @returns {Promise} Resolves with the handlers that have been successfully loaded and rejects if there are no handlers
  * loaded or the analytics is disabled.
  */
-function _loadHandlers(scriptURLs: any[] = [], handlerConstructorOptions: Object) {
+function _loadHandlers(scriptURLs: string[] = [], handlerConstructorOptions: Object) {
     const promises: Promise<{ error?: Error; type: string; url?: string; }>[] = [];
 
     for (const url of scriptURLs) {

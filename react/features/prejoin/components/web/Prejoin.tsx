@@ -20,6 +20,8 @@ import { getLocalJitsiVideoTrack } from '../../../base/tracks/functions.web';
 import Button from '../../../base/ui/components/web/Button';
 import Input from '../../../base/ui/components/web/Input';
 import { BUTTON_TYPES } from '../../../base/ui/constants.any';
+import isInsecureRoomName from '../../../base/util/isInsecureRoomName';
+import { isUnsafeRoomWarningEnabled } from '../../../prejoin/functions';
 import {
     joinConference as joinConferenceAction,
     joinConferenceWithoutAudio as joinConferenceWithoutAudioAction,
@@ -106,6 +108,16 @@ interface IProps {
      * If should show an error when joining without a name.
      */
     showErrorOnJoin: boolean;
+
+    /**
+     * If should show unsafe room warning when joining.
+     */
+    showUnsafeRoomWarning: boolean;
+
+    /**
+     * Whether the user has approved to join a room with unsafe name.
+     */
+    unsafeRoomConsent?: boolean;
 
     /**
      * Updates settings.
@@ -195,6 +207,8 @@ const Prejoin = ({
     showCameraPreview,
     showDialog,
     showErrorOnJoin,
+    showUnsafeRoomWarning,
+    unsafeRoomConsent,
     updateSettings: dispatchUpdateSettings,
     videoTrack
 }: IProps) => {
@@ -353,6 +367,7 @@ const Prejoin = ({
     return (
         <PreMeetingScreen
             showDeviceStatus = { deviceStatusVisible }
+            showUnsafeRoomWarning = { showUnsafeRoomWarning }
             title = { t('prejoin.joinMeeting') }
             videoMuted = { !showCameraPreview }
             videoTrack = { videoTrack }>
@@ -360,12 +375,14 @@ const Prejoin = ({
                 className = { classes.inputContainer }
                 data-testid = 'prejoin.screen'>
                 {showDisplayNameField.current ? (<Input
+                    accessibilityLabel = { t('dialog.enterDisplayName') }
                     autoComplete = { 'name' }
                     autoFocus = { true }
                     className = { classes.input }
                     error = { showErrorOnJoin }
+                    id = 'premeeting-name-input'
                     onChange = { setName }
-                    onKeyPress = { onInputKeyPress }
+                    onKeyPress = { showUnsafeRoomWarning && !unsafeRoomConsent ? undefined : onInputKeyPress }
                     placeholder = { t('dialog.enterDisplayName') }
                     readOnly = { readOnlyName }
                     value = { name } />
@@ -405,7 +422,7 @@ const Prejoin = ({
                             ariaDropDownLabel = { t('prejoin.joinWithoutAudio') }
                             ariaLabel = { t('prejoin.joinMeeting') }
                             ariaPressed = { showJoinByPhoneButtons }
-                            disabled = { joiningInProgress }
+                            disabled = { joiningInProgress || (showUnsafeRoomWarning && !unsafeRoomConsent) }
                             hasOptions = { hasExtraJoinButtons }
                             onClick = { onJoinButtonClick }
                             onOptionsClick = { onOptionsClick }
@@ -439,6 +456,8 @@ function mapStateToProps(state: IReduxState) {
     const showErrorOnJoin = isDisplayNameRequired(state) && !name;
     const { id: participantId } = getLocalParticipant(state) ?? {};
     const { joiningInProgress } = state['features/prejoin'];
+    const { room } = state['features/base/conference'];
+    const { unsafeRoomConsent } = state['features/base/premeeting'];
 
     return {
         canEditDisplayName: isPrejoinDisplayNameVisible(state),
@@ -452,6 +471,8 @@ function mapStateToProps(state: IReduxState) {
         showCameraPreview: !isVideoMutedByUser(state),
         showDialog: isJoinByPhoneDialogVisible(state),
         showErrorOnJoin,
+        showUnsafeRoomWarning: isInsecureRoomName(room) && isUnsafeRoomWarningEnabled(state),
+        unsafeRoomConsent,
         videoTrack: getLocalJitsiVideoTrack(state)
     };
 }

@@ -38,7 +38,8 @@ export interface IProps extends AbstractButtonProps {
  * An abstract class of a button for starting and stopping live streaming.
  */
 export default class AbstractLiveStreamButton<P extends IProps> extends AbstractButton<P> {
-    accessibilityLabel = 'dialog.accessibilityLabel.liveStreaming';
+    accessibilityLabel = 'dialog.startLiveStreaming';
+    toggledAccessibilityLabel = 'dialog.stopLiveStreaming';
     icon = IconSites;
     label = 'dialog.startLiveStreaming';
     toggledLabel = 'dialog.stopLiveStreaming';
@@ -131,8 +132,11 @@ export function _mapStateToProps(state: IReduxState, ownProps: IProps) {
         const isModerator = isLocalParticipantModerator(state);
         const liveStreaming = getLiveStreaming(state);
 
-        visible = isModerator && liveStreaming.enabled;
-        visible = isJwtFeatureEnabled(state, 'livestreaming', visible);
+        if (isModerator) {
+            visible = liveStreaming.enabled ? isJwtFeatureEnabled(state, 'livestreaming', true) : false;
+        } else {
+            visible = false;
+        }
     }
 
     // disable the button if the recording is running.

@@ -1,6 +1,4 @@
 import { IReduxState, IStore } from '../../app/types';
-// eslint-disable-next-line lines-around-comment
-// @ts-ignore
 import { setPictureInPictureEnabled } from '../../mobile/picture-in-picture/functions';
 import { showNotification } from '../../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../../notifications/constants';
@@ -50,7 +48,7 @@ export function toggleScreensharing(enabled: boolean, _ignore1?: boolean, _ignor
  * @param {Object} state - The redux state.
  * @returns {void}
  */
-async function _startScreenSharing(dispatch: Function, state: IReduxState) {
+async function _startScreenSharing(dispatch: IStore['dispatch'], state: IReduxState) {
     setPictureInPictureEnabled(false);
 
     try {

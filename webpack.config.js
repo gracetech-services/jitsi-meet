@@ -136,7 +136,6 @@ function getConfig(options = {}) {
 
                             }
                         ],
-                        require.resolve('@babel/preset-flow'),
                         require.resolve('@babel/preset-react')
                     ]
                 },
@@ -300,7 +299,7 @@ module.exports = (_env, argv) => {
         ,
         Object.assign({}, config, {
             entry: {
-                'alwaysontop': './react/features/always-on-top/index.js'
+                'alwaysontop': './react/features/always-on-top/index.tsx'
             },
             /*
             plugins: [

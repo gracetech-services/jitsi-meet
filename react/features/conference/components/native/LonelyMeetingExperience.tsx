@@ -3,7 +3,7 @@ import { WithTranslation } from 'react-i18next';
 import { Text, View, ViewStyle } from 'react-native';
 import { connect } from 'react-redux';
 
-import { IReduxState } from '../../../app/types';
+import { IReduxState, IStore } from '../../../app/types';
 import { INVITE_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
 import { translate } from '../../../base/i18n/functions';
@@ -20,7 +20,6 @@ import { isInBreakoutRoom } from '../../../breakout-rooms/functions';
 import { doInvitePeople } from '../../../invite/actions.native';
 import { getInviteOthersControl } from '../../../share-room/functions';
 
-// @ts-ignore
 import styles from './styles';
 
 
@@ -57,7 +56,7 @@ interface IProps extends WithTranslation {
     /**
      * The Redux Dispatch function.
      */
-    dispatch: Function;
+    dispatch: IStore['dispatch'];
 }
 
 /**

@@ -1,3 +1,4 @@
+import { IStore } from '../../app/types';
 import RTCStats from '../../rtcstats/RTCStats';
 import { canSendRtcstatsData } from '../../rtcstats/functions';
 import { getCurrentConference } from '../conference/functions';
@@ -8,14 +9,14 @@ import { getCurrentConference } from '../conference/functions';
  */
 export default class JitsiMeetLogStorage {
     counter: number;
-    getState: Function;
+    getState: IStore['getState'];
 
     /**
      * Creates new <tt>JitsiMeetLogStorage</tt>.
      *
      * @param {Function} getState - The Redux store's {@code getState} method.
      */
-    constructor(getState: Function) {
+    constructor(getState: IStore['getState']) {
         /**
          * Counts each log entry, increases on every batch log entry stored.
          *
@@ -90,7 +91,7 @@ export default class JitsiMeetLogStorage {
     storeLogsCallstats(logEntries: Array<string | any>) {
         const conference = getCurrentConference(this.getState());
 
-        if (!conference || !conference.isCallstatsEnabled()) {
+        if (!conference?.isCallstatsEnabled()) {
             // Discard the logs if CallStats is not enabled.
             return;
         }

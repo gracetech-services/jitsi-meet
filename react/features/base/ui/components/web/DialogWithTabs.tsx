@@ -1,5 +1,4 @@
 import React, { ComponentType, useCallback, useEffect, useMemo, useState } from 'react';
-import { MoveFocusInside } from 'react-focus-lock';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
@@ -153,7 +152,7 @@ export interface IDialogTab<P> {
     labelKey: string;
     name: string;
     props?: IObject;
-    propsUpdateFunction?: (tabState: IObject, newProps: P) => P;
+    propsUpdateFunction?: (tabState: IObject, newProps: P, tabStates?: (IObject | undefined)[]) => P;
     submit?: Function;
 }
 
@@ -187,7 +186,7 @@ const DialogWithTabs = ({
 
     useEffect(() => {
         if (isMobile) {
-            setSelectedTab(undefined);
+            setSelectedTab(defaultTab);
         } else {
             setSelectedTab(defaultTab ?? tabs[0].name);
         }
@@ -257,7 +256,8 @@ const DialogWithTabs = ({
         if (tabConfiguration.propsUpdateFunction) {
             return tabConfiguration.propsUpdateFunction(
                 currentTabState ?? {},
-                tabConfiguration.props ?? {});
+                tabConfiguration.props ?? {},
+                tabStates);
         }
 
         return { ...currentTabState };
@@ -316,20 +316,19 @@ const DialogWithTabs = ({
         <BaseDialog
             className = { cx(classes.dialog, className) }
             onClose = { onClose }
-            size = 'large'>
+            size = 'large'
+            titleKey = { titleKey }>
             {(!isMobile || !selectedTab) && (
                 <div
                     aria-orientation = 'vertical'
                     className = { classes.sidebar }
                     role = { isMobile ? undefined : 'tablist' }>
                     <div className = { classes.titleContainer }>
-                        <MoveFocusInside>
-                            <h2
-                                className = { classes.title }
-                                tabIndex = { -1 }>
-                                {t(titleKey ?? '')}
-                            </h2>
-                        </MoveFocusInside>
+                        <h1
+                            className = { classes.title }
+                            tabIndex = { -1 }>
+                            {t(titleKey ?? '')}
+                        </h1>
                         {isMobile && closeIcon}
                     </div>
                     {tabs.map((tab, index) => {
@@ -365,11 +364,11 @@ const DialogWithTabs = ({
                     {isMobile && (
                         <div className = { cx(classes.buttonContainer, classes.header) }>
                             <span className = { classes.backContainer }>
-                                <h2
+                                <h1
                                     className = { classes.title }
                                     tabIndex = { -1 }>
                                     {(selectedTabIndex !== null) && t(tabs[selectedTabIndex].labelKey)}
-                                </h2>
+                                </h1>
                                 <ClickableIcon
                                     accessibilityLabel = { t('dialog.Back') }
                                     icon = { IconArrowBack }
@@ -400,13 +399,13 @@ const DialogWithTabs = ({
                     <div
                         className = { cx(classes.buttonContainer, classes.footer) }>
                         <Button
-                            accessibilityLabel = { t('dialog.Cancel') }
+                            accessibilityLabel = { t('dialog.accessibilityLabel.Cancel') }
                             id = 'modal-dialog-cancel-button'
                             labelKey = { 'dialog.Cancel' }
                             onClick = { onClose }
                             type = 'tertiary' />
                         <Button
-                            accessibilityLabel = { t('dialog.Ok') }
+                            accessibilityLabel = { t('dialog.accessibilityLabel.Ok') }
                             id = 'modal-dialog-ok-button'
                             labelKey = { 'dialog.Ok' }
                             onClick = { onSubmit } />

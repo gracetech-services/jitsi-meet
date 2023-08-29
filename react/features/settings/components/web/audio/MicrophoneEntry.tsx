@@ -3,8 +3,6 @@ import { makeStyles } from 'tss-react/mui';
 
 import Icon from '../../../../base/icons/components/Icon';
 import { IconCheck, IconExclamationSolid } from '../../../../base/icons/svg';
-// eslint-disable-next-line lines-around-comment
-// @ts-ignore
 import JitsiMeetJS from '../../../../base/lib-jitsi-meet/_';
 import ContextMenuItem from '../../../../base/ui/components/web/ContextMenuItem';
 import { TEXT_OVERFLOW_TYPES } from '../../../../base/ui/constants.any';
@@ -55,8 +53,6 @@ interface IProps {
      */
     length: number;
 
-
-    listHeaderId: string;
 
     /**
     * Used to decide whether to listen to audio level changes.
@@ -114,7 +110,6 @@ const MicrophoneEntry = ({
     isSelected,
     length,
     jitsiTrack,
-    listHeaderId,
     measureAudioLevels,
     onClick: propsClick
 }: IProps) => {
@@ -140,7 +135,7 @@ const MicrophoneEntry = ({
      * @returns {void}
      */
     const onKeyPress = useCallback((e: React.KeyboardEvent) => {
-        if (e.key === ' ') {
+        if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             propsClick(deviceId);
         }
@@ -192,14 +187,9 @@ const MicrophoneEntry = ({
         activeTrackRef.current = jitsiTrack;
     }, [ jitsiTrack ]);
 
-    const deviceTextId = `choose_microphone${deviceId}`;
-
-    const labelledby = `${listHeaderId} ${deviceTextId} `;
-
     return (
         <li
             aria-checked = { isSelected }
-            aria-labelledby = { labelledby }
             aria-posinset = { index }
             aria-setsize = { length }
             className = { classes.container }
@@ -208,7 +198,7 @@ const MicrophoneEntry = ({
             role = 'radio'
             tabIndex = { 0 }>
             <ContextMenuItem
-                accessibilityLabel = ''
+                accessibilityLabel = { children }
                 icon = { isSelected ? IconCheck : undefined }
                 overflowType = { TEXT_OVERFLOW_TYPES.SCROLL_ON_HOVER }
                 selected = { isSelected }

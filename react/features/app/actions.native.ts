@@ -1,4 +1,3 @@
-/* eslint-disable lines-around-comment */
 import { setRoom } from '../base/conference/actions';
 import {
     configWillLoad,
@@ -9,10 +8,11 @@ import {
 import {
     createFakeConfig,
     restoreConfig
-} from '../base/config/functions';
-import { connect, disconnect, setLocationURL } from '../base/connection/actions';
+} from '../base/config/functions.native';
+import { connect, disconnect, setLocationURL } from '../base/connection/actions.native';
 import { loadConfig } from '../base/lib-jitsi-meet/functions.native';
-import { createDesiredLocalTracks } from '../base/tracks/actions';
+import { createDesiredLocalTracks } from '../base/tracks/actions.native';
+import isInsecureRoomName from '../base/util/isInsecureRoomName';
 import { parseURLParams } from '../base/util/parseURLParams';
 import {
     appendURLParam,
@@ -20,16 +20,14 @@ import {
     parseURIString,
     toURLString
 } from '../base/util/uri';
-// @ts-ignore
 import { isPrejoinPageEnabled } from '../mobile/navigation/functions';
 import {
     goBackToRoot,
     navigateRoot
-    // @ts-ignore
 } from '../mobile/navigation/rootNavigationContainerRef';
-// @ts-ignore
 import { screen } from '../mobile/navigation/routes';
 import { clearNotifications } from '../notifications/actions';
+import { isUnsafeRoomWarningEnabled } from '../prejoin/functions';
 
 import { addTrackStateToURL, getDefaultURL } from './functions.native';
 import logger from './logger';
@@ -55,7 +53,7 @@ export function appNavigate(uri?: string, options: IReloadNowOptions = {}) {
 
         // If the specified location (URI) does not identify a host, use the app's
         // default.
-        if (!location || !location.host) {
+        if (!location?.host) {
             const defaultLocation = parseURIString(getDefaultURL(getState));
 
             if (location) {
@@ -139,21 +137,24 @@ export function appNavigate(uri?: string, options: IReloadNowOptions = {}) {
         dispatch(setConfig(config));
         dispatch(setRoom(room));
 
-        if (room) {
-            dispatch(createDesiredLocalTracks());
-            dispatch(clearNotifications());
+        if (!room) {
+            goBackToRoot(getState(), dispatch);
 
-            // @ts-ignore
-            const { hidePrejoin } = options;
+            return;
+        }
 
-            if (!hidePrejoin && isPrejoinPageEnabled(getState())) {
-                navigateRoot(screen.preJoin);
+        dispatch(createDesiredLocalTracks());
+        dispatch(clearNotifications());
+
+        if (!options.hidePrejoin && isPrejoinPageEnabled(getState())) {
+            if (isUnsafeRoomWarningEnabled(getState()) && isInsecureRoomName(room)) {
+                navigateRoot(screen.unsafeRoomWarning);
             } else {
-                dispatch(connect());
-                navigateRoot(screen.conference.root);
+                navigateRoot(screen.preJoin);
             }
         } else {
-            goBackToRoot(getState(), dispatch);
+            dispatch(connect());
+            navigateRoot(screen.conference.root);
         }
     };
 }

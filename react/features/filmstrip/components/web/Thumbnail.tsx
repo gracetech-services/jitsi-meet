@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import { createScreenSharingIssueEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
-import { IReduxState } from '../../../app/types';
+import { IReduxState, IStore } from '../../../app/types';
 import Avatar from '../../../base/avatar/components/Avatar';
 import { isMobileBrowser } from '../../../base/environment/utils';
 import { translate } from '../../../base/i18n/functions';
@@ -232,7 +232,7 @@ export interface IProps extends WithTranslation {
     /**
      * The redux dispatch function.
      */
-    dispatch: Function;
+    dispatch: IStore['dispatch'];
 
     /**
      * The type of filmstrip the tile is displayed in.
@@ -903,6 +903,7 @@ class Thumbnail extends Component<IProps, IState> {
                 tabIndex = { 0 }>
                 {avatarURL ? (
                     <img
+                        alt = ''
                         className = 'sharedVideoAvatar'
                         src = { avatarURL } />
                 )
@@ -1105,6 +1106,20 @@ class Thumbnail extends Component<IProps, IState> {
                     ? <span id = 'localVideoWrapper'>{video}</span>
                     : video)}
                 <div className = { classes.containerBackground } />
+                {/* put the bottom container before the top container in the dom,
+                because it contains the participant name that should be announced first by screen readers */}
+                <div
+                    className = { clsx(classes.indicatorsContainer,
+                        classes.indicatorsBottomContainer,
+                        _thumbnailType === THUMBNAIL_TYPE.TILE && 'tile-view-mode'
+                    ) }>
+                    <ThumbnailBottomIndicators
+                        className = { classes.indicatorsBackground }
+                        local = { local }
+                        participantId = { id }
+                        showStatusIndicators = { !isWhiteboardParticipant(_participant) }
+                        thumbnailType = { _thumbnailType } />
+                </div>
                 <div
                     className = { clsx(classes.indicatorsContainer,
                         classes.indicatorsTopContainer,
@@ -1122,18 +1137,6 @@ class Thumbnail extends Component<IProps, IState> {
                         thumbnailType = { _thumbnailType } />
                 </div>
                 {_shouldDisplayTintBackground && <div className = { classes.tintBackground } />}
-                <div
-                    className = { clsx(classes.indicatorsContainer,
-                        classes.indicatorsBottomContainer,
-                        _thumbnailType === THUMBNAIL_TYPE.TILE && 'tile-view-mode'
-                    ) }>
-                    <ThumbnailBottomIndicators
-                        className = { classes.indicatorsBackground }
-                        local = { local }
-                        participantId = { id }
-                        showStatusIndicators = { !isWhiteboardParticipant(_participant) }
-                        thumbnailType = { _thumbnailType } />
-                </div>
                 {!_gifSrc && this._renderAvatar(styles.avatar) }
                 { !local && (
                     <div className = 'presence-label-container'>
@@ -1306,9 +1309,17 @@ function _mapStateToProps(state: IReduxState, ownProps: any): Object {
         const { thumbnailSize } = state['features/filmstrip'].tileViewDimensions ?? { thumbnailSize: undefined };
         const {
             stageFilmstripDimensions = {
-                thumbnailSize: {}
+                thumbnailSize: {
+                    height: undefined,
+                    width: undefined
+                }
             },
-            screenshareFilmstripDimensions
+            screenshareFilmstripDimensions = {
+                thumbnailSize: {
+                    height: undefined,
+                    width: undefined
+                }
+            }
         } = state['features/filmstrip'];
 
         size = {
@@ -1317,16 +1328,19 @@ function _mapStateToProps(state: IReduxState, ownProps: any): Object {
         };
 
         if (filmstripType === FILMSTRIP_TYPE.STAGE) {
-            // @ts-ignore
-            const { width: _width, height: _height } = stageFilmstripDimensions.thumbnailSize;
+            const { width: _width, height: _height } = stageFilmstripDimensions.thumbnailSize ?? {
+                width: undefined,
+                height: undefined };
 
             size = {
                 _width,
                 _height
             };
         } else if (filmstripType === FILMSTRIP_TYPE.SCREENSHARE) {
-            // @ts-ignore
-            const { width: _width, height: _height } = screenshareFilmstripDimensions.thumbnailSize;
+            const { width: _width, height: _height } = screenshareFilmstripDimensions.thumbnailSize ?? {
+                width: undefined,
+                height: undefined
+            };
 
             size = {
                 _width,

@@ -74,6 +74,9 @@ var config = {
     //
 
     testing: {
+        // Allows the setting of a custom bandwidth value from the UI.
+        // assumeBandwidth: true,
+
         // Disables the End to End Encryption feature. Useful for debugging
         // issues related to insertable streams.
         // disableE2EE: false,
@@ -453,12 +456,8 @@ var config = {
     //    // to take effect.
     //    preferredCodec: 'VP8',
     //
-    //    // Provides a way to enforce the preferred codec for the conference even when the conference has endpoints
-    //    // that do not support the preferred codec. For example, older versions of Safari do not support VP9 yet.
-    //    // This will result in Safari not being able to decode video from endpoints sending VP9 video.
-    //    // When set to false, the conference falls back to VP8 whenever there is an endpoint that doesn't support the
-    //    // preferred codec and goes back to the preferred codec when that endpoint leaves.
-    //    enforcePreferredCodec: false,
+    //    // Provides a way to set the codec preference on desktop based endpoints.
+    //    codecPreferenceOrder: [ 'VP9', 'VP8', 'H264' ],
     //
     //    // Provides a way to configure the maximum bitrates that will be enforced on the simulcast streams for
     //    // video tracks. The keys in the object represent the type of the stream (LD, SD or HD) and the values
@@ -865,6 +864,42 @@ var config = {
     //     'whiteboard',
     // ],
 
+    // Participant context menu buttons which have their click/tap event exposed through the API on
+    // `participantMenuButtonClick`. Passing a string for the button key will
+    // prevent execution of the click/tap routine; passing an object with `key` and
+    // `preventExecution` flag on false will not prevent execution of the click/tap
+    // routine. Below array with mixed mode for passing the buttons.
+    // participantMenuButtonsWithNotifyClick: [
+    //     'allow-video',
+    //     {
+    //         key: 'ask-unmute',
+    //         preventExecution: false
+    //     },
+    //     'conn-status',
+    //     'flip-local-video',
+    //     'grant-moderator',
+    //     {
+    //         key: 'kick',
+    //         preventExecution: true
+    //     },
+    //     {
+    //         key: 'hide-self-view',
+    //         preventExecution: false
+    //     },
+    //     'mute',
+    //     'mute-others',
+    //     'mute-others-video',
+    //     'mute-video',
+    //     'pinToStage',
+    //     'privateMessage',
+    //     {
+    //         key: 'remote-control',
+    //         preventExecution: false
+    //     },
+    //     'send-participant-to-room',
+    //     'verify',
+    // ],
+
     // List of pre meeting screens buttons to hide. The values must be one or more of the 5 allowed buttons:
     // 'microphone', 'camera', 'select-background', 'invite', 'settings'
     // hiddenPremeetingButtons: [],
@@ -874,7 +909,7 @@ var config = {
     // customParticipantMenuButtons: [],
 
     // An array with custom option buttons for the toolbar
-    // type:  Array<{ icon: string; id: string; text: string; }>
+    // type:  Array<{ icon: string; id: string; text: string; backgroundColor?: string; }>
     // customToolbarButtons: [],
 
     // Stats
@@ -976,12 +1011,12 @@ var config = {
         // If not set, the effective value is 'all'.
         // iceTransportPolicy: 'all',
 
-        // Provides a way to set the video codec preference on the p2p connection. Acceptable
-        // codec values are 'VP8', 'VP9' and 'H264'.
-        // preferredCodec: 'H264',
-
-        // Provides a way to prevent a video codec from being negotiated on the p2p connection.
-        // disabledCodec: '',
+        // Provides a way to set the codec preference on mobile devices, both on RN and mobile browser based
+        // endpoints.
+        // mobileCodecPreferenceOrder: [ 'H264', 'VP8', 'VP9' ],
+        //
+        // Provides a way to set the codec preference on desktop based endpoints.
+        // codecPreferenceOrder: [ 'VP9', 'VP8', 'H264 ],
 
         // How long we're going to wait, before going back to P2P after the 3rd
         // participant has left the conference (to filter out page reload).
@@ -993,6 +1028,15 @@ var config = {
             // { urls: 'stun:jitsi-meet.example.com:3478' },
             { urls: 'stun:meet-jit-si-turnrelay.jitsi.net:443' },
         ],
+
+        // DEPRECATED! Use `codecPreferenceOrder/mobileCodecPreferenceOrder` instead.
+        // Provides a way to set the video codec preference on the p2p connection. Acceptable
+        // codec values are 'VP8', 'VP9' and 'H264'.
+        // preferredCodec: 'H264',
+
+        // DEPRECATED! Use `codecPreferenceOrder/mobileCodecPreferenceOrder` instead.
+        // Provides a way to prevent a video codec from being negotiated on the p2p connection.
+        // disabledCodec: '',
     },
 
     analytics: {
@@ -1038,6 +1082,11 @@ var config = {
         //      "libs/analytics-ga.min.js", // google-analytics
         //      "https://example.com/my-custom-analytics.js",
         // ],
+
+        // By enabling watchRTCEnabled option you would want to use watchRTC feature
+        // This would also require to configure watchRTCConfigParams.
+        // Please remember to keep rtcstatsEnabled disabled for watchRTC to work.
+        // watchRTCEnabled: false,
     },
 
     // Logs that should go be passed through the 'log' event if a handler is defined for it
@@ -1109,7 +1158,12 @@ var config = {
     // },
 
     // e2ee: {
-    //   labels,
+    //   labels: {
+    //     description: '',
+    //     label: '',
+    //     tooltip: '',
+    //     warning: '',
+    //   },
     //   externallyManagedKey: false,
     // },
 
@@ -1331,6 +1385,9 @@ var config = {
     //     hideJoinRoomButton: false,
     // },
 
+    // When true, virtual background feature will be disabled.
+    // disableVirtualBackground: false,
+
     // When true the user cannot add more images to be used as virtual background.
     // Only the default ones from will be available.
     // disableAddingBackgroundImages: false,
@@ -1420,7 +1477,6 @@ var config = {
      dialOutRegionUrl
      disableRemoteControl
      displayJids
-     e2eeLabels
      firefox_fake_device
      googleApiApplicationClientID
      iAmRecorder
@@ -1430,6 +1486,8 @@ var config = {
      peopleSearchUrl
      requireDisplayName
      tokenAuthUrl
+     tokenAuthUrlAutoRedirect
+     tokenLogoutUrl
      */
 
     /**
@@ -1492,6 +1550,7 @@ var config = {
     //     'dialog.sessTerminated', // shown when there is a failed conference session
     //     'dialog.sessionRestarted', // show when a client reload is initiated because of bridge migration
     //     'dialog.tokenAuthFailed', // show when an invalid jwt is used
+    //     'dialog.tokenAuthFailedWithReasons', // show when an invalid jwt is used with the reason behind the error
     //     'dialog.transcribing', // transcribing notifications (pending, off)
     //     'dialOut.statusMessage', // shown when dial out status is updated.
     //     'liveStreaming.busy', // shown when livestreaming service is busy
@@ -1574,6 +1633,8 @@ var config = {
 
     // Tile view related config options.
     // tileView: {
+    //     // Whether tileview should be disabled.
+    //     disabled: false,
     //     // The optimal number of tiles that are going to be shown in tile view. Depending on the screen size it may
     //     // not be possible to show the exact number of participants specified here.
     //     numberOfVisibleTiles: 25,
@@ -1625,6 +1686,40 @@ var config = {
     //     // The server used to support whiteboard collaboration.
     //     // https://github.com/jitsi/excalidraw-backend
     //     collabServerBaseUrl: 'https://excalidraw-backend.example.com',
+    // },
+
+    // The watchRTC initialize config params as described :
+    // https://testrtc.com/docs/installing-the-watchrtc-javascript-sdk/#h-set-up-the-sdk
+    // https://www.npmjs.com/package/@testrtc/watchrtc-sdk
+    // watchRTCConfigParams: {
+    //         /** Watchrtc api key */
+    //         rtcApiKey: string;
+    //         /** Identifier for the session */
+    //         rtcRoomId?: string;
+    //         /** Identifier for the current peer */
+    //         rtcPeerId?: string;
+    //         /**
+    //          * ["tag1", "tag2", "tag3"]
+    //          * @deprecated use 'keys' instead
+    //          */
+    //         rtcTags?: string[];
+    //         /** { "key1": "value1", "key2": "value2"} */
+    //         keys?: any;
+    //         /** Enables additional logging */
+    //         debug?: boolean;
+    //         rtcToken?: string;
+    //         /**
+    //          * @deprecated No longer needed. Use "proxyUrl" instead.
+    //          */
+    //         wsUrl?: string;
+    //         proxyUrl?: string;
+    //         console?: {
+    //             level: string;
+    //             override: boolean;
+    //         };
+    //         allowBrowserLogCollection?: boolean;
+    //         collectionInterval?: number;
+    //         logGetStats?: boolean;
     // },
 };
 

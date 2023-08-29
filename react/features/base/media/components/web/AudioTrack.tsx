@@ -152,7 +152,7 @@ class AudioTrack extends Component<IProps> {
             const currentMuted = this._ref.muted;
             const nextMuted = nextProps._muted;
 
-            if (typeof nextMuted === 'boolean' && currentMuted !== nextVolume) {
+            if (typeof nextMuted === 'boolean' && currentMuted !== nextMuted) {
                 this._ref.muted = nextMuted;
             }
         }
@@ -185,7 +185,7 @@ class AudioTrack extends Component<IProps> {
      * @returns {void}
      */
     _attachTrack(track?: ITrack) {
-        if (!track || !track.jitsiTrack) {
+        if (!track?.jitsiTrack) {
             return;
         }
 

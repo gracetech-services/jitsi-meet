@@ -1,8 +1,8 @@
 // @ts-ignore
-import Bourne from '@hapi/bourne';
+import { jitsiLocalStorage } from '@jitsi/js-utils/jitsi-local-storage';
 // eslint-disable-next-line lines-around-comment
 // @ts-ignore
-import { jitsiLocalStorage } from '@jitsi/js-utils/jitsi-local-storage';
+import { safeJsonParse } from '@jitsi/js-utils/json';
 
 import { browser } from '../lib-jitsi-meet';
 import { inIframe } from '../util/iframeUtils';
@@ -17,6 +17,8 @@ import logger from './logger';
  * @returns {void}
  */
 function onFakeLocalStorageChanged() {
+    console.error(jitsiLocalStorage.serialize([ 'jitsiLocalStorage' ]));
+
     APP.API.notifyLocalStorageChanged(jitsiLocalStorage.serialize([ 'jitsiLocalStorage' ]));
 }
 
@@ -59,16 +61,17 @@ function setupJitsiLocalStorage() {
     // @ts-ignore
     const urlParams = parseURLParams(window.location);
 
-    //if (shouldUseHostPageLocalStorage(urlParams)) {
+    if (shouldUseHostPageLocalStorage(urlParams)) {
         try {
-            //console.log("urlParams['appData.localStorageContent']: ", urlParams['appData.localStorageContent']);
-            if (!urlParams['appData.localStorageContent'] || urlParams['appData.localStorageContent'] === 'null') {
-                //always start clean
-                jitsiLocalStorage.setItem('jitsiLocalStorage', null);
-                return;
-            }
+            const localStorageContent = safeJsonParse(urlParams['appData.localStorageContent']);
 
-            const localStorageContent = Bourne.parse(urlParams['appData.localStorageContent']);
+            // We need to disable the local storage before setting the data in case the browser local storage doesn't
+            // throw exception (in some cases when this happens the local storage may be cleared for every session.
+            // Example: when loading meet from cross-domain with the IFrame API with Brave with the default
+            // configuration). Otherwise we will set the data in the browser local storage and then switch to the dummy
+            // local storage from jitsiLocalStorage and we will loose the data.
+            jitsiLocalStorage.setLocalStorageDisabled(true);
+
             if (typeof localStorageContent === 'object') {
                 Object.keys(localStorageContent).forEach(key => {
                     jitsiLocalStorage.setItem(key, localStorageContent[key]);
@@ -79,7 +82,7 @@ function setupJitsiLocalStorage() {
         }
 
         jitsiLocalStorage.on('changed', onFakeLocalStorageChanged);
-    //}
+    }
 }
 
 setupJitsiLocalStorage();
