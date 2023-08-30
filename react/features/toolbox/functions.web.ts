@@ -9,6 +9,7 @@ import EmbedMeetingButton from '../embed-meeting/components/EmbedMeetingButton';
 import SharedDocumentButton from '../etherpad/components/SharedDocumentButton.web';
 import FeedbackButton from '../feedback/components/FeedbackButton.web';
 import InviteButton from '../invite/components/add-people-dialog/web/InviteButton';
+import { isMobileBrowser } from '../base/environment/utils';
 import KeyboardShortcutsButton from '../keyboard-shortcuts/components/web/KeyboardShortcutsButton';
 import NoiseSuppressionButton from '../noise-suppression/components/NoiseSuppressionButton';
 import ParticipantsPaneButton from '../participants-pane/components/web/ParticipantsPaneButton';
@@ -262,7 +263,7 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
         group: 2
     };
 
-    const tileview = {
+    const tileview = !isMobileBrowser() && {
         key: 'tileview',
         Content: TileViewButton,
         group: 2

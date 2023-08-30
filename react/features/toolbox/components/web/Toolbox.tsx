@@ -309,7 +309,9 @@ const Toolbox = ({
         }
 
         // This implies that the overflow button will be displayed, so save some space for it.
-        if (sliceIndex < filtered.length) {
+        // Gracetech: we only save space for overflow, when there is more than 1 button 
+        // that will be in the overflow
+        if (sliceIndex < (filtered.length-1)) {
             sliceIndex -= 1;
         }
 
@@ -372,6 +374,7 @@ const Toolbox = ({
             || overflowMenuButtons.some(({ key }) => key === 'reactions');
         const showRaiseHandInReactionsMenu = showReactionsInOverflowMenu && raiseHandInOverflowMenu;
 
+        //console.log("GT: Boolean(overflowMenuButtons.length)", Boolean(overflowMenuButtons.length), overflowMenuButtons);
         return (
             <div className = { containerClassName }>
                 <div
