@@ -76,8 +76,14 @@ export function getWebHIDFeatureConfig(state: IReduxState): boolean {
 export function isToolbarButtonEnabled(buttonName: string, state: IReduxState | Array<string>) {
     const buttons = Array.isArray(state) ? state : getToolbarButtons(state);
 
-    if (buttonName === 'tileview' && isMobileBrowser())
-        return false;
+    if (isMobileBrowser()) {
+        switch (buttonName) {
+            case 'tileview':
+            case 'recording':
+            case 'desktop':
+                    return false;
+        }
+    }
 
     return buttons.includes(buttonName);
 }
