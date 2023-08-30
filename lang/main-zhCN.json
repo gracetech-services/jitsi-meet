@@ -455,10 +455,7 @@
         "streamKey": "直播密钥",
         "thankYou": "感谢你使用{{appName}}！",
         "token": "token",
-<<<<<<< HEAD
         "tokenAuthFailed": "很抱歉，你未被允许加入此会议。请在'小鸽子'App或者网站进入会议",
-=======
-        "tokenAuthFailed": "抱歉，你无法加入此通话。",
         "tokenAuthFailedReason": {
             "audInvalid": "无效的`aud`值，应为`jitsi`。",
             "contextNotFound": "载荷中缺少`context`对象。",
@@ -475,7 +472,6 @@
             "payloadNotFound": "缺少有效载荷。",
             "tokenExpired": "Token已过期。"
         },
->>>>>>> origin/master
         "tokenAuthFailedTitle": "验证失败",
         "tokenAuthFailedWithReasons": "抱歉，你无法加入此通话，原因：",
         "tokenAuthUnsupported": "Token地址不支持",
@@ -1211,14 +1207,6 @@
             "mute": "静音",
             "muteEveryone": "将所有人静音",
             "muteEveryoneElse": "将其他人静音",
-<<<<<<< HEAD
-            "muteEveryoneElsesVideoStream": "禁用其他人的摄像头",
-            "muteEveryonesVideoStream": "禁用所有人的摄像头",
-            "noiseSuppression": "噪音抑制",
-            "participants": "参会者和分会场",
-            "pip": "开启/关闭画中画模式",
-            "privateMessage": "发送私聊",
-=======
             "muteEveryoneElsesVideoStream": "停止其他人的视频",
             "muteEveryonesVideoStream": "停止全部人的视频",
             "muteGUMPending": "连接你的麦克风",
@@ -1227,7 +1215,6 @@
             "participants": "打开参会者面板",
             "pip": "切换画中画模式",
             "privateMessage": "发送私人消息",
->>>>>>> origin/master
             "profile": "编辑你的个人资料",
             "raiseHand": "举手",
             "reactions": "反应",

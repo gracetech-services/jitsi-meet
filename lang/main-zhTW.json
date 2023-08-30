@@ -1208,14 +1208,9 @@
             "muteEveryonesVideoStream": "停止所有人的視訊",
             "muteGUMPending": "正在連接您的麥克風",
             "noiseSuppression": "雜訊抑制",
-<<<<<<< HEAD
-            "participants": "參會者和分會場",
-            "pip": "啟用/停用子母畫面模式",
-=======
             "openChat": "打開聊天",
             "participants": "打開與會者窗格",
             "pip": "切換子母螢幕模式",
->>>>>>> origin/master
             "privateMessage": "發送私人訊息",
             "profile": "編輯您的個人檔案",
             "raiseHand": "舉手",
@@ -1307,13 +1302,8 @@
         "noisyAudioInputTitle": "您的麥克風疑似有雜音！",
         "openChat": "開啟聊天",
         "openReactionsMenu": "開啟反應選單",
-<<<<<<< HEAD
-        "participants": "參會者和分會場",
-        "pip": "進入子母畫面模式",
-=======
         "participants": "與會者",
         "pip": "進入子母螢幕模式",
->>>>>>> origin/master
         "privateMessage": "傳送私人訊息",
         "profile": "編輯您的個人資料",
         "raiseHand": "舉起/放下你的手",
