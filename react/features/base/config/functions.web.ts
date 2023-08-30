@@ -1,6 +1,8 @@
 import { IReduxState } from '../../app/types';
 import JitsiMeetJS from '../../base/lib-jitsi-meet';
 import { NOTIFY_CLICK_MODE } from '../../toolbox/constants';
+import { isMobileBrowser } from '../environment/utils';
+
 
 import {
     IConfig,
@@ -73,6 +75,9 @@ export function getWebHIDFeatureConfig(state: IReduxState): boolean {
  */
 export function isToolbarButtonEnabled(buttonName: string, state: IReduxState | Array<string>) {
     const buttons = Array.isArray(state) ? state : getToolbarButtons(state);
+
+    if (buttonName === 'tileview' && isMobileBrowser())
+        return false;
 
     return buttons.includes(buttonName);
 }
