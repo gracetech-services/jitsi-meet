@@ -263,7 +263,7 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
         group: 2
     };
 
-    const tileview = !isMobileBrowser() && {
+    const tileview = {
         key: 'tileview',
         Content: TileViewButton,
         group: 2
@@ -421,7 +421,7 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
         reactions,
         participants,
         invite,
-        tileview,
+        ...(isMobileBrowser() && {tileview}),
         toggleCamera,
         videoQuality,
         fullscreen,
