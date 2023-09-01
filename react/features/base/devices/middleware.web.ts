@@ -306,7 +306,8 @@ function _checkAndNotifyForNewDevice(store: IStore, newDevices: MediaDeviceInfo[
         switch (newDevice.kind) {
         case 'videoinput': {
             titleKey = 'notify.newDeviceCameraTitle';
-            break;
+            return;  //GT: disable the new camera found: front camera choice...
+            //break;
         }
         case 'audioinput' :
         case 'audiooutput': {
