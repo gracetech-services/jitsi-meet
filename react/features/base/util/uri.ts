@@ -14,7 +14,7 @@ export enum StatusCode {
  * The app linking scheme.
  * TODO: This should be read from the manifest files later.
  */
-export const APP_LINK_SCHEME = 'org.jitsi.meet:';
+export const APP_LINK_SCHEME = 'org.gtinternational.meet:';
 
 /**
  * A list of characters to be excluded/removed from the room component/segment

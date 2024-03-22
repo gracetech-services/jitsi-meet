@@ -34,12 +34,12 @@ mobile apps:
 
 | Android | Android (F-Droid) | iOS |
 |:-:|:-:|:-:|
-| [<img src="resources/img/google-play-badge.png" height="50">](https://play.google.com/store/apps/details?id=org.jitsi.meet) | [<img src="resources/img/f-droid-badge.png" height="50">](https://f-droid.org/en/packages/org.jitsi.meet/) | [<img src="resources/img/appstore-badge.png" height="50">](https://itunes.apple.com/us/app/jitsi-meet/id1165103905) |
+| [<img src="resources/img/google-play-badge.png" height="50">](https://play.google.com/store/apps/details?id=org.gtinternational.meet) | [<img src="resources/img/f-droid-badge.png" height="50">](https://f-droid.org/en/packages/org.gtinternational.meet/) | [<img src="resources/img/appstore-badge.png" height="50">](https://itunes.apple.com/us/app/jitsi-meet/id1165103905) |
 
 If you are feeling adventurous and want to get an early scoop of the features as they are being
 developed you can also sign up for our open beta testing here:
 
-* [Android](https://play.google.com/apps/testing/org.jitsi.meet)
+* [Android](https://play.google.com/apps/testing/org.gtinternational.meet)
 * [iOS](https://testflight.apple.com/join/isy6ja7S)
 
 ## Running your own instance

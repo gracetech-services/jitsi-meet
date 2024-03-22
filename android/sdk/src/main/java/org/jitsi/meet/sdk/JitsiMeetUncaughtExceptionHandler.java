@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package org.jitsi.meet.sdk;
+package org.gtinternational.meet.sdk;
 
-import org.jitsi.meet.sdk.log.JitsiMeetLogger;
+import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
 
 class JitsiMeetUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
     private final Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler;

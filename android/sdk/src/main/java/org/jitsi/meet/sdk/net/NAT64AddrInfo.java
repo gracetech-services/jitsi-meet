@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jitsi.meet.sdk.net;
+package org.gtinternational.meet.sdk.net;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

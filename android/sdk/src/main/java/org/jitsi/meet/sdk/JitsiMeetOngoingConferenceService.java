@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jitsi.meet.sdk;
+package org.gtinternational.meet.sdk;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -31,7 +31,7 @@ import android.os.IBinder;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import org.jitsi.meet.sdk.log.JitsiMeetLogger;
+import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
 
 import java.util.HashMap;
 import java.util.Random;

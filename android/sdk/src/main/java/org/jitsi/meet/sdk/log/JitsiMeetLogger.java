@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jitsi.meet.sdk.log;
+package org.gtinternational.meet.sdk.log;
 
 import timber.log.Timber;
 

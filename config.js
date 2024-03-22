@@ -1232,11 +1232,11 @@ var config = {
     //     ios: {
     //         appName: 'Jitsi Meet',
     //         // Specify mobile app scheme for opening the app from the mobile browser.
-    //         appScheme: 'org.jitsi.meet',
+    //         appScheme: 'org.gtinternational.meet',
     //         // Custom URL for downloading ios mobile app.
     //         downloadLink: 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905',
     //         dynamicLink: {
-    //             apn: 'org.jitsi.meet',
+    //             apn: 'org.gtinternational.meet',
     //             appCode: 'w2atb',
     //             customDomain: undefined,
     //             ibi: 'com.atlassian.JitsiMeet.ios',
@@ -1248,14 +1248,14 @@ var config = {
     //     android: {
     //         appName: 'Jitsi Meet',
     //         // Specify mobile app scheme for opening the app from the mobile browser.
-    //         appScheme: 'org.jitsi.meet',
+    //         appScheme: 'org.gtinternational.meet',
     //         // Custom URL for downloading android mobile app.
-    //         downloadLink: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
+    //         downloadLink: 'https://play.google.com/store/apps/details?id=org.gtinternational.meet',
     //         // Android app package name.
-    //         appPackage: 'org.jitsi.meet',
-    //         fDroidUrl: 'https://f-droid.org/en/packages/org.jitsi.meet/',
+    //         appPackage: 'org.gtinternational.meet',
+    //         fDroidUrl: 'https://f-droid.org/en/packages/org.gtinternational.meet/',
     //         dynamicLink: {
-    //             apn: 'org.jitsi.meet',
+    //             apn: 'org.gtinternational.meet',
     //             appCode: 'w2atb',
     //             customDomain: undefined,
     //             ibi: 'com.atlassian.JitsiMeet.ios',

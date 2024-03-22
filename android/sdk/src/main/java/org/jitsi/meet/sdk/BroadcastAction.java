@@ -1,11 +1,11 @@
-package org.jitsi.meet.sdk;
+package org.gtinternational.meet.sdk;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.facebook.react.bridge.WritableNativeMap;
 
-import org.jitsi.meet.sdk.log.JitsiMeetLogger;
+import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
 
 import java.util.HashMap;
 
@@ -68,17 +68,17 @@ public class BroadcastAction {
     }
 
     enum Type {
-        SET_AUDIO_MUTED("org.jitsi.meet.SET_AUDIO_MUTED"),
-        HANG_UP("org.jitsi.meet.HANG_UP"),
-        SEND_ENDPOINT_TEXT_MESSAGE("org.jitsi.meet.SEND_ENDPOINT_TEXT_MESSAGE"),
-        TOGGLE_SCREEN_SHARE("org.jitsi.meet.TOGGLE_SCREEN_SHARE"),
-        RETRIEVE_PARTICIPANTS_INFO("org.jitsi.meet.RETRIEVE_PARTICIPANTS_INFO"),
-        OPEN_CHAT("org.jitsi.meet.OPEN_CHAT"),
-        CLOSE_CHAT("org.jitsi.meet.CLOSE_CHAT"),
-        SEND_CHAT_MESSAGE("org.jitsi.meet.SEND_CHAT_MESSAGE"),
-        SET_VIDEO_MUTED("org.jitsi.meet.SET_VIDEO_MUTED"),
-        SET_CLOSED_CAPTIONS_ENABLED("org.jitsi.meet.SET_CLOSED_CAPTIONS_ENABLED"),
-        TOGGLE_CAMERA("org.jitsi.meet.TOGGLE_CAMERA");
+        SET_AUDIO_MUTED("org.gtinternational.meet.SET_AUDIO_MUTED"),
+        HANG_UP("org.gtinternational.meet.HANG_UP"),
+        SEND_ENDPOINT_TEXT_MESSAGE("org.gtinternational.meet.SEND_ENDPOINT_TEXT_MESSAGE"),
+        TOGGLE_SCREEN_SHARE("org.gtinternational.meet.TOGGLE_SCREEN_SHARE"),
+        RETRIEVE_PARTICIPANTS_INFO("org.gtinternational.meet.RETRIEVE_PARTICIPANTS_INFO"),
+        OPEN_CHAT("org.gtinternational.meet.OPEN_CHAT"),
+        CLOSE_CHAT("org.gtinternational.meet.CLOSE_CHAT"),
+        SEND_CHAT_MESSAGE("org.gtinternational.meet.SEND_CHAT_MESSAGE"),
+        SET_VIDEO_MUTED("org.gtinternational.meet.SET_VIDEO_MUTED"),
+        SET_CLOSED_CAPTIONS_ENABLED("org.gtinternational.meet.SET_CLOSED_CAPTIONS_ENABLED"),
+        TOGGLE_CAMERA("org.gtinternational.meet.TOGGLE_CAMERA");
 
         private final String action;
 

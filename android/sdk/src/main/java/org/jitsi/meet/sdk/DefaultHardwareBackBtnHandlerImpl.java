@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.jitsi.meet.sdk;
+package org.gtinternational.meet.sdk;
 
 import android.app.Activity;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jitsi.meet.sdk;
+package org.gtinternational.meet.sdk;
 
 import android.media.AudioAttributes;
 import android.media.AudioDeviceInfo;
@@ -25,7 +25,7 @@ import android.os.Build;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jitsi.meet.sdk.log.JitsiMeetLogger;
+import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
 
 
 /**
