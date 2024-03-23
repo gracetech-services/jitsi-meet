@@ -1,4 +1,4 @@
-package org.gtinternational.meet;
+package org.jitsi.meet;
 
 import android.net.Uri;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.util.Log;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
-import org.gtinternational.meet.sdk.JitsiMeet;
-import org.gtinternational.meet.sdk.JitsiMeetActivity;
+import org.jitsi.meet.sdk.JitsiMeet;
+import org.jitsi.meet.sdk.JitsiMeetActivity;
 
 /**
  * Helper class to initialize Google related services and functionality.

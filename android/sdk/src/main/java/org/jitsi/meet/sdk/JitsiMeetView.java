@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,7 +27,7 @@ import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactRootView;
 
-import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
+import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
 
 public class JitsiMeetView extends FrameLayout {

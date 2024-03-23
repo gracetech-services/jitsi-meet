@@ -73,8 +73,8 @@
 
 # Jisti Meet SDK
 
--keep class org.gtinternational.meet.** { *; }
--keep class org.gtinternational.meet.sdk.** { *; }
+-keep class org.jitsi.meet.** { *; }
+-keep class org.jitsi.meet.sdk.** { *; }
 
 # We added the following when we switched minifyEnabled on. Probably because we
 # ran the app and hit problems...

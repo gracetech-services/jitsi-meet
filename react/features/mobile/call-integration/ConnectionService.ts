@@ -14,11 +14,11 @@ if (ConnectionService) {
         registerSubscriptions(context: any, delegate: any) {
             return [
                 ConnectionService.addListener(
-                    'org.gtinternational.meet:features/connection_service#disconnect',
+                    'org.jitsi.meet:features/connection_service#disconnect',
                     delegate._onPerformEndCallAction,
                     context),
                 ConnectionService.addListener(
-                    'org.gtinternational.meet:features/connection_service#abort',
+                    'org.jitsi.meet:features/connection_service#abort',
                     delegate._onPerformEndCallAction,
                     context)
             ];

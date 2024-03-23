@@ -1,4 +1,4 @@
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
 import androidx.core.app.ActivityCompat;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk.log;
+package org.jitsi.meet.sdk.log;
 
 import android.util.Log;
 

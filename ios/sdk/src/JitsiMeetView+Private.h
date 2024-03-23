@@ -18,7 +18,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const updateViewPropsNotificationName = @"org.gtinternational.meet.UpdateViewProps";
+static NSString * const updateViewPropsNotificationName = @"org.jitsi.meet.UpdateViewProps";
 
 @interface JitsiMeetView (Private)
 

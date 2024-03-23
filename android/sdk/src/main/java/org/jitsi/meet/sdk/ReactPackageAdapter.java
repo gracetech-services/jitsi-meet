@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

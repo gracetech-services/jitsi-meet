@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -22,7 +22,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.module.annotations.ReactModule;
 
-import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
+import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
 import java.util.HashMap;
 import java.util.Map;

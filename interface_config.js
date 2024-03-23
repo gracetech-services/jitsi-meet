@@ -194,12 +194,12 @@ var interfaceConfig = {
     /**
      * Specify custom URL for downloading android mobile app.
      */
-    // MOBILE_DOWNLOAD_LINK_ANDROID: 'https://play.google.com/store/apps/details?id=org.gtinternational.meet',
+    // MOBILE_DOWNLOAD_LINK_ANDROID: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
 
     /**
      * Specify mobile app scheme for opening the app from the mobile browser.
      */
-    // APP_SCHEME: 'org.gtinternational.meet',
+    // APP_SCHEME: 'org.jitsi.meet',
 
     // NATIVE_APP_NAME: 'Jitsi Meet',
 
@@ -207,7 +207,7 @@ var interfaceConfig = {
      * Specify Firebase dynamic link properties for the mobile apps.
      */
     // MOBILE_DYNAMIC_LINK: {
-    //    APN: 'org.gtinternational.meet',
+    //    APN: 'org.jitsi.meet',
     //    APP_CODE: 'w2atb',
     //    CUSTOM_DOMAIN: undefined,
     //    IBI: 'com.atlassian.JitsiMeet.ios',
@@ -222,12 +222,12 @@ var interfaceConfig = {
     /**
      * Specify the Android app package name.
      */
-    // ANDROID_APP_PACKAGE: 'org.gtinternational.meet',
+    // ANDROID_APP_PACKAGE: 'org.jitsi.meet',
 
     /**
      * Specify custom URL for downloading f droid app.
      */
-    // MOBILE_DOWNLOAD_LINK_F_DROID: 'https://f-droid.org/en/packages/org.gtinternational.meet/',
+    // MOBILE_DOWNLOAD_LINK_F_DROID: 'https://f-droid.org/en/packages/org.jitsi.meet/',
 
     // Connection indicators (
     // CONNECTION_INDICATOR_AUTO_HIDE_ENABLED,

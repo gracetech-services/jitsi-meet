@@ -76,7 +76,7 @@ cd ios && pod install && cd ..
 - In `android/app/src/main/AndroidManifest.xml`, under the `</application>` tag, include
     ```xml
    <service
-       android:name="org.gtinternational.meet.sdk.JitsiMeetOngoingConferenceService"
+       android:name="org.jitsi.meet.sdk.JitsiMeetOngoingConferenceService"
        android:foregroundServiceType="mediaProjection" />
     ```
   This will take care of the screen share feature.

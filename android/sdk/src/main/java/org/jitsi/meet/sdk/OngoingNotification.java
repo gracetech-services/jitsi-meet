@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
-import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
+import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
 import android.app.Activity;
 import android.app.NotificationChannel;

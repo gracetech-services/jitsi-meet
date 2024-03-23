@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>org.gtinternational.meet</string>
+	<string>org.jitsi.meet</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

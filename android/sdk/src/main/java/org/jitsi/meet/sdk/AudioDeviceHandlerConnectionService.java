@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -27,7 +27,7 @@ import com.facebook.react.bridge.ReactContext;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.gtinternational.meet.sdk.log.JitsiMeetLogger;
+import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
 
 /**

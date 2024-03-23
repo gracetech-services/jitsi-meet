@@ -17,17 +17,17 @@
 #import "ExternalAPI.h"
 
 // Events
-static NSString * const hangUpAction = @"org.gtinternational.meet.HANG_UP";
-static NSString * const setAudioMutedAction = @"org.gtinternational.meet.SET_AUDIO_MUTED";
-static NSString * const sendEndpointTextMessageAction = @"org.gtinternational.meet.SEND_ENDPOINT_TEXT_MESSAGE";
-static NSString * const toggleScreenShareAction = @"org.gtinternational.meet.TOGGLE_SCREEN_SHARE";
-static NSString * const retrieveParticipantsInfoAction = @"org.gtinternational.meet.RETRIEVE_PARTICIPANTS_INFO";
-static NSString * const openChatAction = @"org.gtinternational.meet.OPEN_CHAT";
-static NSString * const closeChatAction = @"org.gtinternational.meet.CLOSE_CHAT";
-static NSString * const sendChatMessageAction = @"org.gtinternational.meet.SEND_CHAT_MESSAGE";
-static NSString * const setVideoMutedAction = @"org.gtinternational.meet.SET_VIDEO_MUTED";
-static NSString * const setClosedCaptionsEnabledAction = @"org.gtinternational.meet.SET_CLOSED_CAPTIONS_ENABLED";
-static NSString * const toggleCameraAction = @"org.gtinternational.meet.TOGGLE_CAMERA";
+static NSString * const hangUpAction = @"org.jitsi.meet.HANG_UP";
+static NSString * const setAudioMutedAction = @"org.jitsi.meet.SET_AUDIO_MUTED";
+static NSString * const sendEndpointTextMessageAction = @"org.jitsi.meet.SEND_ENDPOINT_TEXT_MESSAGE";
+static NSString * const toggleScreenShareAction = @"org.jitsi.meet.TOGGLE_SCREEN_SHARE";
+static NSString * const retrieveParticipantsInfoAction = @"org.jitsi.meet.RETRIEVE_PARTICIPANTS_INFO";
+static NSString * const openChatAction = @"org.jitsi.meet.OPEN_CHAT";
+static NSString * const closeChatAction = @"org.jitsi.meet.CLOSE_CHAT";
+static NSString * const sendChatMessageAction = @"org.jitsi.meet.SEND_CHAT_MESSAGE";
+static NSString * const setVideoMutedAction = @"org.jitsi.meet.SET_VIDEO_MUTED";
+static NSString * const setClosedCaptionsEnabledAction = @"org.jitsi.meet.SET_CLOSED_CAPTIONS_ENABLED";
+static NSString * const toggleCameraAction = @"org.jitsi.meet.TOGGLE_CAMERA";
 
 @implementation ExternalAPI
 

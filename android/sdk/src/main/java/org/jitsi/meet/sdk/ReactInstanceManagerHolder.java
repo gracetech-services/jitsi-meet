@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gtinternational.meet.sdk;
+package org.jitsi.meet.sdk;
 
 import android.app.Activity;
 import android.util.Log;
@@ -73,7 +73,7 @@ class ReactInstanceManagerHolder {
                 new SplashScreenModule(reactContext),
                 new PictureInPictureModule(reactContext),
                 new ProximityModule(reactContext),
-                new org.gtinternational.meet.sdk.net.NAT64AddrInfoModule(reactContext)));
+                new org.jitsi.meet.sdk.net.NAT64AddrInfoModule(reactContext)));
 
         if (AudioModeModule.useConnectionService()) {
             nativeModules.add(new RNConnectionService(reactContext));

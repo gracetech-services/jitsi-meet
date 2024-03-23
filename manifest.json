@@ -1,9 +1,9 @@
 {
-  "android_package_name": "org.gtinternational.meet",
+  "android_package_name": "org.jitsi.meet",
   "prefer_related_applications": true,
   "related_applications": [
     {
-      "id": "org.gtinternational.meet",
+      "id": "org.jitsi.meet",
       "platform": "chromeos_play"
     }
   ],
