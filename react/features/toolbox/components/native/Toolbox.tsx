@@ -21,6 +21,8 @@ import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton';
 import VideoMuteButton from './VideoMuteButton';
 import styles from './styles';
+import AudioOnlyButton from './AudioOnlyButton';
+
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
@@ -123,6 +125,7 @@ function Toolbox(props: IProps) {
                     : <RaiseHandButton
                         styles = { buttonStylesBorderless }
                         toggledStyles = { backgroundToggledStyle } />)}
+                {additionalButtons.has('audionly') && <AudioOnlyButton styles = { buttonStylesBorderless } />}
                 {additionalButtons.has('tileview') && <TileViewButton styles = { buttonStylesBorderless } />}
                 {!noOverflow && !_iAmVisitor && <OverflowMenuButton
                     styles = { buttonStylesBorderless }
