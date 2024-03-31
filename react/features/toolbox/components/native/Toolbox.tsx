@@ -89,6 +89,8 @@ function Toolbox(props: IProps) {
         style.justifyContent = 'center';
     }
 
+    //Gracetech: no overflow button
+    const noOverflow = true;
     return (
         <View
             style = { styles.toolboxContainer as ViewStyle }>
@@ -122,7 +124,7 @@ function Toolbox(props: IProps) {
                         styles = { buttonStylesBorderless }
                         toggledStyles = { backgroundToggledStyle } />)}
                 {additionalButtons.has('tileview') && <TileViewButton styles = { buttonStylesBorderless } />}
-                {!_iAmVisitor && <OverflowMenuButton
+                {!noOverflow && !_iAmVisitor && <OverflowMenuButton
                     styles = { buttonStylesBorderless }
                     toggledStyles = { toggledButtonStyles } />
                 }
