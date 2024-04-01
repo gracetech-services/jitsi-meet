@@ -47,7 +47,7 @@ export function getMovableButtons(width: number): Set<string> {
 
     case width >= WIDTH.FIT_6_ICONS: {
         //Gracetech
-        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly', 'tileview' ];
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly'];
         //buttons = [ 'chat', 'togglecamera' ];
         break;
     }

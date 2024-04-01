@@ -6,7 +6,7 @@
  */
 export default function updateTheme(theme: Object) {
     //Gracetech -- to compact more buttons 
-    theme.spacing[2] = 4;
-    theme.spacing[3] = 4;
+    theme.spacing[2] = 2;
+    theme.spacing[3] = 2;
     return theme;
 }

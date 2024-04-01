@@ -139,8 +139,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             return this._renderReducedUI();
         }
         */
-
-        return this._renderFullUI();
+       //Gracetech
+        return this._renderGracetechWelcom();
+        //return this._renderFullUI();
     }
 
     /**
@@ -314,6 +315,46 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         }
 
         return joinButton;
+    }
+    /**
+     * Renders //Gracetech welcome, copy and modified from _renderRoomNameInput
+     *
+     * @private
+     * @returns {ReactElement}
+     */
+    
+    _renderGracetechWelcom() {
+        const roomnameAccLabel = 'welcomepage.accessibilityLabel.roomname';
+        const { t } = this.props;
+        const { isSettingsScreenFocused } = this.state;
+
+        const showJoin = !!this.state.room && this.state.room.startsWith('https://');
+
+        return (
+            <Animated.View
+                style = { [
+                    isSettingsScreenFocused && styles.roomNameInputContainer,
+                    { opacity: this.state.roomNameInputAnimation }
+                ] as StyleProp<ViewStyle> }>
+                <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
+                    <View style = { styles.joinControls } >
+                        <Input
+                            accessibilityLabel = { t(roomnameAccLabel) }
+                            autoCapitalize = { 'none' }
+                            autoFocus = { false }
+                            customStyles = {{ input: styles.customInput }}
+                            onChange = { this._onRoomChange }
+                            onSubmitEditing = { this._onJoin }
+                            placeholder = { 'Please launch meeting from iDigest' }
+                            returnKeyType = { 'go' }
+                            value = { this.state.room } />
+                    </View>
+                    {
+                        showJoin && this._renderJoinButton()
+                    }
+                </SafeAreaView>
+            </Animated.View>
+        );
     }
 
     /**
