@@ -345,7 +345,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             customStyles = {{ input: styles.customInput }}
                             onChange = { this._onRoomChange }
                             onSubmitEditing = { this._onJoin }
-                            placeholder = { 'Please launch meeting from iDigest' }
+                            placeholder = { t('welcomepage.askToUseIDigest') }
                             returnKeyType = { 'go' }
                             value = { this.state.room } />
                     </View>

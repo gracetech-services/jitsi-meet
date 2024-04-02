@@ -1477,6 +1477,7 @@
         },
         "addMeetingName": "新增會議名稱",
         "appDescription": "來吧，和您的整個團隊進行視訊會議。不，邀請所有您認識的人進行視訊會議。{{app}} 是一套完全加密、100% 開放原始碼的視訊會議解決方案。無需註冊帳號，無時無刻不分日夜均可免費使用。",
+        "askToUseIDigest": "請用小鴿子進入會議",
         "audioVideoSwitch": {
             "audio": "音訊",
             "video": "視訊"
