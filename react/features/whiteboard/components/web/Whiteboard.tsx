@@ -1,7 +1,8 @@
 /* eslint-disable */
 
-// import { ExcalidrawApp } from '@jitsi/excalidraw';
-// import clsx from 'clsx';
+import { ExcalidrawApp } from '@jitsi/excalidraw';
+import clsx from 'clsx';
+import i18next from 'i18next';
 import React from 'react';
 import { WithTranslation } from 'react-i18next';
 // import { useSelector } from 'react-redux';
@@ -42,9 +43,9 @@ interface IDimensions {
  * @returns {JSX.Element} - The React component.
  */
 const Whiteboard = (props: WithTranslation): JSX.Element => {
-    return <></>;
-    // const excalidrawRef = useRef<any>(null);
-    // const collabAPIRef = useRef<any>(null);
+    const excalidrawRef = useRef<any>(null);
+    const excalidrawAPIRef = useRef<any>(null);
+    const collabAPIRef = useRef<any>(null);
 
     // const isOpen = useSelector(isWhiteboardOpen);
     // const isVisible = useSelector(isWhiteboardVisible);
@@ -90,11 +91,18 @@ const Whiteboard = (props: WithTranslation): JSX.Element => {
     //         width = clientWidth;
     //     }
 
-    //     return {
-    //         width: `${width}px`,
-    //         height: `${height - HEIGHT_OFFSET}px`
-    //     };
-    // };
+        return {
+            width: `${width}px`,
+            height: `${height - HEIGHT_OFFSET}px`
+        };
+    };
+
+    const getExcalidrawAPI = useCallback(excalidrawAPI => {
+        if (excalidrawAPIRef.current) {
+            return;
+        }
+        excalidrawAPIRef.current = excalidrawAPI;
+    }, []);
 
     // const getCollabAPI = useCallback(collabAPI => {
     //     if (collabAPIRef.current) {
@@ -104,53 +112,53 @@ const Whiteboard = (props: WithTranslation): JSX.Element => {
     //     collabAPIRef.current.setUsername(localParticipantName);
     // }, [ localParticipantName ]);
 
-    // return (
-    //     <div
-    //         className = { clsx(
-    //             isResizing && 'disable-pointer',
-    //             'whiteboard-container'
-    //         ) }
-    //         style = {{
-    //             ...getDimensions(),
-    //             marginTop: `${HEIGHT_OFFSET}px`,
-    //             display: `${isInTileView || !isVisible ? 'none' : 'block'}`
-    //         }}>
-    //         {
-    //             /*
-    //             isOpen && (
-    //                 <div className = 'excalidraw-wrapper'>
-    //                     {/*
-    //                       * Excalidraw renders a few lvl 2 headings. This is
-    //                       * quite fortunate, because we actually use lvl 1
-    //                       * headings to mark the big sections of our app. So make
-    //                       * sure to mark the Excalidraw context with a lvl 1
-    //                       * heading before showing the whiteboard.
-    //                       */
-    //                         <span
-    //                             aria-level = { 1 }
-    //                             className = 'sr-only'
-    //                             role = 'heading'>
-    //                             { props.t('whiteboard.accessibilityLabel.heading') }
-    //                         </span>
-    //                     }
-    //                     <ExcalidrawApp
-    //                         collabDetails = { collabDetails }
-    //                         collabServerUrl = { collabServerUrl }
-    //                         excalidraw = {{
-    //                             isCollaborating: true,
+    return (
+        <div
+            className = { clsx(
+                isResizing && 'disable-pointer',
+                'whiteboard-container'
+            ) }
+            style = {{
+                ...getDimensions(),
+                marginTop: `${HEIGHT_OFFSET}px`,
+                display: `${isInTileView || !isVisible ? 'none' : 'block'}`
+            }}>
+            {
+                isOpen && (
+                    <div className = 'excalidraw-wrapper'>
+                        {/*
+                          * Excalidraw renders a few lvl 2 headings. This is
+                          * quite fortunate, because we actually use lvl 1
+                          * headings to mark the big sections of our app. So make
+                          * sure to mark the Excalidraw context with a lvl 1
+                          * heading before showing the whiteboard.
+                          */
+                            <span
+                                aria-level = { 1 }
+                                className = 'sr-only'
+                                role = 'heading'>
+                                { props.t('whiteboard.accessibilityLabel.heading') }
+                            </span>
+                        }
+                        <ExcalidrawApp
+                            collabDetails = { collabDetails }
+                            collabServerUrl = { collabServerUrl }
+                            excalidraw = {{
+                                isCollaborating: true,
+                                langCode: i18next.language,
 
-    //                             // @ts-ignore
-    //                             ref: excalidrawRef,
-    //                             theme: 'light',
-    //                             UIOptions: WHITEBOARD_UI_OPTIONS
-    //                         }}
-    //                         getCollabAPI = { getCollabAPI } />
-    //                 </div>
-    //             )
-    //             */
-    //         }
-    //     </div>
-    // );
+                                // @ts-ignore
+                                ref: excalidrawRef,
+                                theme: 'light',
+                                UIOptions: WHITEBOARD_UI_OPTIONS
+                            }}
+                            getCollabAPI = { getCollabAPI }
+                            getExcalidrawAPI = { getExcalidrawAPI } />
+                    </div>
+                )
+            }
+        </div>
+    );
 };
 
 export default translate(Whiteboard);

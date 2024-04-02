@@ -329,6 +329,22 @@ export function createNetworkInfoEvent({ isOnline, networkType, details }:
 }
 
 /**
+ * Creates a "not allowed error" event.
+ *
+ * @param {string} reason - The reason for the error.
+ * @returns {Object} The event in a format suitable for sending via
+ * sendAnalytics.
+ */
+export function createNotAllowedErrorEvent(reason: string) {
+    return {
+        action: 'not.allowed.error',
+        attributes: {
+            reason
+        }
+    };
+}
+
+/**
  * Creates an "offer/answer failure" event.
  *
  * @returns {Object} The event in a format suitable for sending via
@@ -932,5 +948,29 @@ export function createBreakoutRoomsEvent(actionSubject: string) {
 export function createGifSentEvent() {
     return {
         action: 'gif.sent'
+    };
+}
+
+/**
+ * Creates an event which indicates the whiteboard was opened.
+ *
+ * @returns {Object} The event in a format suitable for sending via
+ * sendAnalytics.
+ */
+export function createOpenWhiteboardEvent() {
+    return {
+        action: 'whiteboard.open'
+    };
+}
+
+/**
+ * Creates an event which indicates the whiteboard limit was enforced.
+ *
+ * @returns {Object} The event in a format suitable for sending via
+ * sendAnalytics.
+ */
+export function createRestrictWhiteboardEvent() {
+    return {
+        action: 'whiteboard.restrict'
     };
 }

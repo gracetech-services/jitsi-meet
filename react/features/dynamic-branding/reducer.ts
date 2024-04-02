@@ -146,6 +146,7 @@ export interface IDynamicBrandingState {
     avatarBackgrounds: string[];
     backgroundColor: string;
     backgroundImageUrl: string;
+    brandedIcons?: Record<string, string>;
     customizationFailed: boolean;
     customizationReady: boolean;
     defaultBranding: boolean;
@@ -171,6 +172,7 @@ ReducerRegistry.register<IDynamicBrandingState>(STORE_NAME, (state = DEFAULT_STA
             avatarBackgrounds,
             backgroundColor,
             backgroundImageUrl,
+            brandedIcons,
             defaultBranding,
             didPageUrl,
             inviteDomain,
@@ -187,6 +189,7 @@ ReducerRegistry.register<IDynamicBrandingState>(STORE_NAME, (state = DEFAULT_STA
             avatarBackgrounds,
             backgroundColor,
             backgroundImageUrl,
+            brandedIcons,
             defaultBranding,
             didPageUrl,
             inviteDomain,
@@ -227,7 +230,7 @@ ReducerRegistry.register<IDynamicBrandingState>(STORE_NAME, (state = DEFAULT_STA
  * Transforms the branding images into an array of Images objects ready
  * to be used as virtual backgrounds.
  *
- * @param {Array<string>} images -
+ * @param {Array<string>} images - The branding images.
  * @private
  * @returns {{Props}}
  */

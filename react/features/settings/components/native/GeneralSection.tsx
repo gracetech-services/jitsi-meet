@@ -11,6 +11,7 @@ import { updateSettings } from '../../../base/settings/actions';
 import Switch from '../../../base/ui/components/native/Switch';
 import { navigate } from '../../../mobile/navigation/components/settings/SettingsNavigationContainerRef';
 import { screen } from '../../../mobile/navigation/routes';
+import { isPrejoinEnabledInConfig } from '../../../prejoin/functions';
 
 import FormRow from './FormRow';
 import FormSection from './FormSection';
@@ -27,8 +28,7 @@ const GeneralSection = () => {
 
     const showPrejoinPage = !userSelectedSkipPrejoin;
 
-    let showPrejoinSettings = useSelector(
-        (state: IReduxState) => state['features/base/config'].prejoinConfig?.enabled);
+    let showPrejoinSettings = useSelector(isPrejoinEnabledInConfig);
 
     const { language = DEFAULT_LANGUAGE } = i18next;
 
@@ -64,17 +64,17 @@ const GeneralSection = () => {
             </FormRow>}
 
             <FormRow label = 'settings.language'>
-                <TouchableHighlight onPress = { navigateToLanguageSelect }>
-                    <View style = { styles.languageButton as ViewStyle }>
-                        <Text
-                            style = { styles.languageText }>{t(`languages:${language}`)}</Text>
-                        <View>
+                <View style = { styles.languageButtonContainer as ViewStyle }>
+                    <TouchableHighlight onPress = { navigateToLanguageSelect }>
+                        <View style = { styles.languageButton as ViewStyle }>
+                            <Text
+                                style = { styles.languageText }>{t(`languages:${language}`)}</Text>
                             <Icon
                                 size = { 24 }
                                 src = { IconArrowRight } />
                         </View>
-                    </View>
-                </TouchableHighlight>
+                    </TouchableHighlight>
+                </View>
             </FormRow>
         </FormSection>
     );

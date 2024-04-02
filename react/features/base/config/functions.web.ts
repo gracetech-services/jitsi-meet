@@ -7,12 +7,9 @@ import { isMobileBrowser } from '../environment/utils';
 import {
     IConfig,
     IDeeplinkingConfig,
-    IDeeplinkingMobileConfig,
-    IDeeplinkingPlatformConfig,
-    NotifyClickButton,
-    ToolbarButton
+    IDeeplinkingDesktopConfig,
+    IDeeplinkingMobileConfig
 } from './configType';
-import { TOOLBAR_BUTTONS } from './constants';
 
 export * from './functions.any';
 
@@ -34,25 +31,6 @@ export function _cleanupConfig(_config: IConfig) {
  */
 export function getReplaceParticipant(state: IReduxState): string | undefined {
     return state['features/base/config'].replaceParticipant;
-}
-
-/**
- * Returns the list of enabled toolbar buttons.
- *
- * @param {Object} state - The redux state.
- * @returns {Array<string>} - The list of enabled toolbar buttons.
- */
-export function getToolbarButtons(state: IReduxState): Array<string> {
-    const { toolbarButtons, customToolbarButtons } = state['features/base/config'];
-    const customButtons = customToolbarButtons?.map(({ id }) => id);
-
-    const buttons = Array.isArray(toolbarButtons) ? toolbarButtons : TOOLBAR_BUTTONS;
-
-    if (customButtons) {
-        buttons.push(...customButtons as ToolbarButton[]);
-    }
-
-    return buttons;
 }
 
 /**
@@ -105,13 +83,21 @@ export function areAudioLevelsEnabled(state: IReduxState): boolean {
  * @returns {void}
  */
 export function _setDeeplinkingDefaults(deeplinking: IDeeplinkingConfig) {
-    const {
-        desktop = {} as IDeeplinkingPlatformConfig,
-        android = {} as IDeeplinkingMobileConfig,
-        ios = {} as IDeeplinkingMobileConfig
-    } = deeplinking;
+    deeplinking.desktop = deeplinking.desktop || {} as IDeeplinkingDesktopConfig;
+    deeplinking.android = deeplinking.android || {} as IDeeplinkingMobileConfig;
+    deeplinking.ios = deeplinking.ios || {} as IDeeplinkingMobileConfig;
+
+    const { android, desktop, ios } = deeplinking;
 
     desktop.appName = desktop.appName || 'Jitsi Meet';
+    desktop.appScheme = desktop.appScheme || 'jitsi-meet';
+    desktop.download = desktop.download || {};
+    desktop.download.windows = desktop.download.windows
+        || 'https://github.com/jitsi/jitsi-meet-electron/releases/latest/download/jitsi-meet.exe';
+    desktop.download.macos = desktop.download.macos
+        || 'https://github.com/jitsi/jitsi-meet-electron/releases/latest/download/jitsi-meet.dmg';
+    desktop.download.linux = desktop.download.linux
+        || 'https://github.com/jitsi/jitsi-meet-electron/releases/latest/download/jitsi-meet-x86_64.AppImage';
 
     ios.appName = ios.appName || 'Jitsi Meet';
     ios.appScheme = ios.appScheme || 'org.jitsi.meet';
@@ -137,93 +123,3 @@ export function _setDeeplinkingDefaults(deeplinking: IDeeplinkingConfig) {
         android.dynamicLink.isi = android.dynamicLink.isi || '1165103905';
     }
 }
-
-/**
- * Common logic to gather buttons that have to notify the api when clicked.
- *
- * @param {Array} buttonsWithNotifyClick - The array of systme buttons that need to notify the api.
- * @param {Array} customButtons - The custom buttons.
- * @returns {Array}
- */
-const buildButtonsArray = (
-        buttonsWithNotifyClick?: NotifyClickButton[],
-        customButtons?: {
-            icon: string;
-            id: string;
-            text: string;
-        }[]
-): NotifyClickButton[] => {
-    const customButtonsWithNotifyClick = customButtons?.map(({ id }) => {
-        return {
-            key: id,
-            preventExecution: false
-        };
-    });
-
-    const buttons = Array.isArray(buttonsWithNotifyClick)
-        ? buttonsWithNotifyClick as NotifyClickButton[]
-        : [];
-
-    if (customButtonsWithNotifyClick) {
-        buttons.push(...customButtonsWithNotifyClick);
-    }
-
-    return buttons;
-};
-
-/**
- * Returns the list of toolbar buttons that have to notify the api when clicked.
- *
- * @param {Object} state - The redux state.
- * @returns {Array} - The list of buttons.
- */
-export function getButtonsWithNotifyClick(
-        state: IReduxState
-): NotifyClickButton[] {
-    const { buttonsWithNotifyClick, customToolbarButtons } = state['features/base/config'];
-
-    return buildButtonsArray(
-        buttonsWithNotifyClick,
-        customToolbarButtons
-    );
-}
-
-/**
- * Returns the list of participant menu buttons that have that notify the api when clicked.
- *
- * @param {Object} state - The redux state.
- * @returns {Array} - The list of participant menu buttons.
- */
-export function getParticipantMenuButtonsWithNotifyClick(
-        state: IReduxState
-): NotifyClickButton[] {
-    const { participantMenuButtonsWithNotifyClick, customParticipantMenuButtons } = state['features/base/config'];
-
-    return buildButtonsArray(
-        participantMenuButtonsWithNotifyClick,
-        customParticipantMenuButtons
-    );
-}
-
-/**
- * Returns the notify mode for the specified button.
- *
- * @param {string} buttonKey - The button key.
- * @param {Array} buttonsWithNotifyClick - The buttons with notify click.
- * @returns {string|undefined}
- */
-export const getButtonNotifyMode = (
-        buttonKey: string,
-        buttonsWithNotifyClick?: NotifyClickButton[]
-): string | undefined => {
-    const notify = buttonsWithNotifyClick?.find(
-        (btn: NotifyClickButton) =>
-            (typeof btn === 'string' && btn === buttonKey) || (typeof btn === 'object' && btn.key === buttonKey)
-    );
-
-    if (notify) {
-        return typeof notify === 'string' || notify.preventExecution
-            ? NOTIFY_CLICK_MODE.PREVENT_AND_NOTIFY
-            : NOTIFY_CLICK_MODE.ONLY_NOTIFY;
-    }
-};

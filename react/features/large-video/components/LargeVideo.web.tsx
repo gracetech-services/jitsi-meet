@@ -110,9 +110,9 @@ interface IProps {
     _visibleFilmstrip: boolean;
 
     /**
-     * Whether or not the whiteboard is enabled.
+     * Whether or not the whiteboard is ready to be used.
      */
-    _whiteboardEnabled: boolean;
+    _whiteboardReady: boolean;
 
     /**
      * The Redux dispatch function.
@@ -193,7 +193,7 @@ class LargeVideo extends Component<IProps> {
             _isChatOpen,
             _noAutoPlayVideo,
             _showDominantSpeakerBadge,
-            _whiteboardEnabled
+            _whiteboardReady
         } = this.props;
         const style = this._getCustomStyles();
         const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
@@ -227,16 +227,17 @@ class LargeVideo extends Component<IProps> {
                       * another container for the background and the
                       * largeVideoWrapper in order to hide/show them.
                       */}
+                    { _displayScreenSharingPlaceholder ? <ScreenSharePlaceholder /> : <></>}
                     <div
                         id = 'largeVideoWrapper'
                         onTouchEnd = { this._onDoubleTap }
                         ref = { this._wrapperRef }
                         role = 'figure' >
-                        { _displayScreenSharingPlaceholder ? <ScreenSharePlaceholder /> : <video
+                        <video
                             autoPlay = { !_noAutoPlayVideo }
                             id = 'largeVideo'
                             muted = { true }
-                            playsInline = { true } /* for Safari on iOS to work */ /> }
+                            playsInline = { true } /* for Safari on iOS to work */ />
                     </div>
                 </div>
                 { interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES
@@ -376,7 +377,7 @@ function _mapStateToProps(state: IReduxState) {
         _verticalFilmstripWidth: verticalFilmstripWidth.current,
         _verticalViewMaxWidth: getVerticalViewMaxWidth(state),
         _visibleFilmstrip: visible,
-        _whiteboardEnabled: isWhiteboardEnabled(state)
+        _whiteboardReady: isWhiteboardEnabled(state)
     };
 }
 

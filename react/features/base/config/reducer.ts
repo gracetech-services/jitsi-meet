@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 import { CONFERENCE_INFO } from '../../conference/components/constants';
+import { TOOLBAR_BUTTONS } from '../../toolbox/constants';
+import { ToolbarButton } from '../../toolbox/types';
 import ReducerRegistry from '../redux/ReducerRegistry';
 import { equals } from '../redux/functions';
 
@@ -14,12 +16,10 @@ import {
 import {
     IConfig,
     IDeeplinkingConfig,
+    IDeeplinkingDesktopConfig,
     IDeeplinkingMobileConfig,
-    IDeeplinkingPlatformConfig,
-    IMobileDynamicLink,
-    ToolbarButton
+    IMobileDynamicLink
 } from './configType';
-import { TOOLBAR_BUTTONS } from './constants';
 import { _cleanupConfig, _setDeeplinkingDefaults } from './functions';
 
 /**
@@ -295,7 +295,7 @@ function _translateInterfaceConfig(oldValue: IConfig) {
     } else {
         const disabled = Boolean(oldValue.disableDeepLinking);
         const deeplinking: IDeeplinkingConfig = {
-            desktop: {} as IDeeplinkingPlatformConfig,
+            desktop: {} as IDeeplinkingDesktopConfig,
             hideLogo: false,
             disabled,
             android: {} as IDeeplinkingMobileConfig,
@@ -465,7 +465,7 @@ function _translateLegacyConfig(oldValue: IConfig) {
     if (oldValue.autoCaptionOnRecord !== undefined) {
         newValue.transcription = {
             ...newValue.transcription,
-            autoCaptionOnRecord: oldValue.autoCaptionOnRecord
+            autoTranscribeOnRecord: oldValue.autoCaptionOnRecord
         };
     }
 

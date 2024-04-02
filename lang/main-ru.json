@@ -49,13 +49,18 @@
             "remove": "Удалить",
             "sendToBreakoutRoom": "Отправить участника к:"
         },
+        "breakoutList": "Сессионные залы",
+        "buttonLabel": "Сессионные залы",
         "defaultName": "Сессионный зал #{{index}}",
+        "hideParticipantList": "Скрыть список участников",
         "mainRoom": "Главная комната",
         "notifications": {
             "joined": "Вход в сессионный зал \"{{name}}\"",
             "joinedMainRoom": "Вход в главную комнату",
             "joinedTitle": "Сессионные залы"
-        }
+        },
+        "showParticipantList": "Показать участников",
+        "title": "Сессионные залы"
     },
     "calendarSync": {
         "addMeetingURL": "Добавить ссылку конференции",
@@ -372,6 +377,7 @@
         "sendPrivateMessageTitle": "Отправить личное сообщение?",
         "serviceUnavailable": "Служба недоступна",
         "sessTerminated": "Связь прервана",
+        "sessTerminatedReason": "Встреча прервана",
         "sessionRestarted": "Вызов перезапущен из-за проблемы с подключением.",
         "shareAudio": "Продолжить",
         "shareAudioTitle": "Как поделиться аудио",
@@ -557,8 +563,6 @@
         "youtubeTerms": "Условия использования YouTube"
     },
     "lobby": {
-        "admit": "Признать",
-        "admitAll": "Признать все",
         "backToKnockModeButton": "Попросить присоединиться",
         "chat": "Чат",
         "dialogTitle": "Режим лобби",
@@ -592,8 +596,6 @@
         "notificationTitle": "Лобби",
         "passwordField": "Введите пароль встречи",
         "passwordJoinButton": "Присоединиться",
-        "reject": "Отказать",
-        "rejectAll": "Отказать всем",
         "title": "Лобби",
         "toggleLabel": "Включить лобби"
     },
@@ -720,6 +722,8 @@
     },
     "participantsPane": {
         "actions": {
+            "admit": "Признать",
+            "admitAll": "Признать все",
             "allow": "Разрешить",
             "allowVideo": "Разрешить видео",
             "askUnmute": "Попросить разрешение включить микрофон",
@@ -732,6 +736,7 @@
             "mute": "Выключить звук",
             "muteAll": "Выключить звук у всех",
             "muteEveryoneElse": "Выключить микрофон у остальных",
+            "reject": "Отказать",
             "stopEveryonesVideo": "Выключить у всех камеру",
             "stopVideo": "Остановить видео",
             "unblockEveryoneMicCamera": "Разблокировать у всех микрофон и камеру",
@@ -1018,6 +1023,7 @@
         "neutral": "Нейтральный",
         "sad": "Грусный",
         "search": "Поиск",
+        "searchHint": "Поиск участников",
         "seconds": "{{count}}с",
         "speakerStats": "Статистика выступлений",
         "speakerTime": "Время выступлений",

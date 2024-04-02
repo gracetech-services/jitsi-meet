@@ -49,6 +49,8 @@ deploy-appbundle:
 		$(BUILD_DIR)/alwaysontop.min.js \
 		$(BUILD_DIR)/alwaysontop.min.js.map \
 		$(OUTPUT_DIR)/analytics-ga.js \
+		$(BUILD_DIR)/screenshot-capture-worker.min.js \
+		$(BUILD_DIR)/screenshot-capture-worker.min.js.map \
 		$(DEPLOY_DIR)
 	cp \
 		$(BUILD_DIR)/close3.min.js \
@@ -121,7 +123,7 @@ dev: deploy-init deploy-css deploy-rnnoise-binary deploy-tflite deploy-meet-mode
 
 source-package:
 	mkdir -p source_package/jitsi-meet/css && \
-	cp -r *.js *.html resources/*.txt favicon.ico fonts images libs static sounds LICENSE lang source_package/jitsi-meet && \
+	cp -r *.js *.html resources/*.txt fonts images libs static sounds LICENSE lang source_package/jitsi-meet && \
 	cp css/all.css source_package/jitsi-meet/css && \
 	(cd source_package ; tar cjf ../jitsi-meet.tar.bz2 jitsi-meet) && \
 	$(REMOVE_FOLDER) source_package

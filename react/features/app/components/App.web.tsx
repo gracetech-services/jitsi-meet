@@ -3,6 +3,8 @@ import React from 'react';
 import GlobalStyles from '../../base/ui/components/GlobalStyles.web';
 import JitsiThemeProvider from '../../base/ui/components/JitsiThemeProvider.web';
 import DialogContainer from '../../base/ui/components/web/DialogContainer';
+import { updateFlags } from '../../base/flags/actions';
+import { INVITE_ENABLED } from '../../base/flags/constants';
 import ChromeExtensionBanner from '../../chrome-extension-banner/components/ChromeExtensionBanner.web';
 import OverlayContainer from '../../overlay/components/web/OverlayContainer';
 
@@ -63,5 +65,17 @@ export class App extends AbstractApp {
                 <DialogContainer />
             </JitsiThemeProvider>
         );
+    }
+    /**
+     * //Gracetech
+     *
+     * @returns {void}
+     */
+    async _extraInit() {
+        const { dispatch, getState } = this.state.store ?? {};
+        const { flags = {} } = this.props;
+        flags[INVITE_ENABLED] = false;
+        // We set these early enough so then we avoid any unnecessary re-renders.
+        dispatch?.(updateFlags(flags));
     }
 }

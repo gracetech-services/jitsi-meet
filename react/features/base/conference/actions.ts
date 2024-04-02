@@ -1,14 +1,22 @@
 import { createStartMutedConfigurationEvent } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
 import { IReduxState, IStore } from '../../app/types';
-import { endpointMessageReceived } from '../../subtitles/actions.any';
+import { setIAmVisitor } from '../../visitors/actions';
 import { iAmVisitor } from '../../visitors/functions';
+import { overwriteConfig } from '../config/actions';
 import { getReplaceParticipant } from '../config/functions';
-import { hangup } from '../connection/actions';
+import { connect, disconnect, hangup } from '../connection/actions';
 import { JITSI_CONNECTION_CONFERENCE_KEY } from '../connection/constants';
 import { JitsiConferenceEvents, JitsiE2ePingEvents } from '../lib-jitsi-meet';
-import { setAudioMuted, setAudioUnmutePermissions, setVideoMuted, setVideoUnmutePermissions } from '../media/actions';
+import {
+    gumPending,
+    setAudioMuted,
+    setAudioUnmutePermissions,
+    setVideoMuted,
+    setVideoUnmutePermissions
+} from '../media/actions';
 import { MEDIA_TYPE } from '../media/constants';
+import { IGUMPendingState } from '../media/types';
 import {
     dominantSpeakerChanged,
     participantKicked,
@@ -46,6 +54,7 @@ import {
     DATA_CHANNEL_CLOSED,
     DATA_CHANNEL_OPENED,
     E2E_RTT_CHANGED,
+    ENDPOINT_MESSAGE_RECEIVED,
     KICKED_OUT,
     LOCK_STATE_CHANGED,
     NON_PARTICIPANT_MESSAGE_RECEIVED,
@@ -59,7 +68,8 @@ import {
     SET_PENDING_SUBJECT_CHANGE,
     SET_ROOM,
     SET_START_MUTED_POLICY,
-    SET_START_REACTIONS_MUTED
+    SET_START_REACTIONS_MUTED,
+    UPDATE_CONFERENCE_METADATA
 } from './actionTypes';
 import {
     AVATAR_URL_COMMAND,
@@ -73,10 +83,11 @@ import {
     getConferenceOptions,
     getConferenceState,
     getCurrentConference,
+    getVisitorOptions,
     sendLocalParticipant
 } from './functions';
 import logger from './logger';
-import { IJitsiConference } from './reducer';
+import { IConferenceMetadata, IJitsiConference } from './reducer';
 
 /**
  * Adds conference (event) listeners.
@@ -272,6 +283,21 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
         })));
 }
 
+/**
+ * Action for updating the conference metadata.
+ *
+ * @param {IConferenceMetadata} metadata - The metadata object.
+ * @returns {{
+ *    type: UPDATE_CONFERENCE_METADATA,
+ *    metadata: IConferenceMetadata
+ * }}
+ */
+export function updateConferenceMetadata(metadata: IConferenceMetadata | null) {
+    return {
+        type: UPDATE_CONFERENCE_METADATA,
+        metadata
+    };
+}
 
 /**
  * Create an action for when the end-to-end RTT against a specific remote participant has changed.
@@ -507,15 +533,18 @@ export function conferenceWillJoin(conference?: IJitsiConference) {
  *
  * @param {JitsiConference} conference - The JitsiConference instance which will
  * be left by the local participant.
+ * @param {boolean} isRedirect - Indicates if the action has been dispatched as part of visitor promotion.
  * @returns {{
  *     type: CONFERENCE_LEFT,
- *     conference: JitsiConference
+ *     conference: JitsiConference,
+ *     isRedirect: boolean
  * }}
  */
-export function conferenceWillLeave(conference?: IJitsiConference) {
+export function conferenceWillLeave(conference?: IJitsiConference, isRedirect?: boolean) {
     return {
         type: CONFERENCE_WILL_LEAVE,
-        conference
+        conference,
+        isRedirect
     };
 }
 
@@ -621,6 +650,25 @@ export function dataChannelClosed(code: number, reason: string) {
         type: DATA_CHANNEL_CLOSED,
         code,
         reason
+    };
+}
+
+/**
+ * Signals that a participant sent an endpoint message on the data channel.
+ *
+ * @param {Object} participant - The participant details sending the message.
+ * @param {Object} data - The data carried by the endpoint message.
+ * @returns {{
+*      type: ENDPOINT_MESSAGE_RECEIVED,
+*      participant: Object,
+*      data: Object
+* }}
+*/
+export function endpointMessageReceived(participant: Object, data: Object) {
+    return {
+        type: ENDPOINT_MESSAGE_RECEIVED,
+        participant,
+        data
     };
 }
 
@@ -981,5 +1029,45 @@ export function setAssumedBandwidthBps(assumedBandwidthBps: number) {
     return {
         type: SET_ASSUMED_BANDWIDTH_BPS,
         assumedBandwidthBps
+    };
+}
+
+/**
+ * Redirects to a new visitor node.
+ *
+ * @param {string | undefined} vnode - The vnode to use or undefined if moving back to the main room.
+ * @param {string} focusJid - The focus jid to use.
+ * @param {string} username - The username to use.
+ * @returns {void}
+ */
+export function redirect(vnode: string, focusJid: string, username: string) {
+    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const newConfig = getVisitorOptions(getState, vnode, focusJid, username);
+
+        if (!newConfig) {
+            logger.warn('Not redirected missing params');
+
+            return;
+        }
+
+        dispatch(overwriteConfig(newConfig)) // @ts-ignore
+            .then(() => dispatch(disconnect(true)))
+            .then(() => dispatch(setIAmVisitor(Boolean(vnode))))
+
+            // we do not clear local tracks on error, so we need to manually clear them
+            .then(() => dispatch(destroyLocalTracks()))
+            .then(() => dispatch(conferenceWillInit()))
+            .then(() => dispatch(connect()))
+            .then(() => {
+
+                // Clear the gum pending state in case we have set it to pending since we are starting the
+                // conference without tracks.
+                dispatch(gumPending([ MEDIA_TYPE.AUDIO, MEDIA_TYPE.VIDEO ], IGUMPendingState.NONE));
+
+                // FIXME: Workaround for the web version. To be removed once we get rid of conference.js
+                if (typeof APP !== 'undefined') {
+                    APP.conference.startConference([]);
+                }
+            });
     };
 }
