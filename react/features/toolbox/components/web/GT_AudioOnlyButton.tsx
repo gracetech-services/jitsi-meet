@@ -29,6 +29,7 @@ class AudioOnlyButton extends AbstractButton<IProps> {
     label = 'toolbar.audioOnlyOn';
     toggledIcon = IconAudioOnlyOff;
     toggledLabel = 'toolbar.audioOnlyOff';
+    tooltip = 'toolbar.accessibilityLabel.audioOnly';
 
     /**
      * Handles clicking / pressing the button.
