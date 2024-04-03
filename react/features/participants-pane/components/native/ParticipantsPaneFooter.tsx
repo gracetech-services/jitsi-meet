@@ -26,6 +26,8 @@ import { isMoreActionsVisible, isMuteAllVisible } from '../../functions';
 
 import { ContextMenuMore } from './ContextMenuMore';
 import styles from './styles';
+import MuteEveryonesVideoDialog
+    from '../../../video-menu/components/native/MuteEveryonesVideoDialog';
 
 
 /**
@@ -46,6 +48,11 @@ const ParticipantsPaneFooter = (): JSX.Element => {
         [ dispatch ]);
     const showMoreActions = useSelector(isMoreActionsVisible);
     const showMuteAll = useSelector(isMuteAllVisible);
+
+    //Gracetech
+    const muteAllVideo = useCallback(() => {
+        dispatch(openDialog(MuteEveryonesVideoDialog));
+    }, [ dispatch ]);
 
     return (
         <View style = { styles.participantsPaneFooterContainer as ViewStyle }>
@@ -78,6 +85,12 @@ const ParticipantsPaneFooter = (): JSX.Element => {
                             type = { BUTTON_TYPES.SECONDARY } />
                     )
                 }
+                <Button
+                    accessibilityLabel = 'participantsPane.actions.stopEveryonesVideo'
+                    labelKey = 'participantsPane.actions.stopEveryonesVideo'
+                    onClick = { muteAllVideo }
+                    style = { styles.moreButton }
+                    type = { BUTTON_TYPES.SECONDARY } />
                 {
                     showMoreActions && (
                         <IconButton

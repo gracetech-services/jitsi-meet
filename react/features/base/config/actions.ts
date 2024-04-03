@@ -139,6 +139,12 @@ export function setConfig(config: IConfig = {}) {
             config.bosh = bosh;
         }
 
+        //Gracetech
+        const {participantsPane ={} } = config;
+        participantsPane.hideModeratorSettingsTab = true;   
+        participantsPane.hideMoreActionsButton = true;
+        config.participantsPane = participantsPane;
+
         dispatch({
             type: SET_CONFIG,
             config
