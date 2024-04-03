@@ -300,18 +300,16 @@ const Toolbox = ({
             sliceIndex -= 1;
         }
 
-        //Gracetech: no overflow button
-        const noOverflow = true;
-
         // This implies that the overflow button will be displayed, so save some space for it.
-        // but //Gracetech: we won't show overflow
-        if (sliceIndex < (filtered.length-1) && !noOverflow) {
+        //Gracetech -- the and condition could be merged back to master...
+        if (sliceIndex < (filtered.length-1) && _overflowDrawer) {
             sliceIndex -= 1;
         }
 
         return {
             mainMenuButtons: filtered.slice(0, sliceIndex),
-            overflowMenuButtons: noOverflow? [] : filtered.slice(sliceIndex)
+            //Gracetech -- no overflow
+            overflowMenuButtons: !_overflowDrawer ? [] : filtered.slice(sliceIndex)
         };
     }
 
@@ -353,12 +351,7 @@ const Toolbox = ({
      */
     function renderToolboxContent() {
         const toolbarAccLabel = 'toolbar.accessibilityLabel.moreActionsMenu';
-
-        //Gracetech: the class toolbox-content-mobile already have a @media css 
-        // control for small screen devices, there is no need for isMobile check
-        // for bigger screen, this class has no content
-        const containerClassName = `toolbox-content toolbox-content-mobile`;
-        // const containerClassName = `toolbox-content${_isMobile || _isNarrowLayout ? ' toolbox-content-mobile' : ''}`;
+        const containerClassName = `toolbox-content${_isMobile || _isNarrowLayout ? ' toolbox-content-mobile' : ''}`;
 
         const { mainMenuButtons, overflowMenuButtons } = getVisibleButtons();
         const raiseHandInOverflowMenu = overflowMenuButtons.some(({ key }) => key === 'raisehand');
@@ -515,7 +508,8 @@ function _mapStateToProps(state: IReduxState, ownProps: any) {
         _hangupMenuVisible: hangupMenuVisible,
         _isNarrowLayout: isNarrowLayout,
         _overflowMenuVisible: overflowMenuVisible,
-        _overflowDrawer: overflowDrawer,
+        //Gracetech
+        _overflowDrawer: false, //overflowDrawer,
         _reactionsButtonEnabled: isReactionsButtonEnabled(state),
         _shiftUp: state['features/toolbox'].shiftUp,
         _shouldDisplayReactionsButtons: shouldDisplayReactionsButtons(state),
