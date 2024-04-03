@@ -279,19 +279,19 @@ const Toolbox = ({
      */
     function getVisibleButtons() {
         const buttons = getAllToolboxButtons(_customToolbarButtons);
-
         setButtonsNotifyClickMode(buttons);
         const isHangupVisible = isButtonEnabled('hangup', _toolbarButtons);
         const { order } = THRESHOLDS.find(({ width }) => _clientWidth > width)
             || THRESHOLDS[THRESHOLDS.length - 1];
         const keys = Object.keys(buttons);
 
+        //Gracetech force audioonly in as enabled.
         const filtered = [
             ...order.map(key => buttons[key as keyof typeof buttons]),
             ...Object.values(buttons).filter((button, index) => !order.includes(keys[index]))
         ].filter(({ key, alias = NOT_APPLICABLE }) =>
             !_jwtDisabledButtons.includes(key)
-            && (isButtonEnabled(key, _toolbarButtons) || isButtonEnabled(alias, _toolbarButtons))
+            && (key==='audioonly' || isButtonEnabled(key, _toolbarButtons) || isButtonEnabled(alias, _toolbarButtons))
         );
 
         let sliceIndex = _overflowDrawer || _reactionsButtonEnabled ? order.length + 2 : order.length + 1;
@@ -354,6 +354,8 @@ const Toolbox = ({
         const containerClassName = `toolbox-content${_isMobile || _isNarrowLayout ? ' toolbox-content-mobile' : ''}`;
 
         const { mainMenuButtons, overflowMenuButtons } = getVisibleButtons();
+        //console.log("GT: mainMenuButtons", mainMenuButtons);
+
         const raiseHandInOverflowMenu = overflowMenuButtons.some(({ key }) => key === 'raisehand');
         const showReactionsInOverflowMenu = _shouldDisplayReactionsButtons
             && (
@@ -362,7 +364,6 @@ const Toolbox = ({
             );
         const showRaiseHandInReactionsMenu = showReactionsInOverflowMenu && raiseHandInOverflowMenu;
 
-        //console.log("GT: Boolean(overflowMenuButtons.length)", Boolean(overflowMenuButtons.length), overflowMenuButtons);
         return (
             <div className = { containerClassName }>
                 <div

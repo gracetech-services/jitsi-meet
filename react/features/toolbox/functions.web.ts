@@ -40,6 +40,7 @@ import ToggleCameraButton from './components/web/ToggleCameraButton';
 import VideoSettingsButton from './components/web/VideoSettingsButton';
 import { TOOLBAR_TIMEOUT } from './constants';
 import { IToolboxButton, NOTIFY_CLICK_MODE } from './types';
+import AudioOnlyButton from './components/web/GT_AudioOnlyButton';
 
 export * from './functions.any';
 
@@ -202,6 +203,11 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
     text: string;
     }[]): { [key: string]: IToolboxButton; } {
 
+    const audioonly = {
+        key: 'audioonly',
+        Content: AudioOnlyButton,
+        group: 0
+    }
     const microphone = {
         key: 'microphone',
         Content: AudioSettingsButton,
@@ -408,6 +414,7 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
     }, {});
 
     return {
+        audioonly,
         microphone,
         camera,
         profile,

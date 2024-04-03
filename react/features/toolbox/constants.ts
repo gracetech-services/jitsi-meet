@@ -6,32 +6,31 @@ import { ToolbarButton } from './types';
 export const THRESHOLDS = [
     {
         width: 565,
-        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants', 'recording', 'tileview' ]
-        //order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'reactions', 'participants', 'tileview' ]
+        order: [ 'microphone', 'camera', 'desktop', 'chat', 'audioonly', 'raisehand', 'participants', 'recording', 'tileview' ]
     },
     {
         width: 520,
-        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants', 'recording', 'tileview' ]
+        order: [ 'microphone', 'camera', 'desktop', 'chat', 'audioonly', 'raisehand', 'participants', 'recording' ]
     },
     {
         width: 470,
-        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants',  'tileview' ]
+        order: [ 'microphone', 'camera', 'desktop', 'chat', 'audioonly', 'raisehand', 'participants' ]
     },
     {
         width: 420,
-        order: [ 'microphone', 'camera', 'chat', 'raisehand', 'participants', 'tileview' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly', 'raisehand', 'participants' ]
     },
     {
         width: 370,
-        order: [ 'microphone', 'camera', 'chat', 'raisehand', 'participants' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly','raisehand' ]
     },
     {
         width: 225,
-        order: [ 'microphone', 'camera', 'chat', 'raisehand', 'participants' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly','raisehand' ]
     },
     {
         width: 200,
-        order: [ 'microphone', 'camera', 'chat', 'raisehand', 'participants' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly','raisehand' ]
     }
 ];
 
