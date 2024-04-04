@@ -1,26 +1,26 @@
-/* eslint-disable */
 
 import { ExcalidrawApp } from '@jitsi/excalidraw';
 import clsx from 'clsx';
 import i18next from 'i18next';
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { WithTranslation } from 'react-i18next';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-// import Filmstrip from '../../../../../modules/UI/videolayout/Filmstrip';
-// import { IReduxState } from '../../../app/types';
+// @ts-expect-error
+import Filmstrip from '../../../../../modules/UI/videolayout/Filmstrip';
+import { IReduxState } from '../../../app/types';
 import { translate } from '../../../base/i18n/functions';
-// import { getLocalParticipant } from '../../../base/participants/functions';
-// import { getVerticalViewMaxWidth } from '../../../filmstrip/functions.web';
-// import { getToolboxHeight } from '../../../toolbox/functions.web';
-// import { shouldDisplayTileView } from '../../../video-layout/functions.any';
-// import { WHITEBOARD_UI_OPTIONS } from '../../constants';
-// import {
-//     getCollabDetails,
-//     getCollabServerUrl,
-//     isWhiteboardOpen,
-//     isWhiteboardVisible
-// } from '../../functions';
+import { getLocalParticipant } from '../../../base/participants/functions';
+import { getVerticalViewMaxWidth } from '../../../filmstrip/functions.web';
+import { getToolboxHeight } from '../../../toolbox/functions.web';
+import { shouldDisplayTileView } from '../../../video-layout/functions.any';
+import { WHITEBOARD_UI_OPTIONS } from '../../constants';
+import {
+    getCollabDetails,
+    getCollabServerUrl,
+    isWhiteboardOpen,
+    isWhiteboardVisible
+} from '../../functions';
 
 /**
  * Space taken by meeting elements like the subject and the watermark.
@@ -47,49 +47,49 @@ const Whiteboard = (props: WithTranslation): JSX.Element => {
     const excalidrawAPIRef = useRef<any>(null);
     const collabAPIRef = useRef<any>(null);
 
-    // const isOpen = useSelector(isWhiteboardOpen);
-    // const isVisible = useSelector(isWhiteboardVisible);
-    // const isInTileView = useSelector(shouldDisplayTileView);
-    // const { clientHeight, clientWidth } = useSelector((state: IReduxState) => state['features/base/responsive-ui']);
-    // const { visible: filmstripVisible, isResizing } = useSelector((state: IReduxState) => state['features/filmstrip']);
-    // const filmstripWidth: number = useSelector(getVerticalViewMaxWidth);
-    // const collabDetails = useSelector(getCollabDetails);
-    // const collabServerUrl = useSelector(getCollabServerUrl);
-    // const { defaultRemoteDisplayName } = useSelector((state: IReduxState) => state['features/base/config']);
-    // const localParticipantName = useSelector(getLocalParticipant)?.name || defaultRemoteDisplayName || 'Fellow Jitster';
+    const isOpen = useSelector(isWhiteboardOpen);
+    const isVisible = useSelector(isWhiteboardVisible);
+    const isInTileView = useSelector(shouldDisplayTileView);
+    const { clientHeight, clientWidth } = useSelector((state: IReduxState) => state['features/base/responsive-ui']);
+    const { visible: filmstripVisible, isResizing } = useSelector((state: IReduxState) => state['features/filmstrip']);
+    const filmstripWidth: number = useSelector(getVerticalViewMaxWidth);
+    const collabDetails = useSelector(getCollabDetails);
+    const collabServerUrl = useSelector(getCollabServerUrl);
+    const { defaultRemoteDisplayName } = useSelector((state: IReduxState) => state['features/base/config']);
+    const localParticipantName = useSelector(getLocalParticipant)?.name || defaultRemoteDisplayName || 'Fellow Jitster';
 
-    // useEffect(() => {
-    //     if (!collabAPIRef.current) {
-    //         return;
-    //     }
+    useEffect(() => {
+        if (!collabAPIRef.current) {
+            return;
+        }
 
-    //     collabAPIRef.current.setUsername(localParticipantName);
-    // }, [ localParticipantName ]);
+        collabAPIRef.current.setUsername(localParticipantName);
+    }, [ localParticipantName ]);
 
-    // /**
-    // * Computes the width and the height of the component.
-    // *
-    // * @returns {IDimensions} - The dimensions of the component.
-    // */
-    // const getDimensions = (): IDimensions => {
-    //     let width: number;
-    //     let height: number;
+    /**
+    * Computes the width and the height of the component.
+    *
+    * @returns {IDimensions} - The dimensions of the component.
+    */
+    const getDimensions = (): IDimensions => {
+        let width: number;
+        let height: number;
 
-    //     if (interfaceConfig.VERTICAL_FILMSTRIP) {
-    //         if (filmstripVisible) {
-    //             width = clientWidth - filmstripWidth;
-    //         } else {
-    //             width = clientWidth;
-    //         }
-    //         height = clientHeight - getToolboxHeight();
-    //     } else {
-    //         if (filmstripVisible) {
-    //             height = clientHeight - Filmstrip.getFilmstripHeight();
-    //         } else {
-    //             height = clientHeight;
-    //         }
-    //         width = clientWidth;
-    //     }
+        if (interfaceConfig.VERTICAL_FILMSTRIP) {
+            if (filmstripVisible) {
+                width = clientWidth - filmstripWidth;
+            } else {
+                width = clientWidth;
+            }
+            height = clientHeight - getToolboxHeight();
+        } else {
+            if (filmstripVisible) {
+                height = clientHeight - Filmstrip.getFilmstripHeight();
+            } else {
+                height = clientHeight;
+            }
+            width = clientWidth;
+        }
 
         return {
             width: `${width}px`,
@@ -104,13 +104,13 @@ const Whiteboard = (props: WithTranslation): JSX.Element => {
         excalidrawAPIRef.current = excalidrawAPI;
     }, []);
 
-    // const getCollabAPI = useCallback(collabAPI => {
-    //     if (collabAPIRef.current) {
-    //         return;
-    //     }
-    //     collabAPIRef.current = collabAPI;
-    //     collabAPIRef.current.setUsername(localParticipantName);
-    // }, [ localParticipantName ]);
+    const getCollabAPI = useCallback(collabAPI => {
+        if (collabAPIRef.current) {
+            return;
+        }
+        collabAPIRef.current = collabAPI;
+        collabAPIRef.current.setUsername(localParticipantName);
+    }, [ localParticipantName ]);
 
     return (
         <div

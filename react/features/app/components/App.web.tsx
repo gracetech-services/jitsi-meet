@@ -73,7 +73,7 @@ export class App extends AbstractApp {
      */
     async _extraInit() {
         const { dispatch, getState } = this.state.store ?? {};
-        const { flags = {} } = this.props;
+        const flags:any = {};
         flags[INVITE_ENABLED] = false;
         // We set these early enough so then we avoid any unnecessary re-renders.
         dispatch?.(updateFlags(flags));

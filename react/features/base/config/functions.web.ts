@@ -1,8 +1,5 @@
 import { IReduxState } from '../../app/types';
 import JitsiMeetJS from '../../base/lib-jitsi-meet';
-import { NOTIFY_CLICK_MODE } from '../../toolbox/constants';
-import { isMobileBrowser } from '../environment/utils';
-
 
 import {
     IConfig,
@@ -41,29 +38,6 @@ export function getReplaceParticipant(state: IReduxState): string | undefined {
  */
 export function getWebHIDFeatureConfig(state: IReduxState): boolean {
     return state['features/base/config'].enableWebHIDFeature || false;
-}
-
-/**
- * Checks if the specified button is enabled.
- *
- * @param {string} buttonName - The name of the button.
- * {@link interfaceConfig}.
- * @param {Object|Array<string>} state - The redux state or the array with the enabled buttons.
- * @returns {boolean} - True if the button is enabled and false otherwise.
- */
-export function isToolbarButtonEnabled(buttonName: string, state: IReduxState | Array<string>) {
-    const buttons = Array.isArray(state) ? state : getToolbarButtons(state);
-
-    if (isMobileBrowser()) {
-        switch (buttonName) {
-            case 'tileview':
-            case 'recording':
-            case 'desktop':
-                    return false;
-        }
-    }
-
-    return buttons.includes(buttonName);
 }
 
 /**
