@@ -49,8 +49,6 @@ deploy-appbundle:
 		$(BUILD_DIR)/alwaysontop.min.js \
 		$(BUILD_DIR)/alwaysontop.min.js.map \
 		$(OUTPUT_DIR)/analytics-ga.js \
-		$(BUILD_DIR)/screenshot-capture-worker.min.js \
-		$(BUILD_DIR)/screenshot-capture-worker.min.js.map \
 		$(DEPLOY_DIR)
 	cp \
 		$(BUILD_DIR)/close3.min.js \
