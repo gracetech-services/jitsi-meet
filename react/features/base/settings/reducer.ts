@@ -44,9 +44,11 @@ const DEFAULT_STATE: ISettingsState = {
     userSelectedMicDeviceId: undefined,
     userSelectedAudioOutputDeviceLabel: undefined,
     userSelectedCameraDeviceLabel: undefined,
+    /* //Gracetech
     userSelectedNotifications: {
         'notify.chatMessages': true
     },
+    */
     userSelectedMicDeviceLabel: undefined,
     userSelectedSkipPrejoin: undefined
 };

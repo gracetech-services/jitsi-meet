@@ -283,7 +283,8 @@ function _mapStateToProps(state: IReduxState, ownProps: any) {
         });
     }
 
-    !_iAmVisitor && tabs.push({
+    //Gracetech -- 
+    false && !_iAmVisitor && tabs.push({
         name: SETTINGS_TABS.SHORTCUTS,
         component: ShortcutsTab,
         labelKey: 'settings.shortcuts',

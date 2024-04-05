@@ -264,6 +264,10 @@ export function setConfigFromURLParams(
     json.interfaceConfig.DISABLE_DOMINANT_SPEAKER_INDICATOR = true;
     json.interfaceConfig.DISABLE_VIDEO_BACKGROUND = true;
     json.interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS = true;
+
+    //Gracetech
+    json.interfaceConfig.SETTINGS_SECTIONS = [];
+
     config.disableAudioLevels = true;
     config.resolution = 480;
 
