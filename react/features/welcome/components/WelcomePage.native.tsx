@@ -99,7 +99,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         } = this.props;
 
         navigation.setOptions({
-            headerTitle: t('welcomepage.headerTitle')
+            //Gracetech
+            headerTitle: t('welcomepage.headerTitle') + ' ' + t('settingsView.version')+'1000'
         });
 
         navigation.addListener('focus', () => {
