@@ -53,7 +53,9 @@ export function getMovableButtons(width: number): Set<string> {
     }
 
     default: {
-        buttons = [ 'chat' ];
+        //Gracetech
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly'];
+        //buttons = [ 'chat' ];
     }
     }
 
