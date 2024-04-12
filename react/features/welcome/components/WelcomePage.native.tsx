@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Animated,
+    BackHandler,
     NativeSyntheticEvent,
     SafeAreaView,
     StyleProp,
@@ -33,6 +34,7 @@ import {
     _mapStateToProps as _abstractMapStateToProps
 } from './AbstractWelcomePage';
 import styles from './styles.native';
+import Platform from '../../base/react/Platform.native';
 
 interface IProps extends AbstractProps {
 
@@ -100,7 +102,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         navigation.setOptions({
             //Gracetech
-            headerTitle: t('welcomepage.headerTitle') + ' ' + t('settingsView.version')+'1000'
+            headerTitle: t('welcomepage.headerTitle') + ' ' + t('settingsView.version')+'1.0.0'
         });
 
         navigation.addListener('focus', () => {
@@ -324,6 +326,10 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @returns {ReactElement}
      */
     
+    _onCloseApp() {
+        alert('closeApp');
+        BackHandler.exitApp();
+    }
     _renderGracetechWelcom() {
         const roomnameAccLabel = 'welcomepage.accessibilityLabel.roomname';
         const { t } = this.props;
@@ -336,12 +342,42 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         // meeting servers is not a bad thing. It wil incur some support issue, 
         // but on balance it can be a good thing for testing purposes, as well
         // as getting the app reviewer approval
-        if(true || Platform.OS !== 'android') {
+        //
+        const noUserInput = true;
+        const allowJitsiMeeting = false;
+        // PM wants to simplify even more: no input box, so the else portion for now
+        //  we'll clean up this more after Apple app review
+        //chromeExtensionBanner.close
+        //dialog.close
+        if(allowJitsiMeeting && Platform.OS !== 'android') {
             return (
                 <>
                     { this._renderRoomNameInput() }
                 </>
             );
+        } else if (noUserInput) {
+            return (
+                <Animated.View
+                    style = { [
+                        isSettingsScreenFocused && styles.roomNameInputContainer,
+                        { opacity: this.state.roomNameInputAnimation }
+                    ] as StyleProp<ViewStyle> }>
+                    <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
+                        <View style = { styles.joinControls } >
+                            <Text style = { styles.enterRoomText as StyleProp<TextStyle> }>
+                                { t('welcomepage.askToUseIDigest') }
+                            </Text>
+                        </View>
+                        <Button
+                            accessibilityLabel = { 'dialog.close' }
+                            labelKey = { 'dialog.close' }
+                            labelStyle = { styles.joinButtonLabel }
+                            onClick = { this._onCloseApp }
+                            type = { BUTTON_TYPES.PRIMARY } />
+                    </SafeAreaView>
+                </Animated.View>
+            );
+
         } else {
             return (
                 <Animated.View
