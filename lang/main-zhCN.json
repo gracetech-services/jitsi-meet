@@ -1477,7 +1477,7 @@
         },
         "addMeetingName": "添加会议室名称",
         "appDescription": "快来邀请更多的人加入，与他们一起进行视频通话。{{app}}是一个完全加密以及100%开源的视频会议解决方案，无需注册即可免费使用。",
-        "askToUseIDigest":"请在\"小鸽子\" App启动会议. \n\n此“渔友会” App暂时不可以单独使用, 请点击以下按钮关闭App",
+        "askToUseIDigest": "请在\"小鸽子\" App启动会议. \n\n此“渔友会” App暂时不可以单独使用, 请点击以下按钮关闭App",
         "audioVideoSwitch": {
             "audio": "语音",
             "video": "视频"
