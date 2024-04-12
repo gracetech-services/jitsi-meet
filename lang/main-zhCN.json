@@ -67,13 +67,18 @@
             "renameBreakoutRoom": "重命名分组讨论室",
             "sendToBreakoutRoom": "将参会者移至："
         },
-        "defaultName": "分组讨论室#{{index}}",
+        "breakoutList": "分组讨论室列表",
+        "buttonLabel": "分组讨论室",
+        "defaultName": "分组讨论室 #{{index}}",
+        "hideParticipantList": "隐藏与会者列表",
         "mainRoom": "主会议室",
         "notifications": {
             "joined": "正在加入“{{name}}”分组讨论室",
             "joinedMainRoom": "正在加入主会议室",
             "joinedTitle": "分组讨论室"
-        }
+        },
+        "showParticipantList": "显示与会者列表",
+        "title": "分组讨论室"
     },
     "calendarSync": {
         "addMeetingURL": "添加会议链接",
@@ -256,6 +261,7 @@
         "Share": "分享",
         "Submit": "提交",
         "WaitForHostMsg": "会议尚未开始。如果你是主持人，请进行身份验证。否则，请等待主持人加入。",
+        "WaitingForHostButton": "等待主持人",
         "WaitingForHostTitle": "正在等待主持人加入……",
         "Yes": "是",
         "accessibilityLabel": {
@@ -269,6 +275,8 @@
         "addMeetingNote": "添加本次会议的备注",
         "addOptionalNote": "添加备注（可选）：",
         "allow": "允许",
+        "allowToggleCameraDialog": "您要允许 {{initiatorName}} 切换您的镜头朝向吗？",
+        "allowToggleCameraTitle": "要允许切换镜头吗？",
         "alreadySharedVideoMsg": "其他参会者正在分享视频，本次会议仅支持同时分享一个视频。",
         "alreadySharedVideoTitle": "同一时间只允许一个视频分享",
         "applicationWindow": "应用程序窗口",
@@ -410,6 +418,7 @@
         "sendPrivateMessageTitle": "私信回复？",
         "serviceUnavailable": "服务不可用",
         "sessTerminated": "通话已结束",
+        "sessTerminatedReason": "会议已经终止",
         "sessionRestarted": "由于连接问题，呼叫重新启动。",
         "shareAudio": "继续",
         "shareAudioTitle": "如何分享音频",
@@ -473,6 +482,10 @@
         "viewUpgradeOptions": "查看升级选项",
         "viewUpgradeOptionsContent": "要获取无限制的高级功能，如录制、转录、RTMP 流等，请升级你的计划。",
         "viewUpgradeOptionsTitle": "你发现了高级版功能!",
+        "whiteboardLimitContent": "抱歉，已达到白板使用者限制。",
+        "whiteboardLimitReference": "若要了解详情，请前往",
+        "whiteboardLimitReferenceUrl": "我们的网站",
+        "whiteboardLimitTitle": "白板使用受限",
         "yourEntireScreen": "你的整个屏幕"
     },
     "documentSharing": {
@@ -548,6 +561,7 @@
         "password": "$t(lockRoomPasswordUppercase)：",
         "reachedLimit": "你已达到套餐限制。",
         "sip": "SIP地址",
+        "sipAudioOnly": "SIP 仅音讯位址",
         "title": "分享",
         "tooltip": "分享此会议的链接和拨入信息",
         "upgradeOptions": "请查看升级选项于"
@@ -715,6 +729,7 @@
         "dataChannelClosed": "视频质量受损",
         "dataChannelClosedDescription": "桥接通道已断开连接，因此视频质量限制为最低设置。",
         "disabledIframe": "嵌入仅用于演示目的，因此此通话将在 {{timeout}} 分钟后断开连接。",
+        "disabledIframeSecondary": "内嵌 {{domain}} 仅为展示用途，此通话将在 {{timeout}} 分钟后中断连线。请使用在正式环境使用 <a href='{{jaasDomain}}' rel='noopener noreferrer' target='_blank'>Jitsi 服务</a>来内嵌！",
         "disconnected": "已断开连接",
         "displayNotifications": "显示通知",
         "dontRemindMe": "不要提醒我",
@@ -790,7 +805,9 @@
         "videoUnmuteBlockedDescription": "由于系统限制，开启摄像头和共享屏幕操作已被暂时阻止。",
         "videoUnmuteBlockedTitle": "开启摄像头和共享屏幕被阻止！",
         "viewLobby": "查看大厅",
-        "waitingParticipants": "{{waitingParticipants}}人"
+        "waitingParticipants": "{{waitingParticipants}}人",
+        "whiteboardLimitDescription": "由于即将超出使用者限制，白板将关闭，请储存您的进度。",
+        "whiteboardLimitTitle": "白板使用情况"
     },
     "participantsPane": {
         "actions": {
@@ -801,7 +818,7 @@
             "askUnmute": "请求解除静音",
             "audioModeration": "自我解除静音",
             "blockEveryoneMicCamera": "禁用所有人的麦克风和摄像头",
-            "breakoutRooms": "分組討論室",
+            "breakoutRooms": "分组讨论室",
             "invite": "邀请其他人",
             "moreModerationActions": "更多主持人选项",
             "moreModerationControls": "更多主持人控制",
@@ -1079,6 +1096,7 @@
         "alertOk": "确认",
         "alertTitle": "警告",
         "alertURLText": "输入的服务器网址无效",
+        "apply": "套用",
         "buildInfoSection": "生成信息",
         "conferenceSection": "会议",
         "disableCallIntegration": "禁用本地电话",
@@ -1089,6 +1107,7 @@
         "displayNamePlaceholderText": "例如：张三",
         "email": "邮箱",
         "emailPlaceholderText": "email@example.com",
+        "gavatarMessage": "如果您的电子邮件地址与 Gravatar 帐号相关联，我们会使用 Gravatar 上的个人档案大头贴。",
         "goTo": "前往",
         "header": "设置",
         "help": "帮助",
@@ -1458,7 +1477,6 @@
         },
         "addMeetingName": "添加会议室名称",
         "appDescription": "快来邀请更多的人加入，与他们一起进行视频通话。{{app}}是一个完全加密以及100%开源的视频会议解决方案，无需注册即可免费使用。",
-        "askToUseIDigest": "请用小鸽子进入会议",
         "audioVideoSwitch": {
             "audio": "语音",
             "video": "视频"
@@ -1471,7 +1489,7 @@
         "go": "开始",
         "goSmall": "开始",
         "headerSubtitle": "安全且高品质的会议",
-        "headerTitle": "渔友会 Fish Meet",
+        "headerTitle": "Jitsi Meet",
         "info": "拨入信息",
         "jitsiOnMobile": "手机版Jitsi – 下载我们的APP，随时随地开始会议",
         "join": "创建/加入",
