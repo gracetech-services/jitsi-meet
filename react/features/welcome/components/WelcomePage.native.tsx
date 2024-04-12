@@ -331,31 +331,44 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         const showJoin = !!this.state.room && this.state.room.startsWith('https://');
 
-        return (
-            <Animated.View
-                style = { [
-                    isSettingsScreenFocused && styles.roomNameInputContainer,
-                    { opacity: this.state.roomNameInputAnimation }
-                ] as StyleProp<ViewStyle> }>
-                <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
-                    <View style = { styles.joinControls } >
-                        <Input
-                            accessibilityLabel = { t(roomnameAccLabel) }
-                            autoCapitalize = { 'none' }
-                            autoFocus = { false }
-                            customStyles = {{ input: styles.customInput }}
-                            onChange = { this._onRoomChange }
-                            onSubmitEditing = { this._onJoin }
-                            placeholder = { t('welcomepage.askToUseIDigest') }
-                            returnKeyType = { 'go' }
-                            value = { this.state.room } />
-                    </View>
-                    {
-                        showJoin && this._renderJoinButton()
-                    }
-                </SafeAreaView>
-            </Animated.View>
-        );
+        // The app on android was meant to be so simplified, it'd only work 
+        // with Gractech meeting servers. But allowing it to interop with Jitsi
+        // meeting servers is not a bad thing. It wil incur some support issue, 
+        // but on balance it can be a good thing for testing purposes, as well
+        // as getting the app reviewer approval
+        if(true || Platform.OS !== 'android') {
+            return (
+                <>
+                    { this._renderRoomNameInput() }
+                </>
+            );
+        } else {
+            return (
+                <Animated.View
+                    style = { [
+                        isSettingsScreenFocused && styles.roomNameInputContainer,
+                        { opacity: this.state.roomNameInputAnimation }
+                    ] as StyleProp<ViewStyle> }>
+                    <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
+                        <View style = { styles.joinControls } >
+                            <Input
+                                accessibilityLabel = { t(roomnameAccLabel) }
+                                autoCapitalize = { 'none' }
+                                autoFocus = { false }
+                                customStyles = {{ input: styles.customInput }}
+                                onChange = { this._onRoomChange }
+                                onSubmitEditing = { this._onJoin }
+                                placeholder = { t('welcomepage.askToUseIDigest') }
+                                returnKeyType = { 'go' }
+                                value = { this.state.room } />
+                        </View>
+                        {
+                            showJoin && this._renderJoinButton()
+                        }
+                    </SafeAreaView>
+                </Animated.View>
+            );
+        }
     }
 
     /**
