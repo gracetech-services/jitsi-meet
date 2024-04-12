@@ -77,7 +77,7 @@
 		0BEA5C3A1F7B8F73000D0AB4 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		0BEA5C3C1F7B8F73000D0AB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BEA5C3E1F7B8F73000D0AB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* jitsi-meet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "jitsi-meet.app"; path = fishMeet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* fishMeet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fishMeet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* jitsi-meet.app */,
+				13B07F961A680F5B00A75B9A /* fishMeet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,9 +241,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* fishMeet */ = {
+		13B07F861A680F5B00A75B9A /* JitsiMeet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "fishMeet" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JitsiMeet" */;
 			buildPhases = (
 				69BC5020DBE393B56BD76636 /* [CP] Check Pods Manifest.lock */,
 				0BBA83C41EC9F7600075A103 /* Run React packager */,
@@ -263,9 +263,9 @@
 			);
 			dependencies = (
 			);
-			name = fishMeet;
-			productName = "渔友会 fishMeet";
-			productReference = 13B07F961A680F5B00A75B9A /* jitsi-meet.app */;
+			name = JitsiMeet;
+			productName = "渔友会";
+			productReference = 13B07F961A680F5B00A75B9A /* fishMeet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -303,7 +303,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* fishMeet */,
+				13B07F861A680F5B00A75B9A /* JitsiMeet */,
 			);
 		};
 /* End PBXProject section */
@@ -678,7 +678,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "fishMeet" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "JitsiMeet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
