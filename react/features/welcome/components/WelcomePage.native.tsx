@@ -368,25 +368,28 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             );
         } else if (noUserInput) {
             return (
-                <Animated.View
-                    style = { [
-                        isSettingsScreenFocused && styles.roomNameInputContainer,
-                        { opacity: this.state.roomNameInputAnimation }
-                    ] as StyleProp<ViewStyle> }>
-                    <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
-                        <View style = { styles.joinControls } >
-                            <Text style = { styles.enterRoomText as StyleProp<TextStyle> }>
-                                { t('welcomepage.askToUseIDigest') }
-                            </Text>
-                        </View>
-                        <Button
-                            accessibilityLabel = { 'dialog.close' }
-                            labelKey = { 'dialog.close' }
-                            labelStyle = { styles.joinButtonLabel }
-                            onClick = { this._onCloseApp }
-                            type = { BUTTON_TYPES.PRIMARY } />
-                    </SafeAreaView>
-                </Animated.View>
+                <SafeAreaView style = {{
+                        flex: 1,
+                        //backgroundColor: 'white',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        //backgroundColor: BaseTheme.palette.link01,
+                        marginHorizontal: BaseTheme.spacing[4]
+                    }}>
+                    <Text style = {{
+                        color: BaseTheme.palette.text01,
+                        fontSize: 18,
+                        marginBottom:18
+                    }}>
+                        { t('welcomepage.askToUseIDigest') }
+                    </Text>
+                    <Button
+                        accessibilityLabel = { 'dialog.close' }
+                        labelKey = { 'dialog.close' }
+                        labelStyle = { styles.joinButtonLabel }
+                        onClick = { this._onCloseApp }
+                        type = { BUTTON_TYPES.PRIMARY } />
+                </SafeAreaView>
             );
 
         }
