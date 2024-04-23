@@ -48,7 +48,7 @@ export const TRANSLATION_LANGUAGES: Array<string> = Object.keys(TRANSLATION_LANG
  * @public
  * @type {string} The default language.
  */
-export const DEFAULT_LANGUAGE = 'zhCN'; //'en';
+export const DEFAULT_LANGUAGE = 'zhCN'; // 'en';
 
 /**
  * The available/supported translation languages head. (Languages displayed on the top ).

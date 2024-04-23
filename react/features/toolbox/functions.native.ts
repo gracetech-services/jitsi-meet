@@ -28,34 +28,37 @@ export function getMovableButtons(width: number): Set<string> {
 
     switch (true) {
     case width >= WIDTH.FIT_9_ICONS: {
-        //Gracetech
+        // Gracetech
         buttons = [ 'chat', 'togglecamera', 'screensharing', 'raisehand', 'audionly', 'tileview' ];
         break;
     }
     case width >= WIDTH.FIT_8_ICONS: {
-        //Gracetech
+        // Gracetech
         buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly', 'tileview' ];
         break;
     }
 
     case width >= WIDTH.FIT_7_ICONS: {
-        //Gracetech
+        // Gracetech
         buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly', 'tileview' ];
-        //buttons = [ 'chat', 'togglecamera', 'raisehand' ];
+
+        // buttons = [ 'chat', 'togglecamera', 'raisehand' ];
         break;
     }
 
     case width >= WIDTH.FIT_6_ICONS: {
-        //Gracetech
-        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly'];
-        //buttons = [ 'chat', 'togglecamera' ];
+        // Gracetech
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly' ];
+
+        // buttons = [ 'chat', 'togglecamera' ];
         break;
     }
 
     default: {
-        //Gracetech
-        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly'];
-        //buttons = [ 'chat' ];
+        // Gracetech
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly' ];
+
+        // buttons = [ 'chat' ];
     }
     }
 

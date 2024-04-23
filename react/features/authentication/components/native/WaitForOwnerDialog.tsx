@@ -107,8 +107,9 @@ function mapStateToProps(state: IReduxState) {
     const { membersOnly, lobbyWaitingForHost } = state['features/base/conference'];
     const { locationURL } = state['features/base/connection'];
 
-    //gracetech
+    // gracetech
     const noconfirmation = true;
+
     return {
         _alternativeCancelText: membersOnly && lobbyWaitingForHost,
         _isConfirmHidden: noconfirmation || locationURL?.hostname?.includes('8x8.vc')

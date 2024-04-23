@@ -127,7 +127,7 @@ export class App extends AbstractApp<IProps> {
             callIntegrationEnabled = false;
         }
 
-        //Gracetech
+        // Gracetech
         flags[INVITE_ENABLED] = false;
 
         // We set these early enough so then we avoid any unnecessary re-renders.

@@ -15,13 +15,13 @@ import { getMovableButtons, isToolboxVisible } from '../../functions.native';
 import HangupButton from '../HangupButton';
 
 import AudioMuteButton from './AudioMuteButton';
+import AudioOnlyButton from './AudioOnlyButton';
 import HangupMenuButton from './HangupMenuButton';
 import OverflowMenuButton from './OverflowMenuButton';
 import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton';
 import VideoMuteButton from './VideoMuteButton';
 import styles from './styles';
-import AudioOnlyButton from './AudioOnlyButton';
 
 
 /**
@@ -91,8 +91,9 @@ function Toolbox(props: IProps) {
         style.justifyContent = 'center';
     }
 
-    //Gracetech: no overflow button
+    // Gracetech: no overflow button
     const noOverflow = true;
+
     return (
         <View
             style = { styles.toolboxContainer as ViewStyle }>

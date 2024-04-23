@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
     Animated,
@@ -18,6 +19,7 @@ import { IReduxState } from '../../app/types';
 import { translate } from '../../base/i18n/functions';
 import Icon from '../../base/icons/components/Icon';
 import { IconWarning } from '../../base/icons/svg';
+import Platform from '../../base/react/Platform.native';
 import LoadingIndicator from '../../base/react/components/native/LoadingIndicator';
 import Text from '../../base/react/components/native/Text';
 import BaseTheme from '../../base/ui/components/BaseTheme.native';
@@ -34,7 +36,6 @@ import {
     _mapStateToProps as _abstractMapStateToProps
 } from './AbstractWelcomePage';
 import styles from './styles.native';
-import Platform from '../../base/react/Platform.native';
 
 interface IProps extends AbstractProps {
 
@@ -101,8 +102,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         } = this.props;
 
         navigation.setOptions({
-            //Gracetech
-            headerTitle: t('welcomepage.headerTitle') + ' ' + t('settingsView.version')+'1.0.0'
+            // Gracetech
+            headerTitle: `${t('welcomepage.headerTitle')} ${t('settingsView.version')}1.0.0`
         });
 
         navigation.addListener('focus', () => {
@@ -142,9 +143,10 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             return this._renderReducedUI();
         }
         */
-       //Gracetech
+        // Gracetech
         return this._renderGracetechWelcom();
-        //return this._renderFullUI();
+
+        // return this._renderFullUI();
     }
 
     /**
@@ -319,37 +321,46 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         return joinButton;
     }
+
     /**
-     * Renders //Gracetech welcome, copy and modified from _renderRoomNameInput
+     * Close app.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onCloseApp() {
+        // alert('closeApp');
+        BackHandler.exitApp();
+    }
+
+    /**
+     * Renders // Gracetech welcome, copy and modified from _renderRoomNameInput.
      *
      * @private
      * @returns {ReactElement}
      */
-    
-    _onCloseApp() {
-        alert('closeApp');
-        BackHandler.exitApp();
-    }
     _renderGracetechWelcom() {
         const roomnameAccLabel = 'welcomepage.accessibilityLabel.roomname';
         const { t } = this.props;
         const { isSettingsScreenFocused } = this.state;
 
-        const showJoin = !!this.state.room && this.state.room.startsWith('https://');
+        const showJoin = Boolean(this.state.room) && this.state.room.startsWith('https://');
 
-        // The app on android was meant to be so simplified, it'd only work 
+        // The app on android was meant to be so simplified, it'd only work
         // with Gractech meeting servers. But allowing it to interop with Jitsi
-        // meeting servers is not a bad thing. It wil incur some support issue, 
+        // meeting servers is not a bad thing. It wil incur some support issue,
         // but on balance it can be a good thing for testing purposes, as well
         // as getting the app reviewer approval
         //
         const noUserInput = true;
         const allowJitsiMeeting = false;
+
+
         // PM wants to simplify even more: no input box, so the else portion for now
         //  we'll clean up this more after Apple app review
-        //chromeExtensionBanner.close
-        //dialog.close
-        if(allowJitsiMeeting && Platform.OS !== 'android') {
+        // chromeExtensionBanner.close
+        // dialog.close
+        if (allowJitsiMeeting && Platform.OS !== 'android') {
             return (
                 <>
                     { this._renderRoomNameInput() }
@@ -378,33 +389,34 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                 </Animated.View>
             );
 
-        } else {
-            return (
-                <Animated.View
-                    style = { [
-                        isSettingsScreenFocused && styles.roomNameInputContainer,
-                        { opacity: this.state.roomNameInputAnimation }
-                    ] as StyleProp<ViewStyle> }>
-                    <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
-                        <View style = { styles.joinControls } >
-                            <Input
-                                accessibilityLabel = { t(roomnameAccLabel) }
-                                autoCapitalize = { 'none' }
-                                autoFocus = { false }
-                                customStyles = {{ input: styles.customInput }}
-                                onChange = { this._onRoomChange }
-                                onSubmitEditing = { this._onJoin }
-                                placeholder = { t('welcomepage.askToUseIDigest') }
-                                returnKeyType = { 'go' }
-                                value = { this.state.room } />
-                        </View>
-                        {
-                            showJoin && this._renderJoinButton()
-                        }
-                    </SafeAreaView>
-                </Animated.View>
-            );
         }
+
+        return (
+            <Animated.View
+                style = { [
+                    isSettingsScreenFocused && styles.roomNameInputContainer,
+                    { opacity: this.state.roomNameInputAnimation }
+                ] as StyleProp<ViewStyle> }>
+                <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
+                    <View style = { styles.joinControls } >
+                        <Input
+                            accessibilityLabel = { t(roomnameAccLabel) }
+                            autoCapitalize = { 'none' }
+                            autoFocus = { false }
+                            customStyles = {{ input: styles.customInput }}
+                            onChange = { this._onRoomChange }
+                            onSubmitEditing = { this._onJoin }
+                            placeholder = { t('welcomepage.askToUseIDigest') }
+                            returnKeyType = { 'go' }
+                            value = { this.state.room } />
+                    </View>
+                    {
+                        showJoin && this._renderJoinButton()
+                    }
+                </SafeAreaView>
+            </Animated.View>
+        );
+
     }
 
     /**

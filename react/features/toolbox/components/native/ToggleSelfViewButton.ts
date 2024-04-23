@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import { translate } from '../../../base/i18n/functions';
-import { IconAudioOnlyOff, IconAudioOnly } from '../../../base/icons/svg';
+import { IconAudioOnly, IconAudioOnlyOff } from '../../../base/icons/svg';
 import { updateSettings } from '../../../base/settings/actions';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 

@@ -22,12 +22,12 @@ import {
 import { screen } from '../../../mobile/navigation/routes';
 // @ts-ignore
 import MuteEveryoneDialog from '../../../video-menu/components/native/MuteEveryoneDialog';
+import MuteEveryonesVideoDialog
+    from '../../../video-menu/components/native/MuteEveryonesVideoDialog';
 import { isMoreActionsVisible, isMuteAllVisible } from '../../functions';
 
 import { ContextMenuMore } from './ContextMenuMore';
 import styles from './styles';
-import MuteEveryonesVideoDialog
-    from '../../../video-menu/components/native/MuteEveryonesVideoDialog';
 
 
 /**
@@ -49,7 +49,7 @@ const ParticipantsPaneFooter = (): JSX.Element => {
     const showMoreActions = useSelector(isMoreActionsVisible);
     const showMuteAll = useSelector(isMuteAllVisible);
 
-    //Gracetech
+    // Gracetech
     const muteAllVideo = useCallback(() => {
         dispatch(openDialog(MuteEveryonesVideoDialog));
     }, [ dispatch ]);
