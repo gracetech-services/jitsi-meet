@@ -368,19 +368,25 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             );
         } else if (noUserInput) {
             return (
-                <SafeAreaView style = {{
+                <SafeAreaView
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    style = {{
                         flex: 1,
-                        //backgroundColor: 'white',
+
+                        // backgroundColor: 'white',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        //backgroundColor: BaseTheme.palette.link01,
+
+                        // backgroundColor: BaseTheme.palette.link01,
                         marginHorizontal: BaseTheme.spacing[4]
                     }}>
-                    <Text style = {{
-                        color: BaseTheme.palette.text01,
-                        fontSize: 18,
-                        marginBottom:18
-                    }}>
+                    <Text
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        style = {{
+                            color: BaseTheme.palette.text01,
+                            fontSize: 18,
+                            marginBottom: 18
+                        }}>
                         { t('welcomepage.askToUseIDigest') }
                     </Text>
                     <Button
