@@ -1,6 +1,8 @@
+
 import React from 'react';
 import {
     Animated,
+    BackHandler,
     NativeSyntheticEvent,
     SafeAreaView,
     StyleProp,
@@ -17,6 +19,7 @@ import { IReduxState } from '../../app/types';
 import { translate } from '../../base/i18n/functions';
 import Icon from '../../base/icons/components/Icon';
 import { IconWarning } from '../../base/icons/svg';
+import Platform from '../../base/react/Platform.native';
 import LoadingIndicator from '../../base/react/components/native/LoadingIndicator';
 import Text from '../../base/react/components/native/Text';
 import BaseTheme from '../../base/ui/components/BaseTheme.native';
@@ -99,7 +102,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         } = this.props;
 
         navigation.setOptions({
-            headerTitle: t('welcomepage.headerTitle')
+            // Gracetech
+            headerTitle: `${t('welcomepage.headerTitle')} ${t('settingsView.version')}1.0.0`
         });
 
         navigation.addListener('focus', () => {
@@ -139,8 +143,10 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             return this._renderReducedUI();
         }
         */
+        // Gracetech
+        return this._renderGracetechWelcom();
 
-        return this._renderFullUI();
+        // return this._renderFullUI();
     }
 
     /**
@@ -314,6 +320,112 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         }
 
         return joinButton;
+    }
+
+    /**
+     * Close app.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onCloseApp() {
+        // alert('closeApp');
+        BackHandler.exitApp();
+    }
+
+    /**
+     * Renders // Gracetech welcome, copy and modified from _renderRoomNameInput.
+     *
+     * @private
+     * @returns {ReactElement}
+     */
+    _renderGracetechWelcom() {
+        const roomnameAccLabel = 'welcomepage.accessibilityLabel.roomname';
+        const { t } = this.props;
+        const { isSettingsScreenFocused } = this.state;
+
+        const showJoin = Boolean(this.state.room) && this.state.room.startsWith('https://');
+
+        // The app on android was meant to be so simplified, it'd only work
+        // with Gractech meeting servers. But allowing it to interop with Jitsi
+        // meeting servers is not a bad thing. It wil incur some support issue,
+        // but on balance it can be a good thing for testing purposes, as well
+        // as getting the app reviewer approval
+        //
+        const noUserInput = true;
+        const allowJitsiMeeting = false;
+
+
+        // PM wants to simplify even more: no input box, so the else portion for now
+        //  we'll clean up this more after Apple app review
+        // chromeExtensionBanner.close
+        // dialog.close
+        if (allowJitsiMeeting && Platform.OS !== 'android') {
+            return (
+                <>
+                    { this._renderRoomNameInput() }
+                </>
+            );
+        } else if (noUserInput) {
+            return (
+                <SafeAreaView
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    style = {{
+                        flex: 1,
+
+                        // backgroundColor: 'white',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+
+                        // backgroundColor: BaseTheme.palette.link01,
+                        marginHorizontal: BaseTheme.spacing[4]
+                    }}>
+                    <Text
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        style = {{
+                            color: BaseTheme.palette.text01,
+                            fontSize: 18,
+                            marginBottom: 18
+                        }}>
+                        { t('welcomepage.askToUseIDigest') }
+                    </Text>
+                    <Button
+                        accessibilityLabel = { 'dialog.close' }
+                        labelKey = { 'dialog.close' }
+                        labelStyle = { styles.joinButtonLabel }
+                        onClick = { this._onCloseApp }
+                        type = { BUTTON_TYPES.PRIMARY } />
+                </SafeAreaView>
+            );
+
+        }
+
+        return (
+            <Animated.View
+                style = { [
+                    isSettingsScreenFocused && styles.roomNameInputContainer,
+                    { opacity: this.state.roomNameInputAnimation }
+                ] as StyleProp<ViewStyle> }>
+                <SafeAreaView style = { styles.roomContainer as StyleProp<ViewStyle> }>
+                    <View style = { styles.joinControls } >
+                        <Input
+                            accessibilityLabel = { t(roomnameAccLabel) }
+                            autoCapitalize = { 'none' }
+                            autoFocus = { false }
+                            customStyles = {{ input: styles.customInput }}
+                            onChange = { this._onRoomChange }
+                            onSubmitEditing = { this._onJoin }
+                            placeholder = { t('welcomepage.askToUseIDigest') }
+                            returnKeyType = { 'go' }
+                            value = { this.state.room } />
+                    </View>
+                    {
+                        showJoin && this._renderJoinButton()
+                    }
+                </SafeAreaView>
+            </Animated.View>
+        );
+
     }
 
     /**

@@ -23,7 +23,7 @@ android {
 
 
     defaultConfig {
-        applicationId 'org.jitsi.meet'
+        applicationId 'org.gtinternational.meet'
         versionCode vcode
         versionName project.appVersion
 
@@ -51,7 +51,7 @@ android {
         }
         release {
             // Uncomment the following line for singing a test release build.
-            //signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-release.pro'
             buildConfigField "boolean", "GOOGLE_SERVICES_ENABLED", "${googleServicesEnabled}"
@@ -74,7 +74,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    namespace 'org.jitsi.meet'
+    namespace 'org.gtinternational.meet'
 }
 
 dependencies {
