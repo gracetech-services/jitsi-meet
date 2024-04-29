@@ -22,15 +22,15 @@ export const THRESHOLDS = [
     },
     {
         width: 370,
-        order: [ 'microphone', 'camera', 'chat', 'audioonly','raisehand' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly', 'participants', 'raisehand' ]
     },
     {
         width: 225,
-        order: [ 'microphone', 'camera', 'chat', 'audioonly','raisehand' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly', 'participants' ]
     },
     {
         width: 200,
-        order: [ 'microphone', 'camera', 'chat', 'audioonly','raisehand' ]
+        order: [ 'microphone', 'camera', 'chat', 'audioonly', 'participants' ]
     }
 ];
 
