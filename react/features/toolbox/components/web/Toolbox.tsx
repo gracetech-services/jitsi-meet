@@ -503,7 +503,10 @@ function _mapStateToProps(state: IReduxState, ownProps: any) {
         _customToolbarButtons: customToolbarButtons,
         _dialog: Boolean(state['features/base/dialog'].component),
         _disabled: Boolean(iAmRecorder || iAmSipGateway),
-        _endConferenceSupported: Boolean(endConferenceSupported),
+        //Gracetech
+        //end conference is supported in the App, and desktop browser
+        //moderator should get the desktop and/or the App
+        _endConferenceSupported: !isMobileBrowser() && Boolean(endConferenceSupported),
         _isMobile: isMobileBrowser(),
         _jwtDisabledButtons: getJwtDisabledButtons(state),
         _hangupMenuVisible: hangupMenuVisible,
