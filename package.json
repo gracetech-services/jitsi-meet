@@ -47,7 +47,7 @@
     "@tensorflow/tfjs-core": "3.13.0",
     "@vladmandic/human": "2.6.5",
     "@vladmandic/human-models": "2.5.9",
-    "@xmldom/xmldom": "0.8.7",
+    "@xmldom/xmldom": "^0.8.10",
     "abab": "2.0.6",
     "amplitude-js": "8.21.9",
     "base64-js": "1.5.1",
@@ -184,7 +184,7 @@
     "webpack-dev-server": "4.7.3"
   },
   "overrides": {
-    "@xmldom/xmldom": "0.8.7"
+    "@xmldom/xmldom": "^0.8.10"
   },
   "engines": {
     "node": ">=14.0.0",
