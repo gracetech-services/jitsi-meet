@@ -96,10 +96,17 @@ const options: i18next.InitOptions = {
     whitelist: LANGUAGES.slice()
 };
 
-i18next
+//i18next, versin 23+, crashes with empty object in i18next.use, on native android
+if (navigator.product === 'ReactNative') {
+    i18next
+    .use(languageDetector)
+    .init(options);
+} else {
+    i18next
     .use(navigator.product === 'ReactNative' ? {} : I18nextXHRBackend)
     .use(languageDetector)
     .init(options);
+}
 
 // Add default language which is preloaded from the source code.
 i18next.addResourceBundle(
