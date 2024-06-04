@@ -64,6 +64,7 @@ export const TRANSLATION_LANGUAGES_HEAD: Array<string> = [ DEFAULT_LANGUAGE ];
  * @type {i18next.InitOptions}
  */
 const options: i18next.InitOptions = {
+    compatibilityJSON: 'v3',
     backend: <HttpBackendOptions>{
         loadPath: (lng: string[], ns: string[]) => {
             switch (ns[0]) {
