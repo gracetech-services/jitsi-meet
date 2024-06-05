@@ -20,7 +20,8 @@ import { arePollsDisabled } from '../../../../../conference/functions';
 // @ts-ignore
 import SharedDocument from '../../../../../etherpad/components/native/SharedDocument';
 // @ts-ignore
-import GifsMenu from '../../../../../gifs/components/native/GifsMenu';
+//import GifsMenu from '../../../../../gifs/components/native/GifsMenu';
+var GifsMenu = () => {};
 import AddPeopleDialog
 // @ts-ignore
     from '../../../../../invite/components/add-people-dialog/native/AddPeopleDialog';
