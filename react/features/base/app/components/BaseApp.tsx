@@ -5,7 +5,7 @@ import React, { Component, ComponentType, Fragment } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { compose, createStore } from 'redux';
-import Thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 
 import { IStore } from '../../../app/types';
 import i18next from '../../i18n/i18next';
@@ -222,7 +222,7 @@ export default class BaseApp<P> extends Component<P, IState> {
         // additional 3rd party middleware:
         // - Thunk - allows us to dispatch async actions easily. For more info
         // @see https://github.com/gaearon/redux-thunk.
-        const middleware = MiddlewareRegistry.applyMiddleware(Thunk);
+        const middleware = MiddlewareRegistry.applyMiddleware(thunk);
 
         // @ts-ignore
         const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
