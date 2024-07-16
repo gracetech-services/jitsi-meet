@@ -130,6 +130,7 @@
     "@babel/core": "7.24.0",
     "@babel/eslint-parser": "7.21.8",
     "@babel/plugin-proposal-export-default-from": "7.22.5",
+    "@babel/plugin-transform-private-methods": "^7.24.7",
     "@babel/preset-env": "7.21.5",
     "@babel/preset-react": "7.16.0",
     "@jitsi/eslint-config": "4.1.10",
@@ -186,7 +187,7 @@
     "@xmldom/xmldom": "0.8.7"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=18.0.0",
     "npm": ">=7.0.0"
   },
   "license": "Apache-2.0",
