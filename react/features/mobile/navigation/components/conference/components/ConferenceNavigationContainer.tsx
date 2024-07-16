@@ -18,13 +18,10 @@ import CarMode from '../../../../../conference/components/native/carmode/CarMode
 // @ts-ignore
 import { arePollsDisabled } from '../../../../../conference/functions';
 // @ts-ignore
+// eslint-disable-next-line import/order
 import SharedDocument from '../../../../../etherpad/components/native/SharedDocument';
 // @ts-ignore
-//import GifsMenu from '../../../../../gifs/components/native/GifsMenu';
-var GifsMenu = () => {};
-import AddPeopleDialog
-// @ts-ignore
-    from '../../../../../invite/components/add-people-dialog/native/AddPeopleDialog';
+import AddPeopleDialog from '../../../../../invite/components/add-people-dialog/native/AddPeopleDialog';
 // @ts-ignore
 import ParticipantsPane from '../../../../../participants-pane/components/native/ParticipantsPane';
 // @ts-ignore
@@ -51,7 +48,6 @@ import {
     carmodeScreenOptions,
     chatScreenOptions,
     conferenceScreenOptions,
-    gifsMenuOptions,
     inviteScreenOptions,
     liveStreamScreenOptions,
     lobbyNavigationContainerScreenOptions,
@@ -159,13 +155,6 @@ const ConferenceNavigationContainer = () => {
                     options = {{
                         ...salesforceScreenOptions,
                         title: t('notify.linkToSalesforce')
-                    }} />
-                <ConferenceStack.Screen
-                    component = { GifsMenu }
-                    name = { screen.conference.gifsMenu }
-                    options = {{
-                        ...gifsMenuOptions,
-                        title: t('notify.gifsMenu')
                     }} />
                 <ConferenceStack.Screen
                     component = { LobbyNavigationContainer }

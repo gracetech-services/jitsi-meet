@@ -64,7 +64,7 @@ export const TRANSLATION_LANGUAGES_HEAD: Array<string> = [ DEFAULT_LANGUAGE ];
  * @type {i18next.InitOptions}
  */
 const options: i18next.InitOptions = {
-    //removing an error after upgrading to v23
+    // removing an error after upgrading to v23
     compatibilityJSON: 'v3',
     backend: <HttpBackendOptions>{
         loadPath: (lng: string[], ns: string[]) => {
@@ -98,7 +98,7 @@ const options: i18next.InitOptions = {
     whitelist: LANGUAGES.slice()
 };
 
-//i18next, versin 23+, crashes with empty object in i18next.use, on native android
+// i18next, versin 23+, crashes with empty object in i18next.use, on native android
 if (navigator.product === 'ReactNative') {
     i18next
     .use(languageDetector)
