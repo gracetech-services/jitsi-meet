@@ -15,12 +15,14 @@ import { getMovableButtons, isToolboxVisible } from '../../functions.native';
 import HangupButton from '../HangupButton';
 
 import AudioMuteButton from './AudioMuteButton';
+import AudioOnlyButton from './AudioOnlyButton';
 import HangupMenuButton from './HangupMenuButton';
 import OverflowMenuButton from './OverflowMenuButton';
 import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton';
 import VideoMuteButton from './VideoMuteButton';
 import styles from './styles';
+
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
@@ -89,6 +91,9 @@ function Toolbox(props: IProps) {
         style.justifyContent = 'center';
     }
 
+    // Gracetech: no overflow button
+    const noOverflow = true;
+
     return (
         <View
             style = { styles.toolboxContainer as ViewStyle }>
@@ -121,8 +126,9 @@ function Toolbox(props: IProps) {
                     : <RaiseHandButton
                         styles = { buttonStylesBorderless }
                         toggledStyles = { backgroundToggledStyle } />)}
+                {additionalButtons.has('audionly') && <AudioOnlyButton styles = { buttonStylesBorderless } />}
                 {additionalButtons.has('tileview') && <TileViewButton styles = { buttonStylesBorderless } />}
-                {!_iAmVisitor && <OverflowMenuButton
+                {!noOverflow && !_iAmVisitor && <OverflowMenuButton
                     styles = { buttonStylesBorderless }
                     toggledStyles = { toggledButtonStyles } />
                 }
