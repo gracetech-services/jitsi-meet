@@ -36,7 +36,7 @@ class AlertDialog extends AbstractDialog<IProps> {
         const content
             = typeof contentKey === 'string'
                 ? t(contentKey)
-                : renderHTML(t(contentKey.key, contentKey.params));
+                : renderHTML(t(contentKey.key, contentKey.params as string));
 
         return (
             <Dialog.Container

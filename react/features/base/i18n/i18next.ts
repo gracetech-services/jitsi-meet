@@ -98,13 +98,11 @@ const options: InitOptions = {
 
 // i18next, version 23+, crashes with empty object in i18next.use, on native android
 if (navigator.product === 'ReactNative') {
-    i18next
-    .use(languageDetector)
-    .init(options);
+    // @ts-ignore-error
+    i18next.use(languageDetector).init(options);
 } else {
-    i18next
-    .use(I18nextXHRBackend)
-    .use(languageDetector)
+    // @ts-ignore-error
+    i18next.use(I18nextXHRBackend).use(languageDetector)
     .init(options);
 }
 
