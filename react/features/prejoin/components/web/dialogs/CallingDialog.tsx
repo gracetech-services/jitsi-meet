@@ -71,7 +71,9 @@ function CallingDialog(props: IProps) {
                     src = { IconCloseLarge } />
             </div>
             <Label className = 'prejoin-dialog-calling-label'>
-                {t(status)}
+                <>
+                    {t(status)}
+                </>
             </Label>
             <Avatar size = { 72 } />
             <div className = 'prejoin-dialog-calling-number'>{number}</div>

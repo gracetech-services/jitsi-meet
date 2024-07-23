@@ -82,4 +82,5 @@ class RecordingLabel extends AbstractRecordingLabel<IProps> {
     }
 }
 
+// @ts-expect-error
 export default withStyles(translate(connect(_mapStateToProps)(RecordingLabel)), styles);

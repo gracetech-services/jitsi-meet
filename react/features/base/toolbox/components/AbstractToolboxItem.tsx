@@ -185,7 +185,7 @@ export default class AbstractToolboxItem<P extends IProps> extends Component<P> 
 
         if (textProps) {
 
-            return typeof t === 'function' ? t(text, textProps) : `${text} ${textProps}`;
+            return typeof t === 'function' ? t(text, textProps) as string : `${text} ${textProps}`;
         }
 
         return typeof t === 'function' ? t(text) : text;

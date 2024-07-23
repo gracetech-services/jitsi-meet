@@ -67,7 +67,7 @@ function DialOutDialog(props: IProps) {
                     size = { 24 }
                     src = { IconCloseLarge } />
             </div>
-            <Label>{t('prejoin.callMeAtNumber')}</Label>
+            <Label>{<> t('prejoin.callMeAtNumber') </>}</Label>
             <div className = { classes.picker }>
                 <CountryPicker onSubmit = { onSubmit } />
             </div>

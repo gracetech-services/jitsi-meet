@@ -1,5 +1,5 @@
 import COUNTRIES_RESOURCES from 'i18n-iso-countries/langs/en.json';
-import i18next from 'i18next';
+import i18next, { InitOptions } from 'i18next';
 import I18nextXHRBackend, { HttpBackendOptions } from 'i18next-http-backend';
 import _ from 'lodash';
 
@@ -61,9 +61,9 @@ export const TRANSLATION_LANGUAGES_HEAD: Array<string> = [ DEFAULT_LANGUAGE ];
 /**
  * The options to initialize i18next with.
  *
- * @type {i18next.InitOptions}
+ * @type {InitOptions}
  */
-const options: i18next.InitOptions = {
+const options: InitOptions = {
     compatibilityJSON: 'v3',
     backend: <HttpBackendOptions>{
         loadPath: (lng: string[], ns: string[]) => {
@@ -85,7 +85,6 @@ const options: i18next.InitOptions = {
     ns: [ 'main', 'languages', 'countries', 'translation-languages' ],
     react: {
         // re-render when a new resource bundle is added
-        // @ts-expect-error. Fixed in i18next 19.6.1.
         bindI18nStore: 'added',
         useSuspense: false
     },
@@ -94,17 +93,17 @@ const options: i18next.InitOptions = {
 
     // XXX i18next modifies the array lngWhitelist so make sure to clone
     // LANGUAGES.
-    whitelist: LANGUAGES.slice()
+    supportedLngs: LANGUAGES.slice()
 };
 
-//i18next, versin 23+, crashes with empty object in i18next.use, on native android
+// i18next, version 23+, crashes with empty object in i18next.use, on native android
 if (navigator.product === 'ReactNative') {
     i18next
     .use(languageDetector)
     .init(options);
 } else {
     i18next
-    .use(navigator.product === 'ReactNative' ? {} : I18nextXHRBackend)
+    .use(I18nextXHRBackend)
     .use(languageDetector)
     .init(options);
 }

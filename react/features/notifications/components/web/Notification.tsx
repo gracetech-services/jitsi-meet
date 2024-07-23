@@ -205,8 +205,8 @@ const Notification = ({
     const renderDescription = useCallback(() => {
         const descriptionArray = [];
 
-        descriptionKey
-            && descriptionArray.push(t(descriptionKey, descriptionArguments));
+        // @ts-expect-error
+        descriptionKey && descriptionArray.push(t(descriptionKey, descriptionArguments));
 
         description && typeof description === 'string' && descriptionArray.push(description);
 
