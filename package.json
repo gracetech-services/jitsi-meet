@@ -167,7 +167,6 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-native": "4.0.0",
     "eslint-plugin-typescript-sort-keys": "2.3.0",
-    "expo": "51.0.21",
     "jetifier": "1.6.4",
     "metro-react-native-babel-preset": "0.75.1",
     "patch-package": "6.4.7",
