@@ -80,7 +80,7 @@ class ConfirmDialog extends AbstractDialog<IProps> {
             = typeof descriptionKey === 'string'
                 ? t(descriptionKey)
                 : renderHTML(
-                    t(descriptionKey?.key ?? '', descriptionKey?.params)
+                    t(descriptionKey?.key ?? '', descriptionKey?.params ?? '')
                 );
 
         return (

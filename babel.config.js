@@ -5,5 +5,8 @@ module.exports = {
             plugins: [ 'react-native-paper/babel' ]
         }
     },
-    plugins: [ 'optional-require' ]
+    plugins: [
+        'optional-require',
+        [ '@babel/plugin-transform-private-methods', { loose: true } ]
+    ]
 };
