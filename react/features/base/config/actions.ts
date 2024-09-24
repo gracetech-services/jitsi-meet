@@ -14,6 +14,7 @@ import {
 } from './actionTypes';
 import { IConfig } from './configType';
 import { _CONFIG_STORE_PREFIX } from './constants';
+import i18next from '../i18n/i18next';
 import { setConfigFromURLParams } from './functions.any';
 
 
@@ -145,6 +146,9 @@ export function setConfig(config: IConfig = {}) {
         participantsPane.hideModeratorSettingsTab = true;
         participantsPane.hideMoreActionsButton = true;
         config.participantsPane = participantsPane;
+        if (config.defaultLanguage) {
+            i18next.changeLanguage(config.defaultLanguage);
+        }
 
         dispatch({
             type: SET_CONFIG,

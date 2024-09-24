@@ -167,6 +167,7 @@ export default [
     'hideRecordingLabel',
     'hideParticipantsStats',
     'hideConferenceTimer',
+    'defaultLanguage',
     'hiddenDomain',
     'hideAddRoomButton',
     'hideEmailInSettings',
