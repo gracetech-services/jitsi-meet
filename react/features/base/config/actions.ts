@@ -1,6 +1,7 @@
 import { jitsiLocalStorage } from '@jitsi/js-utils';
 
 import { IStore } from '../../app/types';
+import i18next from '../i18n/i18next';
 import { addKnownDomains } from '../known-domains/actions';
 import { parseURIString } from '../util/uri';
 
@@ -13,9 +14,7 @@ import {
 } from './actionTypes';
 import { IConfig } from './configType';
 import { _CONFIG_STORE_PREFIX } from './constants';
-import i18next from '../i18n/i18next';
 import { setConfigFromURLParams } from './functions.any';
-
 
 /**
  * Updates the config with new options.
