@@ -29,6 +29,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
 
+import com.facebook.react.bridge.LifecycleEventListener;
 import org.jitsi.meet.sdk.log.JitsiMeetLogger;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ import java.util.Map;
 import static android.content.Context.ACTIVITY_SERVICE;
 
 @ReactModule(name = PictureInPictureModule.NAME)
-class PictureInPictureModule extends ReactContextBaseJavaModule {
+class PictureInPictureModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
     public static final String NAME = "PictureInPicture";
     private static final String TAG = NAME;
@@ -54,6 +55,7 @@ class PictureInPictureModule extends ReactContextBaseJavaModule {
         // to use ActivityManager.isLowRamDevice().
         // https://stackoverflow.com/questions/58340558/how-to-detect-android-go
         isSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !am.isLowRamDevice();
+        reactContext.addLifecycleEventListener(this);
     }
 
     /**
@@ -98,11 +100,15 @@ class PictureInPictureModule extends ReactContextBaseJavaModule {
             throw new IllegalStateException("No current Activity!");
         }
 
+        if (currentActivity.isInPictureInPictureMode()) {
+            return;
+        }
+
         JitsiMeetLogger.i(TAG + " Entering Picture-in-Picture");
 
         PictureInPictureParams.Builder builder
             = new PictureInPictureParams.Builder()
-                .setAspectRatio(new Rational(1, 1));
+            .setAspectRatio(new Rational(4, 3));
 
         // https://developer.android.com/reference/android/app/Activity.html#enterPictureInPictureMode(android.app.PictureInPictureParams)
         //
@@ -144,4 +150,21 @@ class PictureInPictureModule extends ReactContextBaseJavaModule {
     public String getName() {
         return NAME;
     }
+
+    @Override
+    public void onHostResume() {
+
+    }
+
+    @Override
+    public void onHostPause() {
+        enterPictureInPicture();
+    }
+
+    @Override
+    public void onHostDestroy() {
+
+    }
 }
+
+
