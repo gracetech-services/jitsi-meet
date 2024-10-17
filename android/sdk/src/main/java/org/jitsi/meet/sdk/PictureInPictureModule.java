@@ -108,7 +108,7 @@ class PictureInPictureModule extends ReactContextBaseJavaModule implements Lifec
 
         PictureInPictureParams.Builder builder
             = new PictureInPictureParams.Builder()
-            .setAspectRatio(new Rational(4, 3));
+            .setAspectRatio(new Rational(9, 16));
 
         // https://developer.android.com/reference/android/app/Activity.html#enterPictureInPictureMode(android.app.PictureInPictureParams)
         //
@@ -158,7 +158,11 @@ class PictureInPictureModule extends ReactContextBaseJavaModule implements Lifec
 
     @Override
     public void onHostPause() {
-        enterPictureInPicture();
+        try {
+            enterPictureInPicture();
+        } catch (Exception e) {
+            JitsiMeetLogger.e(TAG + " Error entering PiP mode on pause: ", e);
+        }
     }
 
     @Override
