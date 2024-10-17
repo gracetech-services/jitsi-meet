@@ -8,6 +8,8 @@ import {
 } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
 import { IStore } from '../../app/types';
+import { BG_VIDEO_ACTIVE_ENABLE } from '../../base/flags/constants';
+import { getFeatureFlag } from '../../base/flags/functions';
 import { APP_STATE_CHANGED } from '../../mobile/background/actionTypes';
 import { showWarningNotification } from '../../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../../notifications/constants';
@@ -163,7 +165,8 @@ MiddlewareRegistry.register(store => next => action => {
 function _appStateChanged({ dispatch, getState }: IStore, next: Function, action: AnyAction) {
     if (navigator.product === 'ReactNative') {
         const { appState } = action;
-        const mute = appState !== 'active' && !isLocalVideoTrackDesktop(getState());
+        const bgVideoActiveEnabled = Boolean(getFeatureFlag(getState(), BG_VIDEO_ACTIVE_ENABLE));
+        const mute = appState !== 'active' && !isLocalVideoTrackDesktop(getState()) && !bgVideoActiveEnabled;
 
         sendAnalytics(createTrackMutedEvent('video', 'background mode', mute));
 

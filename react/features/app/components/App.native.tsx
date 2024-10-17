@@ -1,6 +1,5 @@
 import React, { ComponentType } from 'react';
 import { NativeModules, Platform, StyleSheet, View } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -114,11 +113,12 @@ export class App extends AbstractApp<IProps> {
         const { flags = {}, url, userInfo } = this.props;
         let callIntegrationEnabled = flags[CALL_INTEGRATION_ENABLED as keyof typeof flags];
 
-        // CallKit does not work on the simulator, make sure we disable it.
-        if (Platform.OS === 'ios' && DeviceInfo.isEmulatorSync()) {
+        // if (Platform.OS === 'ios' && DeviceInfo.isEmulatorSync())
+        // CallKit disabled due to China market policy.
+        if (Platform.OS === 'ios') {
             flags[CALL_INTEGRATION_ENABLED] = false;
             callIntegrationEnabled = false;
-            logger.info('Disabling CallKit because this is a simulator');
+            logger.info('CallKit disabled due to China market policy');
         }
 
         // Disable Android ConnectionService by default.

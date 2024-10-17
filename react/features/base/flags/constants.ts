@@ -176,6 +176,12 @@ export const PARTICIPANTS_ENABLED = 'participants.enabled';
  */
 export const PIP_ENABLED = 'pip.enabled';
 
+/** By Ranger add
+ * Flag indicating if bgVideo should be enabled.
+ * Default: false.
+ */
+export const BG_VIDEO_ACTIVE_ENABLE = 'bg-video-active.enabled';
+
 /**
  * Flag indicating if Picture-in-Picture button should be shown while screen sharing.
  * Default: disabled (false).

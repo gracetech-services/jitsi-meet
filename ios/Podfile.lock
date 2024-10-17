@@ -138,7 +138,7 @@ PODS:
     - AppAuth/Core (~> 1.7)
     - GTMSessionFetcher/Core (< 4.0, >= 3.3)
   - GTMSessionFetcher/Core (3.5.0)
-  - JitsiWebRTC (118.0.0)
+  - JitsiWebRTC (124.0.1)
   - libwebp (1.3.2):
     - libwebp/demux (= 1.3.2)
     - libwebp/mux (= 1.3.2)
@@ -1127,8 +1127,8 @@ PODS:
   - react-native-video/Video (6.0.0-alpha.11):
     - PromisesSwift
     - React-Core
-  - react-native-webrtc (118.0.3):
-    - JitsiWebRTC (~> 118.0.0)
+  - react-native-webrtc (124.0.4):
+    - JitsiWebRTC (~> 124.0.0)
     - React-Core
   - react-native-webview (13.8.6):
     - DoubleConversion
@@ -1730,7 +1730,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
-  JitsiWebRTC: 3a41671ef65a51d7204323814b055a2690b921c7
+  JitsiWebRTC: d0ae5fd6a81e771bfd82c2ee6c6bb542ebd65ee8
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   ObjectiveDropboxOfficial: fe206ce8c0bc49976c249d472db7fdbc53ebbd53
@@ -1771,7 +1771,7 @@ SPEC CHECKSUMS:
   react-native-slider: 4c9c8d0c5dd856e6ff298a448f62fa9fd372d36f
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-video: 472b7c366eaaaa0207e546d9a50410df89790bcf
-  react-native-webrtc: 6fc32f3d556aa60aa2334eeaf6cadcdab2432809
+  react-native-webrtc: 48295e7228279470c4f5acb38570e170723bd3b2
   react-native-webview: a3e6594232398c6f89bed9cecf4acb9e89517a65
   React-nativeconfig: fa5de9d8f4dbd5917358f8ad3ad1e08762f01dcb
   React-NativeModulesApple: a6c18ebe96428589977f43c41a2c811b27bbd9cc
@@ -1807,7 +1807,7 @@ SPEC CHECKSUMS:
   RNSVG: 43b64ed39c14ce830d840903774154ca0c1f27ec
   RNWatch: fd30ca40a5b5ef58dcbc195638e68219bc455236
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
+  Yoga: 88480008ccacea6301ff7bf58726e27a72931c8d
 
 PODFILE CHECKSUM: 2c8065353f5b957ccca4bfe57d12dfe21dbf1ecb
 
