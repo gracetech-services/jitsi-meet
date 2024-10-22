@@ -166,6 +166,18 @@ function _appStateChanged({ dispatch, getState }: IStore, next: Function, action
     if (navigator.product === 'ReactNative') {
         const { appState } = action;
         const bgVideoActiveEnabled = Boolean(getFeatureFlag(getState(), BG_VIDEO_ACTIVE_ENABLE));
+
+        /**  Add by Ranger:
+         The conditions for muting the video are:
+         'muted == true'
+         The following three conditions are met simultaneously:
+         1.Non-active state
+         2.There is a shared video track on the local desktop, and the track is not muted.
+         3.Background video active is set to false.
+         So:
+         If we set bgVideoActiveEnabled to true, mute == false, the video will not be muted.
+         */
+
         const mute = appState !== 'active' && !isLocalVideoTrackDesktop(getState()) && !bgVideoActiveEnabled;
 
         sendAnalytics(createTrackMutedEvent('video', 'background mode', mute));
