@@ -158,6 +158,20 @@ class PictureInPictureModule extends ReactContextBaseJavaModule implements Lifec
 
     @Override
     public void onHostPause() {
+        /**
+         * Add by Ranger:
+         * When this method is executed, it is currently difficult to determine whether it is caused by a system pop-up box or manually by the user.
+         * 1. When the system pop-up box pops up: 
+         * If you execute enterPictureInPicture(); some Android systems will report an error. So use try catch for now.
+        
+         * 2.Officially recommended
+         * https://developer.android.com/develop/ui/views/picture-in-picture#java
+         * Must be rewritten:
+         * @Override:
+         * onUserLeaveHint()
+         * However, the RN project only has one MainActivity, which requires scripts to inject code and communicate with the current module. 
+         * The code is too intrusive, so we do not do this currently.
+         */
         try {
             enterPictureInPicture();
         } catch (Exception e) {
