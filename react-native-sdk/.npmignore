@@ -1,1 +1,4 @@
 *.tgz
+
+# Gracetech: SDK entry point changed to index.js. See Gracetech.md for details
+index.tsx
