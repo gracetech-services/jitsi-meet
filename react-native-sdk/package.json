@@ -1,8 +1,8 @@
 {
     "name": "@jitsi/react-native-sdk",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "React Native SDK for Jitsi Meet.",
-    "main": "index.tsx",
+    "main": "index.js",
     "license": "Apache-2.0",
     "author": "",
     "homepage": "https://jitsi.org",
@@ -91,6 +91,7 @@
     },
     "scripts": {
         "postinstall": "node sdk_instructions.js",
+        "generate-index": "tsc --project tsconfig-sdk-index.native.json",
         "prepare": "node prepare_sdk.js"
     },
     "bugs": {
