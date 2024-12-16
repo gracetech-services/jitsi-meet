@@ -12,14 +12,12 @@ import React, {
     useState
 } from 'react';
 import { View, ViewStyle } from 'react-native';
-
-import type { IRoomsInfo } from '../react/features/breakout-rooms/types';
-
-import { appNavigate } from './react/features/app/actions.native';
-import { App } from './react/features/app/components/App.native';
 import { setAudioMuted, setVideoMuted } from './react/features/base/media/actions';
-import { getRoomsInfo } from './react/features/breakout-rooms/functions';
 
+import { App } from './react/features/app/components/App.native';
+import type { IRoomsInfo } from '../react/features/breakout-rooms/types';
+import { appNavigate } from './react/features/app/actions.native';
+import { getRoomsInfo } from './react/features/breakout-rooms/functions';
 
 interface IEventListeners {
     onAudioMutedChanged?: Function;
@@ -33,6 +31,7 @@ interface IEventListeners {
     onParticipantJoined?: Function;
     onParticipantLeft?: ({ id }: { id: string }) => void;
     onReadyToClose?: Function;
+    onEnterFloatMeetingInApp?:Function;
 }
 
 interface IUserInfo {
@@ -135,7 +134,9 @@ export const JitsiMeeting = forwardRef<JitsiRefProps, IAppProps>((props, ref) =>
                     onEnterPictureInPicture: eventListeners?.onEnterPictureInPicture,
                     onParticipantJoined: eventListeners?.onParticipantJoined,
                     onParticipantLeft: eventListeners?.onParticipantLeft,
-                    onReadyToClose: eventListeners?.onReadyToClose
+                    onReadyToClose: eventListeners?.onReadyToClose,
+                    onEnterFloatMeetingInApp:eventListeners?.onEnterFloatMeetingInApp
+
                 },
                 'url': urlProps,
                 'userInfo': userInfo

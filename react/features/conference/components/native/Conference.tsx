@@ -1,61 +1,59 @@
-import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import {
+    ASPECT_RATIO_NARROW,
+    ASPECT_RATIO_WIDE
+} from '../../../base/responsive-ui/constants';
+import {
+    AbstractConference,
+    abstractMapStateToProps
+} from '../AbstractConference';
 import {
     BackHandler,
-    NativeModules,
     Platform,
     SafeAreaView,
     StatusBar,
     View,
     ViewStyle
 } from 'react-native';
+import { CONFERENCE_BLURRED, CONFERENCE_FOCUSED } from '../../../base/conference/actionTypes';
 import { EdgeInsets, withSafeAreaInsets } from 'react-native-safe-area-context';
+import { FULLSCREEN_ENABLED, PIP_ENABLED } from '../../../base/flags/constants';
+import { IReduxState, IStore } from '../../../app/types';
+import React, { useCallback } from 'react';
 import { connect, useDispatch } from 'react-redux';
 
-import { appNavigate } from '../../../app/actions.native';
-import { IReduxState, IStore } from '../../../app/types';
-import { CONFERENCE_BLURRED, CONFERENCE_FOCUSED } from '../../../base/conference/actionTypes';
-import { FULLSCREEN_ENABLED, PIP_ENABLED } from '../../../base/flags/constants';
-import { getFeatureFlag } from '../../../base/flags/functions';
+import type { AbstractProps } from '../AbstractConference';
+import AlwaysOnLabels from './AlwaysOnLabels';
+import BrandingImageBackground from '../../../dynamic-branding/components/native/BrandingImageBackground';
+import CalleeInfoContainer from '../../../invite/components/callee-info/CalleeInfoContainer';
+import Captions from '../../../subtitles/components/native/Captions';
 import Container from '../../../base/react/components/native/Container';
+import DisplayNameLabel from '../../../display-name/components/native/DisplayNameLabel';
+import { ENTER_FLOAT_MEETING_IN_APP } from '../../../mobile/picture-in-picture/actionTypes';
+import { EXPANDED_LABEL_TIMEOUT } from './constants';
+import ExpandedLabelPopup from './ExpandedLabelPopup';
+import { FILMSTRIP_SIZE } from '../../../filmstrip/constants';
+import Filmstrip from '../../../filmstrip/components/native/Filmstrip';
+import LargeVideo from '../../../large-video/components/LargeVideo.native';
 import LoadingIndicator from '../../../base/react/components/native/LoadingIndicator';
-import TintedView from '../../../base/react/components/native/TintedView';
-import {
-    ASPECT_RATIO_NARROW,
-    ASPECT_RATIO_WIDE
-} from '../../../base/responsive-ui/constants';
+import LonelyMeetingExperience from './LonelyMeetingExperience';
 import { StyleType } from '../../../base/styles/functions.any';
 import TestConnectionInfo from '../../../base/testing/components/TestConnectionInfo';
-import { isCalendarEnabled } from '../../../calendar-sync/functions.native';
-import DisplayNameLabel from '../../../display-name/components/native/DisplayNameLabel';
-import BrandingImageBackground from '../../../dynamic-branding/components/native/BrandingImageBackground';
-import Filmstrip from '../../../filmstrip/components/native/Filmstrip';
 import TileView from '../../../filmstrip/components/native/TileView';
-import { FILMSTRIP_SIZE } from '../../../filmstrip/constants';
-import { isFilmstripVisible } from '../../../filmstrip/functions.native';
-import CalleeInfoContainer from '../../../invite/components/callee-info/CalleeInfoContainer';
-import LargeVideo from '../../../large-video/components/LargeVideo.native';
+import TintedView from '../../../base/react/components/native/TintedView';
+import TitleBar from './TitleBar';
+import Toolbox from '../../../toolbox/components/native/Toolbox';
+import { getFeatureFlag } from '../../../base/flags/functions';
 import { getIsLobbyVisible } from '../../../lobby/functions';
+import { isCalendarEnabled } from '../../../calendar-sync/functions.native';
+import { isConnecting } from '../functions.native';
+import { isFilmstripVisible } from '../../../filmstrip/functions.native';
+import { isToolboxVisible } from '../../../toolbox/functions.native';
 import { navigate } from '../../../mobile/navigation/components/conference/ConferenceNavigationContainerRef';
 import { screen } from '../../../mobile/navigation/routes';
 import { setPictureInPictureEnabled } from '../../../mobile/picture-in-picture/functions';
-import Captions from '../../../subtitles/components/native/Captions';
 import { setToolboxVisible } from '../../../toolbox/actions.native';
-import Toolbox from '../../../toolbox/components/native/Toolbox';
-import { isToolboxVisible } from '../../../toolbox/functions.native';
-import {
-    AbstractConference,
-    abstractMapStateToProps
-} from '../AbstractConference';
-import type { AbstractProps } from '../AbstractConference';
-import { isConnecting } from '../functions.native';
-
-import AlwaysOnLabels from './AlwaysOnLabels';
-import ExpandedLabelPopup from './ExpandedLabelPopup';
-import LonelyMeetingExperience from './LonelyMeetingExperience';
-import TitleBar from './TitleBar';
-import { EXPANDED_LABEL_TIMEOUT } from './constants';
 import styles from './styles';
+import { useFocusEffect } from '@react-navigation/native';
 
 /**
  * The type of the React {@code Component} props of {@link Conference}.
@@ -306,19 +304,20 @@ class Conference extends AbstractConference<IProps, State> {
      * @returns {boolean} Exiting the app is undesired, so {@code true} is always returned.
      */
     _onHardwareBackPress() {
-        let p;
+        this.props.dispatch({ type: ENTER_FLOAT_MEETING_IN_APP });
 
-        if (this.props._pictureInPictureEnabled) {
-            const { PictureInPicture } = NativeModules;
+        // let p;
+        // if (this.props._pictureInPictureEnabled) {
+        //     const { PictureInPicture } = NativeModules;
 
-            p = PictureInPicture.enterPictureInPicture();
-        } else {
-            p = Promise.reject(new Error('PiP not enabled'));
-        }
+        //     p = PictureInPicture.enterPictureInPicture();
+        // } else {
+        //     p = Promise.reject(new Error('PiP not enabled'));
+        // }
 
-        p.catch(() => {
-            this.props.dispatch(appNavigate(undefined));
-        });
+        // p.catch(() => {
+        //     this.props.dispatch(appNavigate(undefined));
+        // });
 
         return true;
     }
