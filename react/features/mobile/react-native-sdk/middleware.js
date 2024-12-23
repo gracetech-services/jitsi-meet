@@ -1,3 +1,4 @@
+import { getAppProp } from '../../base/app/functions';
 import {
     CONFERENCE_BLURRED,
     CONFERENCE_FOCUSED,
@@ -5,15 +6,14 @@ import {
     CONFERENCE_LEFT,
     CONFERENCE_WILL_JOIN
 } from '../../base/conference/actionTypes';
-import { ENTER_FLOAT_MEETING_IN_APP, ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture/actionTypes';
-import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from '../../base/participants/actionTypes';
 import { SET_AUDIO_MUTED, SET_VIDEO_MUTED } from '../../base/media/actionTypes';
-
+import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from '../../base/participants/actionTypes';
 import MiddlewareRegistry from '../../base/redux/MiddlewareRegistry';
 import { READY_TO_CLOSE } from '../external-api/actionTypes';
-import { getAppProp } from '../../base/app/functions';
-import { isExternalAPIAvailable } from './functions';
 import { participantToParticipantInfo } from '../external-api/functions';
+import { ENTER_FLOAT_MEETING_IN_APP, ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture/actionTypes';
+
+import { isExternalAPIAvailable } from './functions';
 
 const externalAPIEnabled = isExternalAPIAvailable();
 

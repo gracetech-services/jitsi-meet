@@ -3,11 +3,11 @@
 import './react/bootstrap.native';
 
 import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
-import { setAudioMuted, setVideoMuted } from './react/features/base/media/actions';
-
-import { App } from './react/features/app/components/App.native';
 import { View } from 'react-native';
+
 import { appNavigate } from './react/features/app/actions.native';
+import { App } from './react/features/app/components/App.native';
+import { setAudioMuted, setVideoMuted } from './react/features/base/media/actions';
 import { getRoomsInfo } from './react/features/breakout-rooms/functions';
 
 /**

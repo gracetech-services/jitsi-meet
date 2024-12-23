@@ -1,15 +1,14 @@
-import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { NativeModules, Platform } from 'react-native';
-import { PIP_ENABLED, PIP_WHILE_SCREEN_SHARING_ENABLED } from '../../../base/flags/constants';
-
-import { ENTER_FLOAT_MEETING_IN_APP } from '../actionTypes';
-import { IReduxState } from '../../../app/types';
-import { IconArrowDown } from '../../../base/icons/svg';
 import { connect } from 'react-redux';
-import { enterPictureInPicture } from '../actions';
+
+import { IReduxState } from '../../../app/types';
+import { PIP_ENABLED, PIP_WHILE_SCREEN_SHARING_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
-import { isLocalVideoTrackDesktop } from '../../../base/tracks/functions.native';
 import { translate } from '../../../base/i18n/functions';
+import { IconArrowDown } from '../../../base/icons/svg';
+import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
+import { isLocalVideoTrackDesktop } from '../../../base/tracks/functions.native';
+import { ENTER_FLOAT_MEETING_IN_APP } from '../actionTypes';
 
 interface IProps extends AbstractButtonProps {
 
