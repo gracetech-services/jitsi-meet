@@ -61,11 +61,12 @@ This is now set on your end.`
         }
     }
 
-    packageJSON.overrides = packageJSON.overrides || {};
+    // Gracetech: Update resolutions field since yarn uses resolutions field instead of npm overrides field
+    packageJSON.resolutions = packageJSON.overrides || {};
 
     for (const key in RNSDKpackageJSON.overrides) {
-        if (!packageJSON.overrides.hasOwnProperty(key)) {
-            packageJSON.overrides[key] = RNSDKpackageJSON.overrides[key];
+        if (!packageJSON.resolutions.hasOwnProperty(key)) {
+            packageJSON.resolutions[key] = RNSDKpackageJSON.overrides[key];
             updated = true;
         }
     }

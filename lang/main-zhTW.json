@@ -1489,6 +1489,7 @@
         },
         "addMeetingName": "新增會議名稱",
         "appDescription": "來吧，和您的整個團隊進行視訊會議。不，邀請所有您認識的人進行視訊會議。{{app}} 是一套完全加密、100% 開放原始碼的視訊會議解決方案。無需註冊帳號，無時無刻不分日夜均可免費使用。",
+        "askToUseIDigest": "请在\"小鸽子\" App启动会议. \n\n此“渔友会” App暂时不可以单独使用, 请点击以下按钮关闭App",
         "audioVideoSwitch": {
             "audio": "音訊",
             "video": "視訊"
@@ -1501,7 +1502,7 @@
         "go": "開始",
         "goSmall": "開始",
         "headerSubtitle": "安全且高品質的視訊會議",
-        "headerTitle": "Jitsi Meet",
+        "headerTitle": "渔友会",
         "info": "資訊",
         "jitsiOnMobile": "Jitsi 手機應用程式 – 下載應用程式，不論何時何地都能發起會議",
         "join": "建立/加入",

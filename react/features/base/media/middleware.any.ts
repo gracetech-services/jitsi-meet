@@ -8,6 +8,8 @@ import {
 } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
 import { IStore } from '../../app/types';
+import { BG_VIDEO_ACTIVE_ENABLE } from '../../base/flags/constants';
+import { getFeatureFlag } from '../../base/flags/functions';
 import { APP_STATE_CHANGED } from '../../mobile/background/actionTypes';
 import { showWarningNotification } from '../../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../../notifications/constants';
@@ -163,7 +165,20 @@ MiddlewareRegistry.register(store => next => action => {
 function _appStateChanged({ dispatch, getState }: IStore, next: Function, action: AnyAction) {
     if (navigator.product === 'ReactNative') {
         const { appState } = action;
-        const mute = appState !== 'active' && !isLocalVideoTrackDesktop(getState());
+        const bgVideoActiveEnabled = Boolean(getFeatureFlag(getState(), BG_VIDEO_ACTIVE_ENABLE));
+
+        /**  Add by Ranger:
+         The conditions for muting the video are:
+         'muted == true'
+         The following three conditions are met simultaneously:
+         1.Non-active state
+         2.There is a shared video track on the local desktop, and the track is not muted.
+         3.Background video active is set to false.
+         So:
+         If we set bgVideoActiveEnabled to true, mute == false, the video will not be muted.
+         */
+
+        const mute = appState !== 'active' && !isLocalVideoTrackDesktop(getState()) && !bgVideoActiveEnabled;
 
         sendAnalytics(createTrackMutedEvent('video', 'background mode', mute));
 

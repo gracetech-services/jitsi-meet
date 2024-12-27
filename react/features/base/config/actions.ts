@@ -1,7 +1,7 @@
-// @ts-expect-error
 import { jitsiLocalStorage } from '@jitsi/js-utils';
 
 import { IStore } from '../../app/types';
+import i18next from '../i18n/i18next';
 import { addKnownDomains } from '../known-domains/actions';
 import { parseURIString } from '../util/uri';
 
@@ -15,7 +15,6 @@ import {
 import { IConfig } from './configType';
 import { _CONFIG_STORE_PREFIX } from './constants';
 import { setConfigFromURLParams } from './functions.any';
-
 
 /**
  * Updates the config with new options.
@@ -139,11 +138,15 @@ export function setConfig(config: IConfig = {}) {
             config.bosh = bosh;
         }
 
-        //Gracetech
-        const {participantsPane ={} } = config;
-        participantsPane.hideModeratorSettingsTab = true;   
+        // Gracetech
+        const { participantsPane = {} } = config;
+
+        participantsPane.hideModeratorSettingsTab = true;
         participantsPane.hideMoreActionsButton = true;
         config.participantsPane = participantsPane;
+        if (config.defaultLanguage) {
+            i18next.changeLanguage(config.defaultLanguage);
+        }
 
         dispatch({
             type: SET_CONFIG,

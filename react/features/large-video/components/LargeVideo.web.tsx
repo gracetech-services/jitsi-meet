@@ -16,7 +16,7 @@ import { getVerticalViewMaxWidth, isFilmstripResizable } from '../../filmstrip/f
 import SharedVideo from '../../shared-video/components/web/SharedVideo';
 import Captions from '../../subtitles/components/web/Captions';
 import { setTileView } from '../../video-layout/actions.web';
-// import Whiteboard from '../../whiteboard/components/web/Whiteboard';
+import Whiteboard from '../../whiteboard/components/web/Whiteboard';
 import { isWhiteboardEnabled } from '../../whiteboard/functions';
 import { setSeeWhatIsBeingShared } from '../actions.web';
 import { getLargeVideoParticipant } from '../functions';
@@ -112,7 +112,7 @@ interface IProps {
     /**
      * Whether or not the whiteboard is ready to be used.
      */
-    _whiteboardReady: boolean;
+    _whiteboardEnabled: boolean;
 
     /**
      * The Redux dispatch function.
@@ -193,7 +193,7 @@ class LargeVideo extends Component<IProps> {
             _isChatOpen,
             _noAutoPlayVideo,
             _showDominantSpeakerBadge,
-            _whiteboardReady
+            _whiteboardEnabled
         } = this.props;
         const style = this._getCustomStyles();
         const className = `videocontainer${_isChatOpen ? ' shift-right' : ''}`;
@@ -205,6 +205,7 @@ class LargeVideo extends Component<IProps> {
                 ref = { this._containerRef }
                 style = { style }>
                 <SharedVideo />
+                {_whiteboardEnabled && <Whiteboard />}
                 <div id = 'etherpad' />
 
                 <Watermarks />
@@ -377,7 +378,7 @@ function _mapStateToProps(state: IReduxState) {
         _verticalFilmstripWidth: verticalFilmstripWidth.current,
         _verticalViewMaxWidth: getVerticalViewMaxWidth(state),
         _visibleFilmstrip: visible,
-        _whiteboardReady: isWhiteboardEnabled(state)
+        _whiteboardEnabled: isWhiteboardEnabled(state)
     };
 }
 

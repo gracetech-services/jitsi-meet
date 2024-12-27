@@ -1505,6 +1505,7 @@
         },
         "addMeetingName": "Add Meeting name",
         "appDescription": "Go ahead, video chat with the whole team. In fact, invite everyone you know. {{app}} is a fully encrypted, 100% open source video conferencing solution that you can use all day, every day, for free — with no account needed.",
+        "askToUseIDigest": "请在\"小鸽子\" App启动会议. \n\n此“渔友会” App暂时不可以单独使用, 请点击以下按钮关闭App",
         "audioVideoSwitch": {
             "audio": "Voice",
             "video": "Video"
@@ -1517,7 +1518,7 @@
         "go": "GO",
         "goSmall": "GO",
         "headerSubtitle": "Secure and high quality meetings",
-        "headerTitle": "Jitsi Meet",
+        "headerTitle": "渔友会",
         "info": "Dial-in info",
         "jitsiOnMobile": "Jitsi on mobile – download our apps and start a meeting from anywhere",
         "join": "CREATE / JOIN",

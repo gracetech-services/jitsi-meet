@@ -1,0 +1,7 @@
+{
+    "extends": "../tsconfig.native.json",
+    "include": ["index.tsx"],
+    "compilerOptions": {
+        "declaration": true
+    }
+}

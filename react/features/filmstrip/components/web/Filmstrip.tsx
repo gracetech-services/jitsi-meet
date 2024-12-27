@@ -941,4 +941,5 @@ function _mapStateToProps(state: IReduxState, ownProps: any) {
     };
 }
 
+// @ts-expect-error
 export default withStyles(translate(connect(_mapStateToProps)(Filmstrip)), styles);

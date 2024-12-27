@@ -1,8 +1,8 @@
 {
     "name": "@jitsi/react-native-sdk",
-    "version": "0.0.0",
+    "version": "0.0.4",
     "description": "React Native SDK for Jitsi Meet.",
-    "main": "index.tsx",
+    "main": "index.js",
     "license": "Apache-2.0",
     "author": "",
     "homepage": "https://jitsi.org",
@@ -57,7 +57,7 @@
         "@giphy/react-native-sdk": "0.0.0",
         "@react-native/metro-config": "0.0.0",
         "@react-native-async-storage/async-storage": "0.0.0",
-        "@react-native-community/clipboard": "0.0.0",
+        "@react-native-clipboard/clipboard": "0.0.0",
         "@react-native-community/netinfo": "0.0.0",
         "@react-native-community/slider": "0.0.0",
         "@react-native-google-signin/google-signin": "0.0.0",
@@ -91,6 +91,7 @@
     },
     "scripts": {
         "postinstall": "node sdk_instructions.js",
+        "generate-index": "tsc --project tsconfig-sdk-index.native.json",
         "prepare": "node prepare_sdk.js"
     },
     "bugs": {

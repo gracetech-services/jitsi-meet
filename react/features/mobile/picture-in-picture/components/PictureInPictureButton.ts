@@ -8,7 +8,7 @@ import { translate } from '../../../base/i18n/functions';
 import { IconArrowDown } from '../../../base/icons/svg';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { isLocalVideoTrackDesktop } from '../../../base/tracks/functions.native';
-import { enterPictureInPicture } from '../actions';
+import { ENTER_FLOAT_MEETING_IN_APP } from '../actionTypes';
 
 interface IProps extends AbstractButtonProps {
 
@@ -33,7 +33,8 @@ class PictureInPictureButton extends AbstractButton<IProps> {
      * @returns {void}
      */
     _handleClick() {
-        this.props.dispatch(enterPictureInPicture());
+        // this.props.dispatch(enterPictureInPicture());
+        this.props.dispatch({ type: ENTER_FLOAT_MEETING_IN_APP });
     }
 
     /**

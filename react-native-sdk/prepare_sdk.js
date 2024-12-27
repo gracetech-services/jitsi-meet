@@ -122,10 +122,11 @@ copyFolderRecursiveSync(
     '../ios/sdk/sdk.xcodeproj',
     './ios'
 );
-copyFolderRecursiveSync(
-    `${iosSrcPath}/callkit`,
-    iosDestPath
-);
+
+// copyFolderRecursiveSync(
+//     `${iosSrcPath}/callkit`,
+//     iosDestPath
+// );
 copyFolderRecursiveSync(
     `${iosSrcPath}/dropbox`,
     iosDestPath

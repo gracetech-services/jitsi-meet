@@ -137,8 +137,9 @@ const Notification = ({
         const descriptionArray = [];
 
         descriptionKey
-            && descriptionArray.push(t(descriptionKey, descriptionArguments));
+            && descriptionArray.push(t(descriptionKey, descriptionArguments as string));
 
+        // @ts-ignore
         description && descriptionArray.push(description);
 
         return descriptionArray;
