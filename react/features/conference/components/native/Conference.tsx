@@ -2,7 +2,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import {
     BackHandler,
-    NativeModules,
     Platform,
     SafeAreaView,
     StatusBar,
@@ -12,7 +11,6 @@ import {
 import { EdgeInsets, withSafeAreaInsets } from 'react-native-safe-area-context';
 import { connect, useDispatch } from 'react-redux';
 
-import { appNavigate } from '../../../app/actions.native';
 import { IReduxState, IStore } from '../../../app/types';
 import { CONFERENCE_BLURRED, CONFERENCE_FOCUSED } from '../../../base/conference/actionTypes';
 import { FULLSCREEN_ENABLED, PIP_ENABLED } from '../../../base/flags/constants';
@@ -38,16 +36,17 @@ import LargeVideo from '../../../large-video/components/LargeVideo.native';
 import { getIsLobbyVisible } from '../../../lobby/functions';
 import { navigate } from '../../../mobile/navigation/components/conference/ConferenceNavigationContainerRef';
 import { screen } from '../../../mobile/navigation/routes';
+import { ENTER_FLOAT_MEETING_IN_APP } from '../../../mobile/picture-in-picture/actionTypes';
 import { setPictureInPictureEnabled } from '../../../mobile/picture-in-picture/functions';
 import Captions from '../../../subtitles/components/native/Captions';
 import { setToolboxVisible } from '../../../toolbox/actions.native';
 import Toolbox from '../../../toolbox/components/native/Toolbox';
 import { isToolboxVisible } from '../../../toolbox/functions.native';
+import type { AbstractProps } from '../AbstractConference';
 import {
     AbstractConference,
     abstractMapStateToProps
 } from '../AbstractConference';
-import type { AbstractProps } from '../AbstractConference';
 import { isConnecting } from '../functions.native';
 
 import AlwaysOnLabels from './AlwaysOnLabels';
@@ -56,6 +55,7 @@ import LonelyMeetingExperience from './LonelyMeetingExperience';
 import TitleBar from './TitleBar';
 import { EXPANDED_LABEL_TIMEOUT } from './constants';
 import styles from './styles';
+
 
 /**
  * The type of the React {@code Component} props of {@link Conference}.
@@ -306,19 +306,20 @@ class Conference extends AbstractConference<IProps, State> {
      * @returns {boolean} Exiting the app is undesired, so {@code true} is always returned.
      */
     _onHardwareBackPress() {
-        let p;
+        this.props.dispatch({ type: ENTER_FLOAT_MEETING_IN_APP });
 
-        if (this.props._pictureInPictureEnabled) {
-            const { PictureInPicture } = NativeModules;
+        // let p;
+        // if (this.props._pictureInPictureEnabled) {
+        //     const { PictureInPicture } = NativeModules;
 
-            p = PictureInPicture.enterPictureInPicture();
-        } else {
-            p = Promise.reject(new Error('PiP not enabled'));
-        }
+        //     p = PictureInPicture.enterPictureInPicture();
+        // } else {
+        //     p = Promise.reject(new Error('PiP not enabled'));
+        // }
 
-        p.catch(() => {
-            this.props.dispatch(appNavigate(undefined));
-        });
+        // p.catch(() => {
+        //     this.props.dispatch(appNavigate(undefined));
+        // });
 
         return true;
     }

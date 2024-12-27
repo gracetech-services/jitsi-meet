@@ -20,7 +20,6 @@ import { App } from './react/features/app/components/App.native';
 import { setAudioMuted, setVideoMuted } from './react/features/base/media/actions';
 import { getRoomsInfo } from './react/features/breakout-rooms/functions';
 
-
 interface IEventListeners {
     onAudioMutedChanged?: Function;
     onVideoMutedChanged?: Function;
@@ -33,6 +32,7 @@ interface IEventListeners {
     onParticipantJoined?: Function;
     onParticipantLeft?: ({ id }: { id: string }) => void;
     onReadyToClose?: Function;
+    onEnterFloatMeetingInApp?: Function;
 }
 
 interface IUserInfo {
@@ -135,7 +135,9 @@ export const JitsiMeeting = forwardRef<JitsiRefProps, IAppProps>((props, ref) =>
                     onEnterPictureInPicture: eventListeners?.onEnterPictureInPicture,
                     onParticipantJoined: eventListeners?.onParticipantJoined,
                     onParticipantLeft: eventListeners?.onParticipantLeft,
-                    onReadyToClose: eventListeners?.onReadyToClose
+                    onReadyToClose: eventListeners?.onReadyToClose,
+                    onEnterFloatMeetingInApp: eventListeners?.onEnterFloatMeetingInApp
+
                 },
                 'url': urlProps,
                 'userInfo': userInfo

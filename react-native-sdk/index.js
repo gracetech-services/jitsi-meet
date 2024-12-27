@@ -1,6 +1,7 @@
 /* eslint-disable lines-around-comment,  no-undef, no-unused-vars  */
 // NB: This import must always come first.
 import './react/bootstrap.native';
+
 import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 
@@ -8,6 +9,7 @@ import { appNavigate } from './react/features/app/actions.native';
 import { App } from './react/features/app/components/App.native';
 import { setAudioMuted, setVideoMuted } from './react/features/base/media/actions';
 import { getRoomsInfo } from './react/features/breakout-rooms/functions';
+
 /**
  * Main React Native SDK component that displays a Jitsi Meet conference and gets all required params as props
  */
@@ -71,7 +73,8 @@ export const JitsiMeeting = forwardRef((props, ref) => {
                 onEnterPictureInPicture: eventListeners?.onEnterPictureInPicture,
                 onParticipantJoined: eventListeners?.onParticipantJoined,
                 onParticipantLeft: eventListeners?.onParticipantLeft,
-                onReadyToClose: eventListeners?.onReadyToClose
+                onReadyToClose: eventListeners?.onReadyToClose,
+                onEnterFloatMeetingInApp: eventListeners?.onEnterFloatMeetingInApp
             },
             'url': urlProps,
             'userInfo': userInfo
