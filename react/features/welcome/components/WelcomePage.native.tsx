@@ -264,7 +264,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         if (this.state._fieldFocused) {
             return (
-                <Animated.View style = { this._getHintBoxStyle() as ViewStyle }>
+
+                // Gracetech: fix typing by casting to unknown first
+                <Animated.View style = { this._getHintBoxStyle() as unknown as ViewStyle }>
                     <View style = { styles.hintTextContainer } >
                         <Text style = { styles.hintText as TextStyle }>
                             { t('welcomepage.roomnameHint') }
