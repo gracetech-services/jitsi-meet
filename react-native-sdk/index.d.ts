@@ -10,12 +10,12 @@ interface IEventListeners {
     onConferenceLeft?: Function;
     onConferenceWillJoin?: Function;
     onEnterPictureInPicture?: Function;
-    onEnterFloatMeetingInApp?: Function;
     onParticipantJoined?: Function;
     onParticipantLeft?: ({ id }: {
         id: string;
     }) => void;
     onReadyToClose?: Function;
+    onEnterFloatMeetingInApp?: Function;
 }
 interface IUserInfo {
     avatarURL: string;
