@@ -3,6 +3,8 @@ import { NativeModules, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 
+import { appType } from '../../base/config/AppType';
+import { IConfig } from '../../base/config/configType';
 import BottomSheetContainer from '../../base/dialog/components/native/BottomSheetContainer';
 import DialogContainer from '../../base/dialog/components/native/DialogContainer';
 import { updateFlags } from '../../base/flags/actions';
@@ -129,6 +131,12 @@ export class App extends AbstractApp<IProps> {
 
         // Gracetech
         flags[INVITE_ENABLED] = false;
+
+        if (typeof url === 'object' && url !== null && 'config' in url) {
+            const config: IConfig = url?.config as IConfig;
+
+            appType.isFishMeet = config.isFishMeet ?? false;
+        }
 
         // We set these early enough so then we avoid any unnecessary re-renders.
         dispatch?.(updateFlags(flags));
