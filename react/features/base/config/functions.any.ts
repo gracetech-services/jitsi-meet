@@ -137,8 +137,7 @@ export function overrideConfigJSON(config: IConfig, interfaceConfig: any, json: 
 
             if (!_.isEmpty(configJSON)) {
                 logger.info(
-                    `Extending ${configName} with: ${
-                        JSON.stringify(configJSON)}`);
+                    `Extending ${configName} with: ${JSON.stringify(configJSON)}`);
 
                 // eslint-disable-next-line arrow-body-style
                 _.mergeWith(configObj, configJSON, (oldValue, newValue) => {
@@ -237,7 +236,7 @@ export function restoreConfig(baseURL: string) {
  * @returns {void}
  */
 export function setConfigFromURLParams(
-        config: IConfig, interfaceConfig: any, location: string | URL) {
+    config: IConfig, interfaceConfig: any, location: string | URL) {
     const params = parseURLParams(location);
     const json: any = {};
 
@@ -260,18 +259,18 @@ export function setConfigFromURLParams(
     config && (json.config = {});
     interfaceConfig && (json.interfaceConfig = {});
 
-    json.interfaceConfig.DISABLE_FOCUS_INDICATOR = true;
-    json.interfaceConfig.DISABLE_DOMINANT_SPEAKER_INDICATOR = true;
-    json.interfaceConfig.DISABLE_VIDEO_BACKGROUND = true;
-    json.interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS = true;
+    // json.interfaceConfig.DISABLE_FOCUS_INDICATOR = true;
+    // json.interfaceConfig.DISABLE_DOMINANT_SPEAKER_INDICATOR = true;
+    // json.interfaceConfig.DISABLE_VIDEO_BACKGROUND = true;
+    // json.interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS = true;
 
-    //Gracetech
-    json.interfaceConfig.SETTINGS_SECTIONS = [];
+    // //Gracetech
+    // json.interfaceConfig.SETTINGS_SECTIONS = [];
 
-    config.disableAudioLevels = true;
-    config.resolution = 480;
+    // config.disableAudioLevels = true;
+    // config.resolution = 480;
 
-    logger.info("GT: config default: ", json, config);
+    logger.info('GT: config default: ', json, config);
 
     for (const param of Object.keys(params)) {
         let base = json;

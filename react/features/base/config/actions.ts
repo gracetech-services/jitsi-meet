@@ -138,12 +138,12 @@ export function setConfig(config: IConfig = {}) {
             config.bosh = bosh;
         }
 
-        // Gracetech
-        const { participantsPane = {} } = config;
+        // Gracetech / Ranger remove it, This configuration parameter can be passed in from outside
+        // const { participantsPane = {} } = config;
 
-        participantsPane.hideModeratorSettingsTab = true;
-        participantsPane.hideMoreActionsButton = true;
-        config.participantsPane = participantsPane;
+        // participantsPane.hideModeratorSettingsTab = true;
+        // participantsPane.hideMoreActionsButton = true;
+        // config.participantsPane = participantsPane;
         if (config.defaultLanguage) {
             i18next.changeLanguage(config.defaultLanguage);
         }

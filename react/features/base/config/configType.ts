@@ -411,6 +411,7 @@ export interface IConfig {
     inviteAppName?: string | null;
     inviteServiceCallFlowsUrl?: string;
     inviteServiceUrl?: string;
+    isFishMeet?: boolean;
     jaasActuatorUrl?: string;
     jaasConferenceCreatorUrl?: string;
     jaasFeedbackMetadataURL?: string;
