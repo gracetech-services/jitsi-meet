@@ -2,7 +2,9 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../../app/types';
 import { openDialog } from '../../../../base/dialog/actions';
+import { isMobileBrowser } from '../../../../base/environment/utils';
 import { translate } from '../../../../base/i18n/functions';
+import { startLocalVideoRecording } from '../../../actions';
 import AbstractRecordButton, {
     IProps,
     _mapStateToProps as _abstractMapStateToProps
@@ -11,12 +13,10 @@ import AbstractRecordButton, {
 import StartRecordingDialog from './StartRecordingDialog';
 import StopRecordingDialog from './StopRecordingDialog';
 
-//Gractech
-import { startLocalVideoRecording } from '../../../actions';
+// Gractech
 
 
-//Gracetech
-import { isMobileBrowser } from '../../../../base/environment/utils';
+// Gracetech
 
 /**
  * Button for opening a dialog where a recording session can be started.
@@ -31,21 +31,22 @@ class RecordingButton extends AbstractRecordButton<IProps> {
      * @returns {void}
      */
     _onHandleClick() {
-        //Gracetech -- we don't support recording on mobile devices
+        // Gracetech -- we don't support recording on mobile devices
         if (isMobileBrowser()) {
-            alert("Recording feature is only available on desktop through https://idigest.app");
+            alert('Recording feature is only available on desktop through https://idigest.app');
+
             return;
-        } 
+        }
         const { _isRecordingRunning, dispatch } = this.props;
 
-        /*original code
+        /* original code
         dispatch(openDialog(
             _isRecordingRunning ? StopRecordingDialog : StartRecordingDialog
         ));
         */
 
-        //Gracetech: we skip the startRecordingDialog
-        dispatch(_isRecordingRunning? openDialog(StopRecordingDialog) : startLocalVideoRecording(false));
+        // Gracetech: we skip the startRecordingDialog
+        dispatch(_isRecordingRunning ? openDialog(StopRecordingDialog) : startLocalVideoRecording(false));
     }
 }
 

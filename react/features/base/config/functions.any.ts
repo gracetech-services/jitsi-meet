@@ -236,7 +236,7 @@ export function restoreConfig(baseURL: string) {
  * @returns {void}
  */
 export function setConfigFromURLParams(
-    config: IConfig, interfaceConfig: any, location: string | URL) {
+        config: IConfig, interfaceConfig: any, location: string | URL) {
     const params = parseURLParams(location);
     const json: any = {};
 

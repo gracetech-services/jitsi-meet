@@ -18,7 +18,7 @@ import { loadScript } from '../base/util/loadScript';
 import { parseURIString } from '../base/util/uri';
 import { isPrejoinPageVisible } from '../prejoin/functions';
 
-//import AmplitudeHandler from './handlers/AmplitudeHandler';
+// import AmplitudeHandler from './handlers/AmplitudeHandler';
 import MatomoHandler from './handlers/MatomoHandler';
 import logger from './logger';
 

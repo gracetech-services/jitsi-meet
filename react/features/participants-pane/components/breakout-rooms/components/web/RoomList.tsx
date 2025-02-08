@@ -17,6 +17,7 @@ import {
 import { IRoom } from '../../../../../breakout-rooms/types';
 
 import { AutoAssignButton } from './AutoAssignButton';
+import { CloseAllRoomsButton } from './CloseAllRoomsButton';
 import { CollapsibleRoom } from './CollapsibleRoom';
 import JoinActionButton from './JoinQuickActionButton';
 import { LeaveButton } from './LeaveButton';
@@ -24,7 +25,6 @@ import RoomActionEllipsis from './RoomActionEllipsis';
 import { RoomContextMenu } from './RoomContextMenu';
 import { RoomParticipantContextMenu } from './RoomParticipantContextMenu';
 
-import { CloseAllRoomsButton } from './CloseAllRoomsButton';
 
 interface IProps {
 

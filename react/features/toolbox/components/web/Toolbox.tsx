@@ -279,19 +279,20 @@ const Toolbox = ({
      */
     function getVisibleButtons() {
         const buttons = getAllToolboxButtons(_customToolbarButtons);
+
         setButtonsNotifyClickMode(buttons);
         const isHangupVisible = isButtonEnabled('hangup', _toolbarButtons);
         const { order } = THRESHOLDS.find(({ width }) => _clientWidth > width)
             || THRESHOLDS[THRESHOLDS.length - 1];
         const keys = Object.keys(buttons);
 
-        //Gracetech force audioonly in as enabled.
+        // Gracetech force audioonly in as enabled.
         const filtered = [
             ...order.map(key => buttons[key as keyof typeof buttons]),
             ...Object.values(buttons).filter((button, index) => !order.includes(keys[index]))
         ].filter(({ key, alias = NOT_APPLICABLE }) =>
             !_jwtDisabledButtons.includes(key)
-            && (key==='audioonly' || isButtonEnabled(key, _toolbarButtons) || isButtonEnabled(alias, _toolbarButtons))
+            && (key === 'audioonly' || isButtonEnabled(key, _toolbarButtons) || isButtonEnabled(alias, _toolbarButtons))
         );
 
         let sliceIndex = _overflowDrawer || _reactionsButtonEnabled ? order.length + 2 : order.length + 1;
@@ -301,14 +302,15 @@ const Toolbox = ({
         }
 
         // This implies that the overflow button will be displayed, so save some space for it.
-        //Gracetech -- the and condition could be merged back to master...
-        if (sliceIndex < (filtered.length-1) && _overflowDrawer) {
+        // Gracetech -- the and condition could be merged back to master...
+        if (sliceIndex < (filtered.length - 1) && _overflowDrawer) {
             sliceIndex -= 1;
         }
 
         return {
             mainMenuButtons: filtered.slice(0, sliceIndex),
-            //Gracetech -- no overflow
+
+            // Gracetech -- no overflow
             overflowMenuButtons: !_overflowDrawer ? [] : filtered.slice(sliceIndex)
         };
     }
@@ -354,7 +356,8 @@ const Toolbox = ({
         const containerClassName = `toolbox-content${_isMobile || _isNarrowLayout ? ' toolbox-content-mobile' : ''}`;
 
         const { mainMenuButtons, overflowMenuButtons } = getVisibleButtons();
-        //console.log("GT: mainMenuButtons", mainMenuButtons);
+
+        // console.log("GT: mainMenuButtons", mainMenuButtons);
 
         const raiseHandInOverflowMenu = overflowMenuButtons.some(({ key }) => key === 'raisehand');
         const showReactionsInOverflowMenu = _shouldDisplayReactionsButtons
@@ -503,17 +506,19 @@ function _mapStateToProps(state: IReduxState, ownProps: any) {
         _customToolbarButtons: customToolbarButtons,
         _dialog: Boolean(state['features/base/dialog'].component),
         _disabled: Boolean(iAmRecorder || iAmSipGateway),
-        //Gracetech
-        //end conference is supported in the App, and desktop browser
-        //moderator should get the desktop and/or the App
+
+        // Gracetech
+        // end conference is supported in the App, and desktop browser
+        // moderator should get the desktop and/or the App
         _endConferenceSupported: !isMobileBrowser() && Boolean(endConferenceSupported),
         _isMobile: isMobileBrowser(),
         _jwtDisabledButtons: getJwtDisabledButtons(state),
         _hangupMenuVisible: hangupMenuVisible,
         _isNarrowLayout: isNarrowLayout,
         _overflowMenuVisible: overflowMenuVisible,
-        //Gracetech
-        _overflowDrawer: false, //overflowDrawer,
+
+        // Gracetech
+        _overflowDrawer: false, // overflowDrawer,
         _reactionsButtonEnabled: isReactionsButtonEnabled(state),
         _shiftUp: state['features/toolbox'].shiftUp,
         _shouldDisplayReactionsButtons: shouldDisplayReactionsButtons(state),

@@ -189,34 +189,39 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      */
     render() {
         const { t } = this.props;
+
         return (
-            <div style={{color:"black",marginLeft:"20px",marginTop:"20px"}}>
+            <div
+                style = {{ color: 'black',
+                    marginLeft: '20px',
+                    marginTop: '20px' }}>
                 <h1> {t('GT.title')} </h1>
-                {window.location.pathname.length > 2 &&
-                    <>
-                    <h2 style={{paddingLeft:"1em"}}>
-                        <a
-                            href = {"https://idigest.app/join#"+window.location.pathname.substring(1)}
-                            target = '_top'>
-                            <button>
-                                {t('GT.relaunchIntoSameMeeting')}
+                {window.location.pathname.length > 2
+                    && <>
+                        <h2 style = {{ paddingLeft: '1em' }}>
+                            <a
+                                href = { `https://idigest.app/join#${window.location.pathname.substring(1)}` }
+                                target = '_top'>
+                                <button>
+                                    {t('GT.relaunchIntoSameMeeting')}
+                                </button>
+                            </a>
+                        </h2>
+                        <h2 style = {{ paddingLeft: '1em' }}>
+                            <button onClick = { () => window.close() }>
+                                {t('GT.closeThisWebpage')}
                             </button>
-                        </a>
-                    </h2>
-                    <h2 style={{paddingLeft:"1em"}}>
-                        <button onClick={()=>window.close()}>
-                            {t('GT.closeThisWebpage')}
-                        </button>
-                    </h2>
+                        </h2>
                     </>
                 }
-                <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
-                <br></br>
-                <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
-                <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
-                <p style={{paddingLeft:"5em"}}>{t('GT.conferencelink')} </p>
+                <h2 style = {{ paddingLeft: '1em' }}> {t('GT.choose')} </h2>
+                <br />
+                <p style = {{ paddingLeft: '5em' }}>{t('GT.appName')} </p>
+                <p style = {{ paddingLeft: '5em' }}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
+                <p style = {{ paddingLeft: '5em' }}>{t('GT.conferencelink')} </p>
             </div>
         );
+
         /*
         const { _moderatedRoomServiceUrl, t } = this.props;
         const { DEFAULT_WELCOME_PAGE_LOGO_URL, DISPLAY_WELCOME_FOOTER } = interfaceConfig;

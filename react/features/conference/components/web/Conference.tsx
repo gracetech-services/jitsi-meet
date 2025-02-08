@@ -209,7 +209,8 @@ class Conference extends AbstractConference<IProps, any> {
             t
         } = this.props;
 
-        console.log("GT:web conference:", _showPrejoin, _showLobby, _notificationsVisible);
+        console.log('GT:web conference:', _showPrejoin, _showLobby, _notificationsVisible);
+
         return (
             <div
                 id = 'layout_wrapper'

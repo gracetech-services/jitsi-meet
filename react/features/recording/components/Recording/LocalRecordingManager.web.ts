@@ -249,8 +249,8 @@ const LocalRecordingManager: ILocalRecordingManager = {
                 audio: false, // @ts-ignore
                 preferCurrentTab: true
             });
-            
-            /* 
+
+            /*
             //Gracetech: just need the current tab === but is this API available now??
             //  getViewportMedia is still under spec: https://w3c.github.io/mediacapture-viewport/
             // @ts-ignore

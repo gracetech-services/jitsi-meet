@@ -12,6 +12,7 @@ import {
 } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
 import { reloadNow } from '../../app/actions';
+import { maybeRedirectToWelcomePage } from '../../app/actions.web';
 import { IStore } from '../../app/types';
 import { removeLobbyChatParticipant } from '../../chat/actions.any';
 import { openDisplayNamePrompt } from '../../display-name/actions';
@@ -38,7 +39,6 @@ import MiddlewareRegistry from '../redux/MiddlewareRegistry';
 import StateListenerRegistry from '../redux/StateListenerRegistry';
 import { TRACK_ADDED, TRACK_REMOVED } from '../tracks/actionTypes';
 import { getLocalTracks } from '../tracks/functions.any';
-import { maybeRedirectToWelcomePage } from '../../app/actions.web';
 
 
 import {

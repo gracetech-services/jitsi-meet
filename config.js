@@ -282,14 +282,14 @@ var config = {
     //     },
     // },
     constraints: {
-         video: {
-             height: {
-                 ideal: 480,
-                 max: 480,
-                 min: 240,
-             },
-         },
-     },
+        video: {
+            height: {
+                ideal: 480,
+                max: 480,
+                min: 240,
+            },
+        },
+    },
 
     // Enable / disable simulcast support.
     // disableSimulcast: false,
@@ -447,10 +447,10 @@ var config = {
 
     // Default value for the channel "last N" attribute. -1 for unlimited.
     //
-    //Gracetech
+    // Gracetech
     // last N active speakers -- need to test if inactive speaker are black screen
     // or the last photo/image --- ideally, the last photo/image, appearing static would be fine.
-    //channelLastN: -1,
+    // channelLastN: -1,
     channelLastN: 4,
 
     // Connection indicators
@@ -550,43 +550,44 @@ var config = {
     //              high: 1200000,
     //          },
     //    },
-    //Gracetech  == all reduce to VP9's low, standard, high
+    // Gracetech  == all reduce to VP9's low, standard, high
     //  need to experiment whether setting to such low will make it unusable
     //  need to see if we can make the moderator to a higher bitrate???
-    //  more adjustment below to experiment === 
+    //  more adjustment below to experiment ===
         maxBitratesVideo: {
-              H264: {
+            H264: {
                 low: 100000,
                 standard: 100000,
                 high: 100000,
-              },
-              VP8 : {
+            },
+            VP8: {
                 low: 100000,
                 standard: 100000,
                 high: 100000,
-              },
-              VP9: {
+            },
+            VP9: {
                 low: 100000,
                 standard: 100000,
                 high: 100000,
-              },
+            },
         },
-    //    // The options can be used to override default thresholds of video thumbnail heights corresponding to
-    //    // the video quality levels used in the application. At the time of this writing the allowed levels are:
-    //    //     'low' - for the low quality level (180p at the time of this writing)
-    //    //     'standard' - for the medium quality level (360p)
-    //    //     'high' - for the high quality level (720p)
-    //    // The keys should be positive numbers which represent the minimal thumbnail height for the quality level.
-    //    //
-    //    // With the default config value below the application will use 'low' quality until the thumbnails are
-    //    // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch to
-    //    // the high quality.
-    //    minHeightForQualityLvl: {
-    //        360: 'standard',
-    //        720: 'high',
-    //    },
-    //
-        //Gracetech
+
+        //    // The options can be used to override default thresholds of video thumbnail heights corresponding to
+        //    // the video quality levels used in the application. At the time of this writing the allowed levels are:
+        //    //     'low' - for the low quality level (180p at the time of this writing)
+        //    //     'standard' - for the medium quality level (360p)
+        //    //     'high' - for the high quality level (720p)
+        //    // The keys should be positive numbers which represent the minimal thumbnail height for the quality level.
+        //    //
+        //    // With the default config value below the application will use 'low' quality until the thumbnails are
+        //    // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch to
+        //    // the high quality.
+        //    minHeightForQualityLvl: {
+        //        360: 'standard',
+        //        720: 'high',
+        //    },
+        //
+        // Gracetech
         minHeightForQualityLvl: {
             360: 'standard',
             720: 'standard',
@@ -760,18 +761,19 @@ var config = {
     // enableCalendarIntegration: false,
 
     // Configs for prejoin page.
-     prejoinConfig: {
+    prejoinConfig: {
     //     // When 'true', it shows an intermediate page before joining, where the user can configure their devices.
     //     // This replaces `prejoinPageEnabled`. Defaults to true.
     //     enabled: true,
         enabled: false,
+
     //     // Hides the participant name editing field in the prejoin screen.
     //     // If requireDisplayName is also set as true, a name should still be provided through
     //     // either the jwt or the userInfo from the iframe api init object in order for this to have an effect.
     //     hideDisplayName: false,
     //     // List of buttons to hide from the extra join options dropdown.
     //     hideExtraJoinButtons: ['no-audio', 'by-phone'],
-     },
+    },
 
     // When 'true', the user cannot edit the display name.
     // (Mainly useful when used in conjunction with the JWT so the JWT name becomes read only.)

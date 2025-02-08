@@ -70,12 +70,14 @@ class AudioOnlyButton extends AbstractButton<IProps> {
  */
 function _mapStateToProps(state: IReduxState) {
     const { enabled: audioOnly } = state['features/base/audio-only'];
-    //const enabledInFeatureFlags = getFeatureFlag(state, AUDIO_ONLY_BUTTON_ENABLED, true);
-    //const visible = enabledInFeatureFlags;
+
+    // const enabledInFeatureFlags = getFeatureFlag(state, AUDIO_ONLY_BUTTON_ENABLED, true);
+    // const visible = enabledInFeatureFlags;
 
     return {
-        _audioOnly: Boolean(audioOnly),
-        //visible
+        _audioOnly: Boolean(audioOnly)
+
+        // visible
     };
 }
 

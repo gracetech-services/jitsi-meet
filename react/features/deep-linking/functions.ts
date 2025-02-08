@@ -55,6 +55,7 @@ export function generateDeepLinkingURL(state: IReduxState) {
 export function getDeepLinkingPage(state: IReduxState) {
     // Always disable user selection since we will always launch it directly via iDigest
     return Promise.resolve(undefined);
+
     /*
     const { room } = state['features/base/conference'];
     const { launchInWeb } = state['features/deep-linking'];

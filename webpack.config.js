@@ -295,12 +295,12 @@ module.exports = (_env, argv) => {
 
             performance: getPerformanceHints(perfHintOptions, 5 * 1024 * 1024)
 
-        })
-        ,
+        }),
         Object.assign({}, config, {
             entry: {
                 'alwaysontop': './react/features/always-on-top/index.tsx'
-            },
+            }
+
             /*
             plugins: [
                 ...config.plugins,
@@ -309,6 +309,7 @@ module.exports = (_env, argv) => {
             performance: getPerformanceHints(perfHintOptions, 800 * 1024)
             */
         }),
+
         /*
         Object.assign({}, config, {
             entry: {
@@ -321,7 +322,7 @@ module.exports = (_env, argv) => {
             performance: getPerformanceHints(perfHintOptions, 5 * 1024)
         }),
         */
-        
+
         Object.assign({}, config, {
             entry: {
                 'close3': './static/close3.js'
@@ -331,7 +332,8 @@ module.exports = (_env, argv) => {
                 ...getBundleAnalyzerPlugin(analyzeBundle, 'close3')
             ],
             performance: getPerformanceHints(perfHintOptions, 128 * 1024)
-        }),
+        })
+
         /*
         Object.assign({}, config, {
             entry: {
@@ -361,7 +363,7 @@ module.exports = (_env, argv) => {
             performance: getPerformanceHints(perfHintOptions, 1024 * 1024 * 2)
         }),
         */
-       /*
+        /*
         Object.assign({}, config, {
             /**
              * The NoiseSuppressorWorklet is loaded in an audio worklet which doesn't have the same

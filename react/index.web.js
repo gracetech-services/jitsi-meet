@@ -7,7 +7,8 @@ import Platform from './features/base/react/Platform.web';
 import { getJitsiMeetGlobalNS } from './features/base/util/helpers';
 import DialInSummaryApp from './features/invite/components/dial-in-summary/web/DialInSummaryApp';
 import PrejoinApp from './features/prejoin/components/web/PrejoinApp';
-//import WhiteboardApp from './features/whiteboard/components/web/WhiteboardApp';
+
+// import WhiteboardApp from './features/whiteboard/components/web/WhiteboardApp';
 
 const logger = getLogger('index.web');
 
@@ -44,9 +45,9 @@ if (Platform.OS === 'ios') {
     });
 }
 
-window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault()
-  });
+window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+});
 
 const globalNS = getJitsiMeetGlobalNS();
 
@@ -66,7 +67,8 @@ globalNS.entryPoints = {
     APP: App,
     PREJOIN: PrejoinApp,
     DIALIN: DialInSummaryApp
-    //WHITEBOARD: WhiteboardApp
+
+    // WHITEBOARD: WhiteboardApp
 };
 
 globalNS.renderEntryPoint = ({

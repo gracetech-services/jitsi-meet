@@ -134,8 +134,8 @@ function MeetingParticipants({
                 onChange = { setSearchString }
                 placeholder = { t('participantsPane.search') }
                 value = { searchString } />
-            {Boolean(currentRoom?.name) && 
-                <div className = { styles.heading }>
+            {Boolean(currentRoom?.name)
+                && <div className = { styles.heading }>
                     {currentRoom?.name} ({participantsCount})
                 </div>
             }

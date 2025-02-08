@@ -14,6 +14,7 @@ import { BUTTON_TYPES } from '../../../base/ui/constants.web';
 import { findAncestorByClass } from '../../../base/ui/functions.web';
 import { isAddBreakoutRoomButtonVisible } from '../../../breakout-rooms/functions';
 import MuteEveryoneDialog from '../../../video-menu/components/web/MuteEveryoneDialog';
+import MuteEveryonesVideoDialog from '../../../video-menu/components/web/MuteEveryonesVideoDialog';
 import { close } from '../../actions.web';
 import {
     getParticipantsPaneOpen,
@@ -27,7 +28,6 @@ import { FooterContextMenu } from './FooterContextMenu';
 import LobbyParticipants from './LobbyParticipants';
 import MeetingParticipants from './MeetingParticipants';
 import VisitorsList from './VisitorsList';
-import MuteEveryonesVideoDialog from '../../../video-menu/components/web/MuteEveryonesVideoDialog';
 
 const useStyles = makeStyles()(theme => {
     return {

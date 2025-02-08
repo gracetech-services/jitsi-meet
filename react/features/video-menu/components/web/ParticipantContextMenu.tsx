@@ -229,7 +229,8 @@ const ParticipantContextMenu = ({
                 );
             }
         }
-        /* /// redundant 
+
+        /* /// redundant
 
         if (!disableRemoteMute) {
             if (!(isClickedFromParticipantPane && quickActionButtonType === QUICK_ACTION_BUTTON.MUTE)) {

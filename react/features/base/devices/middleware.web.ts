@@ -1,8 +1,8 @@
 import { AnyAction } from 'redux';
-//import { useTranslation } from 'react-i18next';
+
+// import { useTranslation } from 'react-i18next';
 
 /* @flow */
-import Platform from '../react/Platform';
 
 // @ts-expect-error
 import UIEvents from '../../../../service/UI/UIEvents';
@@ -16,6 +16,7 @@ import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app/actionTypes';
 import { isMobileBrowser } from '../environment/utils';
 import JitsiMeetJS, { JitsiMediaDevicesEvents, JitsiTrackErrors } from '../lib-jitsi-meet';
 import { MEDIA_TYPE } from '../media/constants';
+import Platform from '../react/Platform';
 import MiddlewareRegistry from '../redux/MiddlewareRegistry';
 import { updateSettings } from '../settings/actions';
 import { getLocalTrack } from '../tracks/functions';
@@ -159,7 +160,7 @@ MiddlewareRegistry.register(store => next => action => {
             store.dispatch(setDeviceStatusWarning(titleKey));
         }
 
-        //MicErrorOut();
+        // MicErrorOut();
         break;
     }
     case SET_AUDIO_INPUT_DEVICE:
@@ -284,8 +285,9 @@ function _checkAndNotifyForNewDevice(store: IStore, newDevices: MediaDeviceInfo[
         switch (newDevice.kind) {
         case 'videoinput': {
             titleKey = 'notify.newDeviceCameraTitle';
-            return;  //GT: disable the new camera found: front camera choice...
-            //break;
+
+            return; // GT: disable the new camera found: front camera choice...
+            // break;
         }
         case 'audioinput' :
         case 'audiooutput': {
