@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -26,6 +28,7 @@ export const ROOM_NAME_VALIDATE_PATTERN_STR = '^[^?&:\u0022\u0027%#]+$';
  * The Web container rendering the welcome page.
  *
  * @augments AbstractWelcomePage
+ * @returns {WelcomePage}
  */
 class WelcomePage extends AbstractWelcomePage<IProps> {
     _additionalContentRef: HTMLDivElement | null;
@@ -189,16 +192,21 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      */
     render() {
         const { t } = this.props;
+        const colorStyle = {
+            color: 'black',
+            marginLeft: '20px',
+            marginTop: '20px'
+        };
+        const paddingLeftStyle = { paddingLeft: '1em' };
+        const paddingLeftTwoStyle = { paddingLeft: '5em' };
 
         return (
             <div
-                style = {{ color: 'black',
-                    marginLeft: '20px',
-                    marginTop: '20px' }}>
+                style = { colorStyle }>
                 <h1> {t('GT.title')} </h1>
                 {window.location.pathname.length > 2
                     && <>
-                        <h2 style = {{ paddingLeft: '1em' }}>
+                        <h2 style = { paddingLeftStyle }>
                             <a
                                 href = { `https://idigest.app/join#${window.location.pathname.substring(1)}` }
                                 target = '_top'>
@@ -207,20 +215,21 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 </button>
                             </a>
                         </h2>
-                        <h2 style = {{ paddingLeft: '1em' }}>
-                            <button onClick = { () => window.close() }>
+                        <h2 style = { paddingLeftStyle }>
+                            <button onClick = { this._onHandleClick }>
                                 {t('GT.closeThisWebpage')}
                             </button>
                         </h2>
                     </>
                 }
-                <h2 style = {{ paddingLeft: '1em' }}> {t('GT.choose')} </h2>
+                <h2 style = { paddingLeftStyle }> {t('GT.choose')} </h2>
                 <br />
-                <p style = {{ paddingLeft: '5em' }}>{t('GT.appName')} </p>
-                <p style = {{ paddingLeft: '5em' }}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
-                <p style = {{ paddingLeft: '5em' }}>{t('GT.conferencelink')} </p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.appName')} </p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.webUrl')} <a>https://idigest.app</a></p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.conferencelink')} </p>
             </div>
         );
+
 
         /*
         const { _moderatedRoomServiceUrl, t } = this.props;
@@ -339,6 +348,10 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         );
         */
     }
+
+    _onHandleClick = () => {
+        window.close();
+    };
 
     /**
      * Renders the insecure room name warning.

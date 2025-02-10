@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -187,7 +189,7 @@ const ParticipantContextMenu = ({
 
     const isClickedFromParticipantPane = useMemo(
         () => !_overflowDrawer && !thumbnailMenu,
-    [ _overflowDrawer, thumbnailMenu ]);
+        [ _overflowDrawer, thumbnailMenu ]);
     const quickActionButtonType = useSelector((state: IReduxState) =>
         getQuickActionButtonType(participant, _isAudioMuted, _isVideoMuted, state));
 

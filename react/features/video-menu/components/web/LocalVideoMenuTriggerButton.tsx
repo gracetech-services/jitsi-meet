@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { batch, connect, useSelector } from 'react-redux';

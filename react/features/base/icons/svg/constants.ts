@@ -21,10 +21,6 @@ import { default as IconCode } from './code.svg';
 import { default as IconConnection } from './connection.svg';
 import { default as IconRecordContact } from './contact-record.svg';
 import { default as IconCopy } from './copy.svg';
-import { default as IconFishmeetCameraRefresh } from './fishmeet-camera-refresh.svg';
-import { default as IconFishmeetDotsHorizontal } from './fishmeet-dots-horizontal.svg';
-import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
-import { default as IconFishmeetChatUnread } from './fishmeet-message.svg';
 import { default as IconDotsHorizontal } from './dots-horizontal.svg';
 import { default as IconDownload } from './download.svg';
 import { default as IconE2EE } from './e2ee.svg';
@@ -46,7 +42,11 @@ import { default as IconFaceSmile } from './face-smile.svg';
 import { default as IconFavoriteSolid } from './favorite-solid.svg';
 import { default as IconFavorite } from './favorite.svg';
 import { default as IconFeedback } from './feedback.svg';
-import { default as IconFishmeetMessage } from './fishmeet-message.svg';
+import { default as IconFishmeetCameraRefresh } from './fishmeet-camera-refresh.svg';
+import { default as IconFishmeetClose } from './fishmeet-close.svg';
+import { default as IconFishmeetDotsHorizontal } from './fishmeet-dots-horizontal.svg';
+import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
+import { default as IconFishmeetChatUnread, default as IconFishmeetMessage } from './fishmeet-message.svg';
 import { default as IconFishmeetMicSlash } from './fishmeet-mic-slash.svg';
 import { default as IconFishmeetMic } from './fishmeet-mic.svg';
 import { default as IconFishmeetRaiseHand } from './fishmeet-raise-hand.svg';
@@ -119,7 +119,6 @@ import { default as IconWifi1Bar } from './wifi-1.svg';
 import { default as IconWifi2Bars } from './wifi-2.svg';
 import { default as IconWifi3Bars } from './wifi-3.svg';
 import { default as IconYahoo } from './yahoo.svg';
-import { default as IconFishmeetClose } from './fishmeet-close.svg';
 
 /**
  * Map containing the default icons.

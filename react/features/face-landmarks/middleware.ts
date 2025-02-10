@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AnyAction } from 'redux';
 
 import { IStore } from '../app/types';
@@ -48,7 +50,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
     }
 
     switch (action.type) {
-    case CONFERENCE_WILL_LEAVE : {
+    case CONFERENCE_WILL_LEAVE: {
         // FaceLandmarksDetector.stopDetection(store);
 
         break;

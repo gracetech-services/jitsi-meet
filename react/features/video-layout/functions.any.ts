@@ -81,6 +81,8 @@ export function shouldDisplayTileView(state: IReduxState) {
         return false;
     }
 
+    // Ranger add
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const participantCount = getParticipantCount(state);
     const { iAmRecorder } = state['features/base/config'];
 

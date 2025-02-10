@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 import { updateFlags } from '../../base/flags/actions';
@@ -49,7 +51,7 @@ export class App extends AbstractApp {
             <JitsiThemeProvider>
                 <GlobalStyles />
                 <ChromeExtensionBanner />
-                { super._createMainElement(component, props) }
+                {super._createMainElement(component, props)}
             </JitsiThemeProvider>
         );
     }

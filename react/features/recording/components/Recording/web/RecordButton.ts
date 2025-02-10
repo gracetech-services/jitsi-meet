@@ -10,6 +10,8 @@ import AbstractRecordButton, {
     _mapStateToProps as _abstractMapStateToProps
 } from '../AbstractRecordButton';
 
+// Ranger add
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import StartRecordingDialog from './StartRecordingDialog';
 import StopRecordingDialog from './StopRecordingDialog';
 
@@ -33,6 +35,8 @@ class RecordingButton extends AbstractRecordButton<IProps> {
     _onHandleClick() {
         // Gracetech -- we don't support recording on mobile devices
         if (isMobileBrowser()) {
+            // Ranger add
+            // eslint-disable-next-line no-alert
             alert('Recording feature is only available on desktop through https://idigest.app');
 
             return;

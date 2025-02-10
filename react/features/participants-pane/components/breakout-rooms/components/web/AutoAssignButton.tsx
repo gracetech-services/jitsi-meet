@@ -43,13 +43,14 @@ export const AutoAssignButton = ({ className }: IProps) => {
         const roomArr = Object.entries(rooms).filter(room => !room[1].isMainRoom);
         let nCurrentRooms = roomArr.length;
 
+        // eslint-disable-next-line no-alert
         const nRooms = prompt(t('breakoutRooms.prompts.EnterTotalRoom'), `${nCurrentRooms}`);
 
         if (!nRooms) {
             return;
         }
 
-        const nnn = parseInt(nRooms);
+        const nnn = parseInt(nRooms, 10);
 
         if (nnn === 0) {
             return;

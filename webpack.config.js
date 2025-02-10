@@ -2,7 +2,7 @@
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const fs = require('fs');
-const { join, resolve } = require('path');
+const { join, resolve } = require('path'); // eslint-disable-line no-unused-vars
 const process = require('process');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');

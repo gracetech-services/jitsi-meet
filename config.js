@@ -580,7 +580,8 @@ var config = {
         //    // The keys should be positive numbers which represent the minimal thumbnail height for the quality level.
         //    //
         //    // With the default config value below the application will use 'low' quality until the thumbnails are
-        //    // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch to
+        //    // at least 360 pixels tall. If the thumbnail height reaches 720 pixels then the application will switch
+        //    to
         //    // the high quality.
         //    minHeightForQualityLvl: {
         //        360: 'standard',

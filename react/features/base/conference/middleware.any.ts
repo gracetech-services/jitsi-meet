@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import i18n from 'i18next';
 import { AnyAction } from 'redux';
 
@@ -204,19 +206,19 @@ function _conferenceFailed({ dispatch, getState }: IStore, next: Function, actio
 
         if (newConfig) {
             dispatch(overwriteConfig(newConfig)) // @ts-ignore
-                .then(() => dispatch(conferenceWillLeave(conference)))
-                .then(() => conference.leave())
-                .then(() => dispatch(disconnect()))
-                .then(() => dispatch(connect()))
-                .then(() => {
-                    // FIXME: Workaround for the web version. To be removed once we get rid of conference.js
-                    if (typeof APP !== 'undefined') {
-                        const localTracks = getLocalTracks(getState()['features/base/tracks']);
-                        const jitsiTracks = localTracks.map((t: any) => t.jitsiTrack);
+                    .then(() => dispatch(conferenceWillLeave(conference)))
+                    .then(() => conference.leave())
+                    .then(() => dispatch(disconnect()))
+                    .then(() => dispatch(connect()))
+                    .then(() => {
+                        // FIXME: Workaround for the web version. To be removed once we get rid of conference.js
+                        if (typeof APP !== 'undefined') {
+                            const localTracks = getLocalTracks(getState()['features/base/tracks']);
+                            const jitsiTracks = localTracks.map((t: any) => t.jitsiTrack);
 
-                        APP.conference.startConference(jitsiTracks).catch(logger.error);
-                    }
-                });
+                            APP.conference.startConference(jitsiTracks).catch(logger.error);
+                        }
+                    });
         }
 
         break;
@@ -233,12 +235,12 @@ function _conferenceFailed({ dispatch, getState }: IStore, next: Function, actio
     }
 
     !error.recoverable
-    && conference
-    && conference.leave(CONFERENCE_LEAVE_REASONS.UNRECOVERABLE_ERROR).catch((reason: Error) => {
-        // Even though we don't care too much about the failure, it may be
-        // good to know that it happen, so log it (on the info level).
-        logger.info('JitsiConference.leave() rejected with:', reason);
-    });
+        && conference
+        && conference.leave(CONFERENCE_LEAVE_REASONS.UNRECOVERABLE_ERROR).catch((reason: Error) => {
+            // Even though we don't care too much about the failure, it may be
+            // good to know that it happen, so log it (on the info level).
+            logger.info('JitsiConference.leave() rejected with:', reason);
+        });
 
     // FIXME: Workaround for the web version. Currently, the creation of the
     // conference is handled by /conference.js and appropriate failure handlers
@@ -391,7 +393,7 @@ function _connectionFailed({ dispatch, getState }: IStore, next: Function, actio
     if (jwt) {
         const errors: string = validateJwt(jwt).map((err: any) =>
             i18n.t(`dialog.tokenAuthFailedReason.${err.key}`, err.args))
-        .join(' ');
+            .join(' ');
 
         _logJwtErrors(error.message, errors);
 
@@ -512,7 +514,7 @@ function _pinParticipant({ getState }: IStore, next: Function, action: AnyAction
     const actionName = id ? ACTION_PINNED : ACTION_UNPINNED;
     const local
         = participantById?.local
-            || (!id && pinnedParticipant && pinnedParticipant.local);
+        || (!id && pinnedParticipant && pinnedParticipant.local);
     let participantIdForEvent;
 
     if (local) {

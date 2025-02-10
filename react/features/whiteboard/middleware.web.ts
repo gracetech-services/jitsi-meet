@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { generateCollaborationLinkData } from '@jitsi/excalidraw';
 import { AnyAction } from 'redux';
 

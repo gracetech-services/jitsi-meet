@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useRef } from 'react';
 import { WithTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -311,7 +313,8 @@ const Toolbox = ({
             mainMenuButtons: filtered.slice(0, sliceIndex),
 
             // Gracetech -- no overflow
-            overflowMenuButtons: !_overflowDrawer ? [] : filtered.slice(sliceIndex)
+            overflowMenuButtons: _overflowDrawer ? filtered.slice(sliceIndex) : []
+
         };
     }
 
@@ -363,7 +366,7 @@ const Toolbox = ({
         const showReactionsInOverflowMenu = _shouldDisplayReactionsButtons
             && (
                 (!_reactionsButtonEnabled && (raiseHandInOverflowMenu || _isNarrowLayout || _isMobile))
-                    || overflowMenuButtons.some(({ key }) => key === 'reactions')
+                || overflowMenuButtons.some(({ key }) => key === 'reactions')
             );
         const showRaiseHandInReactionsMenu = showReactionsInOverflowMenu && raiseHandInOverflowMenu;
 
@@ -460,8 +463,8 @@ const Toolbox = ({
         return null;
     }
 
-    const rootClassNames = `new-toolbox ${_visible ? 'visible' : ''} ${
-        _toolbarButtons.length ? '' : 'no-buttons'} ${_chatOpen ? 'shift-right' : ''}`;
+    const rootClassNames = `new-toolbox ${_visible ? 'visible' : ''}
+     ${_toolbarButtons.length ? '' : 'no-buttons'} ${_chatOpen ? 'shift-right' : ''}`;
 
     return (
         <div
