@@ -1,4 +1,3 @@
-// @flow
 
 import InlineDialog from '@atlaskit/inline-dialog';
 import React, { Component } from 'react';
