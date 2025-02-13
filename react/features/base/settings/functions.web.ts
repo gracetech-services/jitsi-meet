@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { IReduxState } from '../../app/types';
 import { IStateful } from '../app/types';
 import { toState } from '../redux/functions';

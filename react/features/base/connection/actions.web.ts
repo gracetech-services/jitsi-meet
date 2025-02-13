@@ -71,7 +71,7 @@ export function hangup(requestFeedback = false, feedbackTitle?: string) {
             }, NOTIFICATION_TIMEOUT_TYPE.STICKY));
 
             // wait 1000ms for the recording to end and start downloading
-            await new Promise(res => {
+            await new Promise<void>(res => {
                 setTimeout(res, 1000);
             });
         }

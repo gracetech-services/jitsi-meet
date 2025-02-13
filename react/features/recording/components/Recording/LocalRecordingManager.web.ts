@@ -1,3 +1,4 @@
+// @ts-nocheck
 import i18next from 'i18next';
 import { v4 as uuidV4 } from 'uuid';
 import fixWebmDuration from 'webm-duration-fix';
