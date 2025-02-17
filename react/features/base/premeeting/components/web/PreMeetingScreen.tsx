@@ -168,6 +168,10 @@ const useStyles = makeStyles()(theme => {
     };
 });
 
+const _handleClick = () => {
+    window.close();
+};
+
 const PreMeetingScreen = ({
     _buttons,
     _premeetingBackground,
@@ -188,10 +192,18 @@ const PreMeetingScreen = ({
         background: _premeetingBackground,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        color:"black"
-    } : {color:"black", marginLeft:"20px"};
+        color: 'black'
+    } : {
+        color: 'black',
+        marginLeft: '20px'
+    };
 
-    console.log("GT:PreMeetingScreen:",window.location.pathname);
+    console.log('GT:PreMeetingScreen:', window.location.pathname);
+
+    const colorStyle = { backgroundColor: 'white' };
+    const paddingLeftStyle = { paddingLeft: '1em' };
+    const paddingLeftTwoStyle = { paddingLeft: '5em' };
+
     /*
     return (
         <h1 style={{textAlign:'center',marginTop:'200px',color:'white'}}>
@@ -202,32 +214,34 @@ const PreMeetingScreen = ({
     */
 
     return (
-        <div className = { clsx('premeeting-screen', classes.container, className) } style={{backgroundColor:"white"}}>
+        <div
+            className = { clsx('premeeting-screen', classes.container, className) }
+            style = { colorStyle }>
             <div style = { style }>
                 <h1> {t('GT.title')} </h1>
-                {window.location.pathname.length > 2 &&
-                    <>
-                    <h2 style={{paddingLeft:"1em"}}>
-                        <a
-                            href = {"https://idigest.app/join#"+window.location.pathname.substring(1)}
-                            target = '_top'>
-                            <button>
-                                {t('GT.relaunchIntoSameMeeting')}
+                {window.location.pathname.length > 2
+                    && <>
+                        <h2 style = { paddingLeftStyle }>
+                            <a
+                                href = { `https://idigest.app/join#${window.location.pathname.substring(1)}` }
+                                target = '_top'>
+                                <button>
+                                    {t('GT.relaunchIntoSameMeeting')}
+                                </button>
+                            </a>
+                        </h2>
+                        <h2 style = { paddingLeftStyle }>
+                            <button onClick = { _handleClick }>
+                                {t('GT.closeThisWebpage')}
                             </button>
-                        </a>
-                    </h2>
-                    <h2 style={{paddingLeft:"1em"}}>
-                        <button onClick={()=>window.close()}>
-                            {t('GT.closeThisWebpage')}
-                        </button>
-                    </h2>
+                        </h2>
                     </>
                 }
-                <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
-                <br></br>
-                <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
-                <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
-                <p style={{paddingLeft:"5em"}}>{t('GT.conferencelink')} </p>
+                <h2 style = { paddingLeftStyle }> {t('GT.choose')} </h2>
+                <br />
+                <p style = { paddingLeftTwoStyle }>{t('GT.appName')} </p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.webUrl')} <a>https://idigest.app</a></p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.conferencelink')} </p>
             </div>
         </div>
     );

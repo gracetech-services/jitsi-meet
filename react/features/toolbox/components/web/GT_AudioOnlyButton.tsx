@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 
@@ -70,12 +72,14 @@ class AudioOnlyButton extends AbstractButton<IProps> {
  */
 function _mapStateToProps(state: IReduxState) {
     const { enabled: audioOnly } = state['features/base/audio-only'];
-    //const enabledInFeatureFlags = getFeatureFlag(state, AUDIO_ONLY_BUTTON_ENABLED, true);
-    //const visible = enabledInFeatureFlags;
+
+    // const enabledInFeatureFlags = getFeatureFlag(state, AUDIO_ONLY_BUTTON_ENABLED, true);
+    // const visible = enabledInFeatureFlags;
 
     return {
-        _audioOnly: Boolean(audioOnly),
-        //visible
+        _audioOnly: Boolean(audioOnly)
+
+        // visible
     };
 }
 

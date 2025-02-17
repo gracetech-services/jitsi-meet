@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IReduxState } from '../../app/types';
 import { iAmVisitor } from '../../visitors/functions';
 import { IStateful } from '../app/types';
@@ -122,6 +124,7 @@ export function shouldHideShareAudioHelper(state: IReduxState): boolean | undefi
  */
 export function getHideSelfView(state: IReduxState) {
     return false;
-    //return state['features/base/config'].disableSelfView || state['features/base/settings'].disableSelfView
+
+    // return state['features/base/config'].disableSelfView || state['features/base/settings'].disableSelfView
     //    || iAmVisitor(state);
 }

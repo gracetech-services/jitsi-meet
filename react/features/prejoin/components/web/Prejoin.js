@@ -1,4 +1,3 @@
-// @flow
 
 import InlineDialog from '@atlaskit/inline-dialog';
 import React, { Component } from 'react';
@@ -137,7 +136,7 @@ class Prejoin extends Component<Props, State> {
     constructor(props) {
         super(props);
 
-        console.log("GT:Prejoin");
+        console.log('GT:Prejoin');
 
         this.state = {
             showError: false,
@@ -157,7 +156,6 @@ class Prejoin extends Component<Props, State> {
 
         this.showDisplayNameField = props.canEditDisplayName || props.showErrorOnJoin;
     }
-    _onJoinButtonClick: () => void;
 
     /**
      * Handler for the join button.
@@ -178,8 +176,6 @@ class Prejoin extends Component<Props, State> {
         this.props.joinConference();
     }
 
-    _onJoinKeyPress: (Object) => void;
-
     /**
      * KeyPress handler for accessibility.
      *
@@ -194,8 +190,6 @@ class Prejoin extends Component<Props, State> {
         }
     }
 
-    _onDropdownClose: () => void;
-
     /**
      * Closes the dropdown.
      *
@@ -206,8 +200,6 @@ class Prejoin extends Component<Props, State> {
             showJoinByPhoneButtons: false
         });
     }
-
-    _onOptionsClick: () => void;
 
     /**
      * Displays the join by phone buttons dropdown.
@@ -223,8 +215,6 @@ class Prejoin extends Component<Props, State> {
         });
     }
 
-    _setName: () => void;
-
     /**
      * Sets the guest participant name.
      *
@@ -237,8 +227,6 @@ class Prejoin extends Component<Props, State> {
         });
     }
 
-    _closeDialog: () => void;
-
     /**
      * Closes the join by phone dialog.
      *
@@ -247,8 +235,6 @@ class Prejoin extends Component<Props, State> {
     _closeDialog() {
         this.props.setJoinByPhoneDialogVisiblity(false);
     }
-
-    _showDialog: () => void;
 
     /**
      * Displays the dialog for joining a meeting by phone.
@@ -259,8 +245,6 @@ class Prejoin extends Component<Props, State> {
         this.props.setJoinByPhoneDialogVisiblity(true);
         this._onDropdownClose();
     }
-
-    _showDialogKeyPress: (Object) => void;
 
     /**
      * KeyPress handler for accessibility.
@@ -275,8 +259,6 @@ class Prejoin extends Component<Props, State> {
             this._showDialog();
         }
     }
-
-    _onJoinConferenceWithoutAudioKeyPress: (Object) => void;
 
     /**
      * KeyPress handler for accessibility.
@@ -293,8 +275,6 @@ class Prejoin extends Component<Props, State> {
             this.props.joinConferenceWithoutAudio();
         }
     }
-
-    _getExtraJoinButtons: () => Object;
 
     /**
      * Gets the list of extra join buttons.

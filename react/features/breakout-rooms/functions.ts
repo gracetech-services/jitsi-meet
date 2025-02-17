@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import _ from 'lodash';
 
 import { IStateful } from '../base/app/types';
@@ -208,16 +210,17 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
     const participantsCount = getParticipantCount(state);
     const { hideAutoAssignButton } = getBreakoutRoomsConfig(state);
 
-    //Gracetech:
-    //We'll make autoAssign button always visible, and then
-    //use the two commented out condition, to alert to the user
-    //  actually, we'll auto create enough rooms, as long as 
-    //  participants is more than 3.  More than 2 still doesn't 
-    //  make sense.  starting at 4, you can have two rooms of each 2 
+    // Gracetech:
+    // We'll make autoAssign button always visible, and then
+    // use the two commented out condition, to alert to the user
+    //  actually, we'll auto create enough rooms, as long as
+    //  participants is more than 3.  More than 2 still doesn't
+    //  make sense.  starting at 4, you can have two rooms of each 2
     //  people.
     return !inBreakoutRoom
         && isLocalModerator
-        //&& participantsCount > 2
-        //&& Object.keys(rooms).length > 1
+
+        // && participantsCount > 2
+        // && Object.keys(rooms).length > 1
         && !hideAutoAssignButton;
 };

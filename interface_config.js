@@ -31,6 +31,9 @@ var interfaceConfig = {
 
     DISABLE_DOMINANT_SPEAKER_INDICATOR: true,
 
+    // Please use disableModeratorIndicator from config.js
+    DISABLE_FOCUS_INDICATOR: true,
+
     /**
      * If true, notifications regarding joining/leaving are no longer displayed.
      */
@@ -235,7 +238,7 @@ var interfaceConfig = {
     // CONNECTION_INDICATOR_DISABLED) got moved to config.js.
 
     // Please use disableModeratorIndicator from config.js
-    DISABLE_FOCUS_INDICATOR: true,
+    // DISABLE_FOCUS_INDICATOR: true,
 
     // Please use defaultLocalDisplayName from config.js
     // DEFAULT_LOCAL_DISPLAY_NAME: 'me',

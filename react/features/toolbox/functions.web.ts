@@ -33,6 +33,7 @@ import HelpButton from './components/HelpButton';
 import AudioSettingsButton from './components/web/AudioSettingsButton';
 import CustomOptionButton from './components/web/CustomOptionButton';
 import FullscreenButton from './components/web/FullscreenButton';
+import AudioOnlyButton from './components/web/GT_AudioOnlyButton';
 import LinkToSalesforceButton from './components/web/LinkToSalesforceButton';
 import ProfileButton from './components/web/ProfileButton';
 import ShareDesktopButton from './components/web/ShareDesktopButton';
@@ -40,7 +41,6 @@ import ToggleCameraButton from './components/web/ToggleCameraButton';
 import VideoSettingsButton from './components/web/VideoSettingsButton';
 import { TOOLBAR_TIMEOUT } from './constants';
 import { IToolboxButton, NOTIFY_CLICK_MODE } from './types';
-import AudioOnlyButton from './components/web/GT_AudioOnlyButton';
 
 export * from './functions.any';
 
@@ -207,7 +207,7 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
         key: 'audioonly',
         Content: AudioOnlyButton,
         group: 0
-    }
+    };
     const microphone = {
         key: 'microphone',
         Content: AudioSettingsButton,

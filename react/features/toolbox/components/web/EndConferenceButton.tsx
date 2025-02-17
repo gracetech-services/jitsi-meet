@@ -42,7 +42,7 @@ export const EndConferenceButton = (props: IProps) => {
     const onEndConference = useCallback(() => {
         dispatch(endConference());
 
-        //Gracetech: close the browser
+        // Gracetech: close the browser
         window.close();
     }, [ dispatch ]);
 

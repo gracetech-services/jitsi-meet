@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AnyAction } from 'redux';
 
 import { IStore } from '../app/types';
@@ -24,7 +26,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
 
     if (action.type === CONFERENCE_JOINED) {
         if (isEnabled) {
-            //FaceLandmarksDetector.init(store);
+            // FaceLandmarksDetector.init(store);
         }
 
         return next(action);
@@ -48,8 +50,8 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
     }
 
     switch (action.type) {
-    case CONFERENCE_WILL_LEAVE : {
-        //FaceLandmarksDetector.stopDetection(store);
+    case CONFERENCE_WILL_LEAVE: {
+        // FaceLandmarksDetector.stopDetection(store);
 
         break;
     }
@@ -58,7 +60,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
 
         if (videoType === 'camera' && isLocal() && !muted) {
             // need to pass this since the track is not yet added in the store
-            //FaceLandmarksDetector.startDetection(store, action.track);
+            // FaceLandmarksDetector.startDetection(store, action.track);
         }
 
         break;
@@ -75,9 +77,9 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
         if (typeof muted !== 'undefined') {
             // addresses video mute state changes
             if (muted) {
-                //FaceLandmarksDetector.stopDetection(store);
+                // FaceLandmarksDetector.stopDetection(store);
             } else {
-                //FaceLandmarksDetector.startDetection(store);
+                // FaceLandmarksDetector.startDetection(store);
             }
         }
 
@@ -87,7 +89,7 @@ MiddlewareRegistry.register((store: IStore) => (next: Function) => (action: AnyA
         const { jitsiTrack: { isLocal, videoType } } = action.track;
 
         if (videoType === 'camera' && isLocal()) {
-            //FaceLandmarksDetector.stopDetection(store);
+            // FaceLandmarksDetector.stopDetection(store);
         }
 
         break;

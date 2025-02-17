@@ -42,6 +42,19 @@ import { default as IconFaceSmile } from './face-smile.svg';
 import { default as IconFavoriteSolid } from './favorite-solid.svg';
 import { default as IconFavorite } from './favorite.svg';
 import { default as IconFeedback } from './feedback.svg';
+import { default as IconFishmeetCameraRefresh } from './fishmeet-camera-refresh.svg';
+import { default as IconFishmeetClose } from './fishmeet-close.svg';
+import { default as IconFishmeetDotsHorizontal } from './fishmeet-dots-horizontal.svg';
+import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
+import { default as IconFishmeetChatUnread, default as IconFishmeetMessage } from './fishmeet-message.svg';
+import { default as IconFishmeetMicSlash } from './fishmeet-mic-slash.svg';
+import { default as IconFishmeetMic } from './fishmeet-mic.svg';
+import { default as IconFishmeetRaiseHand } from './fishmeet-raise-hand.svg';
+import { default as IconFishmeetSend } from './fishmeet-send.svg';
+import { default as IconFishmeetUsers } from './fishmeet-users.svg';
+import { default as IconFishmeetVideoOff } from './fishmeet-video-off.svg';
+import { default as IconFishmeetVideo } from './fishmeet-video.svg';
+import { default as IconFishmeetVolumeUp } from './fishmeet-volume-up.svg';
 import { default as IconGear } from './gear.svg';
 import { default as IconGoogle } from './google.svg';
 import { default as IconHangup } from './hangup.svg';
@@ -124,8 +137,10 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconBell,
     IconCalendar,
     IconCameraRefresh,
+    IconFishmeetCameraRefresh,
     IconCar,
     IconChatUnread,
+    IconFishmeetChatUnread,
     IconCheck,
     IconCloseCircle,
     IconCloseLarge,
@@ -136,6 +151,7 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconCopy,
     IconDeviceHeadphone,
     IconDotsHorizontal,
+    IconFishmeetDotsHorizontal,
     IconDownload,
     IconE2EE,
     IconEdit,
@@ -159,15 +175,19 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconGear,
     IconGoogle,
     IconHangup,
+    IconFishmeetHangup,
     IconHelp,
     IconHighlight,
     IconImage,
     IconInfo,
     IconInfoCircle,
     IconMessage,
+    IconFishmeetMessage,
     IconMeter,
     IconMic,
+    IconFishmeetMic,
     IconMicSlash,
+    IconFishmeetMicSlash,
     IconModerator,
     IconNoiseSuppressionOff,
     IconNoiseSuppressionOn,
@@ -180,6 +200,7 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconPlay,
     IconPlus,
     IconRaiseHand,
+    IconFishmeetRaiseHand,
     IconRecord,
     IconRecordAccount,
     IconRecordContact,
@@ -195,6 +216,7 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconSecurityOff,
     IconSecurityOn,
     IconSend,
+    IconFishmeetSend,
     IconShare,
     IconShareDoc,
     IconShortcuts,
@@ -206,11 +228,15 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconTrash,
     IconUserDeleted,
     IconUsers,
+    IconFishmeetUsers,
     IconUser,
     IconVideo,
+    IconFishmeetVideo,
     IconVideoOff,
+    IconFishmeetVideoOff,
     IconVolumeOff,
     IconVolumeUp,
+    IconFishmeetVolumeUp,
     IconWarning,
     IconWarningCircle,
     IconWhiteboard,
@@ -218,5 +244,6 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconWifi1Bar,
     IconWifi2Bars,
     IconWifi3Bars,
-    IconYahoo
+    IconYahoo,
+    IconFishmeetClose
 };

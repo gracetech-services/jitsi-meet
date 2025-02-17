@@ -100,6 +100,7 @@ class Watermarks extends Component<IProps, State> {
     render() {
         // Remove watermark
         return <></>;
+
         /*
         return (
             <div>

@@ -2,12 +2,15 @@ export const CONFERENCE_INFO = {
     alwaysVisible: [ 'raised-hands-count', 'recording' ],
     autoHide: [
         'highlight-moment',
-        //'subject',
+
+        // 'subject',
         'conference-timer',
-        //'participants-count',
+
+        // 'participants-count',
         'e2ee',
         'transcribing',
-        //'video-quality',
+
+        // 'video-quality',
         'visitors-count',
         'insecure-room',
         'top-panel-toggle'

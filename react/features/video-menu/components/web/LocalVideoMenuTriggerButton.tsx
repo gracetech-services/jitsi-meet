@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { batch, connect, useSelector } from 'react-redux';
@@ -272,7 +274,7 @@ function _mapStateToProps(state: IReduxState, ownProps: Partial<IProps>) {
     const videoTrack = getLocalVideoTrack(state['features/base/tracks']);
     const { overflowDrawer } = state['features/toolbox'];
     const { showConnectionInfo } = state['features/base/connection'];
-    const showHideSelfViewButton = false; //!disableSelfViewSettings && !getHideSelfView(state);
+    const showHideSelfViewButton = false; // !disableSelfViewSettings && !getHideSelfView(state);
 
     let _menuPosition;
 

@@ -1,4 +1,7 @@
-// @ts-expect-error
+// @ts-nocheck
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-ignore
 import { API_ID } from '../../../modules/API';
 import { setRoom } from '../base/conference/actions';
 import {
@@ -93,9 +96,9 @@ export function appNavigate(uri?: string) {
  * @returns {Function}
  */
 export function maybeRedirectToWelcomePage(options: { feedbackSubmitted?: boolean; showThankYou?: boolean; } = {}) {
-    //Gracetech --- this is the better place to close the browser window, since it web.ts
-    //window.close();
-    
+    // Gracetech --- this is the better place to close the browser window, since it web.ts
+    // window.close();
+
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
 
         const {

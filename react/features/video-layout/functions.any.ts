@@ -81,6 +81,8 @@ export function shouldDisplayTileView(state: IReduxState) {
         return false;
     }
 
+    // Ranger add
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const participantCount = getParticipantCount(state);
     const { iAmRecorder } = state['features/base/config'];
 
@@ -97,7 +99,7 @@ export function shouldDisplayTileView(state: IReduxState) {
         || getPinnedParticipant(state)
 
         // It's a 1-on-1 meeting
-        //|| participantCount < 3
+        // || participantCount < 3
 
         // There is a shared YouTube video in the meeting
         || isVideoPlaying(state)

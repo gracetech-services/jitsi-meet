@@ -1,3 +1,4 @@
+// @ts-nocheck
 import i18next from 'i18next';
 import { v4 as uuidV4 } from 'uuid';
 import fixWebmDuration from 'webm-duration-fix';
@@ -249,8 +250,8 @@ const LocalRecordingManager: ILocalRecordingManager = {
                 audio: false, // @ts-ignore
                 preferCurrentTab: true
             });
-            
-            /* 
+
+            /*
             //Gracetech: just need the current tab === but is this API available now??
             //  getViewportMedia is still under spec: https://w3c.github.io/mediacapture-viewport/
             // @ts-ignore

@@ -1,4 +1,6 @@
-// @flow
+
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable no-unused-vars */
 
 import React, { Component } from 'react';
 import type { Dispatch } from 'redux';
@@ -99,37 +101,43 @@ class DeepLinkingMobilePage extends Component<Props> {
         const { HIDE_DEEP_LINKING_LOGO, NATIVE_APP_NAME, SHOW_DEEP_LINKING_IMAGE } = interfaceConfig;
         const downloadButtonClassName
             = `${_SNS}__button ${_SNS}__button_primary`;
+        const colorStyle = { color: 'black',
+            marginLeft: '20px',
+            marginTop: '20px' };
+        const paddingLeftStyle = { paddingLeft: '1em' };
+        const paddingLeftTwoStyle = { paddingLeft: '5em' };
 
         return (
-            <div style={{color:"black",marginLeft:"20px",marginTop:"20px"}}>
+            <div
+                style = { colorStyle }>
                 <h1> {t('GT.title')} </h1>
-                {window.location.pathname.length > 2 &&
-                    <>
-                    <h2 style={{paddingLeft:"1em"}}>
-                        <a
-                            href = {"https://idigest.app/join#"+window.location.pathname.substring(1)}
-                            target = '_top'>
-                            <button>
-                                {t('GT.relaunchIntoSameMeeting')}
+                {window.location.pathname.length > 2
+                    && <>
+                        <h2 style = { paddingLeftStyle }>
+                            <a
+                                href = { `https://idigest.app/join#${window.location.pathname.substring(1)}` }
+                                target = '_top'>
+                                <button>
+                                    {t('GT.relaunchIntoSameMeeting')}
+                                </button>
+                            </a>
+                        </h2>
+                        <h2 style = { paddingLeftStyle }>
+                            <button onClick = { this._handleClick() }>
+                                {t('GT.closeThisWebpage')}
                             </button>
-                        </a>
-                    </h2>
-                    <h2 style={{paddingLeft:"1em"}}>
-                        <button onClick={()=>window.close()}>
-                            {t('GT.closeThisWebpage')}
-                        </button>
-                    </h2>
+                        </h2>
                     </>
                 }
-                <h2 style={{paddingLeft:"1em"}}> {t('GT.choose')} </h2>
-                <br></br>
-                <p style={{paddingLeft:"5em"}}>{t('GT.appName')} </p>
-                <p style={{paddingLeft:"5em"}}>{t('GT.webUrl')} <a>https://idigest.app</a></p>
-                <p style={{paddingLeft:"5em"}}>{t('GT.conferencelink')} </p>
+                <h2 style = { paddingLeftStyle }> {t('GT.choose')} </h2>
+                <br />
+                <p style = { paddingLeftTwoStyle }>{t('GT.appName')} </p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.webUrl')} <a>https://idigest.app</a></p>
+                <p style = { paddingLeftTwoStyle }>{t('GT.conferencelink')} </p>
             </div>
         );
 
-        const onOpenLinkProperties = _downloadUrl
+        /* const onOpenLinkProperties = _downloadUrl
             ? {
                 // When opening a link to the download page, we want to let the
                 // OS itself handle intercepting and opening the appropriate
@@ -219,7 +227,12 @@ class DeepLinkingMobilePage extends Component<Props> {
                 </div>
             </div>
         );
+        **/
     }
+
+    _handleClick = () => {
+        window.close();
+    };
 
     /**
      * Generates the URL for downloading the app.
@@ -256,7 +269,7 @@ class DeepLinkingMobilePage extends Component<Props> {
             IUS}&efr=1`;
     }
 
-    _onDownloadApp: () => void;
+    // _onDownloadApp: () => void;
 
     /**
      * Handles download app button clicks.
@@ -270,7 +283,7 @@ class DeepLinkingMobilePage extends Component<Props> {
                 'clicked', 'downloadAppButton', { isMobileBrowser: true }));
     }
 
-    _onLaunchWeb: () => void;
+    // _onLaunchWeb: () => void;
 
     /**
      * Handles launch web button clicks.
@@ -284,7 +297,7 @@ class DeepLinkingMobilePage extends Component<Props> {
         this.props.dispatch(openWebApp());
     }
 
-    _onOpenApp: () => void;
+    // _onOpenApp: () => void;
 
     /**
      * Handles open app button clicks.

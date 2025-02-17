@@ -162,10 +162,11 @@ import { setScreenAudioShareState } from './react/features/screen-share/actions.
 import { isScreenAudioShared } from './react/features/screen-share/functions';
 import { toggleScreenshotCaptureSummary } from './react/features/screenshot-capture/actions';
 import { AudioMixerEffect } from './react/features/stream-effects/audio-mixer/AudioMixerEffect';
-//import { createRnnoiseProcessor } from './react/features/stream-effects/rnnoise';
 import { handleToggleVideoMuted } from './react/features/toolbox/actions.any';
 import { muteLocal } from './react/features/video-menu/actions.any';
 import UIEvents from './service/UI/UIEvents';
+
+// import { createRnnoiseProcessor } from './react/features/stream-effects/rnnoise';
 
 const logger = Logger.getLogger(__filename);
 
@@ -1329,7 +1330,7 @@ export default {
     _getConferenceOptions() {
         const options = getConferenceOptions(APP.store.getState());
 
-        //options.createVADProcessor = createRnnoiseProcessor;
+        // options.createVADProcessor = createRnnoiseProcessor;
 
         return options;
     },
@@ -1892,10 +1893,11 @@ export default {
             }
             APP.store.dispatch(kickedOut(room, participant));
 
-            //Gracetech -- close the browser
-            //console.log("Meeting closed or being kicked: redirecting -- ");
-            setTimeout(()=>APP.store.dispatch(maybeRedirectToWelcomePage(), 200));
-            //window.close();
+            // Gracetech -- close the browser
+            // console.log("Meeting closed or being kicked: redirecting -- ");
+            setTimeout(() => APP.store.dispatch(maybeRedirectToWelcomePage(), 200));
+
+            // window.close();
         });
 
         room.on(JitsiConferenceEvents.PARTICIPANT_KICKED, (kicker, kicked) => {
@@ -2454,7 +2456,7 @@ export default {
 
             APP.store.dispatch(maybeRedirectToWelcomePage(feedback.value ?? {}));
 
-            //Gracetech -- close the window at hangup
+            // Gracetech -- close the window at hangup
             window.close();
         });
 

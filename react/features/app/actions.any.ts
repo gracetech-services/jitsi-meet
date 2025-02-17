@@ -28,8 +28,8 @@ export function redirectWithStoredParams(pathname: string) {
 
         newLocationURL.pathname = pathname;
 
-        //Graectech: we don't want the last url on history to go back to
-        //window.location.assign(newLocationURL.toString());
+        // Graectech: we don't want the last url on history to go back to
+        // window.location.assign(newLocationURL.toString());
         window.location.replace(newLocationURL.toString());
     };
 }
@@ -64,8 +64,8 @@ export function redirectToStaticPage(pathname: string, hashParam?: string) {
             windowLocation.hash = hashParam;
         }
 
-        //Graectech: we don't want the last url on history to go back to
-        //windowLocation.pathname = newPathname;
+        // Graectech: we don't want the last url on history to go back to
+        // windowLocation.pathname = newPathname;
         windowLocation.replace(newPathname);
     };
 }

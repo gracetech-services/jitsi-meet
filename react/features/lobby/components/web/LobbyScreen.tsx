@@ -34,7 +34,7 @@ class LobbyScreen extends AbstractLobbyScreen<IProps> {
     constructor(props: IProps) {
         super(props);
 
-        console.log("GT:LobbyScreen");
+        console.log('GT:LobbyScreen');
 
         this._messageContainerRef = React.createRef<MessageContainer>();
     }

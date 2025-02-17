@@ -1,3 +1,5 @@
+// Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IReduxState } from '../app/types';
 import { isMobileBrowser } from '../base/environment/utils';
 import { browser } from '../base/lib-jitsi-meet';
@@ -55,6 +57,7 @@ export function generateDeepLinkingURL(state: IReduxState) {
 export function getDeepLinkingPage(state: IReduxState) {
     // Always disable user selection since we will always launch it directly via iDigest
     return Promise.resolve(undefined);
+
     /*
     const { room } = state['features/base/conference'];
     const { launchInWeb } = state['features/deep-linking'];
