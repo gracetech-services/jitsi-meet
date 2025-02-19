@@ -4,7 +4,7 @@ import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { appType } from '../../../../../base/config/AppType';
@@ -108,18 +108,18 @@ const styleHeader = {
 };
 
 
-const handleGoBack = navigation => () => navigation.goBack();
+const handleGoBack = (navigation: any) => () => navigation.goBack();
 
 export const fishMeetHeaderOptions = (title: string) => {
     return {
-        header: ({ navigation }) => (
-            <View style = { styleHeader.viewStyle }>
-                <Text style = { styleHeader.textStyle }>
+        header: ({ navigation }: any) => (
+            <View style = { styleHeader.viewStyle as ViewStyle }>
+                <Text style = { styleHeader.textStyle as ViewStyle }>
                     {title}
                 </Text>
                 <TouchableOpacity
                     onPress = { handleGoBack(navigation) }
-                    style = { styleHeader.touchStyle }>
+                    style = { styleHeader.touchStyle as ViewStyle }>
                     <Icon
                         size = { 16 }
                         src = { IconFishmeetClose } />

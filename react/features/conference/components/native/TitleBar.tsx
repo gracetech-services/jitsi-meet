@@ -85,9 +85,9 @@ const TitleBar = (props: IProps) => {
                 {
                     props._roomNameEnabled
                     && <View
-                        style = { appType.isFishMeet
+                        style = { (appType.isFishMeet
                             ? styles.fishMeetRoomNameView
-                            : styles.roomNameView as ViewStyle }>
+                            : styles.roomNameView) as ViewStyle }>
                         <Text
                             numberOfLines = { 1 }
                             style = { styles.roomName }>

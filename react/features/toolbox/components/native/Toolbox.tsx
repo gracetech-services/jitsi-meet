@@ -94,7 +94,7 @@ function Toolbox(props: IProps) {
                 edges = { [ bottomEdge && 'bottom' ].filter(Boolean) }
                 pointerEvents = 'box-none'
                 style = { style as ViewStyle }>
-                <View style = { styles.fishMeetToolboxContainer }>
+                <View style = { styles.fishMeetToolboxContainer as ViewStyle }>
                     {!_iAmVisitor && (
                         <>
                             <AudioMuteButton

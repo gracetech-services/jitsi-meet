@@ -53,9 +53,9 @@ class RaisedHandIndicator extends Component<IProps> {
     _renderIndicator() {
         return (
             <View
-                style = { appType.isFishMeet
+                style = { (appType.isFishMeet
                     ? styles.fishMeetRaisedHandIndicator
-                    : styles.raisedHandIndicator as ViewStyle }>
+                    : styles.raisedHandIndicator) as ViewStyle }>
                 <BaseIndicator
                     icon = { appType.isFishMeet ? IconFishmeetRaiseHand : IconRaiseHand }
                     iconStyle = { styles.raisedHandIcon } />
