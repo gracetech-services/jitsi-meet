@@ -3,9 +3,9 @@
  */
 export enum BUTTON_TYPES {
     DESTRUCTIVE = 'destructive',
-    FISHMEET_PRIMARY = 'fishmeet_primary',
-    FISHMEET_SECONDARY = 'fishmeet_secondary',
-    FISHMEET_TERTIARY = 'fishmeet_tertiary',
+    FISHMEET_PRIMARY = 'fishmeetPrimary',
+    FISHMEET_SECONDARY = 'fishmeetSecondary',
+    FISHMEET_TERTIARY = 'fishmeetTertiary',
     PRIMARY = 'primary',
     SECONDARY = 'secondary',
     TERTIARY = 'tertiary'

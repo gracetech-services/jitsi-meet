@@ -87,16 +87,16 @@ export const AutoAssignButton = ({ className }: IProps) => {
             setTimeout(() => wait2AutoAssign(nnn), 100);
         }
 
-    }, [dispatch]);
+    }, [ dispatch ]);
 
     return (
         <Button
-            accessibilityLabel={t('breakoutRooms.actions.autoAssign')}
-            className={className}
-            fullWidth={true}
-            labelKey={'breakoutRooms.actions.autoAssign'}
-            onClick={onAutoAssign}
-            type={BUTTON_TYPES.SECONDARY} />
+            accessibilityLabel = { t('breakoutRooms.actions.autoAssign') }
+            className = { className }
+            fullWidth = { true }
+            labelKey = { 'breakoutRooms.actions.autoAssign' }
+            onClick = { onAutoAssign }
+            type = { BUTTON_TYPES.SECONDARY } />
     );
 
     // it was TERTIARY, but made SECONDARY, in above, to make the button more prominent
