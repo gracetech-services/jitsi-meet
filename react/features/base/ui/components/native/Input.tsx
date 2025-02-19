@@ -45,6 +45,7 @@ interface IProps extends IInputProps {
 interface ICustomStyles {
     container?: Object;
     input?: Object;
+    inputMultiline?: Object;
 }
 
 const Input = forwardRef<TextInput, IProps>(({
@@ -148,11 +149,12 @@ const Input = forwardRef<TextInput, IProps>(({
                     error && styles.inputError,
                     focused && styles.inputFocused,
                     icon && styles.iconInput,
-                    multiline && styles.inputMultiline
+                    multiline && styles.inputMultiline,
+                    customStyles?.inputMultiline
                 ] }
                 textContentType = { textContentType }
                 value = { typeof value === 'number' ? `${value}` : value } />
-            { clearable && !disabled && value !== '' && (
+            {clearable && !disabled && value !== '' && (
                 <TouchableOpacity
                     onPress = { clearInput }
                     style = { styles.clearButton as StyleProp<ViewStyle> }>

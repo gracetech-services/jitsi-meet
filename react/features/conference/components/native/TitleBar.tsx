@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import { getConferenceName, getConferenceTimestamp } from '../../../base/conference/functions';
+import { appType } from '../../../base/config/AppType';
 import { CONFERENCE_TIMER_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
 import AudioDeviceToggleButton from '../../../mobile/audio-mode/components/AudioDeviceToggleButton';
@@ -17,7 +18,6 @@ import ConferenceTimer from '../ConferenceTimer';
 
 import Labels from './Labels';
 import styles from './styles';
-
 
 interface IProps {
 
@@ -84,11 +84,14 @@ const TitleBar = (props: IProps) => {
                 }
                 {
                     props._roomNameEnabled
-                    && <View style = { styles.roomNameView as ViewStyle }>
+                    && <View
+                        style = { appType.isFishMeet
+                            ? styles.fishMeetRoomNameView
+                            : styles.roomNameView as ViewStyle }>
                         <Text
                             numberOfLines = { 1 }
                             style = { styles.roomName }>
-                            { props._meetingName }
+                            {props._meetingName}
                         </Text>
                     </View>
                 }
@@ -96,16 +99,22 @@ const TitleBar = (props: IProps) => {
                 <Labels createOnPress = { props._createOnPress } />
             </View>
             <View style = { styles.titleBarButtonContainer }>
-                <ToggleCameraButton styles = { styles.titleBarButton } />
+                <ToggleCameraButton
+                    styles = { appType.isFishMeet
+                        ? styles.fishMeetTitleBarButton
+                        : styles.titleBarButton } />
             </View>
             <View style = { styles.titleBarButtonContainer }>
-                <AudioDeviceToggleButton styles = { styles.titleBarButton } />
+                <AudioDeviceToggleButton
+                    styles = { appType.isFishMeet
+                        ? styles.fishMeetTitleBarButton
+                        : styles.titleBarButton } />
             </View>
             {
                 _isParticipantsPaneEnabled
                 && <View style = { styles.titleBarButtonContainer }>
                     <ParticipantsPaneButton
-                        styles = { styles.titleBarButton } />
+                        styles = { appType.isFishMeet ? styles.fishMeetTitleBarButton : styles.titleBarButton } />
                 </View>
             }
         </View>

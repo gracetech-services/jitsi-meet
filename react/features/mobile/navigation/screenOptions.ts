@@ -26,6 +26,12 @@ export const fullScreenOptions = {
     headerShown: false
 };
 
+export const fishMeetNavigationContainerTheme = {
+    colors: {
+        background: 'transparent'
+    }
+};
+
 /**
  * Navigation container theme.
  */
@@ -66,6 +72,18 @@ export const chatTabBarOptions = {
     tabBarStyle: {
         backgroundColor: BaseTheme.palette.ui01,
         borderBottomColor: BaseTheme.palette.ui06,
+        borderBottomWidth: 0.4
+    }
+};
+
+export const fishMeetChatTabBarOptions = {
+    swipeEnabled: false,
+    tabBarIndicatorStyle: {
+        backgroundColor: BaseTheme.palette.fishMeetMainColor02
+    },
+    tabBarStyle: {
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
+        borderBottomColor: '#C8D7EC80',
         borderBottomWidth: 0.4
     }
 };

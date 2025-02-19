@@ -43,6 +43,12 @@ export default {
         flex: 1
     },
 
+    fishMeetConference: {
+        alignSelf: 'stretch',
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
+        flex: 1
+    },
+
     displayNameContainer: {
         margin: 10
     },
@@ -67,6 +73,15 @@ export default {
     titleBarButton: {
         iconStyle: {
             color: BaseTheme.palette.icon01,
+            padding: 12,
+            fontSize: TITLE_BAR_BUTTON_SIZE
+        },
+        underlayColor: 'transparent'
+    },
+
+    fishMeetTitleBarButton: {
+        iconStyle: {
+            color: 'transparent',
             padding: 12,
             fontSize: TITLE_BAR_BUTTON_SIZE
         },
@@ -107,6 +122,11 @@ export default {
     titleBarSafeViewColor: {
         ...titleBarSafeView,
         backgroundColor: BaseTheme.palette.uiBackground
+    },
+
+    fishMeetTitleBarSafeViewColor: {
+        ...titleBarSafeView,
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground
     },
 
     titleBarSafeViewTransparent: {
@@ -167,6 +187,14 @@ export default {
         paddingHorizontal: 10
     },
 
+    fishMeetRoomNameView: {
+        borderBottomLeftRadius: 3,
+        borderTopLeftRadius: 3,
+        flexShrink: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 10
+    },
+
     roomNameWrapper: {
         flexDirection: 'row',
         marginRight: 10,
@@ -199,6 +227,14 @@ export default {
     raisedHandsCountLabel: {
         alignItems: 'center',
         backgroundColor: BaseTheme.palette.warning02,
+        borderRadius: BaseTheme.shape.borderRadius,
+        flexDirection: 'row',
+        marginBottom: BaseTheme.spacing[0],
+        marginLeft: BaseTheme.spacing[0]
+    },
+    fishMeetRaisedHandsCountLabel: {
+        alignItems: 'center',
+        backgroundColor: BaseTheme.palette.fishMeetMainColor01,
         borderRadius: BaseTheme.shape.borderRadius,
         flexDirection: 'row',
         marginBottom: BaseTheme.spacing[0],

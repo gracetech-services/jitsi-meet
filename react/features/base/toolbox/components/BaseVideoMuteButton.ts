@@ -1,15 +1,16 @@
-import { IconVideo, IconVideoOff } from '../../icons/svg';
+import { appType } from '../../../base/config/AppType';
+import { IconFishmeetVideo, IconFishmeetVideoOff, IconVideo, IconVideoOff } from '../../icons/svg';
 
 import AbstractButton, { IProps } from './AbstractButton';
 
 /**
  * An abstract implementation of a button for toggling video mute.
  */
-export default class BaseVideoMuteButton<P extends IProps, S=any>
+export default class BaseVideoMuteButton<P extends IProps, S = any>
     extends AbstractButton<P, S> {
 
-    icon = IconVideo;
-    toggledIcon = IconVideoOff;
+    icon = appType.isFishMeet ? IconFishmeetVideo : IconVideo;
+    toggledIcon = appType.isFishMeet ? IconFishmeetVideoOff : IconVideoOff;
 
     /**
      * Handles clicking / pressing the button, and toggles the video mute state

@@ -22,15 +22,15 @@ export const AddBreakoutRoomButton = () => {
 
     const onAdd = useCallback(() =>
         dispatch(createBreakoutRoom())
-    , [ dispatch ]);
+        , [dispatch]);
 
     return (
         <Button
-            accessibilityLabel = { t('breakoutRooms.actions.add') }
-            className = { classes.button }
-            fullWidth = { true }
-            labelKey = { 'breakoutRooms.actions.add' }
-            onClick = { onAdd }
-            type = { BUTTON_TYPES.SECONDARY } />
+            accessibilityLabel={t('breakoutRooms.actions.add')}
+            className={classes.button}
+            fullWidth={true}
+            labelKey={'breakoutRooms.actions.add'}
+            onClick={onAdd}
+            type={BUTTON_TYPES.SECONDARY} />
     );
 };

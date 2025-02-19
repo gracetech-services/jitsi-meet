@@ -4,7 +4,7 @@ import { makeStyles } from 'tss-react/mui';
 
 import Icon from '../../../icons/components/Icon';
 import { withPixelLineHeight } from '../../../styles/functions.web';
-import { BUTTON_TYPES } from '../../constants.web';
+import { BUTTON_TYPES, WEB_BUTTON_TYPES } from '../../constants.web';
 import { IButtonProps } from '../types';
 
 interface IProps extends IButtonProps {
@@ -197,24 +197,24 @@ const Button = React.forwardRef<any, any>(({
 
     return (
         <button
-            aria-label = { accessibilityLabel }
-            autoFocus = { autoFocus }
-            className = { cx(styles.button, styles[type],
+            aria-label={accessibilityLabel}
+            autoFocus={autoFocus}
+            className={cx(styles.button, styles[type],
                 disabled && styles.disabled,
                 icon && !(labelKey || label) && `${styles.iconButton} iconButton`,
-                styles[size], fullWidth && styles.fullWidth, className) }
-            data-testid = { testId }
-            disabled = { disabled }
-            { ...(id ? { id } : {}) }
-            onClick = { onClick }
-            onKeyPress = { onKeyPress }
-            ref = { ref }
-            title = { accessibilityLabel }
-            type = { isSubmit ? 'submit' : 'button' }>
+                styles[size], fullWidth && styles.fullWidth, className)}
+            data-testid={testId}
+            disabled={disabled}
+            {...(id ? { id } : {})}
+            onClick={onClick}
+            onKeyPress={onKeyPress}
+            ref={ref}
+            title={accessibilityLabel}
+            type={isSubmit ? 'submit' : 'button'}>
             {icon && <Icon
-                size = { 24 }
-                src = { icon } />}
-            {(labelKey || label) && <span className = { icon ? styles.textWithIcon : '' }>
+                size={24}
+                src={icon} />}
+            {(labelKey || label) && <span className={icon ? styles.textWithIcon : ''}>
                 {labelKey ? t(labelKey) : label}
             </span>}
         </button>

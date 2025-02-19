@@ -3,6 +3,7 @@ import { Image, ImageStyle, View, ViewStyle } from 'react-native';
 import { connect } from 'react-redux';
 
 import { IReduxState, IStore } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { JitsiTrackEvents } from '../../../base/lib-jitsi-meet';
 import { MEDIA_TYPE, VIDEO_TYPE } from '../../../base/media/constants';
 import { pinParticipant } from '../../../base/participants/actions';
@@ -43,7 +44,6 @@ import PinnedIndicator from './PinnedIndicator';
 import RaisedHandIndicator from './RaisedHandIndicator';
 import ScreenShareIndicator from './ScreenShareIndicator';
 import styles, { AVATAR_SIZE } from './styles';
-
 
 /**
  * Thumbnail component's property types.
@@ -233,23 +233,23 @@ class Thumbnail extends PureComponent<IProps> {
             indicators.push(<View
                 key = 'top-left-indicators'
                 style = { styles.thumbnailTopLeftIndicatorContainer as ViewStyle }>
-                { !_isVirtualScreenshare && <ConnectionIndicator participantId = { participantId } /> }
-                { !_isVirtualScreenshare && <RaisedHandIndicator participantId = { participantId } /> }
-                { tileView && (isScreenShare || _isVirtualScreenshare) && (
+                {!_isVirtualScreenshare && <ConnectionIndicator participantId = { participantId } />}
+                {!_isVirtualScreenshare && <RaisedHandIndicator participantId = { participantId } />}
+                {tileView && (isScreenShare || _isVirtualScreenshare) && (
                     <View style = { styles.screenShareIndicatorContainer as ViewStyle }>
                         <ScreenShareIndicator />
                     </View>
-                ) }
+                )}
             </View>);
             indicators.push(<Container
                 key = 'bottom-indicators'
                 style = { styles.thumbnailIndicatorContainer as StyleType }>
                 <Container
                     style = { bottomIndicatorsContainerStyle as StyleType }>
-                    { audioMuted && !_isVirtualScreenshare && <AudioMutedIndicator /> }
-                    { !tileView && _pinned && <PinnedIndicator />}
-                    { renderModeratorIndicator && !_isVirtualScreenshare && <ModeratorIndicator />}
-                    { !tileView && (isScreenShare || _isVirtualScreenshare) && <ScreenShareIndicator /> }
+                    {audioMuted && !_isVirtualScreenshare && <AudioMutedIndicator />}
+                    {!tileView && _pinned && <PinnedIndicator />}
+                    {renderModeratorIndicator && !_isVirtualScreenshare && <ModeratorIndicator />}
+                    {!tileView && (isScreenShare || _isVirtualScreenshare) && <ScreenShareIndicator />}
                 </Container>
                 {
                     renderDisplayName && <DisplayNameLabel
@@ -375,11 +375,12 @@ class Thumbnail extends PureComponent<IProps> {
                 style = { [
                     styles.thumbnail,
                     styleOverrides,
-                    _raisedHand && !_isVirtualScreenshare ? styles.thumbnailRaisedHand : null,
+                    _raisedHand && !_isVirtualScreenshare
+                        ? appType.isFishMeet ? styles.fishMeetThumbnailRaisedHand : styles.thumbnailRaisedHand : null,
                     _renderDominantSpeakerIndicator && !_isVirtualScreenshare ? styles.thumbnailDominantSpeaker : null
                 ] as StyleType[] }
                 touchFeedback = { false }>
-                { _gifSrc ? <Image
+                {_gifSrc ? <Image
                     source = {{ uri: _gifSrc }}
                     style = { styles.thumbnailGif as ImageStyle } />
                     : <>

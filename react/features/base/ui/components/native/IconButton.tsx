@@ -19,7 +19,7 @@ const IconButton: React.FC<IIconButtonProps> = ({
     tapColor,
     type
 }: IIconButtonProps) => {
-    const { PRIMARY, SECONDARY, TERTIARY } = BUTTON_TYPES;
+    const { PRIMARY, SECONDARY, TERTIARY, FISHMEET_PRIMARY, FISHMEET_SECONDARY, FISHMEET_TERTIARY } = BUTTON_TYPES;
 
     let color;
     let underlayColor;
@@ -37,15 +37,34 @@ const IconButton: React.FC<IIconButtonProps> = ({
         color = iconColor;
         iconButtonContainerStyles = styles.iconButtonContainer;
         underlayColor = BaseTheme.palette.action03;
+    } else if (type === FISHMEET_PRIMARY) {
+        color = 'transparent';
+        iconButtonContainerStyles = styles.iconFishmeetButtonContainerPrimary;
+        underlayColor = BaseTheme.palette.fishMeetMainColor01;
+    } else if (type === FISHMEET_SECONDARY) {
+        color = BaseTheme.palette.fishMeetText01;
+        iconButtonContainerStyles = styles.iconFishmeetButtonContainerPrimary;
+        underlayColor = BaseTheme.palette.fishMeetMainColor01;
+    } else if (type === FISHMEET_TERTIARY) {
+        color = 'transparent';
+        iconButtonContainerStyles = styles.iconFishmeetButtonContainerTertiary;
+        underlayColor = BaseTheme.palette.fishMeetMainColor02;
     } else {
         color = iconColor;
         underlayColor = tapColor;
     }
 
     if (disabled) {
-        color = BaseTheme.palette.icon03;
-        iconButtonContainerStyles = styles.iconButtonContainerDisabled;
-        underlayColor = 'transparent';
+        if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
+            color = 'transparent';
+            iconButtonContainerStyles = styles.fishMeetIconButtonContainerDisabled;
+            underlayColor = 'transparent';
+
+        } else {
+            color = BaseTheme.palette.icon03;
+            iconButtonContainerStyles = styles.iconButtonContainerDisabled;
+            underlayColor = 'transparent';
+        }
     }
 
     return (
@@ -60,7 +79,7 @@ const IconButton: React.FC<IIconButtonProps> = ({
             underlayColor = { underlayColor }>
             <Icon
                 color = { color }
-                size = { 20 || size }
+                size = { size ?? 20 }
                 src = { src } />
         </TouchableHighlight>
     );

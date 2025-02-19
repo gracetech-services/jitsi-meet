@@ -12,6 +12,7 @@ import {
     CONFERENCE_LEFT
 } from '../base/conference/actionTypes';
 import { getCurrentConference } from '../base/conference/functions';
+import { appType } from '../base/config/AppType';
 import { getURLWithoutParamsNormalized } from '../base/connection/utils';
 import { hideDialog } from '../base/dialog/actions';
 import { isDialogOpen } from '../base/dialog/functions';
@@ -38,11 +39,11 @@ import {
 import { showStartRecordingNotification } from '../recording/actions';
 import { showSalesforceNotification } from '../salesforce/actions';
 import { setToolboxEnabled } from '../toolbox/actions.any';
+import { setTileView } from '../video-layout/actions.any';
 
 import { DISMISS_CALENDAR_NOTIFICATION } from './actionTypes';
 import { dismissCalendarNotification } from './actions';
 import { IFRAME_DISABLED_TIMEOUT_MINUTES, IFRAME_EMBED_ALLOWED_LOCATIONS } from './constants';
-
 
 let intervalID: any;
 
@@ -53,7 +54,6 @@ MiddlewareRegistry.register(store => next => action => {
     switch (action.type) {
     case CONFERENCE_JOINED: {
         _conferenceJoined(store);
-
         break;
     }
 
@@ -99,9 +99,9 @@ StateListenerRegistry.register(
             // we want to hide is a lot longer. Thus we take a bit of a shortcut
             // and explicitly check.
             if (typeof authRequired === 'undefined'
-                    && typeof passwordRequired === 'undefined'
-                    && typeof membersOnly === 'undefined'
-                    && !isDialogOpen(getState(), FeedbackDialog)) {
+                && typeof passwordRequired === 'undefined'
+                && typeof membersOnly === 'undefined'
+                && !isDialogOpen(getState(), FeedbackDialog)) {
                 // Conference changed, left or failed... and there is no
                 // pending authentication, nor feedback request, so close any
                 // dialog we might have open.
@@ -151,6 +151,9 @@ function _conferenceJoined({ dispatch, getState }: IStore) {
 
     dispatch(showSalesforceNotification());
     dispatch(showStartRecordingNotification());
+    if (appType.isFishMeet) {
+        dispatch(setTileView(true));
+    }
 
     _checkIframe(getState(), dispatch);
 }

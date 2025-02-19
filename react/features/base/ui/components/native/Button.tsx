@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { TouchableHighlight } from 'react-native';
 import { Button as NativePaperButton, Text } from 'react-native-paper';
 
+import { appType } from '../../../config/AppType';
 import { BUTTON_MODES, BUTTON_TYPES } from '../../constants.native';
 import BaseTheme from '../BaseTheme.native';
 import { IButtonProps } from '../types';
 
 import styles from './buttonStyles';
-
 
 export interface IProps extends IButtonProps {
     color?: string | undefined;
@@ -32,7 +32,14 @@ const Button: React.FC<IProps> = ({
     type
 }: IProps) => {
     const { t } = useTranslation();
-    const { DESTRUCTIVE, PRIMARY, SECONDARY, TERTIARY } = BUTTON_TYPES;
+    const { DESTRUCTIVE,
+        PRIMARY,
+        SECONDARY,
+        TERTIARY,
+        FISHMEET_PRIMARY,
+        FISHMEET_SECONDARY,
+        FISHMEET_TERTIARY
+    } = BUTTON_TYPES;
     const { CONTAINED, TEXT } = BUTTON_MODES;
 
     let buttonLabelStyles;
@@ -52,6 +59,15 @@ const Button: React.FC<IProps> = ({
             ? styles.buttonLabelDestructiveText
             : styles.buttonLabelDestructive;
         color = mode === CONTAINED && BaseTheme.palette.actionDanger;
+    } else if (type === FISHMEET_PRIMARY) {
+        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
+        color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor01;
+    } else if (type === FISHMEET_SECONDARY) {
+        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
+        color = mode === CONTAINED && BaseTheme.palette.fishMeetAction01;
+    } else if (type === FISHMEET_TERTIARY) {
+        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
+        color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor02;
     } else {
         color = buttonColor;
         buttonLabelStyles = styles.buttonLabel;
@@ -59,9 +75,9 @@ const Button: React.FC<IProps> = ({
 
     if (disabled) {
         buttonLabelStyles = styles.buttonLabelDisabled;
-        buttonStyles = styles.buttonDisabled;
+        buttonStyles = appType.isFishMeet ? styles.fishMeetButtonDisabled : styles.buttonDisabled;
     } else {
-        buttonStyles = styles.button;
+        buttonStyles = appType.isFishMeet ? styles.fishMeetButton : styles.button;
     }
 
     if (type === TERTIARY) {
@@ -83,7 +99,7 @@ const Button: React.FC<IProps> = ({
                     style = { [
                         buttonLabelStyles,
                         labelStyle
-                    ] }>{ t(labelKey ?? '') }</Text>
+                    ] }>{t(labelKey ?? '')}</Text>
             </TouchableHighlight>
         );
     }

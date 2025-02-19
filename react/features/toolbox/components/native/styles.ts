@@ -1,5 +1,6 @@
 import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry';
 import { schemeColor } from '../../../base/color-scheme/functions';
+import { appType } from '../../../base/config/AppType';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
 const BUTTON_SIZE = 48;
@@ -21,13 +22,25 @@ const toolbarButton = {
     width: BUTTON_SIZE
 };
 
+const fishMeetToolbarButton = {
+    borderRadius: BaseTheme.shape.borderRadius,
+    borderWidth: 0,
+    flex: 0,
+    flexDirection: 'row',
+    height: BUTTON_SIZE,
+    justifyContent: 'center',
+    marginHorizontal: 6,
+    marginVertical: 2,
+    width: BUTTON_SIZE
+};
+
 /**
  * The icon style of the toolbar buttons.
  */
 const toolbarButtonIcon = {
     alignSelf: 'center',
     color: BaseTheme.palette.icon04,
-    fontSize: 24
+    fontSize: 20
 };
 
 
@@ -37,6 +50,11 @@ const toolbarButtonIcon = {
 const whiteToolbarButtonIcon = {
     ...toolbarButtonIcon,
     color: BaseTheme.palette.icon01
+};
+
+const fishMeetToolbarButtonIcon = {
+    ...toolbarButtonIcon,
+    color: 'transparent'
 };
 
 /**
@@ -90,19 +108,47 @@ const styles = {
         borderTopLeftRadius: 3,
         borderTopRightRadius: 3,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+
+    fishMeetToolbox: {
+        alignItems: 'center',
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
+        borderTopLeftRadius: 3,
+        borderTopRightRadius: 3,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+
+    fishMeetToolboxContainer: {
+        flexDirection: 'row',
+        backgroundColor: BaseTheme.palette.fishMeetMainColor02,
+        borderRadius: 30,
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginRight: 15,
+        marginBottom: 10,
+        flexWrap: 'wrap'
+    },
+    fishMeetToolSeparator: {
+        width: 1,
+        backgroundColor: '#424350',
+        marginBottom: 10,
+        marginTop: 10
     },
 
     /**
      * The style of the root/top-level container of {@link Toolbox}.
      */
     toolboxContainer: {
-        backgroundColor: BaseTheme.palette.uiBackground,
-        flexDirection: 'column',
-        maxWidth: 580,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        width: '100%'
+        // backgroundColor: BaseTheme.palette.uiBackground,
+        // flexDirection: 'column',
+        // maxWidth: 580,
+        // marginLeft: 'auto',
+        // marginRight: 'auto',
+        // width: '100%',
     }
 };
 
@@ -121,8 +167,11 @@ ColorSchemeRegistry.register('Toolbox', {
     },
 
     buttonStylesBorderless: {
-        iconStyle: whiteToolbarButtonIcon,
-        style: {
+        iconStyle: appType.isFishMeet ? fishMeetToolbarButtonIcon : whiteToolbarButtonIcon,
+        style: appType.isFishMeet ? {
+            ...fishMeetToolbarButton,
+            backgroundColor: 'transparent'
+        } : {
             ...toolbarButton,
             backgroundColor: 'transparent'
         },
@@ -146,7 +195,11 @@ ColorSchemeRegistry.register('Toolbox', {
 
     hangupButtonStyles: {
         iconStyle: whiteToolbarButtonIcon,
-        style: {
+        style: appType.isFishMeet ? {
+            ...fishMeetToolbarButton,
+            borderRadius: BUTTON_SIZE / 2.0,
+            backgroundColor: schemeColor('hangup')
+        } : {
             ...toolbarButton,
             backgroundColor: schemeColor('hangup')
         },
@@ -196,8 +249,10 @@ ColorSchemeRegistry.register('Toolbox', {
      * Styles for toggled buttons in the toolbar.
      */
     toggledButtonStyles: {
-        iconStyle: whiteToolbarButtonIcon,
-        style: {
+        iconStyle: appType.isFishMeet ? fishMeetToolbarButtonIcon : whiteToolbarButtonIcon,
+        style: appType.isFishMeet ? {
+            ...fishMeetToolbarButton
+        } : {
             ...toolbarButton
         },
         underlayColor: 'transparent'

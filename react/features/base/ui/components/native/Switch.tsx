@@ -25,7 +25,10 @@ interface IProps extends ISwitchProps {
     /**
      * Color of the switch background.
      */
-    trackColor?: Object;
+    trackColor?: {
+        false: ColorValue;
+        true: ColorValue;
+    };
 }
 
 const Switch = ({
@@ -41,7 +44,7 @@ const Switch = ({
 }: IProps) => (
     <NativeSwitch
         disabled = { disabled }
-        ios_backgroundColor = { DISABLED_TRACK_COLOR }
+        ios_backgroundColor = { trackColor.false || DISABLED_TRACK_COLOR }
         onValueChange = { onChange }
         style = { style }
         thumbColor = { thumbColor }

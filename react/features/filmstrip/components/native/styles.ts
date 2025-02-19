@@ -15,6 +15,14 @@ const indicatorContainer = {
     padding: 2
 };
 
+const fishMeetIndicatorContainer = {
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: 16,
+    height: 26,
+    margin: 2,
+    padding: 4
+};
 
 /**
  * The styles of the feature filmstrip.
@@ -160,6 +168,10 @@ export default {
         ...indicatorContainer,
         backgroundColor: BaseTheme.palette.warning02
     },
+    fishMeetRaisedHandIndicator: {
+        ...fishMeetIndicatorContainer,
+        backgroundColor: BaseTheme.palette.fishMeetMainColor01
+    },
 
     raisedHandIcon: {
         color: BaseTheme.palette.uiBackground
@@ -168,6 +180,11 @@ export default {
     thumbnailRaisedHand: {
         borderWidth: 2,
         borderColor: BaseTheme.palette.warning02
+    },
+
+    fishMeetThumbnailRaisedHand: {
+        borderWidth: 2,
+        borderColor: BaseTheme.palette.fishMeetMainColor01
     },
 
     thumbnailDominantSpeaker: {
