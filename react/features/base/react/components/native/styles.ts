@@ -126,15 +126,6 @@ const iconButtonContainer = {
     width: BUTTON_WIDTH
 };
 
-const iconFishmeetButtonContainer = {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    borderRadius: BUTTON_HEIGHT / 2.0,
-    height: BUTTON_HEIGHT,
-    width: BUTTON_WIDTH
-};
-
 /**
  * The styles of the generic React {@code Component}s implemented by the feature
  * base/react.
@@ -151,27 +142,13 @@ export default {
         backgroundColor: BaseTheme.palette.action01
     },
 
-    iconFishmeetButtonContainerPrimary: {
-        ...iconFishmeetButtonContainer,
-        backgroundColor: BaseTheme.palette.fishMeetMainColor01
-    },
-
     iconButtonContainerSecondary: {
         ...iconButtonContainer,
         backgroundColor: BaseTheme.palette.action02
     },
 
-    iconFishmeetButtonContainerTertiary: {
-        ...iconFishmeetButtonContainer,
-        backgroundColor: BaseTheme.palette.fishMeetMainColor02
-    },
-
     iconButtonContainerDisabled: {
         ...iconButtonContainer,
-        backgroundColor: BaseTheme.palette.disabled01
-    },
-    fishMeetIconButtonContainerDisabled: {
-        ...iconFishmeetButtonContainer,
         backgroundColor: BaseTheme.palette.disabled01
     }
 };

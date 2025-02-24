@@ -67,11 +67,6 @@ export default {
         borderTopLeftRadius: 0
     },
 
-    fishMeetRemoteMessageBubble: {
-        backgroundColor: '#ffffff',
-        borderTopLeftRadius: 0
-    },
-
     replyContainer: {
         alignSelf: 'stretch',
         justifyContent: 'center'
@@ -101,11 +96,6 @@ export default {
     chatMessage: {
         ...BaseTheme.typography.bodyShortRegular,
         color: BaseTheme.palette.text01
-    },
-
-    fishMeetChatMessage: {
-        ...BaseTheme.typography.bodyShortRegular,
-        color: BaseTheme.palette.fishMeetText02
     },
 
     /**
@@ -138,12 +128,6 @@ export default {
         marginHorizontal: BaseTheme.spacing[3]
     },
 
-    fishMeetInputBarNarrow: {
-        ...inputBar,
-        height: 112,
-        marginHorizontal: BaseTheme.spacing[4]
-    },
-
     inputBarWide: {
         ...inputBar,
         height: 88,
@@ -152,17 +136,6 @@ export default {
 
     customInputContainer: {
         width: '75%'
-    },
-
-    fishMeetCustomInputContainer: {
-        width: '80%'
-    },
-
-    fishMeetCustomInput: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
-        borderColor: BaseTheme.palette.fishMeetMainColor02,
-        borderRadius: 30,
-        borderWidth: 1
     },
 
     messageBubble: {
@@ -218,18 +191,8 @@ export default {
         fontSize: 13
     },
 
-    fishMeetTimeText: {
-        color: BaseTheme.palette.fishMeetMainColor02,
-        fontSize: 13
-    },
-
     chatContainer: {
         backgroundColor: BaseTheme.palette.ui01,
-        flex: 1
-    },
-
-    fishMeetChatContainer: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
         flex: 1
     },
 
@@ -268,18 +231,8 @@ export default {
         color: BaseTheme.palette.text02
     },
 
-    fishMeetSenderDisplayName: {
-        ...BaseTheme.typography.bodyShortBold,
-        color: BaseTheme.palette.fishMeetText02
-    },
-
     localMessageBubble: {
         backgroundColor: BaseTheme.palette.ui04,
-        borderTopRightRadius: 0
-    },
-
-    fishMeetLocalMessageBubble: {
-        backgroundColor: BaseTheme.palette.fishMeetMainColor02,
         borderTopRightRadius: 0
     },
 

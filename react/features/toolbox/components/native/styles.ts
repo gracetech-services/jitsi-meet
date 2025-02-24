@@ -3,6 +3,8 @@ import { schemeColor } from '../../../base/color-scheme/functions';
 import { appType } from '../../../base/config/AppType';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
+import { fishMeetToolbarButton, fishMeetToolbarButtonIcon } from './fishMeetStyles';
+
 const BUTTON_SIZE = 48;
 
 // Toolbox, toolbar:
@@ -22,18 +24,6 @@ const toolbarButton = {
     width: BUTTON_SIZE
 };
 
-const fishMeetToolbarButton = {
-    borderRadius: BaseTheme.shape.borderRadius,
-    borderWidth: 0,
-    flex: 0,
-    flexDirection: 'row',
-    height: BUTTON_SIZE,
-    justifyContent: 'center',
-    marginHorizontal: 6,
-    marginVertical: 2,
-    width: BUTTON_SIZE
-};
-
 /**
  * The icon style of the toolbar buttons.
  */
@@ -50,11 +40,6 @@ const toolbarButtonIcon = {
 const whiteToolbarButtonIcon = {
     ...toolbarButtonIcon,
     color: BaseTheme.palette.icon01
-};
-
-const fishMeetToolbarButtonIcon = {
-    ...toolbarButtonIcon,
-    color: 'transparent'
 };
 
 /**
@@ -110,33 +95,6 @@ const styles = {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center'
-    },
-
-    fishMeetToolbox: {
-        alignItems: 'center',
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
-        borderTopLeftRadius: 3,
-        borderTopRightRadius: 3,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center'
-    },
-
-    fishMeetToolboxContainer: {
-        flexDirection: 'row',
-        backgroundColor: BaseTheme.palette.fishMeetMainColor02,
-        borderRadius: 30,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginRight: 15,
-        marginBottom: 10,
-        flexWrap: 'wrap'
-    },
-    fishMeetToolSeparator: {
-        width: 1,
-        backgroundColor: '#424350',
-        marginBottom: 10,
-        marginTop: 10
     },
 
     /**

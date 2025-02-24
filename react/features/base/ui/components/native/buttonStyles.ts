@@ -9,13 +9,6 @@ const button = {
     justifyContent: 'center'
 };
 
-const fishMeetButton = {
-    borderRadius: BUTTON_HEIGHT / 2.0,
-    display: 'flex',
-    height: BUTTON_HEIGHT,
-    justifyContent: 'center'
-};
-
 const buttonLabel = {
     ...BaseTheme.typography.bodyShortBold,
     textTransform: 'capitalize'
@@ -24,10 +17,6 @@ const buttonLabel = {
 export default {
     button: {
         ...button
-    },
-
-    fishMeetButton: {
-        ...fishMeetButton
     },
 
     buttonLabel: {
@@ -48,11 +37,6 @@ export default {
         backgroundColor: BaseTheme.palette.ui08
     },
 
-    fishMeetButtonDisabled: {
-        ...fishMeetButton,
-        backgroundColor: BaseTheme.palette.ui08
-    },
-
     buttonLabelPrimary: {
         ...buttonLabel,
         color: BaseTheme.palette.text01
@@ -61,11 +45,6 @@ export default {
     buttonLabelPrimaryText: {
         ...buttonLabel,
         color: BaseTheme.palette.action01
-    },
-
-    fishMeetButtonLabelPrimaryText: {
-        ...buttonLabel,
-        color: BaseTheme.palette.fishMeetText01
     },
 
     buttonLabelSecondary: {
