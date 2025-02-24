@@ -4,6 +4,7 @@ import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { translate } from '../../../base/i18n/functions';
 import JitsiScreen from '../../../base/modal/components/JitsiScreen';
 import { TabBarLabelCounter } from '../../../mobile/navigation/components/TabBarLabelCounter';
@@ -13,6 +14,7 @@ import { IChatProps as AbstractProps } from '../../types';
 import ChatInputBar from './ChatInputBar';
 import MessageContainer from './MessageContainer';
 import MessageRecipient from './MessageRecipient';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 interface IProps extends AbstractProps {
@@ -66,7 +68,7 @@ class Chat extends Component<IProps> {
                 }
                 hasBottomTextInput = { true }
                 hasExtraHeaderHeight = { true }
-                style = { styles.chatContainer }>
+                style = { appType.isFishMeet ? fishMeetStyles.fishMeetChatContainer : styles.chatContainer }>
                 {/* @ts-ignore */}
                 <MessageContainer messages = { _messages } />
                 <MessageRecipient privateMessageRecipient = { privateMessageRecipient } />

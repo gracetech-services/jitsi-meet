@@ -5,7 +5,7 @@ import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 export const dialogStyles = createStyleSheet({
 
     customContainer: {
-        marginBottom: BaseTheme.spacing[3],
+        marginBottom: BaseTheme.spacing[2],
         marginHorizontal: BaseTheme.spacing[3],
         marginTop: BaseTheme.spacing[2]
     },
@@ -170,7 +170,7 @@ export const chatStyles = createStyleSheet({
 
     buttonRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center'
     },
 
     answerContent: {

@@ -118,7 +118,7 @@ export default {
 
     participantNameContainer: {
         ...participantNameContainer,
-        width: '100%'
+        width: '65%'
     },
 
     lobbyParticipantNameContainer: {
@@ -142,7 +142,7 @@ export default {
         display: 'flex',
         flexDirection: 'row',
         marginLeft: 'auto',
-        width: '15%'
+        alignItems: 'center'
     },
 
     participantStateVideo: {
@@ -212,7 +212,7 @@ export default {
     participantsPaneFooter: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         paddingBottom: BaseTheme.spacing[3],
         width: '100%'
     },
@@ -275,7 +275,7 @@ export default {
     },
 
     inputContainer: {
-        marginLeft: BaseTheme.spacing[3],
+        marginLeft: BaseTheme.spacing[4],
         marginRight: BaseTheme.spacing[3],
         marginBottom: BaseTheme.spacing[4]
     },

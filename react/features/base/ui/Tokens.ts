@@ -51,6 +51,9 @@ export const colorMap = {
 
     // Default page background
     uiBackground: 'surface01',
+    fishMeetUiBackground: '#42434F',
+    fishMeetMainColor01: '#FE9C75',
+    fishMeetMainColor02: '#C8D7EC',
 
     // Container backgrounds
     ui01: 'surface02',
@@ -70,6 +73,7 @@ export const colorMap = {
     action01: 'primary06',
     action01Hover: 'primary07',
     action01Active: 'primary04',
+    fishMeetAction01: '#E7EEF2',
 
     // Secondary
     action02: 'surface10',
@@ -103,11 +107,17 @@ export const colorMap = {
     // Primary
     text01: 'surface11',
 
+    fishMeetText01: '#424350',
+
     // Secondary
     text02: 'surface09',
 
+    fishMeetText02: '#28262C',
+
     // Tertiary
     text03: 'surface07',
+
+    fishMeetText03: '#33333F',
 
     // High-contrast
     text04: 'surface01',

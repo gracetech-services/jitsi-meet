@@ -3,10 +3,12 @@ import { View, ViewStyle } from 'react-native';
 import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
-import { IconRaiseHand } from '../../../base/icons/svg';
+import { appType } from '../../../base/config/AppType';
+import { IconFishmeetRaiseHand, IconRaiseHand } from '../../../base/icons/svg';
 import { getParticipantById, hasRaisedHand } from '../../../base/participants/functions';
 import BaseIndicator from '../../../base/react/components/native/BaseIndicator';
 
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 export interface IProps {
@@ -51,9 +53,12 @@ class RaisedHandIndicator extends Component<IProps> {
      */
     _renderIndicator() {
         return (
-            <View style = { styles.raisedHandIndicator as ViewStyle }>
+            <View
+                style = { (appType.isFishMeet
+                    ? fishMeetStyles.fishMeetRaisedHandIndicator
+                    : styles.raisedHandIndicator) as ViewStyle }>
                 <BaseIndicator
-                    icon = { IconRaiseHand }
+                    icon = { appType.isFishMeet ? IconFishmeetRaiseHand : IconRaiseHand }
                     iconStyle = { styles.raisedHandIcon } />
             </View>
         );

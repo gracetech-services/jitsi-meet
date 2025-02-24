@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { appType } from '../../../base/config/AppType';
 import { openSheet } from '../../../base/dialog/actions';
-import { IconHangup } from '../../../base/icons/svg';
+import { IconFishmeetHangup, IconHangup } from '../../../base/icons/svg';
 import IconButton from '../../../base/ui/components/native/IconButton';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
 
@@ -24,8 +25,8 @@ const HangupMenuButton = (): JSX.Element => {
         <IconButton
             accessibilityLabel = 'toolbar.accessibilityLabel.hangup'
             onPress = { onSelect }
-            src = { IconHangup }
-            type = { BUTTON_TYPES.PRIMARY } />
+            src = { appType.isFishMeet ? IconFishmeetHangup : IconHangup }
+            type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_PRIMARY : BUTTON_TYPES.PRIMARY } />
     );
 };
 

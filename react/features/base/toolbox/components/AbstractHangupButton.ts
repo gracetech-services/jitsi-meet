@@ -1,14 +1,15 @@
-import { IconHangup } from '../../icons/svg';
+import { appType } from '../../../base/config/AppType';
+import { IconFishmeetHangup, IconHangup } from '../../icons/svg';
 
 import AbstractButton, { IProps } from './AbstractButton';
 
 /**
  * An abstract implementation of a button for disconnecting a conference.
  */
-export default class AbstractHangupButton<P extends IProps, S=any>
+export default class AbstractHangupButton<P extends IProps, S = any>
     extends AbstractButton<P, S> {
 
-    icon = IconHangup;
+    icon = appType.isFishMeet ? IconFishmeetHangup : IconHangup;
 
     /**
      * Handles clicking / pressing the button, and disconnects the conference.

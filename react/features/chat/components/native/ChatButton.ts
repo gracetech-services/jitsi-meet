@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { CHAT_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
 import { translate } from '../../../base/i18n/functions';
-import { IconChatUnread, IconMessage } from '../../../base/icons/svg';
+import { IconChatUnread, IconFishmeetChatUnread, IconFishmeetMessage, IconMessage } from '../../../base/icons/svg';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { arePollsDisabled } from '../../../conference/functions.any';
 import { navigate } from '../../../mobile/navigation/components/conference/ConferenceNavigationContainerRef';
@@ -30,9 +31,9 @@ interface IProps extends AbstractButtonProps {
  */
 class ChatButton extends AbstractButton<IProps> {
     accessibilityLabel = 'toolbar.accessibilityLabel.chat';
-    icon = IconMessage;
+    icon = appType.isFishMeet ? IconFishmeetMessage : IconMessage;
     label = 'toolbar.chat';
-    toggledIcon = IconChatUnread;
+    toggledIcon = appType.isFishMeet ? IconFishmeetChatUnread : IconChatUnread;
 
     /**
      * Handles clicking / pressing the button, and opens the appropriate dialog.
