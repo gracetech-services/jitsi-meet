@@ -11,9 +11,16 @@ import {
 import { Text } from 'react-native-paper';
 
 import Avatar from '../../../base/avatar/components/Avatar';
-import { AudioStateIcons, MEDIA_STATE, type MediaState, VideoStateIcons } from '../../constants';
+import { appType } from '../../../base/config/AppType';
+import {
+    AudioStateIcons,
+    FishmeetAudioStateIcons,
+    FishmeetVideoStateIcons,
+    MEDIA_STATE, type MediaState, VideoStateIcons
+} from '../../constants';
 
 import { RaisedHandIndicator } from './RaisedHandIndicator';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 interface IProps {
@@ -101,11 +108,13 @@ function ParticipantItem({
         <View style = { styles.participantContainer as StyleProp<ViewStyle> } >
             <TouchableOpacity
                 onPress = { onPress }
-                style = { styles.participantContent as StyleProp<ViewStyle> }>
+                style = { (appType.isFishMeet
+                    ? fishMeetStyles.fishMeetParticipantContent
+                    : styles.participantContent) as StyleProp<ViewStyle> }>
                 <Avatar
                     displayName = { displayName }
                     participantId = { participantID }
-                    size = { 32 } />
+                    size = { appType.isFishMeet ? 50 : 32 } />
                 <View
                     style = { [
                         styles.participantDetailsContainer,
@@ -113,31 +122,33 @@ function ParticipantItem({
                     ] as StyleProp<ViewStyle> }>
                     <View style = { participantNameContainerStyles as StyleProp<ViewStyle> }>
                         <Text
-                            numberOfLines = { 1 }
+                            numberOfLines = { 2 }
                             style = { styles.participantName as StyleProp<TextStyle> }>
-                            { displayName }
-                            { local && ` (${t('chat.you')})` }
+                            {displayName}
+                            {local && ` (${t('chat.you')})`}
                         </Text>
                     </View>
                     {
                         isModerator && !disableModeratorIndicator
                         && <Text style = { styles.moderatorLabel as StyleProp<TextStyle> }>
-                            { t('videothumbnail.moderator') }
+                            {t('videothumbnail.moderator')}
                         </Text>
                     }
                 </View>
                 {
                     !isKnockingParticipant
-                    && <>
-                        { raisedHand && <RaisedHandIndicator /> }
-                        <View style = { styles.participantStatesContainer as StyleProp<ViewStyle> }>
-                            <View style = { styles.participantStateVideo }>{ VideoStateIcons[videoMediaState] }</View>
-                            <View>{ AudioStateIcons[audioMediaState] }</View>
-                        </View>
-                    </>
+                    && <View style = { styles.participantStatesContainer as StyleProp<ViewStyle> }>
+                        {raisedHand && <RaisedHandIndicator />}
+                        <View style = { styles.participantStateVideo }>{appType.isFishMeet
+                            ? FishmeetVideoStateIcons[videoMediaState]
+                            : VideoStateIcons[videoMediaState]}</View>
+                        <View>{appType.isFishMeet
+                            ? FishmeetAudioStateIcons[audioMediaState]
+                            : AudioStateIcons[audioMediaState]}</View>
+                    </View>
                 }
             </TouchableOpacity>
-            { !local && children }
+            {!local && children}
         </View>
     );
 }

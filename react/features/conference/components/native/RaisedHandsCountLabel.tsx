@@ -7,6 +7,7 @@ import { IconFishmeetRaiseHand, IconRaiseHand } from '../../../base/icons/svg';
 import Label from '../../../base/label/components/native/Label';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 const RaisedHandsCountLabel = () => {
@@ -17,7 +18,7 @@ const RaisedHandsCountLabel = () => {
         <Label
             icon = { appType.isFishMeet ? IconFishmeetRaiseHand : IconRaiseHand }
             iconColor = { BaseTheme.palette.uiBackground }
-            style = { appType.isFishMeet ? styles.fishMeetRaisedHandsCountLabel : styles.raisedHandsCountLabel }
+            style = { appType.isFishMeet ? fishMeetStyles.fishMeetRaisedHandsCountLabel : styles.raisedHandsCountLabel }
             text = { `${raisedHandsCount}` }
             textStyle = { styles.raisedHandsCountLabelText } />
     ) : null;

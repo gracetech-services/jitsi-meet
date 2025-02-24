@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableHighlight } from 'react-native';
 
 import Icon from '../../../icons/components/Icon';
+import fishMeetStyles from '../../../react/components/native/fishMeetStyles';
 import styles from '../../../react/components/native/styles';
 import { IIconButtonProps } from '../../../react/types';
 import { BUTTON_TYPES } from '../../constants.native';
@@ -39,15 +40,15 @@ const IconButton: React.FC<IIconButtonProps> = ({
         underlayColor = BaseTheme.palette.action03;
     } else if (type === FISHMEET_PRIMARY) {
         color = 'transparent';
-        iconButtonContainerStyles = styles.iconFishmeetButtonContainerPrimary;
+        iconButtonContainerStyles = fishMeetStyles.iconFishmeetButtonContainerPrimary;
         underlayColor = BaseTheme.palette.fishMeetMainColor01;
     } else if (type === FISHMEET_SECONDARY) {
         color = BaseTheme.palette.fishMeetText01;
-        iconButtonContainerStyles = styles.iconFishmeetButtonContainerPrimary;
+        iconButtonContainerStyles = fishMeetStyles.iconFishmeetButtonContainerPrimary;
         underlayColor = BaseTheme.palette.fishMeetMainColor01;
     } else if (type === FISHMEET_TERTIARY) {
         color = 'transparent';
-        iconButtonContainerStyles = styles.iconFishmeetButtonContainerTertiary;
+        iconButtonContainerStyles = fishMeetStyles.iconFishmeetButtonContainerTertiary;
         underlayColor = BaseTheme.palette.fishMeetMainColor02;
     } else {
         color = iconColor;
@@ -57,7 +58,7 @@ const IconButton: React.FC<IIconButtonProps> = ({
     if (disabled) {
         if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
             color = 'transparent';
-            iconButtonContainerStyles = styles.fishMeetIconButtonContainerDisabled;
+            iconButtonContainerStyles = fishMeetStyles.fishMeetIconButtonContainerDisabled;
             underlayColor = 'transparent';
 
         } else {

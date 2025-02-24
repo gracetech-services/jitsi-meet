@@ -15,8 +15,9 @@ import { setIsPollsTabFocused } from '../../../../../chat/actions.native';
 import Chat from '../../../../../chat/components/native/Chat';
 import { resetNbUnreadPollsMessages } from '../../../../../polls/actions';
 import PollsPane from '../../../../../polls/components/native/PollsPane';
+import { fishMeetChatTabBarOptions } from '../../../fishMeetScreenOptions';
 import { screen } from '../../../routes';
-import { chatTabBarOptions, fishMeetChatTabBarOptions } from '../../../screenOptions';
+import { chatTabBarOptions } from '../../../screenOptions';
 
 const ChatTab = createMaterialTopTabNavigator();
 

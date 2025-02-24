@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 import { appType } from '../../../../../base/config/AppType';
 import Icon from '../../../../../base/icons/components/Icon';
 import { IconFishmeetClose } from '../../../../../base/icons/svg';
-import BaseTheme from '../../../../../base/ui/components/BaseTheme.native';
 import BreakoutRooms
     // @ts-ignore
     from '../../../../../breakout-rooms/components/native/BreakoutRooms';
@@ -49,13 +48,14 @@ import LanguageSelectorDialog
     // @ts-ignore
     from '../../../../../subtitles/components/native/LanguageSelectorDialog';
 // @ts-ignore
+import { fishMeetNavigationContainerTheme } from '../../../fishMeetScreenOptions';
 import { screen } from '../../../routes';
+// eslint-disable-next-line import/order
 import {
     breakoutRoomsScreenOptions,
     carmodeScreenOptions,
     chatScreenOptions,
     conferenceScreenOptions,
-    fishMeetNavigationContainerTheme,
     gifsMenuOptions,
     inviteScreenOptions,
     liveStreamScreenOptions,
@@ -71,6 +71,8 @@ import {
     subtitlesScreenOptions
     // @ts-ignore
 } from '../../../screenOptions';
+
+
 // @ts-ignore
 import ChatAndPollsNavigator from '../../chat/components/ChatAndPollsNavigator';
 // @ts-ignore
@@ -82,31 +84,10 @@ import {
     // @ts-ignore
 } from '../ConferenceNavigationContainerRef';
 
+import { styleHeader } from './fishMeetNavigationStyles';
+
 
 const ConferenceStack = createStackNavigator();
-
-const styleHeader = {
-    viewStyle: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
-        height: 60,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    textStyle: {
-        color: BaseTheme.palette.text01,
-        fontSize: 18,
-        flex: 1,
-        textAlign: 'center'
-    },
-    touchStyle: {
-        position: 'absolute',
-        right: 30
-    }
-};
-
 
 const handleGoBack = (navigation: any) => () => navigation.goBack();
 

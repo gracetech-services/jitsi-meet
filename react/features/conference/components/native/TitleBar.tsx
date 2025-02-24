@@ -17,6 +17,7 @@ import { isToolboxVisible } from '../../../toolbox/functions.native';
 import ConferenceTimer from '../ConferenceTimer';
 
 import Labels from './Labels';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 interface IProps {
@@ -86,7 +87,7 @@ const TitleBar = (props: IProps) => {
                     props._roomNameEnabled
                     && <View
                         style = { (appType.isFishMeet
-                            ? styles.fishMeetRoomNameView
+                            ? fishMeetStyles.fishMeetRoomNameView
                             : styles.roomNameView) as ViewStyle }>
                         <Text
                             numberOfLines = { 1 }
@@ -101,20 +102,22 @@ const TitleBar = (props: IProps) => {
             <View style = { styles.titleBarButtonContainer }>
                 <ToggleCameraButton
                     styles = { appType.isFishMeet
-                        ? styles.fishMeetTitleBarButton
+                        ? fishMeetStyles.fishMeetTitleBarButton
                         : styles.titleBarButton } />
             </View>
             <View style = { styles.titleBarButtonContainer }>
                 <AudioDeviceToggleButton
                     styles = { appType.isFishMeet
-                        ? styles.fishMeetTitleBarButton
+                        ? fishMeetStyles.fishMeetTitleBarButton
                         : styles.titleBarButton } />
             </View>
             {
                 _isParticipantsPaneEnabled
                 && <View style = { styles.titleBarButtonContainer }>
                     <ParticipantsPaneButton
-                        styles = { appType.isFishMeet ? styles.fishMeetTitleBarButton : styles.titleBarButton } />
+                        styles = { appType.isFishMeet
+                            ? fishMeetStyles.fishMeetTitleBarButton
+                            : styles.titleBarButton } />
                 </View>
             }
         </View>

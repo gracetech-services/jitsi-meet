@@ -56,6 +56,7 @@ import ExpandedLabelPopup from './ExpandedLabelPopup';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import TitleBar from './TitleBar';
 import { EXPANDED_LABEL_TIMEOUT } from './constants';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -274,7 +275,7 @@ class Conference extends AbstractConference<IProps, State> {
         return (
             <Container
                 style = { [
-                    appType.isFishMeet ? styles.fishMeetConference : styles.conference,
+                    appType.isFishMeet ? fishMeetStyles.fishMeetConference : styles.conference,
                     _brandingStyles
                 ] }>
                 <BrandingImageBackground />
@@ -445,7 +446,9 @@ class Conference extends AbstractConference<IProps, State> {
                     pointerEvents = 'box-none'
                     style = {
                         (_toolboxVisible
-                            ? appType.isFishMeet ? styles.fishMeetTitleBarSafeViewColor : styles.titleBarSafeViewColor
+                            ? appType.isFishMeet
+                                ? fishMeetStyles.fishMeetTitleBarSafeViewColor
+                                : styles.titleBarSafeViewColor
                             : styles.titleBarSafeViewTransparent) as ViewStyle }>
                     <TitleBar _createOnPress = { this._createOnPress } />
                 </SafeAreaView>

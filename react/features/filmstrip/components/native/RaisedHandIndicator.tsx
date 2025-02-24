@@ -8,6 +8,7 @@ import { IconFishmeetRaiseHand, IconRaiseHand } from '../../../base/icons/svg';
 import { getParticipantById, hasRaisedHand } from '../../../base/participants/functions';
 import BaseIndicator from '../../../base/react/components/native/BaseIndicator';
 
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 export interface IProps {
@@ -54,7 +55,7 @@ class RaisedHandIndicator extends Component<IProps> {
         return (
             <View
                 style = { (appType.isFishMeet
-                    ? styles.fishMeetRaisedHandIndicator
+                    ? fishMeetStyles.fishMeetRaisedHandIndicator
                     : styles.raisedHandIndicator) as ViewStyle }>
                 <BaseIndicator
                     icon = { appType.isFishMeet ? IconFishmeetRaiseHand : IconRaiseHand }

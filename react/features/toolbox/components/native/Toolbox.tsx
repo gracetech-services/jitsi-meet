@@ -21,6 +21,7 @@ import HangupMenuButton from './HangupMenuButton';
 import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton';
 import VideoMuteButton from './VideoMuteButton';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -83,7 +84,7 @@ function Toolbox(props: IProps) {
             _styles.backgroundToggle
         ]
     };
-    const style = appType.isFishMeet ? { ...styles.fishMeetToolbox } : { ...styles.toolbox };
+    const style = appType.isFishMeet ? { ...fishMeetStyles.fishMeetToolbox } : { ...styles.toolbox };
 
     if (appType.isFishMeet) {
         return (
@@ -94,13 +95,13 @@ function Toolbox(props: IProps) {
                 edges = { [ bottomEdge && 'bottom' ].filter(Boolean) }
                 pointerEvents = 'box-none'
                 style = { style as ViewStyle }>
-                <View style = { styles.fishMeetToolboxContainer as ViewStyle }>
+                <View style = { fishMeetStyles.fishMeetToolboxContainer as ViewStyle }>
                     {!_iAmVisitor && (
                         <>
                             <AudioMuteButton
                                 styles = { buttonStylesBorderless }
                                 toggledStyles = { toggledButtonStyles } />
-                            <View style = { styles.fishMeetToolSeparator } />
+                            <View style = { fishMeetStyles.fishMeetToolSeparator } />
                         </>
                     )}
                     {!_iAmVisitor && (
@@ -108,7 +109,7 @@ function Toolbox(props: IProps) {
                             <VideoMuteButton
                                 styles = { buttonStylesBorderless }
                                 toggledStyles = { toggledButtonStyles } />
-                            <View style = { styles.fishMeetToolSeparator } />
+                            <View style = { fishMeetStyles.fishMeetToolSeparator } />
                         </>
                     )}
                     {additionalButtons.has('chat') && (
@@ -116,7 +117,7 @@ function Toolbox(props: IProps) {
                             <ChatButton
                                 styles = { buttonStylesBorderless }
                                 toggledStyles = { backgroundToggledStyle } />
-                            <View style = { styles.fishMeetToolSeparator } />
+                            <View style = { fishMeetStyles.fishMeetToolSeparator } />
                         </>
                     )}
                     {additionalButtons.has('raisehand') && (_shouldDisplayReactionsButtons

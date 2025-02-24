@@ -43,6 +43,7 @@ import ModeratorIndicator from './ModeratorIndicator';
 import PinnedIndicator from './PinnedIndicator';
 import RaisedHandIndicator from './RaisedHandIndicator';
 import ScreenShareIndicator from './ScreenShareIndicator';
+import fishMeetStyles from './fishMeetStyles';
 import styles, { AVATAR_SIZE } from './styles';
 
 /**
@@ -376,7 +377,10 @@ class Thumbnail extends PureComponent<IProps> {
                     styles.thumbnail,
                     styleOverrides,
                     _raisedHand && !_isVirtualScreenshare
-                        ? appType.isFishMeet ? styles.fishMeetThumbnailRaisedHand : styles.thumbnailRaisedHand : null,
+                        ? appType.isFishMeet
+                            ? fishMeetStyles.fishMeetThumbnailRaisedHand
+                            : styles.thumbnailRaisedHand
+                        : null,
                     _renderDominantSpeakerIndicator && !_isVirtualScreenshare ? styles.thumbnailDominantSpeaker : null
                 ] as StyleType[] }
                 touchFeedback = { false }>
