@@ -2,7 +2,9 @@ import React from 'react';
 import { Text, TextStyle, View, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { appType } from '../../../base/config/AppType';
 import { getLocalParticipant } from '../../../base/participants/functions';
+import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 import Button from '../../../base/ui/components/native/Button';
 import Switch from '../../../base/ui/components/native/Switch';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
@@ -24,11 +26,11 @@ const PollAnswer = (props: AbstractProps) => {
     } = props;
     const { changingVote } = poll;
     const localParticipant = useSelector(getLocalParticipant);
-    const { PRIMARY, SECONDARY } = BUTTON_TYPES;
+    const { PRIMARY, SECONDARY, FISHMEET_SECONDARY, FISHMEET_TERTIARY } = BUTTON_TYPES;
 
     return (
         <>
-            <Text style = { dialogStyles.questionText as TextStyle } >{ poll.question }</Text>
+            <Text style = { dialogStyles.questionText as TextStyle } >{poll.question}</Text>
             <Text style = { dialogStyles.questionOwnerText as TextStyle } >{
                 t('polls.by', { name: localParticipant?.name })
             }
@@ -41,7 +43,12 @@ const PollAnswer = (props: AbstractProps) => {
                         <Switch
                             checked = { checkBoxStates[index] }
                             /* eslint-disable-next-line react/jsx-no-bind */
-                            onChange = { state => setCheckbox(index, state) } />
+                            onChange = { state => setCheckbox(index, state) }
+                            thumbColor = { appType.isFishMeet && BaseTheme.palette.fishMeetText03 }
+                            trackColor = { appType.isFishMeet ? {
+                                true: BaseTheme.palette.fishMeetMainColor02,
+                                false: '#C8D7EC80'
+                            } : undefined } />
                         <Text style = { chatStyles.switchLabel as TextStyle }>{answer.name}</Text>
                     </View>
                 ))}
@@ -52,14 +59,14 @@ const PollAnswer = (props: AbstractProps) => {
                     labelKey = 'polls.answer.skip'
                     onClick = { changingVote ? skipChangeVote : skipAnswer }
                     style = { chatStyles.pollCreateButton }
-                    type = { SECONDARY } />
+                    type = { appType.isFishMeet ? FISHMEET_SECONDARY : SECONDARY } />
                 <Button
                     accessibilityLabel = 'polls.answer.submit'
                     disabled = { isSubmitAnswerDisabled(checkBoxStates) }
                     labelKey = 'polls.answer.submit'
                     onClick = { submitAnswer }
                     style = { chatStyles.pollCreateButton }
-                    type = { PRIMARY } />
+                    type = { appType.isFishMeet ? FISHMEET_TERTIARY : PRIMARY } />
             </View>
         </>
     );

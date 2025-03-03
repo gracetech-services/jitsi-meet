@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry';
+import { appType } from '../../../base/config/AppType';
 import Platform from '../../../base/react/Platform.native';
 import ChatButton from '../../../chat/components/native/ChatButton';
 import ReactionsMenuButton from '../../../reactions/components/native/ReactionsMenuButton';
@@ -17,10 +18,10 @@ import HangupButton from '../HangupButton';
 import AudioMuteButton from './AudioMuteButton';
 import AudioOnlyButton from './AudioOnlyButton';
 import HangupMenuButton from './HangupMenuButton';
-import OverflowMenuButton from './OverflowMenuButton';
 import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton';
 import VideoMuteButton from './VideoMuteButton';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -83,20 +84,62 @@ function Toolbox(props: IProps) {
             _styles.backgroundToggle
         ]
     };
-    const style = { ...styles.toolbox };
+    const style = appType.isFishMeet ? { ...fishMeetStyles.fishMeetToolbox } : { ...styles.toolbox };
 
-    // we have only hangup and raisehand button in _iAmVisitor mode
-    if (_iAmVisitor) {
-        additionalButtons.add('raisehand');
-        style.justifyContent = 'center';
+    if (appType.isFishMeet) {
+        return (
+            <SafeAreaView
+                accessibilityRole = 'toolbar'
+
+                // @ts-ignore
+                edges = { [ bottomEdge && 'bottom' ].filter(Boolean) }
+                pointerEvents = 'box-none'
+                style = { style as ViewStyle }>
+                <View style = { fishMeetStyles.fishMeetToolboxContainer as ViewStyle }>
+                    {!_iAmVisitor && (
+                        <>
+                            <AudioMuteButton
+                                styles = { buttonStylesBorderless }
+                                toggledStyles = { toggledButtonStyles } />
+                            <View style = { fishMeetStyles.fishMeetToolSeparator } />
+                        </>
+                    )}
+                    {!_iAmVisitor && (
+                        <>
+                            <VideoMuteButton
+                                styles = { buttonStylesBorderless }
+                                toggledStyles = { toggledButtonStyles } />
+                            <View style = { fishMeetStyles.fishMeetToolSeparator } />
+                        </>
+                    )}
+                    {additionalButtons.has('chat') && (
+                        <>
+                            <ChatButton
+                                styles = { buttonStylesBorderless }
+                                toggledStyles = { backgroundToggledStyle } />
+                            <View style = { fishMeetStyles.fishMeetToolSeparator } />
+                        </>
+                    )}
+                    {additionalButtons.has('raisehand') && (_shouldDisplayReactionsButtons
+                        ? <ReactionsMenuButton
+                            styles = { buttonStylesBorderless }
+                            toggledStyles = { backgroundToggledStyle } />
+                        : <RaiseHandButton
+                            styles = { buttonStylesBorderless }
+                            toggledStyles = { backgroundToggledStyle } />)}
+                </View>
+                {_endConferenceSupported
+                    ? <HangupMenuButton />
+                    : <HangupButton
+                        styles = { hangupButtonStyles } />
+                }
+            </SafeAreaView>
+        );
     }
 
-    // Gracetech: no overflow button
-    const noOverflow = true;
 
     return (
-        <View
-            style = { styles.toolboxContainer as ViewStyle }>
+        <View>
             <SafeAreaView
                 accessibilityRole = 'toolbar'
 
@@ -128,11 +171,11 @@ function Toolbox(props: IProps) {
                         toggledStyles = { backgroundToggledStyle } />)}
                 {additionalButtons.has('audionly') && <AudioOnlyButton styles = { buttonStylesBorderless } />}
                 {additionalButtons.has('tileview') && <TileViewButton styles = { buttonStylesBorderless } />}
-                {!noOverflow && !_iAmVisitor && <OverflowMenuButton
-                    styles = { buttonStylesBorderless }
-                    toggledStyles = { toggledButtonStyles } />
-                }
-                { _endConferenceSupported
+                {/* {!_iAmVisitor && <OverflowMenuButton
+                    styles={buttonStylesBorderless}
+                    toggledStyles={toggledButtonStyles} />
+                } */}
+                {_endConferenceSupported
                     ? <HangupMenuButton />
                     : <HangupButton
                         styles = { hangupButtonStyles } />

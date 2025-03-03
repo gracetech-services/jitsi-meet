@@ -3,6 +3,16 @@
  */
 export enum BUTTON_TYPES {
     DESTRUCTIVE = 'destructive',
+    FISHMEET_PRIMARY = 'fishmeetPrimary',
+    FISHMEET_SECONDARY = 'fishmeetSecondary',
+    FISHMEET_TERTIARY = 'fishmeetTertiary',
+    PRIMARY = 'primary',
+    SECONDARY = 'secondary',
+    TERTIARY = 'tertiary'
+}
+
+export enum WEB_BUTTON_TYPES {
+    DESTRUCTIVE = 'destructive',
     PRIMARY = 'primary',
     SECONDARY = 'secondary',
     TERTIARY = 'tertiary'
@@ -29,3 +39,14 @@ export const BUTTON_MODES: {
 
 
 export type TOOLTIP_POSITION = 'top' | 'bottom' | 'left' | 'right';
+
+type ButtonStyles = Record<
+    'button' | 'primary' | 'secondary' |
+    'tertiary' | 'destructive' | 'disabled'
+    | 'iconButton' | 'textWithIcon' | 'small'
+    | 'large' | 'fullWidth' | 'fishmeet_primary'
+    | 'fishmeet_secondary' | 'fishmeet_tertiary',
+    string
+>;
+
+export { ButtonStyles };

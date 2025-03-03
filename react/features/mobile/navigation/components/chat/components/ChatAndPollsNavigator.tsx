@@ -5,15 +5,17 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../../../app/types';
+import { appType } from '../../../../../base/config/AppType';
 import {
     getClientHeight,
     getClientWidth
-} from '../../../../../base/modal/components/functions';
+} from '../../../../../base/modal/components/functions.native';
 import { setIsPollsTabFocused } from '../../../../../chat/actions.native';
 // @ts-ignore
 import Chat from '../../../../../chat/components/native/Chat';
 import { resetNbUnreadPollsMessages } from '../../../../../polls/actions';
 import PollsPane from '../../../../../polls/components/native/PollsPane';
+import { fishMeetChatTabBarOptions } from '../../../fishMeetScreenOptions';
 import { screen } from '../../../routes';
 import { chatTabBarOptions } from '../../../screenOptions';
 
@@ -37,7 +39,7 @@ const ChatAndPolls = () => {
                 width: clientWidth
             }}
             initialRouteName = { initialRouteName }
-            screenOptions = { chatTabBarOptions }>
+            screenOptions = { appType.isFishMeet ? fishMeetChatTabBarOptions : chatTabBarOptions }>
             <ChatTab.Screen
                 component = { Chat }
                 listeners = {{

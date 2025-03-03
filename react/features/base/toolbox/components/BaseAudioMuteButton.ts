@@ -1,15 +1,16 @@
-import { IconMic, IconMicSlash } from '../../icons/svg';
+import { appType } from '../../../base/config/AppType';
+import { IconFishmeetMic, IconFishmeetMicSlash, IconMic, IconMicSlash } from '../../icons/svg';
 
 import AbstractButton, { IProps } from './AbstractButton';
 
 /**
  * An abstract implementation of a button for toggling audio mute.
  */
-export default class BaseAudioMuteButton<P extends IProps, S=any>
+export default class BaseAudioMuteButton<P extends IProps, S = any>
     extends AbstractButton<P, S> {
 
-    icon = IconMic;
-    toggledIcon = IconMicSlash;
+    icon = appType.isFishMeet ? IconFishmeetMic : IconMic;
+    toggledIcon = appType.isFishMeet ? IconFishmeetMicSlash : IconMicSlash;
 
     /**
      * Handles clicking / pressing the button, and toggles the audio mute state

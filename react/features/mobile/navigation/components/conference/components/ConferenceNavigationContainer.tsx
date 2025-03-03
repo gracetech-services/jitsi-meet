@@ -4,10 +4,14 @@ import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { appType } from '../../../../../base/config/AppType';
+import Icon from '../../../../../base/icons/components/Icon';
+import { IconFishmeetClose } from '../../../../../base/icons/svg';
 import BreakoutRooms
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../breakout-rooms/components/native/BreakoutRooms';
 // @ts-ignore
 import Chat from '../../../../../chat/components/native/Chat';
@@ -22,29 +26,31 @@ import SharedDocument from '../../../../../etherpad/components/native/SharedDocu
 // @ts-ignore
 import GifsMenu from '../../../../../gifs/components/native/GifsMenu';
 import AddPeopleDialog
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../invite/components/add-people-dialog/native/AddPeopleDialog';
 // @ts-ignore
 import ParticipantsPane from '../../../../../participants-pane/components/native/ParticipantsPane';
 // @ts-ignore
 import StartLiveStreamDialog from '../../../../../recording/components/LiveStream/native/StartLiveStreamDialog';
 import StartRecordingDialog
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../recording/components/Recording/native/StartRecordingDialog';
 import SalesforceLinkDialog
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../salesforce/components/native/SalesforceLinkDialog';
 import SecurityDialog
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../security/components/security-dialog/native/SecurityDialog';
 import SpeakerStats
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../speaker-stats/components/native/SpeakerStats';
 import LanguageSelectorDialog
-// @ts-ignore
+    // @ts-ignore
     from '../../../../../subtitles/components/native/LanguageSelectorDialog';
 // @ts-ignore
+import { fishMeetNavigationContainerTheme } from '../../../fishMeetScreenOptions';
 import { screen } from '../../../routes';
+// eslint-disable-next-line import/order
 import {
     breakoutRoomsScreenOptions,
     carmodeScreenOptions,
@@ -65,6 +71,8 @@ import {
     subtitlesScreenOptions
     // @ts-ignore
 } from '../../../screenOptions';
+
+
 // @ts-ignore
 import ChatAndPollsNavigator from '../../chat/components/ChatAndPollsNavigator';
 // @ts-ignore
@@ -76,8 +84,31 @@ import {
     // @ts-ignore
 } from '../ConferenceNavigationContainerRef';
 
+import { styleHeader } from './fishMeetNavigationStyles';
+
 
 const ConferenceStack = createStackNavigator();
+
+const handleGoBack = (navigation: any) => () => navigation.goBack();
+
+export const fishMeetHeaderOptions = (title: string) => {
+    return {
+        header: ({ navigation }: any) => (
+            <View style = { styleHeader.viewStyle as ViewStyle }>
+                <Text style = { styleHeader.textStyle as ViewStyle }>
+                    {title}
+                </Text>
+                <TouchableOpacity
+                    onPress = { handleGoBack(navigation) }
+                    style = { styleHeader.touchStyle as ViewStyle }>
+                    <Icon
+                        size = { 16 }
+                        src = { IconFishmeetClose } />
+                </TouchableOpacity>
+            </View >
+        )
+    };
+};
 
 
 const ConferenceNavigationContainer = () => {
@@ -101,7 +132,7 @@ const ConferenceNavigationContainer = () => {
         <NavigationContainer
             independent = { true }
             ref = { conferenceNavigationRef }
-            theme = { navigationContainerTheme as Theme }>
+            theme = { (appType.isFishMeet ? fishMeetNavigationContainerTheme : navigationContainerTheme) as Theme }>
             <ConferenceStack.Navigator
                 screenOptions = {{
                     presentation: 'modal'
@@ -113,17 +144,29 @@ const ConferenceNavigationContainer = () => {
                 <ConferenceStack.Screen
                     component = { ChatScreen }
                     name = { chatScreenName }
-                    options = {{
-                        ...chatScreenOptions,
-                        title: t(chatTitleString)
-                    }} />
+                    options = { appType.isFishMeet
+                        ? {
+                            ...chatScreenOptions,
+                            ...fishMeetHeaderOptions(t(chatTitleString))
+                        }
+                        : {
+                            ...chatScreenOptions,
+                            title: t(chatTitleString)
+                        } } />
                 <ConferenceStack.Screen
                     component = { ParticipantsPane }
                     name = { screen.conference.participants }
-                    options = {{
-                        ...participantsScreenOptions,
-                        title: t('participantsPane.title')
-                    }} />
+                    options = {
+                        appType.isFishMeet
+                            ? {
+                                ...participantsScreenOptions,
+                                ...fishMeetHeaderOptions(t('participantsPane.title'))
+                            }
+                            : {
+                                ...participantsScreenOptions,
+                                title: t('participantsPane.title')
+                            }
+                    } />
                 <ConferenceStack.Screen
                     component = { SecurityDialog }
                     name = { screen.conference.security }

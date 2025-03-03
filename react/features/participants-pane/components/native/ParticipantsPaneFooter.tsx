@@ -5,13 +5,14 @@ import { View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { openDialog, openSheet } from '../../../base/dialog/actions';
 import {
     BREAKOUT_ROOMS_BUTTON_ENABLED
 } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
 import Icon from '../../../base/icons/components/Icon';
-import { IconDotsHorizontal, IconRingGroup } from '../../../base/icons/svg';
+import { IconDotsHorizontal, IconFishmeetDotsHorizontal, IconRingGroup } from '../../../base/icons/svg';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 import Button from '../../../base/ui/components/native/Button';
 import IconButton from '../../../base/ui/components/native/IconButton';
@@ -62,17 +63,18 @@ const ParticipantsPaneFooter = (): JSX.Element => {
                 && <Button
                     accessibilityLabel = 'participantsPane.actions.breakoutRooms'
                     // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
-                    icon = { () => (
-                        <Icon
+                    icon = { () =>
+                        !appType.isFishMeet
+                        && <Icon
                             color = { BaseTheme.palette.icon04 }
                             size = { 20 }
                             src = { IconRingGroup } />
-                    ) }
+                    }
                     labelKey = 'participantsPane.actions.breakoutRooms'
                     // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
                     onClick = { () => navigate(screen.conference.breakoutRooms) }
                     style = { styles.breakoutRoomsButton }
-                    type = { BUTTON_TYPES.SECONDARY } />
+                    type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_SECONDARY : BUTTON_TYPES.SECONDARY } />
             }
 
             <View style = { styles.participantsPaneFooter as ViewStyle }>
@@ -82,7 +84,7 @@ const ParticipantsPaneFooter = (): JSX.Element => {
                             accessibilityLabel = 'participantsPane.actions.muteAll'
                             labelKey = 'participantsPane.actions.muteAll'
                             onClick = { muteAll }
-                            type = { BUTTON_TYPES.SECONDARY } />
+                            type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_PRIMARY : BUTTON_TYPES.SECONDARY } />
                     )
                 }
                 <Button
@@ -90,14 +92,14 @@ const ParticipantsPaneFooter = (): JSX.Element => {
                     labelKey = 'participantsPane.actions.stopEveryonesVideo'
                     onClick = { muteAllVideo }
                     style = { styles.moreButton }
-                    type = { BUTTON_TYPES.SECONDARY } />
+                    type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_PRIMARY : BUTTON_TYPES.SECONDARY } />
                 {
                     showMoreActions && (
                         <IconButton
                             onPress = { openMoreMenu }
-                            src = { IconDotsHorizontal }
+                            src = { appType.isFishMeet ? IconFishmeetDotsHorizontal : IconDotsHorizontal }
                             style = { styles.moreButton }
-                            type = { BUTTON_TYPES.SECONDARY } />
+                            type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_SECONDARY : BUTTON_TYPES.SECONDARY } />
                     )
                 }
             </View>

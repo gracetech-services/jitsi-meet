@@ -15,7 +15,6 @@ const indicatorContainer = {
     padding: 2
 };
 
-
 /**
  * The styles of the feature filmstrip.
  */

@@ -171,7 +171,15 @@ const useStyles = makeStyles()(theme => {
 
         fullWidth: {
             width: '100%'
-        }
+        },
+
+        fishmeetPrimary: {},
+
+        fishmeetSecondary: {},
+
+        fishmeetTertiary: {}
+
+
     };
 });
 

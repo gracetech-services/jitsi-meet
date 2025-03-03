@@ -3,6 +3,7 @@ import { FlatList, Platform, View, ViewStyle } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-paper';
 
+import { appType } from '../../../base/config/AppType';
 import Button from '../../../base/ui/components/native/Button';
 import Input from '../../../base/ui/components/native/Input';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
@@ -11,6 +12,7 @@ import styles
 import { ANSWERS_LIMIT, CHAR_LIMIT } from '../../constants';
 import AbstractPollCreate, { AbstractProps } from '../AbstractPollCreate';
 
+import { fishMeetDialogStyles } from './fishMeetStyles';
 import { chatStyles, dialogStyles } from './styles';
 
 const PollCreate = (props: AbstractProps) => {
@@ -51,7 +53,7 @@ const PollCreate = (props: AbstractProps) => {
      * about whether a newly created input field has been rendered yet or not.
      */
     const [ lastFocus, requestFocus ] = useState<number | null>(null);
-    const { PRIMARY, SECONDARY, TERTIARY } = BUTTON_TYPES;
+    const { PRIMARY, SECONDARY, TERTIARY, FISHMEET_SECONDARY } = BUTTON_TYPES;
 
     useEffect(() => {
         if (lastFocus === null) {
@@ -96,12 +98,16 @@ const PollCreate = (props: AbstractProps) => {
     /* eslint-disable react/jsx-no-bind */
     const renderListItem = ({ index }: { index: number; }) =>
 
-        // padding to take into account the two default options
+    // padding to take into account the two default options
         (
             <View
                 style = { dialogStyles.optionContainer as ViewStyle }>
                 <Input
                     blurOnSubmit = { false }
+                    customStyles = {{
+                        input: appType.isFishMeet && fishMeetDialogStyles.fishMeetInput,
+                        inputMultiline: appType.isFishMeet && fishMeetDialogStyles.fishMeetInputMultiline
+                    }}
                     label = { t('polls.create.pollOption', { index: index + 1 }) }
                     maxLength = { CHAR_LIMIT }
                     multiline = { true }
@@ -115,7 +121,7 @@ const PollCreate = (props: AbstractProps) => {
                     value = { answers[index] } />
                 {
                     answers.length > 2
-                    && createRemoveOptionButton(() => removeAnswer(index))
+                && createRemoveOptionButton(() => removeAnswer(index))
                 }
             </View>
         );
@@ -128,7 +134,11 @@ const PollCreate = (props: AbstractProps) => {
                 <Input
                     autoFocus = { true }
                     blurOnSubmit = { false }
-                    customStyles = {{ container: dialogStyles.customContainer }}
+                    customStyles = {{
+                        container: dialogStyles.customContainer,
+                        input: appType.isFishMeet && fishMeetDialogStyles.fishMeetInput,
+                        inputMultiline: appType.isFishMeet && fishMeetDialogStyles.fishMeetInputMultiline
+                    }}
                     label = { t('polls.create.pollQuestion') }
                     maxLength = { CHAR_LIMIT }
                     multiline = { true }
@@ -158,7 +168,7 @@ const PollCreate = (props: AbstractProps) => {
                             requestFocus(answers.length);
                         } }
                         style = { chatStyles.pollCreateAddButton }
-                        type = { SECONDARY } />
+                        type = { appType.isFishMeet ? FISHMEET_SECONDARY : SECONDARY } />
                     <View
                         style = { chatStyles.buttonRow as ViewStyle }>
                         <Button
@@ -166,14 +176,14 @@ const PollCreate = (props: AbstractProps) => {
                             labelKey = 'polls.create.cancel'
                             onClick = { () => setCreateMode(false) }
                             style = { chatStyles.pollCreateButton }
-                            type = { SECONDARY } />
+                            type = { appType.isFishMeet ? FISHMEET_SECONDARY : SECONDARY } />
                         <Button
                             accessibilityLabel = 'polls.create.send'
                             disabled = { isSubmitDisabled }
                             labelKey = 'polls.create.send'
                             onClick = { onSubmit }
                             style = { chatStyles.pollCreateButton }
-                            type = { PRIMARY } />
+                            type = { appType.isFishMeet ? FISHMEET_SECONDARY : PRIMARY } />
                     </View>
                 </View>
             </View>

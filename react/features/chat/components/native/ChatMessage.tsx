@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import Avatar from '../../../base/avatar/components/Avatar';
+import { appType } from '../../../base/config/AppType';
 import { translate } from '../../../base/i18n/functions';
 import Linkify from '../../../base/react/components/native/Linkify';
 import { isGifMessage } from '../../../gifs/functions.native';
@@ -18,6 +19,7 @@ import { IChatMessageProps } from '../../types';
 
 import GifMessage from './GifMessage';
 import PrivateMessageButton from './PrivateMessageButton';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -51,7 +53,9 @@ class ChatMessage extends Component<IChatMessageProps> {
             detailsWrapperStyle.push(styles.ownMessageDetailsWrapper as ViewStyle);
 
             // The bubble needs some additional styling
-            messageBubbleStyle.push(styles.localMessageBubble);
+            messageBubbleStyle.push(appType.isFishMeet
+                ? fishMeetStyles.fishMeetLocalMessageBubble
+                : styles.localMessageBubble);
         } else if (message.messageType === MESSAGE_TYPE_ERROR) {
             // This is a system message.
 
@@ -61,7 +65,9 @@ class ChatMessage extends Component<IChatMessageProps> {
             // This is a remote message sent by a remote participant.
 
             // The bubble needs some additional styling
-            messageBubbleStyle.push(styles.remoteMessageBubble);
+            messageBubbleStyle.push(appType.isFishMeet
+                ? fishMeetStyles.fishMeetRemoteMessageBubble
+                : styles.remoteMessageBubble);
         }
 
         if (privateMessage) {
@@ -76,25 +82,27 @@ class ChatMessage extends Component<IChatMessageProps> {
 
         return (
             <View style = { styles.messageWrapper as ViewStyle } >
-                { this._renderAvatar() }
+                {this._renderAvatar()}
                 <View style = { detailsWrapperStyle }>
                     <View style = { messageBubbleStyle }>
                         <View style = { styles.textWrapper as ViewStyle } >
-                            { this._renderDisplayName() }
-                            { isGifMessage(messageText)
+                            {this._renderDisplayName()}
+                            {isGifMessage(messageText)
                                 ? <GifMessage message = { messageText } />
                                 : (
                                     <Linkify
                                         linkStyle = { styles.chatLink }
-                                        style = { styles.chatMessage }>
-                                        { messageText }
+                                        style = { appType.isFishMeet
+                                            ? fishMeetStyles.fishMeetChatMessage
+                                            : styles.chatMessage }>
+                                        {messageText}
                                     </Linkify>
                                 )}
-                            { this._renderPrivateNotice() }
+                            {this._renderPrivateNotice()}
                         </View>
-                        { this._renderPrivateReplyButton() }
+                        {this._renderPrivateReplyButton()}
                     </View>
-                    { this._renderTimestamp() }
+                    {this._renderTimestamp()}
                 </View>
             </View>
         );
@@ -110,7 +118,7 @@ class ChatMessage extends Component<IChatMessageProps> {
 
         return (
             <View style = { styles.avatarWrapper }>
-                { this.props.showAvatar && <Avatar
+                {this.props.showAvatar && <Avatar
                     displayName = { message.displayName }
                     participantId = { message.id }
                     size = { styles.avatarWrapper.width } />
@@ -132,8 +140,8 @@ class ChatMessage extends Component<IChatMessageProps> {
         }
 
         return (
-            <Text style = { styles.senderDisplayName }>
-                { message.displayName }
+            <Text style = { appType.isFishMeet ? fishMeetStyles.fishMeetSenderDisplayName : styles.senderDisplayName }>
+                {message.displayName}
             </Text>
         );
     }
@@ -152,7 +160,7 @@ class ChatMessage extends Component<IChatMessageProps> {
 
         return (
             <Text style = { message.lobbyChat ? styles.lobbyMsgNotice : styles.privateNotice }>
-                { getPrivateNoticeMessage(this.props.message) }
+                {getPrivateNoticeMessage(this.props.message)}
             </Text>
         );
     }
@@ -193,8 +201,8 @@ class ChatMessage extends Component<IChatMessageProps> {
         }
 
         return (
-            <Text style = { styles.timeText }>
-                { getFormattedTimestamp(this.props.message) }
+            <Text style = { appType.isFishMeet ? fishMeetStyles.fishMeetTimeText : styles.timeText }>
+                {getFormattedTimestamp(this.props.message)}
             </Text>
         );
     }

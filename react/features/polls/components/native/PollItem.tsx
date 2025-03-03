@@ -2,10 +2,12 @@ import React from 'react';
 import { View, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { appType } from '../../../base/config/AppType';
 import { shouldShowResults } from '../../functions';
 
 import PollAnswer from './PollAnswer';
 import PollResults from './PollResults';
+import { fishMeetChatStyles } from './fishMeetStyles';
 import { chatStyles } from './styles';
 
 interface IProps {
@@ -22,8 +24,10 @@ const PollItem = ({ pollId }: IProps) => {
 
     return (
         <View
-            style = { chatStyles.pollItemContainer as ViewStyle }>
-            { showResults
+            style = { (appType.isFishMeet
+                ? fishMeetChatStyles.fishMeetPollItemContainer
+                : chatStyles.pollItemContainer) as ViewStyle }>
+            {showResults
                 ? <PollResults
                     key = { pollId }
                     pollId = { pollId } />

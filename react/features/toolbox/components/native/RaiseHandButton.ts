@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { createToolbarEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { RAISE_HAND_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
 import { translate } from '../../../base/i18n/functions';
-import { IconRaiseHand } from '../../../base/icons/svg';
+import { IconFishmeetRaiseHand, IconRaiseHand } from '../../../base/icons/svg';
 import { raiseHand } from '../../../base/participants/actions';
 import {
     getLocalParticipant,
@@ -36,7 +37,7 @@ interface IProps extends AbstractButtonProps {
  */
 class RaiseHandButton extends AbstractButton<IProps> {
     accessibilityLabel = 'toolbar.accessibilityLabel.raiseHand';
-    icon = IconRaiseHand;
+    icon = appType.isFishMeet ? IconFishmeetRaiseHand : IconRaiseHand;
     label = 'toolbar.raiseYourHand';
     toggledLabel = 'toolbar.lowerYourHand';
 

@@ -11,8 +11,10 @@ import {
 import { EdgeInsets, withSafeAreaInsets } from 'react-native-safe-area-context';
 import { connect, useDispatch } from 'react-redux';
 
+
 import { IReduxState, IStore } from '../../../app/types';
 import { CONFERENCE_BLURRED, CONFERENCE_FOCUSED } from '../../../base/conference/actionTypes';
+import { appType } from '../../../base/config/AppType';
 import { FULLSCREEN_ENABLED, PIP_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
 import Container from '../../../base/react/components/native/Container';
@@ -54,6 +56,7 @@ import ExpandedLabelPopup from './ExpandedLabelPopup';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import TitleBar from './TitleBar';
 import { EXPANDED_LABEL_TIMEOUT } from './constants';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -272,7 +275,7 @@ class Conference extends AbstractConference<IProps, State> {
         return (
             <Container
                 style = { [
-                    styles.conference,
+                    appType.isFishMeet ? fishMeetStyles.fishMeetConference : styles.conference,
                     _brandingStyles
                 ] }>
                 <BrandingImageBackground />
@@ -283,7 +286,7 @@ class Conference extends AbstractConference<IProps, State> {
                         hidden = { _fullscreenEnabled }
                         translucent = { _fullscreenEnabled } />
                 }
-                { this._renderContent() }
+                {this._renderContent()}
             </Container>
         );
     }
@@ -408,9 +411,9 @@ class Conference extends AbstractConference<IProps, State> {
                   * the toolbox/toolbars and the dialogs.
                   */
                     _connecting
-                        && <TintedView>
-                            <LoadingIndicator />
-                        </TintedView>
+                    && <TintedView>
+                        <LoadingIndicator />
+                    </TintedView>
                 }
 
                 <View
@@ -427,13 +430,13 @@ class Conference extends AbstractConference<IProps, State> {
                         </Container>
                     }
 
-                    { !_shouldDisplayTileView && <LonelyMeetingExperience /> }
+                    {!_shouldDisplayTileView && <LonelyMeetingExperience />}
 
                     {
                         _shouldDisplayTileView
                         || <>
                             <Filmstrip />
-                            { this._renderNotificationsContainer() }
+                            {this._renderNotificationsContainer()}
                             <Toolbox />
                         </>
                     }
@@ -443,7 +446,9 @@ class Conference extends AbstractConference<IProps, State> {
                     pointerEvents = 'box-none'
                     style = {
                         (_toolboxVisible
-                            ? styles.titleBarSafeViewColor
+                            ? appType.isFishMeet
+                                ? fishMeetStyles.fishMeetTitleBarSafeViewColor
+                                : styles.titleBarSafeViewColor
                             : styles.titleBarSafeViewTransparent) as ViewStyle }>
                     <TitleBar _createOnPress = { this._createOnPress } />
                 </SafeAreaView>
@@ -472,7 +477,7 @@ class Conference extends AbstractConference<IProps, State> {
                 {
                     _shouldDisplayTileView
                     && <>
-                        { this._renderNotificationsContainer() }
+                        {this._renderNotificationsContainer()}
                         <Toolbox />
                     </>
                 }
@@ -495,9 +500,9 @@ class Conference extends AbstractConference<IProps, State> {
 
                 {
                     _connecting
-                        && <TintedView>
-                            <LoadingIndicator />
-                        </TintedView>
+                    && <TintedView>
+                        <LoadingIndicator />
+                    </TintedView>
                 }
             </>
         );
