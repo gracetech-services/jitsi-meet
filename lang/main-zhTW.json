@@ -68,7 +68,11 @@
     "breakoutRooms": {
         "actions": {
             "add": "新增分組討論室",
+            "save": "保存分組討論室",
+            "loadPreBreakoutRoom": "加載預存分組討論室",
+            "openAll": "開始所有分組討論室",
             "autoAssign": "自動分配至分組討論室",
+            "assign": "分組",
             "close": "關閉",
             "closeAll": "關閉所有分會場",
             "join": "加入",
@@ -79,6 +83,10 @@
             "renameBreakoutRoom": "重新命名分組討論室",
             "sendToBreakoutRoom": "將與會者移至："
         },
+        "searchParticipants": "搜索與會者",
+        "notInMeeting": "(不在會議中)",
+        "saveSuccessBreakRooms": "保存成功",
+        "saveFailBreakRooms": "保存失敗",
         "breakoutList": "分組討論室列表",
         "buttonLabel": "分組討論室",
         "defaultName": "分組討論室 #{{index}}",
