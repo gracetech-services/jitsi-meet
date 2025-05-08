@@ -1,7 +1,8 @@
 // Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import _ from 'lodash';
+import _, { reduce } from 'lodash';
 
+import { IReduxState } from '../app/types';
 import { IStateful } from '../base/app/types';
 import { getCurrentConference } from '../base/conference/functions';
 import {
@@ -14,7 +15,6 @@ import { IJitsiParticipant } from '../base/participants/types';
 import { toState } from '../base/redux/functions';
 
 import { FEATURE_KEY } from './constants';
-import { Participant } from './preRoomData';
 import { IRoom, IRoomInfo, IRoomInfoParticipant, IRooms, IRoomsInfo } from './types';
 
 /**
@@ -227,21 +227,24 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
         && !hideAutoAssignButton;
 };
 
-
 export const getStartOpenAllRooms = (stateful: IStateful): boolean => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
+    const needState = state as IReduxState;
 
-    return state['features/breakout-rooms']?.startOpenAllRooms ?? false;
+    return needState['features/breakout-rooms']?.startOpenAllRooms ?? false;
+
 };
 
 export const getUploadResult = (stateful: IStateful): boolean | undefined => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
+    const needState = state as IReduxState;
 
-    return state['features/breakout-rooms']?.uploadResult;
+    return needState['features/breakout-rooms']?.uploadResult ?? false;
 };
 
 export const getIsCreatingRooms = (stateful: IStateful): boolean => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
+    const needState = state as IReduxState;
 
-    return state['features/breakout-rooms']?.isCreatingRooms ?? false;
+    return needState['features/breakout-rooms']?.isCreatingRooms ?? false;
 };

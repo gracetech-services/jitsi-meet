@@ -173,7 +173,7 @@ export function autoPreAssignToBreakoutRooms() {
  * @param {Object} meetingData - Room roomId.
  * @returns {Function}
  */
-export function setLoadPreBreakoutRooms(meetingData: Object) {
+export function setLoadPreBreakoutRooms(meetingData: any) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         const remoteParticipants = getRemoteParticipants(state);
