@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -32,7 +33,8 @@ const BreakoutRoomParticipantItem = ({ item, room }: IProps) => {
 
     return (
         <ParticipantItem
-            displayName = { item.displayName || defaultRemoteDisplayName }
+            displayName = { (item.displayName || defaultRemoteDisplayName)
+                + (item.isNotInMeeting ? t('notInMeeting') : '') }
             isModerator = { isParticipantModerator(item) }
             key = { item.jid }
             onPress = { onPress }

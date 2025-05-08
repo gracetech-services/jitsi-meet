@@ -1,7 +1,10 @@
 import ReducerRegistry from '../base/redux/ReducerRegistry';
 
 import {
+    IS_CREATING_ROOMS,
+    SET_START_OPEN_ALL_ROOMS,
     UPDATE_BREAKOUT_ROOMS,
+    UPLOAD_RESULT,
     _RESET_BREAKOUT_ROOMS,
     _UPDATE_ROOM_COUNTER
 } from './actionTypes';
@@ -10,12 +13,18 @@ import { IRooms } from './types';
 
 const DEFAULT_STATE = {
     rooms: {},
-    roomCounter: 0
+    roomCounter: 0,
+    startOpenAllRooms: false,
+    isCreatingRooms: false,
+    uploadResult: undefined
 };
 
 export interface IBreakoutRoomsState {
+    isCreatingRooms: boolean;
     roomCounter: number;
     rooms: IRooms;
+    startOpenAllRooms: boolean;
+    uploadResult: boolean | undefined;
 }
 
 /**
@@ -38,7 +47,30 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
         };
     }
     case _RESET_BREAKOUT_ROOMS: {
-        return DEFAULT_STATE;
+        // return DEFAULT_STATE;
+        return {
+            ...state,
+            roomCounter: DEFAULT_STATE.roomCounter,
+            rooms: DEFAULT_STATE.rooms
+        };
+    }
+    case SET_START_OPEN_ALL_ROOMS: {
+        return {
+            ...state,
+            startOpenAllRooms: action.startOpenAllRooms
+        };
+    }
+    case IS_CREATING_ROOMS: {
+        return {
+            ...state,
+            isCreatingRooms: action.isCreatingRooms
+        };
+    }
+    case UPLOAD_RESULT: {
+        return {
+            ...state,
+            uploadResult: action.uploadResult
+        };
     }
     }
 

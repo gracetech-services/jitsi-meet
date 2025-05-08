@@ -14,6 +14,7 @@ import { IJitsiParticipant } from '../base/participants/types';
 import { toState } from '../base/redux/functions';
 
 import { FEATURE_KEY } from './constants';
+import { Participant } from './preRoomData';
 import { IRoom, IRoomInfo, IRoomInfoParticipant, IRooms, IRoomsInfo } from './types';
 
 /**
@@ -153,6 +154,7 @@ export const getCurrentRoomId = (stateful: IStateful) => {
     return conference?.getName();
 };
 
+
 /**
  * Determines whether the local participant is in a breakout room.
  *
@@ -223,4 +225,23 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
         // && participantsCount > 2
         // && Object.keys(rooms).length > 1
         && !hideAutoAssignButton;
+};
+
+
+export const getStartOpenAllRooms = (stateful: IStateful): boolean => {
+    const state = typeof stateful === 'function' ? stateful() : stateful;
+
+    return state['features/breakout-rooms']?.startOpenAllRooms ?? false;
+};
+
+export const getUploadResult = (stateful: IStateful): boolean | undefined => {
+    const state = typeof stateful === 'function' ? stateful() : stateful;
+
+    return state['features/breakout-rooms']?.uploadResult;
+};
+
+export const getIsCreatingRooms = (stateful: IStateful): boolean => {
+    const state = typeof stateful === 'function' ? stateful() : stateful;
+
+    return state['features/breakout-rooms']?.isCreatingRooms ?? false;
 };
