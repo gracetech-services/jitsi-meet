@@ -60,7 +60,7 @@ const FishMeetBreakRoomFooterButtons = () => {
         }
     }, [ dispatch ]);
 
-    const timerOptionsClose = data => {
+    const timerOptionsClose = (data: { option: 'manual'; } | { option: 'auto'; time: number; }) => {
         dispatch(hideDialog());
         if (data.option === 'auto') {
             console.log('auto');

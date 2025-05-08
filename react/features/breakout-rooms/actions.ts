@@ -91,7 +91,8 @@ export function closeAllRooms(navigation: any) {
             }
         });
 
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        await new Promise<void>(resolve => setTimeout(resolve, 5000));
+
 
         Object.values(rooms).forEach(room => {
             if (!room.isMainRoom) {
