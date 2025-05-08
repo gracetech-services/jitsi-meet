@@ -68,11 +68,7 @@
     "breakoutRooms": {
         "actions": {
             "add": "Add breakout room",
-            "save": "Save breakout rooms",
-            "loadPreBreakoutRoom": "Load pre breakout rooms",
-            "openAll": "Open all rooms",
             "autoAssign": "Auto assign to breakout rooms",
-            "assign": "Assign",
             "close": "Close",
             "closeAll": "Close all breakout rooms",
             "join": "Join",
@@ -83,14 +79,6 @@
             "renameBreakoutRoom": "Rename breakout room",
             "sendToBreakoutRoom": "Send participant to:"
         },
-        "searchParticipants": "Search participants",
-        "notInMeeting": "(not in meeting)",
-        "saveSuccessBreakRooms": "Successfully saved",
-        "saveFailBreakRooms": "Save failed",
-        "Options": "Options",
-        "AutoCloseBreakRooms": "Automatically close breakout rooms in:",
-        "ManuallyCloseBreakRooms": "Manually close breakout rooms",
-        "Minutes": "minutes",
         "breakoutList": "Breakout list",
         "buttonLabel": "Breakout rooms",
         "defaultName": "Breakout room #{{index}}",
