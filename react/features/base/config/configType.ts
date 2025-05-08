@@ -327,6 +327,7 @@ export interface IConfig {
         maxMessagesPerSecond?: number;
         numRequests?: number;
     };
+    email?: string;
     enableAutomaticUrlCopy?: boolean;
     enableCalendarIntegration?: boolean;
     enableClosePage?: boolean;
@@ -412,8 +413,6 @@ export interface IConfig {
     inviteServiceCallFlowsUrl?: string;
     inviteServiceUrl?: string;
     isFishMeet?: boolean;
-    email?: string;
-    preMeetingData?: any;
     jaasActuatorUrl?: string;
     jaasConferenceCreatorUrl?: string;
     jaasFeedbackMetadataURL?: string;
@@ -478,6 +477,7 @@ export interface IConfig {
     pcStatsInterval?: number;
     peopleSearchQueryTypes?: string[];
     peopleSearchUrl?: string;
+    preMeetingData?: any;
     preferBosh?: boolean;
     preferredTranscribeLanguage?: string;
     prejoinConfig?: {

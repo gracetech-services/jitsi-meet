@@ -93,9 +93,7 @@ export const removeParticipantFromRoom = (roomId: string, participantJid: string
     const existingRoom = allRooms[roomId];
 
     if (existingRoom) {
-        const { [participantJid]: _, ...remainingParticipants } = existingRoom.participants;
-
-        allRooms[roomId].participants = remainingParticipants;
+        delete existingRoom.participants[participantJid];
     } else {
         console.warn(`Room with ID ${roomId} does not exist.`);
     }
