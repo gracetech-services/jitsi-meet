@@ -169,6 +169,8 @@ export default [
     'hideConferenceTimer',
     'defaultLanguage',
     'isFishMeet',
+    'preMeetingData',
+    'email',
     'hiddenDomain',
     'hideAddRoomButton',
     'hideEmailInSettings',

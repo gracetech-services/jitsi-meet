@@ -1,4 +1,9 @@
 
 export const appType = {
-    isFishMeet: false
+    isFishMeet: false,
+    email: ''
+};
+
+export const meetingPreData = {
+    breakRoomData: undefined
 };

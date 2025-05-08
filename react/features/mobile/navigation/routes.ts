@@ -1,6 +1,7 @@
 export const screen = {
     conference: {
         breakoutRooms: 'Breakout Rooms',
+        fishMeetbBreakoutRooms: 'FishMeet Breakout Rooms',
         carmode: 'Car Mode',
         chat: 'Chat',
         chatandpolls: {

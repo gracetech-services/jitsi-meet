@@ -3,7 +3,7 @@ import { NativeModules, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 
-import { appType } from '../../base/config/AppType';
+import { appType, meetingPreData } from '../../base/config/AppType';
 import { IConfig } from '../../base/config/configType';
 import BottomSheetContainer from '../../base/dialog/components/native/BottomSheetContainer';
 import DialogContainer from '../../base/dialog/components/native/DialogContainer';
@@ -136,6 +136,8 @@ export class App extends AbstractApp<IProps> {
             const config: IConfig = url?.config as IConfig;
 
             appType.isFishMeet = config.isFishMeet ?? false;
+            appType.email = config.email ?? '';
+            meetingPreData.breakRoomData = config.preMeetingData;
         }
 
         // We set these early enough so then we avoid any unnecessary re-renders.
