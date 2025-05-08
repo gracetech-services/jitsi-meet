@@ -64,5 +64,161 @@ export default {
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    modalContent: {
+        backgroundColor: BaseTheme.palette.fishMeetAction01,
+        width: '85%',
+        height: 476,
+        borderRadius: 22,
+        padding: 24
+    },
+    title: {
+        color: '#424350',
+        fontSize: 18,
+        marginBottom: 12
+    },
+    searchBox: {
+        height: 40,
+        borderRadius: 22,
+        borderWidth: 1,
+        borderColor: '#424350',
+        marginBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    list: {
+        height: 235,
+        marginBottom: 20
+    },
+    listItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10
+    },
+    icon: {
+        width: 30,
+        height: 30,
+        marginRight: 10
+    },
+    listText: {
+        color: '#424350',
+        fontSize: 16,
+        marginLeft: 15
+    },
+    button: {
+        backgroundColor: BaseTheme.palette.fishMeetMainColor02,
+        paddingVertical: 12,
+        borderRadius: 25,
+        alignItems: 'center'
+    },
+    buttonText: {
+        color: BaseTheme.palette.fishMeetText01,
+        fontSize: 16
+    },
+    closeButton: {
+        position: 'absolute',
+        top: 15,
+        right: 15,
+        zIndex: 10
+    },
+
+
+    toastContainerModalContent: {
+        backgroundColor: BaseTheme.palette.fishMeetAction01,
+        width: '85%',
+        borderRadius: 22,
+        height: 99,
+        padding: 16
+    },
+
+    toastText: {
+        color: '#424350',
+        fontSize: 16,
+        marginBottom: 12,
+        fontWeight: '600'
+    },
+    toastButton: {
+        marginTop: 10,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 8
+    },
+    toastButtonText: {
+        color: '#424350',
+        fontSize: 16,
+        alignSelf: 'flex-end'
+    },
+
+
+    timerContainerModalContent: {
+        backgroundColor: BaseTheme.palette.fishMeetAction01,
+        width: '85%',
+        borderRadius: 30,
+        padding: 24
+    },
+
+    timerOptionsText: {
+        color: '#424350',
+        fontSize: 18,
+        fontWeight: '600',
+        position: 'absolute',
+        top: 30,
+        left: 30
+    },
+
+    timerAutoOptionContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 62
+    },
+
+    timerManualOptionContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 30
+    },
+
+    timerOptionItemText: {
+        color: '#424350',
+        fontSize: 16,
+        marginLeft: 12
+    },
+
+    timerInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 8
+    },
+
+    timerInputField: {
+        marginLeft: 30,
+        width: 36,
+        height: 19,
+        borderWidth: 1,
+        borderColor: '#424350',
+        borderRadius: 3,
+        textAlign: 'center',
+        fontSize: 12,
+        marginRight: 6
+    },
+
+    timerButton: {
+        marginTop: 40,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        backgroundColor: '#C8D7EC'
+    },
+    timerButtonText: {
+        color: '#424350',
+        fontSize: 16,
+        alignSelf: 'center'
     }
 };

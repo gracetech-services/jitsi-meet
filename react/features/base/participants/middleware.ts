@@ -2,7 +2,6 @@ import i18n from 'i18next';
 import { batch } from 'react-redux';
 import { AnyAction } from 'redux';
 
-// @ts-expect-error
 import UIEvents from '../../../../service/UI/UIEvents';
 import { IStore } from '../../app/types';
 import { approveParticipant } from '../../av-moderation/actions';
@@ -24,6 +23,7 @@ import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app/actionTypes';
 import { CONFERENCE_WILL_JOIN } from '../conference/actionTypes';
 import { forEachConference, getCurrentConference } from '../conference/functions';
 import { IJitsiConference } from '../conference/reducer';
+import { appType } from '../config/AppType';
 import { SET_CONFIG } from '../config/actionTypes';
 import { getDisableRemoveRaisedHandOnFocus } from '../config/functions.any';
 import { JitsiConferenceEvents } from '../lib-jitsi-meet';
@@ -551,7 +551,7 @@ function _localParticipantJoined({ getState, dispatch }: IStore, next: Function,
 
     dispatch(localParticipantJoined({
         avatarURL: settings.avatarURL,
-        email: settings.email,
+        email: appType.email,
         name: settings.displayName,
         id: ''
     }));
