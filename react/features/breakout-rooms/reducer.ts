@@ -1,7 +1,7 @@
 import ReducerRegistry from '../base/redux/ReducerRegistry';
 
 import {
-    IS_CREATING_ROOMS,
+    IS_SHOW_LOADING,
     SET_START_OPEN_ALL_ROOMS,
     UPDATE_BREAKOUT_ROOMS,
     UPLOAD_RESULT,
@@ -15,12 +15,12 @@ const DEFAULT_STATE = {
     rooms: {},
     roomCounter: 0,
     startOpenAllRooms: false,
-    isCreatingRooms: false,
+    isShowLoading: false,
     uploadResult: undefined
 };
 
 export interface IBreakoutRoomsState {
-    isCreatingRooms: boolean;
+    isShowLoading: boolean;
     roomCounter: number;
     rooms: IRooms;
     startOpenAllRooms: boolean;
@@ -60,10 +60,10 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
             startOpenAllRooms: action.startOpenAllRooms
         };
     }
-    case IS_CREATING_ROOMS: {
+    case IS_SHOW_LOADING: {
         return {
             ...state,
-            isCreatingRooms: action.isCreatingRooms
+            isShowLoading: action.isShowLoading
         };
     }
     case UPLOAD_RESULT: {
@@ -76,3 +76,4 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
 
     return state;
 });
+

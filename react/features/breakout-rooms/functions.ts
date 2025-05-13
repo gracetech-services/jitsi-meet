@@ -242,9 +242,10 @@ export const getUploadResult = (stateful: IStateful): boolean | undefined => {
     return needState['features/breakout-rooms']?.uploadResult ?? false;
 };
 
-export const getIsCreatingRooms = (stateful: IStateful): boolean => {
+export const getIsShowLoading = (stateful: IStateful): boolean => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
     const needState = state as IReduxState;
 
-    return needState['features/breakout-rooms']?.isCreatingRooms ?? false;
+    return needState['features/breakout-rooms']?.isShowLoading ?? false;
 };
+

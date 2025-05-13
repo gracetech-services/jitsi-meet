@@ -10,7 +10,7 @@ import TintedView from '../../../base/react/components/native/TintedView';
 import { equals } from '../../../base/redux/functions';
 import {
     getBreakoutRooms,
-    getIsCreatingRooms,
+    getIsShowLoading,
     getMainRoom,
     getStartOpenAllRooms,
     isAddBreakoutRoomButtonVisible,
@@ -38,7 +38,7 @@ const FishMeetBreakoutRooms = () => {
     const showAutoAssign = useSelector(isAutoAssignParticipantsVisible);
     const mainRoom = useSelector(getMainRoom);
     const startOpenAllRooms = useSelector(getStartOpenAllRooms);
-    const isCreatingRooms = useSelector(getIsCreatingRooms);
+    const isShowLoading = useSelector(getIsShowLoading);
 
     const dispatch = useDispatch();
 
@@ -80,7 +80,7 @@ const FishMeetBreakoutRooms = () => {
                     renderItem = { null }
                     windowSize = { 2 } />
             </JitsiScreen>
-            {isCreatingRooms
+            {isShowLoading
                 && <TintedView>
                     <LoadingIndicator />
                 </TintedView>
@@ -90,3 +90,4 @@ const FishMeetBreakoutRooms = () => {
 };
 
 export default FishMeetBreakoutRooms;
+

@@ -24,7 +24,7 @@ import { clearNotifications, showNotification } from '../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 
 import {
-    IS_CREATING_ROOMS, SET_START_OPEN_ALL_ROOMS,
+    IS_SHOW_LOADING, SET_START_OPEN_ALL_ROOMS,
     UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT,
     _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER
 } from './actionTypes';
@@ -79,7 +79,7 @@ export function closeAllRooms(navigation: any) {
         const state = getState();
         const rooms = getBreakoutRooms(state);
 
-        dispatch(setIsCreatingRooms(true));
+        dispatch(setIsShowLoading(true));
 
         Object.values(rooms).forEach(room => {
             if (!room.isMainRoom) {
@@ -103,7 +103,7 @@ export function closeAllRooms(navigation: any) {
         dispatch(setStartOpenAllRooms(false));
 
         setTimeout(() => {
-            dispatch(setIsCreatingRooms(false));
+            dispatch(setIsShowLoading(false));
             navigation.goBack();
         }, 2000);
     };
@@ -119,7 +119,7 @@ export function openAllRooms() {
         const allRooms = getAllRoomsData();
         const state = getState();
 
-        dispatch(setIsCreatingRooms(true));
+        dispatch(setIsShowLoading(true));
 
         Object.values(allRooms).forEach(room => {
             if (!room.isMainRoom) {
@@ -153,7 +153,7 @@ export function openAllRooms() {
             });
 
             dispatch(setStartOpenAllRooms(true));
-            dispatch(setIsCreatingRooms(false));
+            dispatch(setIsShowLoading(false));
         }, 3000);
     };
 }
@@ -516,16 +516,16 @@ export function setStartOpenAllRooms(startOpenAllRooms: boolean) {
 }
 
 /**
- * Action to setIsCreatingRooms.
+ * Action to setIsShowLoading.
  *
- * @param {boolean} isCreatingRooms - IsCreatingRooms.
+ * @param {boolean} isShowLoading - isShowLoading.
  * @returns {Function}
  */
-export function setIsCreatingRooms(isCreatingRooms: boolean) {
+export function setIsShowLoading(isShowLoading: boolean) {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
-            type: IS_CREATING_ROOMS,
-            isCreatingRooms
+            type: IS_SHOW_LOADING,
+            isShowLoading
         });
     };
 }
@@ -560,4 +560,6 @@ export function setUploadResult(uploadResult: boolean | undefined) {
         });
     };
 }
+
+
 
