@@ -11,7 +11,7 @@ import {
 } from '../base/conference/actions';
 import { CONFERENCE_LEAVE_REASONS } from '../base/conference/constants';
 import { getCurrentConference } from '../base/conference/functions';
-import { appType, meetingPreData } from '../base/config/AppType';
+import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { setAudioMuted, setVideoMuted } from '../base/media/actions';
 import { MEDIA_TYPE } from '../base/media/constants';
 import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
@@ -171,7 +171,7 @@ function getJidByEmail(targetEmail: string | undefined, state: IReduxState, room
     const localParticipant = getLocalParticipant(state);
     const remoteParticipants = getRemoteParticipants(state);
 
-    if (targetEmail === appType.email) {
+    if (targetEmail === fishMeetPassInData.email) {
         const prefix = localParticipant?.id;
         const participantId = Object.keys(roomData.participants)
             .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
@@ -538,7 +538,7 @@ export function setIsCreatingRooms(isCreatingRooms: boolean) {
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
     return (dispatch: IStore['dispatch']) => {
-        meetingPreData.breakRoomData = meetingData;
+        fishMeetPassInData.breakRoomData = meetingData;
         dispatch({
             type: UPLOAD_PRE_BREAKROOMS,
             meetingData

@@ -5,7 +5,7 @@ import { View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { hideDialog, openDialog } from '../../../../../react/features/base/dialog/actions';
-import { meetingPreData } from '../../../base/config/AppType';
+import { fishMeetPassInData } from '../../../base/config/FishMeetPassInData';
 import { equals } from '../../../base/redux/functions';
 import Button from '../../../base/ui/components/native/Button';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
@@ -77,7 +77,7 @@ const FishMeetBreakRoomFooterButtons = () => {
     }, [ dispatch ]);
 
     const loadPreRooms = useCallback(() => {
-        const preRoomData = meetingPreData.breakRoomData;
+        const preRoomData = fishMeetPassInData.breakRoomData;
         const copiedData = JSON.parse(JSON.stringify(preRoomData));
 
         dispatch(setLoadPreBreakoutRooms(copiedData));
@@ -105,7 +105,7 @@ const FishMeetBreakRoomFooterButtons = () => {
                 type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
             <Button
                 accessibilityLabel = 'breakoutRooms.actions.loadPreBreakoutRoom'
-                disabled = { startOpenAllRooms || meetingPreData.breakRoomData === undefined }
+                disabled = { startOpenAllRooms || fishMeetPassInData.breakRoomData === undefined }
                 labelKey = 'breakoutRooms.actions.loadPreBreakoutRoom'
                 onClick = { loadPreRooms }
                 style = { fishmeetStyles.Button }
