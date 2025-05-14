@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 import { IStore } from '../app/types';
-import { appType } from '../base/config/AppType';
+import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
 
 import { UPDATE_BREAKOUT_ROOMS } from './actionTypes';
@@ -14,7 +14,7 @@ import {
 } from './preRoomData';
 
 /**
- * Action to createPreloadBreakoutRoom.
+ * Action to creating a preloaded room.
  *
  * @param {string} name - Room name.
  * @param {boolean} isMainRoom - IsMain room.
@@ -41,7 +41,7 @@ export function createPreloadBreakoutRoom(name?: string, isMainRoom?: boolean) {
 }
 
 /**
- * Action to removePreloadBreakoutRoom.
+ * Action to remove preloaded rooms.
  *
  * @param {string} roomId - Room roomId.
  * @returns {Function}
@@ -62,7 +62,7 @@ export function removePreloadBreakoutRoom(roomId: string) {
 }
 
 /**
- * Action to addParticipantToPreloadMainRoom.
+ * Action to add participants to the main meeting room.
  *
  * @returns {Function}
  */
@@ -71,7 +71,11 @@ export function addParticipantToPreloadMainRoom() {
         const state = getState();
 
         setAllRoomsData({});
+
+        // Get local participants, that is yourself
         const localParticipant = getLocalParticipant(state);
+
+        // Get remote participants
         const remoteParticipants = getRemoteParticipants(state);
 
         updateRoomData('fishmeet-main-room', {
@@ -81,6 +85,9 @@ export function addParticipantToPreloadMainRoom() {
         });
         const mainRoomId = getPreMainRoom()?.id;
 
+
+        // Add local participants and remote participants
+        // to the preloaded data structure
         if (mainRoomId) {
             addParticipantToRoom(mainRoomId, {
                 displayName: localParticipant?.name,
@@ -169,6 +176,7 @@ export function autoPreAssignToBreakoutRooms() {
 
 /**
  * Action to setLoadPreBreakoutRooms.
+ * Set preloaded room data.
  *
  * @param {Object} meetingData - Room roomId.
  * @returns {Function}
@@ -222,6 +230,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
 /**
  * Action to hasEmail.
+ * Determine whether participants are online through email.
  *
  * @param {any} participantsMap - ParticipantsMap.
  * @param {string} targetEmail - TargetEmail.
@@ -229,7 +238,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
  */
 function hasEmail(participantsMap: any, targetEmail: string) {
 
-    if (targetEmail === appType.email) {
+    if (targetEmail === fishMeetPassInData.email) {
         return true;
     }
     for (const participant of participantsMap.values()) {
@@ -240,4 +249,5 @@ function hasEmail(participantsMap: any, targetEmail: string) {
 
     return false;
 }
+
 

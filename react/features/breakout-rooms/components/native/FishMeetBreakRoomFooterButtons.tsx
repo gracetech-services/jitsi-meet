@@ -63,12 +63,12 @@ const FishMeetBreakRoomFooterButtons = () => {
     const timerOptionsClose = (data: { option: 'manual'; } | { option: 'auto'; time: number; }) => {
         dispatch(hideDialog());
         if (data.option === 'auto') {
-            console.log('auto');
-            console.log('Time:', data.time);
+            // console.log('auto');
+            // console.log('Time:', data.time);
+            // TODO: Pass to server to setting time
         } else {
-            console.log('manu');
+            dispatch(openAllRooms());
         }
-        dispatch(openAllRooms());
 
     };
 

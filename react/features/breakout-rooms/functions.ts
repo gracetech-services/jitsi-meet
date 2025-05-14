@@ -227,6 +227,12 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
         && !hideAutoAssignButton;
 };
 
+/**
+ * Returns whether all rooms are opened.
+ *
+ * @param {IStateful} stateful - Global state.
+ * @returns {boolean}
+ */
 export const getAreAllRoomsOpen = (stateful: IStateful): boolean => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
     const needState = state as IReduxState;
@@ -235,13 +241,25 @@ export const getAreAllRoomsOpen = (stateful: IStateful): boolean => {
 
 };
 
+/**
+ * Returns whether all rooms are opened.
+ *
+ * @param {IStateful} stateful - Global state.
+ * @returns {boolean | undefined}
+ */
 export const getUploadResult = (stateful: IStateful): boolean | undefined => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
     const needState = state as IReduxState;
 
-    return needState['features/breakout-rooms']?.uploadResult ?? false;
+    return needState['features/breakout-rooms']?.uploadResult;
 };
 
+/**
+ * Returns whether show loading.
+ *
+ * @param {IStateful} stateful - Global state.
+ * @returns {boolean}
+ */
 export const getIsShowLoading = (stateful: IStateful): boolean => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
     const needState = state as IReduxState;
