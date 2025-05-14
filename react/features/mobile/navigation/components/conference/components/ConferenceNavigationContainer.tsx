@@ -262,7 +262,7 @@ const ConferenceNavigationContainer = () => {
                     }} />
                 <ConferenceStack.Screen
                     component = { FishMeetBreakoutRooms }
-                    name = { screen.conference.fishMeetbBreakoutRooms }
+                    name = { screen.conference.fishMeetBreakoutRooms }
                     options = {{
                         ...breakoutRoomsScreenOptions,
                         ...breakoutRoomsScreenOptions,
