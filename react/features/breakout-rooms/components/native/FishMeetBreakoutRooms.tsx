@@ -9,10 +9,10 @@ import LoadingIndicator from '../../../base/react/components/native/LoadingIndic
 import TintedView from '../../../base/react/components/native/TintedView';
 import { equals } from '../../../base/redux/functions';
 import {
+    getAreAllRoomsOpen,
     getBreakoutRooms,
     getIsShowLoading,
     getMainRoom,
-    getStartOpenAllRooms,
     isAddBreakoutRoomButtonVisible,
     isAutoAssignParticipantsVisible
 } from '../../functions';
@@ -37,13 +37,13 @@ const FishMeetBreakoutRooms = () => {
     const showAddBreakoutRoom = useSelector(isAddBreakoutRoomButtonVisible);
     const showAutoAssign = useSelector(isAutoAssignParticipantsVisible);
     const mainRoom = useSelector(getMainRoom);
-    const startOpenAllRooms = useSelector(getStartOpenAllRooms);
+    const areAllRoomsOpen = useSelector(getAreAllRoomsOpen);
     const isShowLoading = useSelector(getIsShowLoading);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!startOpenAllRooms) {
+        if (!areAllRoomsOpen) {
             dispatch(addParticipantToPreloadMainRoom());
         }
 
@@ -72,7 +72,7 @@ const FishMeetBreakoutRooms = () => {
                                     room = { room }
                                     roomId = { room.id } />))
                             }
-                            {rooms.length > 0 && showAutoAssign && !startOpenAllRooms && <FishMeetAutoAssignButton />}
+                            {rooms.length > 0 && showAutoAssign && !areAllRoomsOpen && <FishMeetAutoAssignButton />}
                         </>
                     ) }
                     data = { [] as ReadonlyArray<undefined> }

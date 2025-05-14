@@ -11,7 +11,7 @@ import {
     IconFishmeetParticipantUnSelect
 } from '../../../base/icons/svg';
 import fishmeetStyles from '../../../participants-pane/components/native/fishMeetStyles';
-import { getBreakoutRooms, getStartOpenAllRooms } from '../../functions';
+import { getAreAllRoomsOpen, getBreakoutRooms } from '../../functions';
 import { IParticipant, getParticipants, getParticipantsNotInRoom } from '../../preRoomData';
 import { IRoom, IRooms } from '../../types';
 
@@ -23,7 +23,7 @@ interface IProps {
 
 const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) => {
 
-    const startOpenAllRooms = useSelector(getStartOpenAllRooms);
+    const areAllRoomsOpen = useSelector(getAreAllRoomsOpen);
 
     const getAllParticipantsDict = (
             allRoomsData: IRooms,
@@ -46,7 +46,7 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
 
     let participantsDict = {};
 
-    if (startOpenAllRooms) {
+    if (areAllRoomsOpen) {
         const allRooms = useSelector(getBreakoutRooms);
 
         participantsDict = getAllParticipantsDict(allRooms, room.id);

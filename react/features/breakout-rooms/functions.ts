@@ -227,11 +227,11 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
         && !hideAutoAssignButton;
 };
 
-export const getStartOpenAllRooms = (stateful: IStateful): boolean => {
+export const getAreAllRoomsOpen = (stateful: IStateful): boolean => {
     const state = typeof stateful === 'function' ? stateful() : stateful;
     const needState = state as IReduxState;
 
-    return needState['features/breakout-rooms']?.startOpenAllRooms ?? false;
+    return needState['features/breakout-rooms']?.areAllRoomsOpen ?? false;
 
 };
 

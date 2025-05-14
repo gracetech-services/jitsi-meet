@@ -24,7 +24,7 @@ import { clearNotifications, showNotification } from '../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 
 import {
-    IS_SHOW_LOADING, SET_START_OPEN_ALL_ROOMS,
+    IS_SHOW_LOADING, SET_ALL_ROOMS_OPEN,
     UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT,
     _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER
 } from './actionTypes';
@@ -100,7 +100,7 @@ export function closeAllRooms(navigation: any) {
             }
         });
 
-        dispatch(setStartOpenAllRooms(false));
+        dispatch(setAllRoomsOpen(false));
 
         setTimeout(() => {
             dispatch(setIsShowLoading(false));
@@ -152,7 +152,7 @@ export function openAllRooms() {
 
             });
 
-            dispatch(setStartOpenAllRooms(true));
+            dispatch(setAllRoomsOpen(true));
             dispatch(setIsShowLoading(false));
         }, 3000);
     };
@@ -501,16 +501,16 @@ function _findParticipantJid(getState: IStore['getState'], participantId: string
 }
 
 /**
- * Action to setStartOpenAllRooms.
+ * Action to setAllRoomsOpen.
  *
- * @param {boolean} startOpenAllRooms - StartOpenAllRooms.
+ * @param {boolean} areAllRoomsOpen - AreAllRoomsOpen.
  * @returns {Function}
  */
-export function setStartOpenAllRooms(startOpenAllRooms: boolean) {
+export function setAllRoomsOpen(areAllRoomsOpen: boolean) {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
-            type: SET_START_OPEN_ALL_ROOMS,
-            startOpenAllRooms
+            type: SET_ALL_ROOMS_OPEN,
+            areAllRoomsOpen
         });
     };
 }
@@ -518,7 +518,7 @@ export function setStartOpenAllRooms(startOpenAllRooms: boolean) {
 /**
  * Action to setIsShowLoading.
  *
- * @param {boolean} isShowLoading - isShowLoading.
+ * @param {boolean} isShowLoading - IsShowLoading.
  * @returns {Function}
  */
 export function setIsShowLoading(isShowLoading: boolean) {
@@ -560,6 +560,5 @@ export function setUploadResult(uploadResult: boolean | undefined) {
         });
     };
 }
-
 
 
