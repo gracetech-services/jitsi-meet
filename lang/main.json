@@ -1,15 +1,15 @@
 {
-   "GT": {
-    "MicError": "Microphone can't be openeed. For solutions, please follow instruction on the next page",
-    "LaunchFromIDigest": "The operation is not supported. Please launch meeting from iDigest App or web. For more information, you can contact the meeting moderator",
-    "title":"iDigest Online Meeting",
-    "choose": "Following are several methods to join an online meeting:",
-    "appName": "iDigest App",
-    "webUrl": "iDigest website: ",
-    "relaunchIntoSameMeeting": "Rejoin this meeting",
-    "closeThisWebpage": "Close this web page",
-    "conferencelink": "A meeting URL and passcode from meeting moderator. Note, the meeting passcode may have been changed, please contact meeting moderator for latest meeting info"            
-},
+    "GT": {
+        "LaunchFromIDigest": "The operation is not supported. Please launch meeting from iDigest App or web. For more information, you can contact the meeting moderator",
+        "MicError": "Microphone can't be openeed. For solutions, please follow instruction on the next page",
+        "appName": "iDigest App",
+        "choose": "Following are several methods to join an online meeting:",
+        "closeThisWebpage": "Close this web page",
+        "conferencelink": "A meeting URL and passcode from meeting moderator. Note, the meeting passcode may have been changed, please contact meeting moderator for latest meeting info",
+        "relaunchIntoSameMeeting": "Rejoin this meeting",
+        "title": "iDigest Online Meeting",
+        "webUrl": "iDigest website: "
+    },
     "addPeople": {
         "accessibilityLabel": {
             "meetingLink": "Meeting link: {{url}}"
@@ -66,36 +66,33 @@
         "zeroEffect": "to disable video"
     },
     "breakoutRooms": {
+        "AutoCloseBreakRooms": "Automatically close breakout rooms in:",
+        "ManuallyCloseBreakRooms": "Manually close breakout rooms",
+        "Minutes": "minutes",
+        "Options": "Options",
         "actions": {
             "add": "Add breakout room",
-            "save": "Save breakout rooms",
-            "loadPreBreakoutRoom": "Load pre breakout rooms",
-            "openAll": "Open all rooms",
-            "autoAssign": "Auto assign to breakout rooms",
             "assign": "Assign",
+            "autoAssign": "Auto assign to breakout rooms",
             "close": "Close",
             "closeAll": "Close all breakout rooms",
             "join": "Join",
             "leaveBreakoutRoom": "Leave breakout room",
+            "loadPreBreakoutRoom": "Load pre breakout rooms",
             "more": "More",
+            "openAll": "Open all rooms",
             "remove": "Remove",
             "rename": "Rename",
             "renameBreakoutRoom": "Rename breakout room",
+            "save": "Save breakout rooms",
             "sendToBreakoutRoom": "Send participant to:"
         },
-        "searchParticipants": "Search participants",
-        "notInMeeting": "(not in meeting)",
-        "saveSuccessBreakRooms": "Successfully saved",
-        "saveFailBreakRooms": "Save failed",
-        "Options": "Options",
-        "AutoCloseBreakRooms": "Automatically close breakout rooms in:",
-        "ManuallyCloseBreakRooms": "Manually close breakout rooms",
-        "Minutes": "minutes",
         "breakoutList": "Breakout list",
         "buttonLabel": "Breakout rooms",
         "defaultName": "Breakout room #{{index}}",
         "hideParticipantList": "Hide participant list",
         "mainRoom": "Main room",
+        "notInMeeting": "(not in meeting)",
         "notifications": {
             "joined": "Joining the \"{{name}}\" breakout room",
             "joinedMainRoom": "Joining the main room",
@@ -104,6 +101,9 @@
         "prompts": {
             "EnterTotalRoom": "Enter total number of rooms for breakout"
         },
+        "saveFailBreakRooms": "Save failed",
+        "saveSuccessBreakRooms": "Successfully saved",
+        "searchParticipants": "Search participants",
         "showParticipantList": "Show participant list",
         "title": "Breakout Rooms"
     },

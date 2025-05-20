@@ -1,14 +1,14 @@
 {
     "GT": {
-        "MicError": "麥克風打不開, 解決方案, 請看'小鴿子功能介紹演示 - 線上會議的備用工具'",
         "LaunchFromIDigest": "錯誤：系統不支持這個操作. 請在'小鴿子'App或者網站進入會議, 如需更多信息. 請與會議主持人聯繫",
-        "title":"小鴿子在線會議",
-        "choose": "進入會議的幾個方式如下：",
+        "MicError": "麥克風打不開, 解決方案, 請看'小鴿子功能介紹演示 - 線上會議的備用工具'",
         "appName": "小鴿子App",
-        "webUrl": "小鴿子網站:",
-        "relaunchIntoSameMeeting": "重返會議",
+        "choose": "進入會議的幾個方式如下：",
         "closeThisWebpage": "關閉",
-        "conferencelink": "會議主持人分享的會議鏈接和密碼。注意，會議密碼可能有更新，請與主持人聯繫獲得最新的會議信息。"
+        "conferencelink": "會議主持人分享的會議鏈接和密碼。注意，會議密碼可能有更新，請與主持人聯繫獲得最新的會議信息。",
+        "relaunchIntoSameMeeting": "重返會議",
+        "title": "小鴿子在線會議",
+        "webUrl": "小鴿子網站:"
     },
     "addPeople": {
         "accessibilityLabel": {
@@ -66,17 +66,25 @@
         "zeroEffect": "以停用視訊"
     },
     "breakoutRooms": {
+        "AutoCloseBreakRooms": "自動關閉分組討論室：",
+        "ManuallyCloseBreakRooms": "手動關閉分組討論室",
+        "Minutes": "分鐘",
+        "Options": "選項",
         "actions": {
             "add": "新增分組討論室",
+            "assign": "分組",
             "autoAssign": "自動分配至分組討論室",
             "close": "關閉",
             "closeAll": "關閉所有分會場",
             "join": "加入",
             "leaveBreakoutRoom": "離開分組討論室",
+            "loadPreBreakoutRoom": "加載預存分組討論室",
             "more": "更多",
+            "openAll": "開始所有分組討論室",
             "remove": "移除",
             "rename": "重新命名",
             "renameBreakoutRoom": "重新命名分組討論室",
+            "save": "保存分組討論室",
             "sendToBreakoutRoom": "將與會者移至："
         },
         "breakoutList": "分組討論室列表",
@@ -84,11 +92,15 @@
         "defaultName": "分組討論室 #{{index}}",
         "hideParticipantList": "隱藏與會者列表",
         "mainRoom": "主會議室",
+        "notInMeeting": "(不在會議中)",
         "notifications": {
             "joined": "正在加入「{{name}}」分組討論室",
             "joinedMainRoom": "正在加入主會議室",
             "joinedTitle": "分組討論室"
         },
+        "saveFailBreakRooms": "保存失敗",
+        "saveSuccessBreakRooms": "保存成功",
+        "searchParticipants": "搜索與會者",
         "showParticipantList": "顯示與會者列表",
         "title": "分組討論室"
     },
