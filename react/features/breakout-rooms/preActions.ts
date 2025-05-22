@@ -192,7 +192,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             Object.keys(room.participants).forEach(participantId => {
                 const participant = room.participants[participantId];
 
-                participant.isNotInMeeting = !hasEmail(remoteParticipants, participant.email);
+                participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
             });
         });
 
@@ -229,14 +229,14 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 }
 
 /**
- * Action to hasEmail.
- * Determine whether participants are online through email.
+ * Action to IsInMeeting.
+ * Determine whether participants are in the meeting through email.
  *
  * @param {any} participantsMap - ParticipantsMap.
  * @param {string} targetEmail - TargetEmail.
  * @returns {Function}
  */
-function hasEmail(participantsMap: any, targetEmail: string) {
+function isInMeeting(participantsMap: any, targetEmail: string) {
 
     if (targetEmail === fishMeetPassInData.email) {
         return true;

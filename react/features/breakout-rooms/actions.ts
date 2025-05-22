@@ -310,20 +310,17 @@ export function sendParticipantToRoom(participantId: string, roomId: string) {
 }
 
 /**
- * Action to determineInOtherRoomsSendParticipantToRoom.
- * The code here is executed after the meeting starts
- * if the participant cancels the selection in the panel.
- * Determine whether to move participants from other rooms to the current room.
+ * Action to determineIfMoveParticipantToMainroom.
  *
  * @param {string} participantId - The participant id.
  * @param {string} roomId - The room id.
  * @returns {Function}
  */
-export function determineInOtherRoomsSendParticipantToRoom(participantId: string, roomId: string) {
+export function determineIfMoveParticipantToMainroom(participantId: string, roomId: string) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
-        // The code here is executed after the meeting starts, if the participant cancels the selection in the panel.
+        // The code here is executed after the meeting starts, if the participant is unselected in the panel.
         // If the current participant is in the current room, move the participant to the main room.
-        //  If not in the current room, do nothing.
+        // If not in the current room, do nothing.
         const findRoomId = _findRoomIdByParticipantJid(getState, participantId);
         const mainRoomId = getMainRoom(getState)?.id;
 

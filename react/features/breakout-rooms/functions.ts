@@ -242,7 +242,7 @@ export const getAreAllRoomsOpen = (stateful: IStateful): boolean => {
 };
 
 /**
- * Returns whether all rooms are opened.
+ * Returns the success or failure result of uploading data.
  *
  * @param {IStateful} stateful - Global state.
  * @returns {boolean | undefined}

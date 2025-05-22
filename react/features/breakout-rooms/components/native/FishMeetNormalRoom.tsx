@@ -6,7 +6,7 @@ import { hideDialog, openDialog, openSheet } from '../../../base/dialog/actions'
 import { addParticipantToPreloadRoom, removePreloadBreakoutRoom } from '../../../breakout-rooms/preActions';
 import FishMeetNormalList from '../../../participants-pane/components/native/FishMeetNormalList';
 import {
-    closeBreakoutRoom, determineInOtherRoomsSendParticipantToRoom,
+    closeBreakoutRoom, determineIfMoveParticipantToMainroom,
     removeBreakoutRoom, sendParticipantToRoom
 } from '../../actions';
 import { getAreAllRoomsOpen } from '../../functions';
@@ -45,7 +45,7 @@ export const FishMeetNormalRoom = ({ room, roomId }: IProps) => {
                 if (item.isSelected) {
                     dispatch(sendParticipantToRoom(item.jid, room.id ?? ''));
                 } else {
-                    dispatch(determineInOtherRoomsSendParticipantToRoom(item.jid, room.id ?? ''));
+                    dispatch(determineIfMoveParticipantToMainroom(item.jid, room.id ?? ''));
 
                 }
             }
