@@ -22,23 +22,39 @@ import {
  */
 export function createPreloadBreakoutRoom(name?: string, isMainRoom?: boolean) {
     return (dispatch: IStore['dispatch']) => {
-        let roomCounter = Object.values(getAllRoomsData()).filter(room => !room.isMainRoom).length;
-        const roomName = name || i18next.t('breakoutRooms.defaultName', { index: ++roomCounter });
+        const allRooms = Object.values(getAllRoomsData());
+
+        // Extract all used numeric suffixes from non-main room names (e.g., "Breakout Room 1" -> 1)
+        const usedIndexes = new Set(
+            allRooms
+                .filter(room => !room.isMainRoom)
+                .map(room => Number(room.name?.match(/(\d+)$/)?.[1]))
+                .filter(Boolean)
+        );
+
+        // Find the smallest positive integer not already used
+        let index = 1;
+
+        while (usedIndexes.has(index)) {
+            index++;
+        }
+
+        const roomName = name || i18next.t('breakoutRooms.defaultName', { index });
 
         updateRoomData(undefined, {
             name: roomName,
             isMainRoom: isMainRoom ?? false,
             participants: {}
         });
-        const rooms = { ...getAllRoomsData() };
 
         dispatch({
             type: UPDATE_BREAKOUT_ROOMS,
-            rooms,
-            roomCounter
+            rooms: { ...getAllRoomsData() },
+            roomCounter: allRooms.filter(room => !room.isMainRoom).length + 1
         });
     };
 }
+
 
 /**
  * Action to remove preloaded rooms.
