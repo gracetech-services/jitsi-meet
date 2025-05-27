@@ -159,7 +159,7 @@ export function openAllRooms() {
  * @param {string | undefined} targetEmail - TargetEmail.
  * @param {IReduxState} state - State.
  * @param {IRoom} roomData - RoomData.
- * @returns {void}
+ * @returns {string | undefined}
  */
 function getJidByEmail(targetEmail: string | undefined, state: IReduxState, roomData: IRoom) {
     const localParticipant = getLocalParticipant(state);

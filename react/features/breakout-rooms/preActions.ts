@@ -94,8 +94,10 @@ export function addParticipantToPreloadMainRoom() {
         // Get remote participants
         const remoteParticipants = getRemoteParticipants(state);
 
+
+        // If you do not assign a value to this name,
+        // the default is the localization of the main conference name.
         updateRoomData('fishmeet-main-room', {
-            name: 'fishmeet-main-room',
             isMainRoom: true,
             participants: {}
         });
@@ -208,6 +210,9 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             Object.keys(room.participants).forEach(participantId => {
                 const participant = room.participants[participantId];
 
+                // We need to determine whether the current participant is actually in the meeting.
+                // Since the participant's ID is different each time a meeting is started,
+                // we use the participant's email to make the judgment.
                 participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
             });
         });
