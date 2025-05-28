@@ -13,6 +13,9 @@ import {
     removeRoom, setAllRoomsData, updateRoomData
 } from './preRoomData';
 
+
+let roomIndexCounter = 1;
+
 /**
  * Action to creating a preloaded room.
  *
@@ -23,22 +26,7 @@ import {
 export function createPreloadBreakoutRoom(name?: string, isMainRoom?: boolean) {
     return (dispatch: IStore['dispatch']) => {
         const allRooms = Object.values(getAllRoomsData());
-
-        // Extract all used numeric suffixes from non-main room names (e.g., "Breakout Room 1" -> 1)
-        const usedIndexes = new Set(
-            allRooms
-                .filter(room => !room.isMainRoom)
-                .map(room => Number(room.name?.match(/(\d+)$/)?.[1]))
-                .filter(Boolean)
-        );
-
-        // Find the smallest positive integer not already used
-        let index = 1;
-
-        while (usedIndexes.has(index)) {
-            index++;
-        }
-
+        const index = roomIndexCounter++;
         const roomName = name || i18next.t('breakoutRooms.defaultName', { index });
 
         updateRoomData(undefined, {
@@ -115,7 +103,7 @@ export function addParticipantToPreloadMainRoom() {
                 isNotInMeeting: false,
                 email: localParticipant?.email
             });
-            for (const [ , participant ] of remoteParticipants) {
+            for (const [, participant] of remoteParticipants) {
                 addParticipantToRoom(mainRoomId, {
                     displayName: participant?.name,
                     role: 'participant',
@@ -219,7 +207,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
         setAllRoomsData(meetingData as AllRoomsData);
 
-        Object.entries(remoteParticipants).forEach(([ id, participant ]) => {
+        Object.entries(remoteParticipants).forEach(([id, participant]) => {
             const email = participant.email ?? '';
 
             if (!isEmailInAnyRoom(email)) {
