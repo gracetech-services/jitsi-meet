@@ -85,6 +85,9 @@ export function closeAllRooms(navigation: any) {
             }
         });
 
+        // Currently, the server cannot call this API at the same time.
+        // You need to closeBreakoutRoom first and then removeBreakoutRoom.
+        // Otherwise, there will be a bug when creating a meeting next time. We have delayed the wait here.
         await new Promise<void>(resolve => setTimeout(resolve, 5000));
 
 
