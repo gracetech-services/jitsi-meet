@@ -103,7 +103,7 @@ export function addParticipantToPreloadMainRoom() {
                 isNotInMeeting: false,
                 email: localParticipant?.email
             });
-            for (const [, participant] of remoteParticipants) {
+            for (const [ , participant ] of remoteParticipants) {
                 addParticipantToRoom(mainRoomId, {
                     displayName: participant?.name,
                     role: 'participant',
@@ -207,7 +207,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
         setAllRoomsData(meetingData as AllRoomsData);
 
-        Object.entries(remoteParticipants).forEach(([id, participant]) => {
+        Object.entries(remoteParticipants).forEach(([ id, participant ]) => {
             const email = participant.email ?? '';
 
             if (!isEmailInAnyRoom(email)) {
