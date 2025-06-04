@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { GestureResponderEvent, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import Icon from '../../../base/icons/components/Icon';
-import { IconFishmeetArrowDown } from '../../../base/icons/svg';
+import { IconFishmeetArrowDown, IconFishmeetArrowUp } from '../../../base/icons/svg';
 import fishmeetStyles from '../../../breakout-rooms/components/native/fishmeetStyles';
 
 interface IProps {
@@ -41,7 +41,7 @@ const FishMeetCollapsibleList = ({ children, onLongPress, title }: IProps) => {
                     <Icon
                         color = { 'transparent' }
                         size = { 25 }
-                        src = { collapsed ? IconFishmeetArrowDown : IconFishmeetArrowDown } />
+                        src = { collapsed ? IconFishmeetArrowUp : IconFishmeetArrowDown } />
                 </TouchableOpacity>
                 <Text style = { fishmeetStyles.listTile as TextStyle }>
                     {title}
