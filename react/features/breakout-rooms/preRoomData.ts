@@ -284,3 +284,67 @@ export const distributeParticipantsEvenly = (): void => {
     });
     console.log('All participants have been evenly distributed among available rooms.');
 };
+
+// Move a participant from any room to a specific room
+export const sendParticipantToRoom = (targetRoomId: string, participantJid: string): void => {
+    // Ensure the target room exists
+    const targetRoom = allRooms[targetRoomId];
+
+    if (!targetRoom) {
+        console.warn(`Room with ID ${targetRoomId} does not exist.`);
+
+        return;
+    }
+
+    let foundParticipant: IParticipant | null = null;
+
+    // Traverse all rooms to find and remove the participant
+    for (const [ roomId, room ] of Object.entries(allRooms)) {
+        if (room.participants?.[participantJid]) {
+            foundParticipant = room.participants[participantJid];
+            removeParticipantFromRoom(roomId, participantJid);
+            break;
+        }
+    }
+
+    if (!foundParticipant) {
+        console.warn(`Participant with JID ${participantJid} not found in any room.`);
+
+        return;
+    }
+
+    // Add the participant to the target room
+    addParticipantToRoom(targetRoomId, foundParticipant);
+    console.log(`✅ Participant ${participantJid} moved to room ${targetRoomId}`);
+};
+
+// move its participants back to the main room
+export const removeRoomAllParticipants = (roomId: string): void => {
+    const roomToRemove = allRooms[roomId];
+
+    if (!roomToRemove) {
+        console.warn(`Room with ID ${roomId} does not exist.`);
+
+        return;
+    }
+
+    // Get the main room
+    const mainRoom = getPreMainRoom();
+
+    if (!mainRoom) {
+        console.warn('No main room found. Cannot move participants back.');
+
+        return;
+    }
+
+    // Get all participants from the room to be removed
+    const participantsToMove = roomToRemove.participants;
+
+    // Move each participant to the main room
+    for (const participant of Object.values(participantsToMove)) {
+        addParticipantToRoom(mainRoom.id, participant);
+    }
+
+
+    console.log(`Room with ID ${roomId} has been moved its participants back to the main room.`);
+};

@@ -7,8 +7,8 @@ import { openSheet } from '../../../base/dialog/actions';
 import FishMeetCollapsibleList from '../../../participants-pane/components/native/FishMeetCollapsibleList';
 import { IRoom } from '../../types';
 
-import BreakoutRoomContextMenu from './BreakoutRoomContextMenu';
-import BreakoutRoomParticipantItem from './BreakoutRoomParticipantItem';
+import FishMeetBreakoutRoomContextMenu from './FishMeetBreakoutRoomContextMenu';
+import FishMeetBreakoutRoomParticipantItem from './FishMeetBreakoutRoomParticipantItem';
 
 interface IProps {
 
@@ -34,7 +34,7 @@ export const FishMeetCollapsibleRoom = ({ room, roomId }: IProps) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const _openContextMenu = useCallback(() => {
-        dispatch(openSheet(BreakoutRoomContextMenu, { room }));
+        dispatch(openSheet(FishMeetBreakoutRoomContextMenu, { room }));
     }, [ room ]);
     const roomParticipantsNr = Object.values(room.participants || {}).length;
     const title
@@ -54,7 +54,7 @@ export const FishMeetCollapsibleRoom = ({ room, roomId }: IProps) => {
 
                 // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
                 renderItem = { ({ item: participant }) => (
-                    <BreakoutRoomParticipantItem
+                    <FishMeetBreakoutRoomParticipantItem
                         item = { participant }
                         room = { room } />
                 ) }
