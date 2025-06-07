@@ -24,6 +24,7 @@ import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app/actionTypes';
 import { CONFERENCE_WILL_JOIN } from '../conference/actionTypes';
 import { forEachConference, getCurrentConference } from '../conference/functions';
 import { IJitsiConference } from '../conference/reducer';
+import { fishMeetPassInData } from '../config/FishMeetPassInData';
 import { SET_CONFIG } from '../config/actionTypes';
 import { getDisableRemoveRaisedHandOnFocus } from '../config/functions.any';
 import { JitsiConferenceEvents } from '../lib-jitsi-meet';
@@ -551,7 +552,7 @@ function _localParticipantJoined({ getState, dispatch }: IStore, next: Function,
 
     dispatch(localParticipantJoined({
         avatarURL: settings.avatarURL,
-        email: settings.email,
+        email: fishMeetPassInData.email,
         name: settings.displayName,
         id: ''
     }));

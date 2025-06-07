@@ -72,7 +72,8 @@ export const JitsiMeeting = forwardRef((props, ref) => {
                 onParticipantJoined: eventListeners?.onParticipantJoined,
                 onParticipantLeft: eventListeners?.onParticipantLeft,
                 onReadyToClose: eventListeners?.onReadyToClose,
-                onEnterFloatMeetingInApp: eventListeners?.onEnterFloatMeetingInApp
+                onEnterFloatMeetingInApp: eventListeners?.onEnterFloatMeetingInApp,
+                onUploadPreJsonData: eventListeners?.onUploadPreJsonData
             },
             'url': urlProps,
             'userInfo': userInfo

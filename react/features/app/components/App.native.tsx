@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 
 import { appType } from '../../base/config/AppType';
+import { fishMeetPassInData } from '../../base/config/FishMeetPassInData';
 import { IConfig } from '../../base/config/configType';
 import BottomSheetContainer from '../../base/dialog/components/native/BottomSheetContainer';
 import DialogContainer from '../../base/dialog/components/native/DialogContainer';
@@ -100,7 +101,7 @@ export class App extends AbstractApp<IProps> {
     render() {
         return (
             <JitsiThemePaperProvider>
-                { super.render() }
+                {super.render()}
             </JitsiThemePaperProvider>
         );
     }
@@ -136,6 +137,8 @@ export class App extends AbstractApp<IProps> {
             const config: IConfig = url?.config as IConfig;
 
             appType.isFishMeet = config.isFishMeet ?? false;
+            fishMeetPassInData.email = config.email ?? '';
+            fishMeetPassInData.breakRoomData = config.preMeetingData;
         }
 
         // We set these early enough so then we avoid any unnecessary re-renders.
@@ -196,7 +199,7 @@ export class App extends AbstractApp<IProps> {
                 <DimensionsDetector
                     onDimensionsChanged = { this._onDimensionsChanged }
                     onSafeAreaInsetsChanged = { this._onSafeAreaInsetsChanged }>
-                    { super._createMainElement(component, props) }
+                    {super._createMainElement(component, props)}
                 </DimensionsDetector>
             </SafeAreaProvider>
         );

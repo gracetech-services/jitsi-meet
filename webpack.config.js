@@ -2,6 +2,7 @@
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const fs = require('fs');
+const pth = require('path');
 const { join, resolve } = require('path'); // eslint-disable-line no-unused-vars
 const process = require('process');
 const webpack = require('webpack');
@@ -101,6 +102,9 @@ function getConfig(options = {}) {
         mode: isProduction ? 'production' : 'development',
         module: {
             rules: [ {
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                type: 'asset/resource'
+            }, {
                 // Transpile ES2015 (aka ES6) to ES5. Accept the JSX syntax by React
                 // as well.
 
@@ -193,7 +197,9 @@ function getConfig(options = {}) {
         ].filter(Boolean),
         resolve: {
             alias: {
-                'focus-visible': 'focus-visible/dist/focus-visible.min.js'
+                'focus-visible': 'focus-visible/dist/focus-visible.min.js',
+                'react-native$': 'react-native-web',
+                'react-native-safe-area-context': pth.resolve(__dirname, 'node_modules/react-native-safe-area-context')
             },
             aliasFields: [
                 'browser'

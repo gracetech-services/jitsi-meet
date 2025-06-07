@@ -16,6 +16,8 @@ interface IEventListeners {
     }) => void;
     onReadyToClose?: Function;
     onEnterFloatMeetingInApp?: Function;
+    onUploadPreJsonData?: (meetingData: any, callback: (result: boolean) => void) => void;
+
 }
 interface IUserInfo {
     avatarURL: string;

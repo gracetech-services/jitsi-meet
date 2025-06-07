@@ -1,7 +1,8 @@
 // Ranger add the line below: Skip verification of variables reserved but not used by Gracetech.
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import _ from 'lodash';
+import _, { reduce } from 'lodash';
 
+import { IReduxState } from '../app/types';
 import { IStateful } from '../base/app/types';
 import { getCurrentConference } from '../base/conference/functions';
 import {
@@ -153,6 +154,7 @@ export const getCurrentRoomId = (stateful: IStateful) => {
     return conference?.getName();
 };
 
+
 /**
  * Determines whether the local participant is in a breakout room.
  *
@@ -224,3 +226,44 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
         // && Object.keys(rooms).length > 1
         && !hideAutoAssignButton;
 };
+
+/**
+ * Returns whether all rooms are opened.
+ *
+ * @param {IStateful} stateful - Global state.
+ * @returns {boolean}
+ */
+export const getAreAllRoomsOpen = (stateful: IStateful): boolean => {
+    const state = typeof stateful === 'function' ? stateful() : stateful;
+    const needState = state as IReduxState;
+
+    return needState['features/breakout-rooms']?.areAllRoomsOpen ?? false;
+
+};
+
+/**
+ * Returns the success or failure result of uploading data.
+ *
+ * @param {IStateful} stateful - Global state.
+ * @returns {boolean | undefined}
+ */
+export const getUploadResult = (stateful: IStateful): boolean | undefined => {
+    const state = typeof stateful === 'function' ? stateful() : stateful;
+    const needState = state as IReduxState;
+
+    return needState['features/breakout-rooms']?.uploadResult;
+};
+
+/**
+ * Returns whether show loading.
+ *
+ * @param {IStateful} stateful - Global state.
+ * @returns {boolean}
+ */
+export const getIsShowLoading = (stateful: IStateful): boolean => {
+    const state = typeof stateful === 'function' ? stateful() : stateful;
+    const needState = state as IReduxState;
+
+    return needState['features/breakout-rooms']?.isShowLoading ?? false;
+};
+

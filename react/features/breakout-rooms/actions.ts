@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { createBreakoutRoomsEvent } from '../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../analytics/functions';
-import { IStore } from '../app/types';
+import { IReduxState, IStore } from '../app/types';
 import {
     conferenceLeft,
     conferenceWillLeave,
@@ -11,9 +11,10 @@ import {
 } from '../base/conference/actions';
 import { CONFERENCE_LEAVE_REASONS } from '../base/conference/constants';
 import { getCurrentConference } from '../base/conference/functions';
+import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { setAudioMuted, setVideoMuted } from '../base/media/actions';
 import { MEDIA_TYPE } from '../base/media/constants';
-import { getRemoteParticipants } from '../base/participants/functions';
+import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
 import { createDesiredLocalTracks } from '../base/tracks/actions';
 import {
     getLocalTracks,
@@ -22,7 +23,11 @@ import {
 import { clearNotifications, showNotification } from '../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 
-import { _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER } from './actionTypes';
+import {
+    IS_SHOW_LOADING, SET_ALL_ROOMS_OPEN,
+    UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT,
+    _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER
+} from './actionTypes';
 import { FEATURE_KEY } from './constants';
 import {
     getBreakoutRooms,
@@ -30,6 +35,8 @@ import {
     getRoomByJid
 } from './functions';
 import logger from './logger';
+import { getAllRoomsData, getParticipantsByName } from './preRoomData';
+import { IRoom } from './types';
 
 /**
  * Action to create a breakout room.
@@ -54,6 +61,133 @@ export function createBreakoutRoom(name?: string) {
             ?.createBreakoutRoom(subject);
     };
 }
+
+/**
+ * Action to close all rooms.
+ *
+ * @param {any} navigation - Navigation instance.
+ * @returns {Function}
+ */
+export function closeAllRooms(navigation: any) {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const state = getState();
+        const rooms = getBreakoutRooms(state);
+
+        dispatch(setIsShowLoading(true));
+
+        Object.values(rooms).forEach(room => {
+            if (!room.isMainRoom) {
+                const participantIds = Object.keys(room.participants || {});
+
+                if (participantIds.length > 0) {
+                    dispatch(closeBreakoutRoom(room.id));
+                }
+            }
+        });
+
+        // Currently, the server cannot call this API at the same time.
+        // You need to closeBreakoutRoom first and then removeBreakoutRoom.
+        // Otherwise, there will be a bug when creating a meeting next time. We have delayed the wait here.
+        await new Promise<void>(resolve => setTimeout(resolve, 5000));
+
+
+        Object.values(rooms).forEach(room => {
+            if (!room.isMainRoom) {
+                dispatch(removeBreakoutRoom(room.jid));
+            }
+        });
+
+        dispatch(setAllRoomsOpen(false));
+
+        setTimeout(() => {
+            dispatch(setIsShowLoading(false));
+            navigation.goBack();
+        }, 2000);
+    };
+}
+
+/**
+ * Action to open all rooms.
+ *
+ * @returns {Function}
+ */
+export function openAllRooms() {
+    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const allRooms = getAllRoomsData();
+        const state = getState();
+
+        dispatch(setIsShowLoading(true));
+
+        Object.values(allRooms).forEach(room => {
+            if (!room.isMainRoom) {
+                dispatch(createBreakoutRoom(room.name));
+            }
+        });
+
+        setTimeout(() => {
+            const startRooms = getBreakoutRooms(getState);
+            const mainRoom = Object.values(startRooms).find(room => room.isMainRoom);
+
+            Object.values(startRooms).forEach(room => {
+                if (room.isMainRoom) {
+                    return;
+                }
+
+                const participants = getParticipantsByName(room.name);
+
+                if (participants) {
+                    Object.values(participants).forEach(participant => {
+                        if (mainRoom) {
+                            const jid = getJidByEmail(participant.email, state, mainRoom);
+
+                            if (jid) {
+                                dispatch(sendParticipantToRoom(jid, room.id));
+                            }
+                        }
+                    });
+                }
+
+            });
+
+            dispatch(setAllRoomsOpen(true));
+            dispatch(setIsShowLoading(false));
+        }, 3000);
+    };
+}
+
+
+/**
+ * Action to getJidByEmail.
+ *
+ * @param {string | undefined} targetEmail - TargetEmail.
+ * @param {IReduxState} state - State.
+ * @param {IRoom} roomData - RoomData.
+ * @returns {string | undefined}
+ */
+function getJidByEmail(targetEmail: string | undefined, state: IReduxState, roomData: IRoom) {
+    const localParticipant = getLocalParticipant(state);
+    const remoteParticipants = getRemoteParticipants(state);
+
+    if (targetEmail === fishMeetPassInData.email) {
+        const prefix = localParticipant?.id;
+        const participantId = Object.keys(roomData.participants)
+            .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
+
+        return participantId;
+    }
+    for (const participant of remoteParticipants.values()) {
+        if (participant.email === targetEmail) {
+            const prefix = participant.id;
+            const participantId = Object.keys(roomData.participants)
+                .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
+
+            return participantId;
+        }
+    }
+
+    return undefined;
+}
+
 
 /**
  * Action to close a room and send participants to the main room.
@@ -177,6 +311,51 @@ export function sendParticipantToRoom(participantId: string, roomId: string) {
             ?.sendParticipantToRoom(participantJid, room.jid);
     };
 }
+
+/**
+ * Action to determineIfMoveParticipantToMainroom.
+ *
+ * @param {string} participantId - The participant id.
+ * @param {string} roomId - The room id.
+ * @returns {Function}
+ */
+export function determineIfMoveParticipantToMainroom(participantId: string, roomId: string) {
+    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        // The code here is executed after the meeting starts, if the participant is unselected in the panel.
+        // If the current participant is in the current room, move the participant to the main room.
+        // If not in the current room, do nothing.
+        const findRoomId = _findRoomIdByParticipantJid(getState, participantId);
+        const mainRoomId = getMainRoom(getState)?.id;
+
+        if (findRoomId === roomId && mainRoomId) {
+            dispatch(sendParticipantToRoom(participantId, mainRoomId));
+        }
+    };
+}
+
+/**
+ * Action to _findRoomIdByParticipantJid.
+ *
+ * @param {IReduxState} getState - The state.
+ * @param {string} participantId - The participant id.
+ * @returns {string|undefined}
+ */
+function _findRoomIdByParticipantJid(getState: IStore['getState'], participantId: string): string | undefined {
+    const rooms = getBreakoutRooms(getState);
+
+    for (const [ roomId, room ] of Object.entries(rooms)) {
+        const participants = room?.participants ?? {};
+
+        for (const participant of Object.values(participants)) {
+            if (participant?.jid === participantId) {
+                return roomId;
+            }
+        }
+    }
+
+    return undefined;
+}
+
 
 /**
  * Action to move to a room.
@@ -320,3 +499,66 @@ function _findParticipantJid(getState: IStore['getState'], participantId: string
 
     return participantJid;
 }
+
+/**
+ * Action to Set all rooms to open.
+ *
+ * @param {boolean} areAllRoomsOpen - AreAllRoomsOpen.
+ * @returns {Function}
+ */
+export function setAllRoomsOpen(areAllRoomsOpen: boolean) {
+    return (dispatch: IStore['dispatch']) => {
+        dispatch({
+            type: SET_ALL_ROOMS_OPEN,
+            areAllRoomsOpen
+        });
+    };
+}
+
+/**
+ * Action to setIsShowLoading.
+ *
+ * @param {boolean} isShowLoading - IsShowLoading.
+ * @returns {Function}
+ */
+export function setIsShowLoading(isShowLoading: boolean) {
+    return (dispatch: IStore['dispatch']) => {
+        dispatch({
+            type: IS_SHOW_LOADING,
+            isShowLoading
+        });
+    };
+}
+
+/**
+ * Action to Upload preloaded room data.
+ *
+ * @param {any} meetingData - MeetingData.
+ * @returns {Function}
+ */
+export function upLoadPreBreakRoomsData(meetingData: any) {
+    return (dispatch: IStore['dispatch']) => {
+        fishMeetPassInData.breakRoomData = meetingData;
+        dispatch({
+            type: UPLOAD_PRE_BREAKROOMS,
+            meetingData
+        });
+    };
+}
+
+/**
+ * Action to Set the result of the upload, success or failure.
+ *
+ * @param {boolean | undefined} uploadResult - UploadResult.
+ * @returns {Function}
+ */
+export function setUploadResult(uploadResult: boolean | undefined) {
+    return (dispatch: IStore['dispatch']) => {
+        dispatch({
+            type: UPLOAD_RESULT,
+            uploadResult
+        });
+    };
+}
+
+

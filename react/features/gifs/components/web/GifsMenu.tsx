@@ -106,7 +106,7 @@ function GifsMenu({ columns = 2, parent }: IProps) {
     const rating = useSelector(getGifRating);
     const proxyUrl = useSelector(getGiphyProxyUrl);
 
-    const fetchGifs = useCallback(async (offset = 0) => {
+    const fetchGifs: (offset: number) => Promise<any> = useCallback(async (offset = 0) => {
         const options: TrendingOptions = {
             limit: 20,
             offset,
@@ -221,7 +221,7 @@ function GifsMenu({ columns = 2, parent }: IProps) {
                 value = { searchKey ?? '' } />
             <div
                 className = { cx(styles.gifContainer,
-                parent === IReactionsMenuParent.OverflowDrawer && styles.gifContainerOverflow) }>
+                    parent === IReactionsMenuParent.OverflowDrawer && styles.gifContainerOverflow) }>
                 <Grid
                     columns = { columns }
                     fetchGifs = { fetchGifs }

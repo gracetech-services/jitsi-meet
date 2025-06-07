@@ -1,0 +1,286 @@
+export interface IParticipant {
+    displayName?: string;
+    email?: string;
+    isNotInMeeting: boolean;
+    isSelected: boolean;
+    jid: string;
+    role: 'participant' | 'moderator';
+}
+
+export interface IBreakoutRoom {
+    id: string;
+    isMainRoom?: boolean;
+    jid: string;
+    name: string;
+    participants: { [key: string]: IParticipant; };
+}
+
+export type AllRoomsData = {
+    [key: string]: IBreakoutRoom;
+};
+
+// Store all room data
+let allRooms: AllRoomsData = {};
+
+// Generate a unique ID
+const generateUniqueId = (): string => `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+// Generate jid based on id
+const generateJid = (id: string): string => `${id}@breakout.meet.jitsi`;
+
+// Get all room data
+export const getAllRoomsData = (): AllRoomsData => allRooms;
+
+// Set all room data
+export const setAllRoomsData = (data: AllRoomsData): void => {
+
+    allRooms = data;
+};
+
+// Get the main room
+export const getPreMainRoom = (): IBreakoutRoom | null => {
+    for (const room of Object.values(allRooms)) {
+        if (room.isMainRoom) {
+            return room; // Return the main room
+        }
+    }
+
+    return null; // Return null if the main room is not found
+};
+
+// Update room data. If ID is not provided, generate one. If jid is not provided, generate based on ID
+export const updateRoomData = (roomId: string | undefined, newRoomData: Partial<IBreakoutRoom>): void => {
+    const id = roomId || generateUniqueId(); // Generate a unique ID if roomId is not provided
+    const jid = newRoomData.jid || generateJid(id); // Generate jid based on ID if not provided
+
+    const existingRoom = allRooms[id];
+
+    if (existingRoom) {
+        // Merge existing room data with new data if room exists
+        allRooms[id] = {
+            ...existingRoom,
+            ...newRoomData,
+            id,
+            jid
+        };
+    } else {
+        // Create a new room if it doesn't exist
+        allRooms[id] = {
+            ...newRoomData,
+            id,
+            jid
+        } as IBreakoutRoom;
+    }
+};
+
+// Update participant data in a room
+export const updateRoomParticipants = (roomId: string, newParticipants: { [key: string]: IParticipant; }): void => {
+    const existingRoom = allRooms[roomId];
+
+    if (existingRoom) {
+        // Merge existing participants with new ones
+        allRooms[roomId].participants = {
+            ...existingRoom.participants,
+            ...newParticipants
+        };
+    } else {
+        console.warn(`Room with ID ${roomId} does not exist.`);
+    }
+};
+
+// Remove a participant from a room
+export const removeParticipantFromRoom = (roomId: string, participantJid: string): void => {
+    const existingRoom = allRooms[roomId];
+
+    if (existingRoom) {
+        delete existingRoom.participants[participantJid];
+    } else {
+        console.warn(`Room with ID ${roomId} does not exist.`);
+    }
+};
+
+// Add a participant to a room
+export const addParticipantToRoom = (
+        roomId: string,
+        participant: Omit<IParticipant, 'jid'> & { id?: string; jid?: string; } // Add optional `id` field
+): void => {
+    const existingRoom = allRooms[roomId];
+
+    if (!existingRoom) {
+        console.warn(`⚠️ Room with ID ${roomId} does not exist.`);
+
+        return;
+    }
+
+    // Ensure participants object exists
+    if (!existingRoom.participants) {
+        existingRoom.participants = {};
+    }
+
+    // Generate jid:
+    const jid = participant.jid
+        || (participant.id ? `${participant.id}-${generateUniqueId()}` : generateUniqueId());
+
+    // Traverse all rooms to remove participant if already exists
+    for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
+        if (otherRoom.participants?.[jid]) {
+            console.log(`🔄 Removing ${jid} from room ${otherRoomId}`);
+            removeParticipantFromRoom(otherRoomId, jid);
+        }
+    }
+
+
+    // Add the participant to the room
+    existingRoom.participants[jid] = {
+        ...participant,
+        jid
+    };
+    console.log(`✅ IParticipant ${jid} has been added to room ${roomId}`);
+};
+
+
+// Remove a room and move its participants back to the main room
+export const removeRoom = (roomId: string): void => {
+    const roomToRemove = allRooms[roomId];
+
+    if (!roomToRemove) {
+        console.warn(`Room with ID ${roomId} does not exist.`);
+
+        return;
+    }
+
+    // Get the main room
+    const mainRoom = getPreMainRoom();
+
+    if (!mainRoom) {
+        console.warn('No main room found. Cannot move participants back.');
+
+        return;
+    }
+
+    // Get all participants from the room to be removed
+    const participantsToMove = roomToRemove.participants;
+
+    // Move each participant to the main room
+    for (const [ participantJid, participant ] of Object.entries(participantsToMove)) {
+        // Add the participant to the main room
+        addParticipantToRoom(mainRoom.id, participant);
+
+        // Remove the participant from the current room
+        removeParticipantFromRoom(roomId, participantJid);
+    }
+
+    // Delete the room
+    delete allRooms[roomId];
+    console.log(`Room with ID ${roomId} has been removed and participants moved back to the main room.`);
+};
+
+// Get all participants from a room
+export const getParticipants = (roomId: string): { [participantJidkey: string]: IParticipant; } | null => {
+    const room = allRooms[roomId];
+
+    if (room) {
+        return room.participants; // Return participant object
+    }
+    console.warn(`Room with ID ${roomId} does not exist.`);
+
+    return null; // Return null if room doesn't exist
+
+};
+
+// Get all participants from all rooms (ignore roomId)
+export const getAllParticipants = (): { [participantJid: string]: IParticipant; } => {
+    const allParticipants: { [participantJid: string]: IParticipant; } = {};
+
+    Object.values(allRooms).forEach(room => {
+        if (room.participants) {
+            Object.assign(allParticipants, room.participants);
+        }
+    });
+
+    return allParticipants;
+};
+
+// Get participants who are not in the specified room
+export const getParticipantsNotInRoom = (roomId: string): { [participantJid: string]: IParticipant; } => {
+    const participantsNotInRoom: { [participantJid: string]: IParticipant; } = {};
+
+
+    Object.values(allRooms).forEach(room => {
+        if (room.id !== roomId && room.participants) {
+            Object.assign(participantsNotInRoom, room.participants);
+        }
+    });
+
+    return participantsNotInRoom;
+};
+
+// Check if a participant is in a room
+export const isParticipantInRoom = (roomId: string, participantJid: string): boolean => {
+    const room = allRooms[roomId];
+
+    if (room?.participants) {
+        // Check if the participant with the specified jid exists
+        return room.participants.hasOwnProperty(participantJid);
+    }
+    console.warn(`Room with ID ${roomId} does not exist or has no participants.`);
+
+    return false; // Return false if room doesn't exist or has no participants
+};
+
+export const isEmailInAnyRoom = (email: string): boolean => {
+    for (const room of Object.values(allRooms)) {
+        if (room?.participants) {
+            for (const participant of Object.values(room.participants)) {
+                if (participant.email === email) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+};
+
+// Get all participants in a room by room name
+export const getParticipantsByName = (roomName: string): { [participantJid: string]: IParticipant; } | null => {
+    for (const room of Object.values(allRooms)) {
+        if (room.name === roomName) {
+            // Return participants if room found
+            return room.participants || null;
+        }
+    }
+
+    console.warn(`Room with name ${roomName} does not exist.`);
+
+    return null; // Return null if room is not found
+};
+
+
+// Auto assign participants evenly across available rooms
+export const distributeParticipantsEvenly = (): void => {
+    // Get all rooms excluding the main room
+    const rooms = Object.values(allRooms).filter(room => !room.isMainRoom);
+
+    if (rooms.length === 0) {
+        console.warn('No available rooms to distribute participants.');
+
+        return;
+    }
+    const participants = Object.values(getAllParticipants());
+
+    if (participants.length === 0) {
+        console.warn('No participants to distribute.');
+
+        return;
+    }
+    let index = 0;
+
+    participants.forEach(participant => {
+        const targetRoom = rooms[index]; // Select room in round-robin fashion
+
+        addParticipantToRoom(targetRoom.id, participant);
+        index = (index + 1) % rooms.length; // Round-robin assignment
+    });
+    console.log('All participants have been evenly distributed among available rooms.');
+};

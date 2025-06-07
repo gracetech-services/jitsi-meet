@@ -13,6 +13,9 @@ import { IconFishmeetClose } from '../../../../../base/icons/svg';
 import BreakoutRooms
     // @ts-ignore
     from '../../../../../breakout-rooms/components/native/BreakoutRooms';
+import FishMeetBreakoutRooms
+    // @ts-ignore
+    from '../../../../../breakout-rooms/components/native/FishMeetBreakoutRooms';
 // @ts-ignore
 import Chat from '../../../../../chat/components/native/Chat';
 // @ts-ignore
@@ -256,6 +259,14 @@ const ConferenceNavigationContainer = () => {
                     options = {{
                         ...breakoutRoomsScreenOptions,
                         title: t('breakoutRooms.title')
+                    }} />
+                <ConferenceStack.Screen
+                    component = { FishMeetBreakoutRooms }
+                    name = { screen.conference.fishMeetBreakoutRooms }
+                    options = {{
+                        ...breakoutRoomsScreenOptions,
+                        ...breakoutRoomsScreenOptions,
+                        ...fishMeetHeaderOptions(t('breakoutRooms.title'))
                     }} />
             </ConferenceStack.Navigator>
         </NavigationContainer>

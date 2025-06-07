@@ -1,14 +1,14 @@
 {
     "GT": {
-        "MicError": "麦克风打不开, 解决方案, 请看'小鸽子功能介绍演示 - 线上会议的备用工具'",
         "LaunchFromIDigest": "错误：系统不支持这个操作. 请在'小鸽子'App或者网站进入会议, 如需更多信息. 请与会议主持人联系",
-        "title": "小鸽子在线会议",
-        "choose": "进入会议的几个方式如下：",
+        "MicError": "麦克风打不开, 解决方案, 请看'小鸽子功能介绍演示 - 线上会议的备用工具'",
         "appName": "小鸽子App",
-        "webUrl": "小鸽子网站: ",
-        "relaunchIntoSameMeeting": "重返会议",
+        "choose": "进入会议的几个方式如下：",
         "closeThisWebpage": "关闭",
-        "conferencelink": "会议主持人分享的会议链接和密码。注意，会议密码可能有更新，请与主持人联系获得最新的会议信息。"
+        "conferencelink": "会议主持人分享的会议链接和密码。注意，会议密码可能有更新，请与主持人联系获得最新的会议信息。",
+        "relaunchIntoSameMeeting": "重返会议",
+        "title": "小鸽子在线会议",
+        "webUrl": "小鸽子网站: "
     },
     "addPeople": {
         "accessibilityLabel": {
@@ -66,17 +66,25 @@
         "zeroEffect": "以禁用视频"
     },
     "breakoutRooms": {
+        "AutoCloseBreakRooms": "自动关闭分组在:",
+        "ManuallyCloseBreakRooms": "手动关闭分组",
+        "Minutes": "分钟",
+        "Options": "选项",
         "actions": {
             "add": "添加分会场",
+            "assign": "分组",
             "autoAssign": "自动分组讨论",
             "close": "关闭",
             "closeAll": "关闭所有分会场",
             "join": "加入",
             "leaveBreakoutRoom": "离开分组讨论室",
+            "loadPreBreakoutRoom": "加载预存分会场",
             "more": "更多",
+            "openAll": "开始所有分会场",
             "remove": "移除",
             "rename": "重命名",
             "renameBreakoutRoom": "重命名分组讨论室",
+            "save": "保存分会场",
             "sendToBreakoutRoom": "将参会者移至："
         },
         "breakoutList": "分组讨论室列表",
@@ -84,6 +92,7 @@
         "defaultName": "分组讨论室 #{{index}}",
         "hideParticipantList": "隐藏与会者列表",
         "mainRoom": "主会议室",
+        "notInMeeting": "(不在会议中)",
         "notifications": {
             "joined": "正在加入“{{name}}”分组讨论室",
             "joinedMainRoom": "正在加入主会议室",
@@ -92,6 +101,9 @@
         "prompts": {
             "EnterTotalRoom": "Enter total number of rooms for breakout"
         },
+        "saveFailBreakRooms": "保存失败",
+        "saveSuccessBreakRooms": "保存成功",
+        "searchParticipants": "搜索参会者",
         "showParticipantList": "显示与会者列表",
         "title": "分组讨论室"
     },

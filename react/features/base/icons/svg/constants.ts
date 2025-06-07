@@ -42,6 +42,11 @@ import { default as IconFaceSmile } from './face-smile.svg';
 import { default as IconFavoriteSolid } from './favorite-solid.svg';
 import { default as IconFavorite } from './favorite.svg';
 import { default as IconFeedback } from './feedback.svg';
+import { default as IconFishmeetArrowDown } from './fishmeet-arrow-down.svg';
+import { default as IconFishmeetBreakroomBlackClose } from './fishmeet-breakroom-black-close.svg';
+import { default as IconFishmeetBreakroomClose } from './fishmeet-breakroom-close.svg';
+import { default as IconFishmeetBreakroomTimerSelected } from './fishmeet-breakroom-timer-selected.svg';
+import { default as IconFishmeetBreakroomTimerUnSelected } from './fishmeet-breakroom-timer-unselected.svg';
 import { default as IconFishmeetCameraRefresh } from './fishmeet-camera-refresh.svg';
 import { default as IconFishmeetClose } from './fishmeet-close.svg';
 import { default as IconFishmeetDotsHorizontal } from './fishmeet-dots-horizontal.svg';
@@ -49,6 +54,8 @@ import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
 import { default as IconFishmeetChatUnread, default as IconFishmeetMessage } from './fishmeet-message.svg';
 import { default as IconFishmeetMicSlash } from './fishmeet-mic-slash.svg';
 import { default as IconFishmeetMic } from './fishmeet-mic.svg';
+import { default as IconFishmeetParticipantSelect } from './fishmeet-participant-select.svg';
+import { default as IconFishmeetParticipantUnSelect } from './fishmeet-participant-unselect.svg';
 import { default as IconFishmeetRaiseHand } from './fishmeet-raise-hand.svg';
 import { default as IconFishmeetSend } from './fishmeet-send.svg';
 import { default as IconFishmeetUsers } from './fishmeet-users.svg';
@@ -127,6 +134,11 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconAddUser,
     IconArrowBack,
     IconArrowDown,
+    IconFishmeetArrowDown,
+    IconFishmeetBreakroomClose,
+    IconFishmeetBreakroomTimerSelected,
+    IconFishmeetBreakroomTimerUnSelected,
+    IconFishmeetBreakroomBlackClose,
     IconArrowDownLarge,
     IconArrowLeft,
     IconArrowUp,
@@ -237,6 +249,8 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconVolumeOff,
     IconVolumeUp,
     IconFishmeetVolumeUp,
+    IconFishmeetParticipantSelect,
+    IconFishmeetParticipantUnSelect,
     IconWarning,
     IconWarningCircle,
     IconWhiteboard,

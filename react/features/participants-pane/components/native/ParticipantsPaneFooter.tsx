@@ -72,7 +72,13 @@ const ParticipantsPaneFooter = (): JSX.Element => {
                     }
                     labelKey = 'participantsPane.actions.breakoutRooms'
                     // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
-                    onClick = { () => navigate(screen.conference.breakoutRooms) }
+                    onClick = { () => {
+                        if (appType.isFishMeet) {
+                            navigate(screen.conference.fishMeetBreakoutRooms);
+                        } else {
+                            navigate(screen.conference.breakoutRooms);
+                        }
+                    } }
                     style = { styles.breakoutRoomsButton }
                     type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_SECONDARY : BUTTON_TYPES.SECONDARY } />
             }

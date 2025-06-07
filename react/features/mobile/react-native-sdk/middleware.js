@@ -9,11 +9,14 @@ import {
 import { SET_AUDIO_MUTED, SET_VIDEO_MUTED } from '../../base/media/actionTypes';
 import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from '../../base/participants/actionTypes';
 import MiddlewareRegistry from '../../base/redux/MiddlewareRegistry';
+import { UPLOAD_PRE_BREAKROOMS } from '../../breakout-rooms/actionTypes';
+import { setUploadResult } from '../../breakout-rooms/actions';
 import { READY_TO_CLOSE } from '../external-api/actionTypes';
 import { participantToParticipantInfo } from '../external-api/functions';
 import { ENTER_FLOAT_MEETING_IN_APP, ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture/actionTypes';
 
 import { isExternalAPIAvailable } from './functions';
+
 
 const externalAPIEnabled = isExternalAPIAvailable();
 
@@ -73,6 +76,15 @@ const externalAPIEnabled = isExternalAPIAvailable();
     case READY_TO_CLOSE:
         rnSdkHandlers?.onReadyToClose && rnSdkHandlers?.onReadyToClose();
         break;
+
+    case UPLOAD_PRE_BREAKROOMS: {
+        const { meetingData } = action;
+
+        rnSdkHandlers?.onUploadPreJsonData && rnSdkHandlers?.onUploadPreJsonData(meetingData, res => {
+            store.dispatch(setUploadResult(res));
+        });
+        break;
+    }
     }
 
     return result;
