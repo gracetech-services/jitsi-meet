@@ -1,11 +1,10 @@
-import { t } from 'i18next';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
-import { isLocalParticipantModerator, isParticipantModerator } from '../../../base/participants/functions';
+import { isLocalParticipantModerator } from '../../../base/participants/functions';
 import { showRoomParticipantMenu } from '../../../participants-pane/actions.native';
-import ParticipantItem from '../../../participants-pane/components/native/ParticipantItem';
+import FishMeetAvatarGridItem from '../../../participants-pane/components/native/FishMeetAvatarGridItem';
 import { IRoom } from '../../types';
 
 interface IProps {
@@ -32,10 +31,9 @@ const FishMeetBreakoutRoomParticipantItem = ({ item, room }: IProps) => {
     }, [ moderator, room, item ]);
 
     return (
-        <ParticipantItem
-            displayName = { (item.displayName || defaultRemoteDisplayName)
-                + (item.isNotInMeeting ? t('notInMeeting') : '') }
-            isModerator = { isParticipantModerator(item) }
+        <FishMeetAvatarGridItem
+            displayName = { (item.displayName || defaultRemoteDisplayName) }
+            isNotInMeeting = { item.isNotInMeeting }
             key = { item.jid }
             onPress = { onPress }
             participantID = { item.jid } />

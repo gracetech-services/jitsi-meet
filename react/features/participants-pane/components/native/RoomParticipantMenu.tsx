@@ -9,7 +9,7 @@ import { hideSheet } from '../../../base/dialog/actions';
 import BottomSheet from '../../../base/dialog/components/native/BottomSheet';
 import { bottomSheetStyles } from '../../../base/dialog/components/native/styles';
 import { translate } from '../../../base/i18n/functions';
-import { getBreakoutRooms } from '../../../breakout-rooms/functions';
+import { getAreAllRoomsOpen, getBreakoutRooms } from '../../../breakout-rooms/functions';
 // eslint-disable-next-line lines-around-comment
 // @ts-ignore
 import SendToBreakoutRoom from '../../../video-menu/components/native/SendToBreakoutRoom';
@@ -26,6 +26,11 @@ interface IProps extends WithTranslation {
      * The list of all breakout rooms.
      */
     _rooms: Array<any>;
+
+    /**
+     * Whether all breakout rooms are open.
+     */
+    areAllRoomsOpen: boolean;
 
     /**
      * The Redux dispatch function.
@@ -70,7 +75,7 @@ class RoomParticipantMenu extends PureComponent<IProps> {
      * @inheritdoc
      */
     render() {
-        const { _rooms, participantJid, room, t } = this.props;
+        const { _rooms, participantJid, room, t, areAllRoomsOpen } = this.props;
         const buttonProps = {
             afterClick: this._onCancel,
             showLabel: true,
@@ -88,6 +93,7 @@ class RoomParticipantMenu extends PureComponent<IProps> {
                     </Text>
                 </View>
                 {_rooms.map(r => room.id !== r.id && (<SendToBreakoutRoom
+                    areAllRoomsOpen = { areAllRoomsOpen }
                     key = { r.id }
                     room = { r }
                     { ...buttonProps } />))}
@@ -138,7 +144,8 @@ class RoomParticipantMenu extends PureComponent<IProps> {
  */
 function _mapStateToProps(state: IReduxState) {
     return {
-        _rooms: Object.values(getBreakoutRooms(state))
+        _rooms: Object.values(getBreakoutRooms(state)),
+        areAllRoomsOpen: getAreAllRoomsOpen(state)
     };
 }
 

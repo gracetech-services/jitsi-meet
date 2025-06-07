@@ -287,6 +287,29 @@ export function moveLocalParticipantToPreloadRoom(roomId: string) {
 }
 
 /**
+ * Action to sendParticipantToPreloadRoom.
+ *
+ * @param {string} roomId - Room roomId.
+ * @param {string} participantJid - ParticipantJid.
+ * @returns {Function}
+ */
+export function sendParticipantToPreloadRoom(roomId: string, participantJid: string) {
+    return (dispatch: IStore['dispatch']) => {
+
+        sendParticipantToRoom(roomId, participantJid);
+        const roomCounter = Object.keys(getAllRoomsData()).length;
+        const rooms = JSON.parse(JSON.stringify(getAllRoomsData()));
+
+        dispatch({
+            type: UPDATE_BREAKOUT_ROOMS,
+            rooms,
+            roomCounter
+        });
+    };
+
+}
+
+/**
  * Action to remove room's all particiants.
  *
  * @param {string} roomId - Room roomId.

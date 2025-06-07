@@ -5,16 +5,17 @@ import BaseTheme from '../../../base/ui/components/BaseTheme.native';
  * The styles of the native components of the feature {@code breakout rooms}.
  */
 export default {
-
     Button: {
-        marginBottom: BaseTheme.spacing[3],
-        marginHorizontal: BaseTheme.spacing[1]
+        width: 80,
+        height: 80,
+        borderRadius: 40
     },
 
     ButtonContainer: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        margin: 10
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        marginBottom: 30
     },
 
     collapsibleList: {

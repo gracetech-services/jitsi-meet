@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
 
@@ -8,6 +10,17 @@ export const button = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center'
+};
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const NUM_COLUMNS = 5;
+const ITEM_MARGIN = 8;
+const ITEM_WIDTH = ((SCREEN_WIDTH - ITEM_MARGIN) * (NUM_COLUMNS + 1)) / NUM_COLUMNS;
+
+export const avatarGridConstants = {
+    ITEM_WIDTH,
+    ITEM_MARGIN,
+    NUM_COLUMNS
 };
 
 /**
@@ -216,9 +229,52 @@ export default {
         borderRadius: 20,
         backgroundColor: '#C8D7EC'
     },
+
     timerButtonText: {
         color: '#424350',
         fontSize: 16,
         alignSelf: 'center'
+    },
+
+    avatarItemContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: ITEM_WIDTH,
+        margin: ITEM_MARGIN
+    },
+
+    avatarName: {
+        color: '#FFFFFF',
+        fontSize: 12,
+        marginTop: 4,
+        textAlign: 'center'
+    },
+
+    disableAvatarName: {
+        color: '#808080',
+        fontSize: 12,
+        marginTop: 4,
+        textAlign: 'center'
+    },
+
+    addAvatarContainer: {
+        alignItems: 'center',
+        width: 50,
+        margin: 10
+    },
+
+    addAvatarCircle: {
+        width: 50,
+        height: 50,
+        borderRadius: 50 * 0.5,
+        backgroundColor: '#ddd',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    addAvatarPlus: {
+        fontSize: 32,
+        color: '#555',
+        fontWeight: 'bold'
     }
 };
