@@ -15,7 +15,7 @@ export const button = {
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const NUM_COLUMNS = 5;
 const ITEM_MARGIN = 8;
-const ITEM_WIDTH = ((SCREEN_WIDTH - ITEM_MARGIN) * (NUM_COLUMNS + 1)) / NUM_COLUMNS;
+const ITEM_WIDTH = (SCREEN_WIDTH - (ITEM_MARGIN * (NUM_COLUMNS + 1))) / NUM_COLUMNS;
 
 export const avatarGridConstants = {
     ITEM_WIDTH,
