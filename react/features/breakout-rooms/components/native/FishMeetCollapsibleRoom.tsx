@@ -4,10 +4,10 @@ import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { hideDialog, openDialog, openSheet } from '../../../base/dialog/actions';
-import { determineIfMoveParticipantToMainroom } from '../../../breakout-rooms/actions';
+import { determineIfMoveParticipantToMainroom, sendParticipantToRoom } from '../../../breakout-rooms/actions';
 import { getAreAllRoomsOpen } from '../../../breakout-rooms/functions';
 import { addParticipantToPreloadRoom } from '../../../breakout-rooms/preActions';
-import { IParticipant, sendParticipantToRoom } from '../../../breakout-rooms/preRoomData';
+import { IParticipant } from '../../../breakout-rooms/preRoomData';
 import FishMeetAddAvatarButton from '../../../participants-pane/components/native/FishMeetAddAvatarButton';
 import FishMeetCollapsibleList from '../../../participants-pane/components/native/FishMeetCollapsibleList';
 import { avatarGridConstants } from '../../../participants-pane/components/native/fishMeetStyles';
