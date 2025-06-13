@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import React from 'react';
 import {
     Text,
@@ -14,7 +15,10 @@ interface IProps {
     onPress?: () => void;
 }
 
-const FishMeetAddAvatarButton = ({ onPress, label = '增减用户' }: IProps) => (
+const FishMeetAddAvatarButton = ({
+    onPress,
+    label = i18next.t('breakoutRooms.actions.addOrRemoveParticipants')
+}: IProps) => (
     <TouchableOpacity
         onPress = { onPress }
         style = { fishMeetStyles.addAvatarContainer as ViewStyle }>

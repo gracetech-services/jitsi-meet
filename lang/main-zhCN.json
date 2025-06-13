@@ -72,6 +72,7 @@
         "Options": "选项",
         "actions": {
             "add": "添加分会场",
+            "addOrRemoveParticipants": "增减用户",
             "assign": "分组",
             "autoAssign": "自动分组讨论",
             "close": "关闭",

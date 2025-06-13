@@ -72,6 +72,7 @@
         "Options": "Options",
         "actions": {
             "add": "Add breakout room",
+            "addOrRemoveParticipants": "Add or remove participants",
             "assign": "Assign",
             "autoAssign": "Auto assign to breakout rooms",
             "close": "Close",
