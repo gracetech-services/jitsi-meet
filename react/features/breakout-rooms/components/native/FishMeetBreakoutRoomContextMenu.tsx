@@ -65,6 +65,7 @@ const FishMeetBreakoutRoomContextMenu = ({ room, actions = ALL_ACTIONS }: IProps
 
     const onRemoveBreakoutRoom = useCallback(() => {
         if (areAllRoomsOpen) {
+            sendAnalytics(createBreakoutRoomsEvent('remove'));
             dispatch(removeBreakoutRoom(room.jid));
         } else {
             console.log('onRemoveBreakoutRoom');
@@ -75,7 +76,7 @@ const FishMeetBreakoutRoomContextMenu = ({ room, actions = ALL_ACTIONS }: IProps
     }, [ dispatch, room ]);
 
     const onRenameBreakoutRoom = useCallback(() => {
-
+        sendAnalytics(createBreakoutRoomsEvent('rename'));
         dispatch(openDialog(BreakoutRoomNamePrompt, {
             breakoutRoomJid: room.jid,
             initialRoomName: room.name
@@ -85,6 +86,7 @@ const FishMeetBreakoutRoomContextMenu = ({ room, actions = ALL_ACTIONS }: IProps
 
     const onCloseBreakoutRoom = useCallback(() => {
         if (areAllRoomsOpen) {
+            sendAnalytics(createBreakoutRoomsEvent('close'));
             dispatch(closeBreakoutRoom(room.id));
         } else {
             console.log('onCloseBreakoutRoom');
