@@ -7,10 +7,11 @@ import { getLocalParticipant, getRemoteParticipants } from '../base/participants
 import { UPDATE_BREAKOUT_ROOMS } from './actionTypes';
 import {
     AllRoomsData, IParticipant,
-    addParticipantToRoom, distributeParticipantsEvenly,
-    getAllRoomsData, getPreMainRoom, isEmailInAnyRoom,
-    isParticipantInRoom, removeParticipantFromRoom,
-    removeRoom, setAllRoomsData, updateRoomData
+    addParticipantToRoom,
+    distributeParticipantsEvenly, getAllRoomsData,
+    getPreMainRoom, isEmailInAnyRoom, isParticipantInRoom,
+    removeParticipantFromRoom, removeRoom,
+    removeRoomAllParticipants, sendParticipantToRoom, setAllRoomsData, updateRoomData
 } from './preRoomData';
 
 
@@ -259,4 +260,72 @@ function isInMeeting(participantsMap: any, targetEmail: string) {
     return false;
 }
 
+/**
+ * Action to moveLocalParticipantToPreloadRoom.
+ *
+ * @param {string} roomId - Room roomId.
+ * @returns {Function}
+ */
+export function moveLocalParticipantToPreloadRoom(roomId: string) {
+    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const state = getState();
+        const localParticipant = getLocalParticipant(state);
+        const participantJid = localParticipant?.id;
 
+        if (participantJid) {
+            sendParticipantToRoom(roomId, participantJid);
+            const roomCounter = Object.keys(getAllRoomsData()).length;
+            const rooms = JSON.parse(JSON.stringify(getAllRoomsData()));
+
+            dispatch({
+                type: UPDATE_BREAKOUT_ROOMS,
+                rooms,
+                roomCounter
+            });
+        }
+    };
+}
+
+/**
+ * Action to sendParticipantToPreloadRoom.
+ *
+ * @param {string} roomId - Room roomId.
+ * @param {string} participantJid - ParticipantJid.
+ * @returns {Function}
+ */
+export function sendParticipantToPreloadRoom(roomId: string, participantJid: string) {
+    return (dispatch: IStore['dispatch']) => {
+
+        sendParticipantToRoom(roomId, participantJid);
+        const roomCounter = Object.keys(getAllRoomsData()).length;
+        const rooms = JSON.parse(JSON.stringify(getAllRoomsData()));
+
+        dispatch({
+            type: UPDATE_BREAKOUT_ROOMS,
+            rooms,
+            roomCounter
+        });
+    };
+
+}
+
+/**
+ * Action to remove room's all particiants.
+ *
+ * @param {string} roomId - Room roomId.
+ * @returns {Function}
+ */
+export function removeParticipantsFromPreloadBreakoutRoom(roomId: string) {
+    return (dispatch: IStore['dispatch']) => {
+
+        removeRoomAllParticipants(roomId);
+        const roomCounter = Object.keys(getAllRoomsData()).length;
+        const rooms = { ...getAllRoomsData() };
+
+        dispatch({
+            type: UPDATE_BREAKOUT_ROOMS,
+            rooms,
+            roomCounter
+        });
+    };
+}

@@ -21,7 +21,6 @@ import { addParticipantToPreloadMainRoom } from '../../preActions';
 import FishMeetAutoAssignButton from './FishMeetAutoAssignButton';
 import FishMeetBreakRoomFooterButtons from './FishMeetBreakRoomFooterButtons';
 import { FishMeetCollapsibleRoom } from './FishMeetCollapsibleRoom';
-import { FishMeetNormalRoom } from './FishMeetNormalRoom';
 import fishmeetStyles from './fishmeetStyles';
 
 
@@ -67,7 +66,7 @@ const FishMeetBreakoutRooms = () => {
                             }
                             {
                                 isBreakoutRoomsSupported
-                                && rooms.map(room => (<FishMeetNormalRoom
+                                && rooms.map(room => (<FishMeetCollapsibleRoom
                                     key = { room.id }
                                     room = { room }
                                     roomId = { room.id } />))

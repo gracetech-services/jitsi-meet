@@ -97,6 +97,7 @@ const Button: React.FC<IProps> = ({
                     style
                 ] }>
                 <Text
+                    numberOfLines = { 0 }
                     style = { [
                         buttonLabelStyles,
                         labelStyle
@@ -104,6 +105,32 @@ const Button: React.FC<IProps> = ({
             </TouchableHighlight>
         );
     }
+
+    if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
+
+        return (
+            <TouchableHighlight
+                accessibilityLabel = { accessibilityLabel }
+                disabled = { disabled }
+                onPress = { onPress }
+                style = { [
+                    buttonStyles,
+                    style,
+                    { backgroundColor: color }
+                ] }
+                underlayColor = { color }>
+                <Text
+                    numberOfLines = { 0 }
+                    style = { [
+                        buttonLabelStyles,
+                        labelStyle
+                    ] }>
+                    {t(labelKey ?? '')}
+                </Text>
+            </TouchableHighlight>
+        );
+    }
+
 
     return (
         <NativePaperButton

@@ -43,6 +43,7 @@ import { default as IconFavoriteSolid } from './favorite-solid.svg';
 import { default as IconFavorite } from './favorite.svg';
 import { default as IconFeedback } from './feedback.svg';
 import { default as IconFishmeetArrowDown } from './fishmeet-arrow-down.svg';
+import { default as IconFishmeetArrowUp } from './fishmeet-arrow-up.svg';
 import { default as IconFishmeetBreakroomBlackClose } from './fishmeet-breakroom-black-close.svg';
 import { default as IconFishmeetBreakroomClose } from './fishmeet-breakroom-close.svg';
 import { default as IconFishmeetBreakroomTimerSelected } from './fishmeet-breakroom-timer-selected.svg';
@@ -135,6 +136,7 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconArrowBack,
     IconArrowDown,
     IconFishmeetArrowDown,
+    IconFishmeetArrowUp,
     IconFishmeetBreakroomClose,
     IconFishmeetBreakroomTimerSelected,
     IconFishmeetBreakroomTimerUnSelected,

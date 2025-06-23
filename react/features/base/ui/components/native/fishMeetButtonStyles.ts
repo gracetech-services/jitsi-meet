@@ -6,7 +6,10 @@ const fishMeetButton = {
     borderRadius: BUTTON_HEIGHT / 2.0,
     display: 'flex',
     height: BUTTON_HEIGHT,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12
 };
 
 const buttonLabel = {

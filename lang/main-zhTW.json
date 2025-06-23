@@ -72,6 +72,7 @@
         "Options": "選項",
         "actions": {
             "add": "新增分組討論室",
+            "addOrRemoveParticipants": "增減用戶",
             "assign": "分組",
             "autoAssign": "自動分配至分組討論室",
             "close": "關閉",

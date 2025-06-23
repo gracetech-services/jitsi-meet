@@ -8,9 +8,15 @@ import { IconRingGroup } from '../../../base/icons/svg';
 import { isLocalParticipantModerator } from '../../../base/participants/functions';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { sendParticipantToRoom } from '../../../breakout-rooms/actions';
+import { sendParticipantToPreloadRoom } from '../../../breakout-rooms/preActions';
 import { IRoom } from '../../../breakout-rooms/types';
 
 export interface IProps extends AbstractButtonProps {
+
+    /**
+     * Open all rooms state.
+     */
+    areAllRoomsOpen?: boolean;
 
     /**
      * ID of the participant to send to breakout room.
@@ -48,10 +54,15 @@ class SendToBreakoutRoom extends AbstractButton<IProps> {
      * @returns {void}
      */
     _handleClick() {
-        const { dispatch, participantID, room } = this.props;
+        const { dispatch, participantID, room, areAllRoomsOpen } = this.props;
 
-        sendAnalytics(createBreakoutRoomsEvent('send.participant.to.room'));
-        dispatch(sendParticipantToRoom(participantID, room.id));
+        if (areAllRoomsOpen) {
+            sendAnalytics(createBreakoutRoomsEvent('send.participant.to.room'));
+            dispatch(sendParticipantToRoom(participantID, room.id));
+        } else {
+            dispatch(sendParticipantToPreloadRoom(room.id, participantID));
+        }
+
     }
 }
 
