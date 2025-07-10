@@ -106,8 +106,7 @@ const Button: React.FC<IProps> = ({
         );
     }
 
-    if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
-
+    if (appType.isFishMeet && (type === DESTRUCTIVE || type === SECONDARY || type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY)) {
         return (
             <TouchableHighlight
                 accessibilityLabel = { accessibilityLabel }
