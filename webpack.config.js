@@ -12,7 +12,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
  * development with webpack-dev-server.
  */
 const devServerProxyTarget
-    = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://m2.idigest.app';
+    = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://m.mycbsf.org'; 
 
 /**
  * Build a Performance configuration object for the given size.
