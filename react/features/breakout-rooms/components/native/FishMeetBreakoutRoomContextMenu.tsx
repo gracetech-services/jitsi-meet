@@ -14,11 +14,12 @@ import { isLocalParticipantModerator } from '../../../base/participants/function
 import styles from '../../../participants-pane/components/native/styles';
 import { isBreakoutRoomRenameAllowed } from '../../../participants-pane/functions';
 import { BREAKOUT_CONTEXT_MENU_ACTIONS as ACTIONS } from '../../../participants-pane/types';
-import { closeBreakoutRoom, moveToRoom, removeBreakoutRoom } from '../../actions';
+import { closeBreakoutRoom, moveToRoom, removeBreakoutRoom, renameBreakoutRoom } from '../../actions';
 import { getAreAllRoomsOpen, getBreakoutRoomsConfig } from '../../functions';
 import { moveLocalParticipantToPreloadRoom,
     removeParticipantsFromPreloadBreakoutRoom,
-    removePreloadBreakoutRoom } from '../../preActions';
+    removePreloadBreakoutRoom,
+    renamePreloadBreakoutRoom } from '../../preActions';
 import { IRoom } from '../../types';
 
 import BreakoutRoomNamePrompt from './BreakoutRoomNamePrompt';
@@ -76,13 +77,21 @@ const FishMeetBreakoutRoomContextMenu = ({ room, actions = ALL_ACTIONS }: IProps
     }, [ dispatch, room ]);
 
     const onRenameBreakoutRoom = useCallback(() => {
-        sendAnalytics(createBreakoutRoomsEvent('rename'));
-        dispatch(openDialog(BreakoutRoomNamePrompt, {
-            breakoutRoomJid: room.jid,
-            initialRoomName: room.name
-        }));
-        dispatch(hideSheet());
-    }, [ dispatch, room ]);
+    dispatch(openDialog(BreakoutRoomNamePrompt, {
+        breakoutRoomJid: room.jid,
+        initialRoomName: room.name,
+        onSubmit: (newName: string) => {
+            if (areAllRoomsOpen) {
+                dispatch(renameBreakoutRoom(room.jid, newName));
+            } else {
+                dispatch(renamePreloadBreakoutRoom(room.id, newName));
+            }
+
+            dispatch(hideSheet()); 
+        }
+    }));
+}, [ dispatch, room, areAllRoomsOpen ]);
+
 
     const onCloseBreakoutRoom = useCallback(() => {
         if (areAllRoomsOpen) {
@@ -112,7 +121,7 @@ const FishMeetBreakoutRoomContextMenu = ({ room, actions = ALL_ACTIONS }: IProps
                 )
             }
             {
-                !room?.isMainRoom && actions.includes(ACTIONS.RENAME) && _isBreakoutRoomRenameAllowed && areAllRoomsOpen
+                !room?.isMainRoom && actions.includes(ACTIONS.RENAME) && _isBreakoutRoomRenameAllowed
                 && <TouchableOpacity
                     onPress = { onRenameBreakoutRoom }
                     style = { styles.contextMenuItem as ViewStyle }>

@@ -72,6 +72,21 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
             uploadResult: action.uploadResult
         };
     }
+
+    case 'RENAME_PRELOAD_ROOM': {
+    const { roomId, name } = action;
+    return {
+        ...state,
+        rooms: {
+            ...state.rooms,
+            [roomId]: {
+                ...state.rooms[roomId],
+                name
+            }
+        }
+    };
+}
+
     }
 
     return state;

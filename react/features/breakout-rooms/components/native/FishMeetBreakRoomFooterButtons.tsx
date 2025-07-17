@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -34,6 +34,9 @@ const FishMeetBreakRoomFooterButtons = () => {
     const uploadResult = useSelector(getUploadResult);
     const rooms = Object.values(useSelector(getBreakoutRooms, equals)).filter(room => !room.isMainRoom);
 
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [awaitingEditAfterLoad, setAwaitingEditAfterLoad] = useState(false);
+
     const onClose = () => {
         dispatch(hideDialog());
     };
@@ -57,6 +60,10 @@ const FishMeetBreakRoomFooterButtons = () => {
             dispatch(createBreakoutRoom());
         } else {
             dispatch(createPreloadBreakoutRoom());
+            if (awaitingEditAfterLoad) {
+            setIsEditMode(true);
+            setAwaitingEditAfterLoad(false);
+        }
         }
     }, [ dispatch ]);
 
@@ -74,13 +81,22 @@ const FishMeetBreakRoomFooterButtons = () => {
 
     const onSave = useCallback(() => {
         dispatch(upLoadPreBreakRoomsData(getAllRoomsData()));
+        setIsEditMode(false);
     }, [ dispatch ]);
 
     const loadPreRooms = useCallback(() => {
         const preRoomData = fishMeetPassInData.breakRoomData;
-        const copiedData = JSON.parse(JSON.stringify(preRoomData));
+         if (!preRoomData) {
+        dispatch(openDialog(FishMeetToastView, {
+            text: '没有预分组，请先添加并保存',
+            onClose
+        }));
+        setAwaitingEditAfterLoad(true);
+        return;
+    }
 
-        dispatch(setLoadPreBreakoutRooms(copiedData));
+    const copiedData = JSON.parse(JSON.stringify(preRoomData));
+    dispatch(setLoadPreBreakoutRooms(copiedData));
 
     }, [ dispatch ]);
 
@@ -103,20 +119,24 @@ const FishMeetBreakRoomFooterButtons = () => {
                 onClick = { onAdd }
                 style = { fishmeetStyles.Button }
                 type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
-            <Button
-                accessibilityLabel = 'breakoutRooms.actions.loadPreBreakoutRoom'
-                disabled = { areAllRoomsOpen || fishMeetPassInData.breakRoomData === undefined }
-                labelKey = 'breakoutRooms.actions.loadPreBreakoutRoom'
-                onClick = { loadPreRooms }
-                style = { fishmeetStyles.Button }
-                type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
-            <Button
-                accessibilityLabel = 'breakoutRooms.actions.save'
-                disabled = { areAllRoomsOpen || rooms.length === 0 }
-                labelKey = 'breakoutRooms.actions.save'
-                onClick = { onSave }
-                style = { fishmeetStyles.Button }
-                type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+            {isEditMode ? (
+    <Button
+        accessibilityLabel = 'breakoutRooms.actions.save'
+        disabled = { areAllRoomsOpen || rooms.length === 0 }
+        labelKey = 'breakoutRooms.actions.save'
+        onClick = { onSave }
+        style = { fishmeetStyles.Button }
+        type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+) : (
+    <Button
+        accessibilityLabel = 'breakoutRooms.actions.loadPreBreakoutRoom'
+        disabled = { areAllRoomsOpen && !fishMeetPassInData.breakRoomData }
+        labelKey = 'breakoutRooms.actions.loadPreBreakoutRoom'
+        onClick = { loadPreRooms }
+        style = { fishmeetStyles.Button }
+        type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+)}
+
             <Button
                 accessibilityLabel = { areAllRoomsOpen
                     ? 'breakoutRooms.actions.closeAll'

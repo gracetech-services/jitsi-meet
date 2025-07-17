@@ -192,6 +192,17 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         const remoteParticipants = getRemoteParticipants(state);
+        
+        // 保存当前本地已重命名的房间名称，避免被服务器数据覆盖
+        const currentRooms = getAllRoomsData();
+        const renamedRooms: { [key: string]: string } = {};
+        
+        Object.keys(currentRooms).forEach(roomId => {
+            const room = currentRooms[roomId];
+            if (room.name && room.name !== i18next.t('breakoutRooms.defaultName', { index: roomId })) {
+                renamedRooms[roomId] = room.name;
+            }
+        });
 
         Object.keys(meetingData).forEach(roomId => {
             const room = meetingData[roomId];
@@ -204,6 +215,11 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
                 // we use the participant's email to make the judgment.
                 participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
             });
+            
+            // 如果本地有这个房间的重命名，优先使用本地名称
+            if (renamedRooms[roomId]) {
+                room.name = renamedRooms[roomId];
+            }
         });
 
         setAllRoomsData(meetingData as AllRoomsData);
@@ -319,6 +335,30 @@ export function removeParticipantsFromPreloadBreakoutRoom(roomId: string) {
     return (dispatch: IStore['dispatch']) => {
 
         removeRoomAllParticipants(roomId);
+        const roomCounter = Object.keys(getAllRoomsData()).length;
+        const rooms = { ...getAllRoomsData() };
+
+        dispatch({
+            type: UPDATE_BREAKOUT_ROOMS,
+            rooms,
+            roomCounter
+        });
+    };
+}
+
+/**
+ * Action to rename a preload breakout room.
+ *
+ * @param {string} roomId - Room roomId.
+ * @param {string} name - New room name.
+ * @returns {Function}
+ */
+export function renamePreloadBreakoutRoom(roomId: string, name: string) {
+    return (dispatch: IStore['dispatch']) => {
+        // 只更新本地状态，不与服务器通信
+        updateRoomData(roomId, { name });
+        
+        // 更新 Redux 状态
         const roomCounter = Object.keys(getAllRoomsData()).length;
         const rooms = { ...getAllRoomsData() };
 
