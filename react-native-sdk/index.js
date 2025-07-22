@@ -3,6 +3,7 @@
 import './react/bootstrap.native';
 import React, { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
+
 import { appNavigate } from './react/features/app/actions.native';
 import { App } from './react/features/app/components/App.native';
 import { setAudioMuted, setVideoMuted } from './react/features/base/media/actions';
@@ -11,25 +12,30 @@ import { getRoomsInfo } from './react/features/breakout-rooms/functions';
  * Main React Native SDK component that displays a Jitsi Meet conference and gets all required params as props
  */
 export const JitsiMeeting = forwardRef((props, ref) => {
-    const [appProps, setAppProps] = useState({});
+    const [ appProps, setAppProps ] = useState({});
     const app = useRef(null);
     const { config, eventListeners, flags, room, serverURL, style, token, userInfo } = props;
+
     // eslint-disable-next-line arrow-body-style
     useImperativeHandle(ref, () => ({
         close: () => {
             const dispatch = app.current.state.store.dispatch;
+
             dispatch(appNavigate(undefined));
         },
         setAudioMuted: muted => {
             const dispatch = app.current.state.store.dispatch;
+
             dispatch(setAudioMuted(muted));
         },
         setVideoMuted: muted => {
             const dispatch = app.current.state.store.dispatch;
+
             dispatch(setVideoMuted(muted));
         },
         getRoomsInfo: () => {
             const state = app.current.state.store.getState();
+
             return getRoomsInfo(state);
         }
     }));
@@ -39,13 +45,13 @@ export const JitsiMeeting = forwardRef((props, ref) => {
             jwt: token
         };
         let urlProps;
+
         if (room.includes('://')) {
             urlProps = {
                 ...urlObj,
                 url: room
             };
-        }
-        else {
+        } else {
             urlProps = {
                 ...urlObj,
                 room,
@@ -66,7 +72,9 @@ export const JitsiMeeting = forwardRef((props, ref) => {
                 onParticipantJoined: eventListeners?.onParticipantJoined,
                 onParticipantLeft: eventListeners?.onParticipantLeft,
                 onReadyToClose: eventListeners?.onReadyToClose,
-                onEnterFloatMeetingInApp: eventListeners?.onEnterFloatMeetingInApp
+                onEnterFloatMeetingInApp: eventListeners?.onEnterFloatMeetingInApp,
+                onUploadPreJsonData: eventListeners?.onUploadPreJsonData,
+                onLoadPreJsonData: eventListeners?.onLoadPreJsonData
             },
             'url': urlProps,
             'userInfo': userInfo
@@ -81,10 +89,12 @@ export const JitsiMeeting = forwardRef((props, ref) => {
         */
         return () => {
             const dispatch = app.current?.state?.store?.dispatch;
+
             dispatch && dispatch(appNavigate(undefined));
         };
     }, []);
+
     return (<View style={style}>
-            <App {...appProps} ref={app}/>
-        </View>);
+        <App {...appProps} ref={app}/>
+    </View>);
 });

@@ -11,7 +11,7 @@ import Button from '../../../base/ui/components/native/Button';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
 import {
     closeAllRooms, createBreakoutRoom,
-    openAllRooms, setUploadResult, upLoadPreBreakRoomsData
+    openAllRooms, setUploadResult, upLoadPreBreakRoomsData,loadPreBreakRoomsData
 } from '../../actions';
 import { getAreAllRoomsOpen, getBreakoutRooms, getUploadResult } from '../../functions';
 import { createPreloadBreakoutRoom, setLoadPreBreakoutRooms } from '../../preActions';
@@ -36,6 +36,7 @@ const FishMeetBreakRoomFooterButtons = () => {
 
     const [isEditMode, setIsEditMode] = useState(false);
     const [awaitingEditAfterLoad, setAwaitingEditAfterLoad] = useState(false);
+    const [noPreGroup, setNoPreGroup] = useState(false);
 
     const onClose = () => {
         dispatch(hideDialog());
@@ -80,12 +81,14 @@ const FishMeetBreakRoomFooterButtons = () => {
     };
 
     const onSave = useCallback(() => {
+        console.log('!!!!!!!!!!!!!onSave trigger');
         dispatch(upLoadPreBreakRoomsData(getAllRoomsData()));
         setIsEditMode(false);
     }, [ dispatch ]);
 
     const loadPreRooms = useCallback(() => {
-        const preRoomData = fishMeetPassInData.breakRoomData;
+        console.log('!!!!!!!!!!!!! footer - loadPreRooms trigger');
+       /*  const preRoomData = fishMeetPassInData.breakRoomData;
          if (!preRoomData) {
         dispatch(openDialog(FishMeetToastView, {
             text: '没有预分组，请先添加并保存',
@@ -96,7 +99,9 @@ const FishMeetBreakRoomFooterButtons = () => {
     }
 
     const copiedData = JSON.parse(JSON.stringify(preRoomData));
-    dispatch(setLoadPreBreakoutRooms(copiedData));
+    dispatch(setLoadPreBreakoutRooms(copiedData)); */
+
+    dispatch(loadPreBreakRoomsData());
 
     }, [ dispatch ]);
 
@@ -117,6 +122,13 @@ const FishMeetBreakRoomFooterButtons = () => {
                 accessibilityLabel = 'breakoutRooms.actions.add'
                 labelKey = 'breakoutRooms.actions.add'
                 onClick = { onAdd }
+                style = { fishmeetStyles.Button }
+                type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+            {/* 新增：始终可见的测试保存按钮 */}
+            <Button
+                accessibilityLabel = 'breakoutRooms.actions.saveTest'
+                labelKey = 'breakoutRooms.actions.saveTest'
+                onClick = { onSave }
                 style = { fishmeetStyles.Button }
                 type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
             {isEditMode ? (

@@ -4,7 +4,7 @@ import { IStore } from '../app/types';
 import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
 
-import { UPDATE_BREAKOUT_ROOMS } from './actionTypes';
+import { UPDATE_BREAKOUT_ROOMS, SET_LOAD_PRE_BREAKOUT_ROOMS } from './actionTypes';
 import {
     AllRoomsData, IParticipant,
     addParticipantToRoom,
