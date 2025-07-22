@@ -26,7 +26,8 @@ import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 import {
     IS_SHOW_LOADING, SET_ALL_ROOMS_OPEN,
     UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT,
-    _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER
+    _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER,LOAD_PRE_BREAKROOMS,
+    SET_LOAD_PRE_BREAKOUT_ROOMS
 } from './actionTypes';
 import { FEATURE_KEY } from './constants';
 import {
@@ -561,4 +562,17 @@ export function setUploadResult(uploadResult: boolean | undefined) {
     };
 }
 
+export function loadPreBreakRoomsData() {
+    return (dispatch: IStore['dispatch']) => {
+        dispatch({
+            type: LOAD_PRE_BREAKROOMS,
+        });
+    };
+}
 
+export function setLoadPreBreakoutRooms(meetingData: any) {
+    return {
+        type: SET_LOAD_PRE_BREAKOUT_ROOMS,
+        meetingData
+    };
+}

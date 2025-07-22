@@ -9,13 +9,14 @@ import {
 import { SET_AUDIO_MUTED, SET_VIDEO_MUTED } from '../../base/media/actionTypes';
 import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from '../../base/participants/actionTypes';
 import MiddlewareRegistry from '../../base/redux/MiddlewareRegistry';
-import { UPLOAD_PRE_BREAKROOMS } from '../../breakout-rooms/actionTypes';
+import { UPLOAD_PRE_BREAKROOMS, LOAD_PRE_BREAKROOMS } from '../../breakout-rooms/actionTypes';
 import { setUploadResult } from '../../breakout-rooms/actions';
 import { READY_TO_CLOSE } from '../external-api/actionTypes';
 import { participantToParticipantInfo } from '../external-api/functions';
 import { ENTER_FLOAT_MEETING_IN_APP, ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture/actionTypes';
 
 import { isExternalAPIAvailable } from './functions';
+import { setLoadPreBreakoutRooms } from '../../breakout-rooms/preActions'; 
 
 
 const externalAPIEnabled = isExternalAPIAvailable();
@@ -31,60 +32,73 @@ const externalAPIEnabled = isExternalAPIAvailable();
     const rnSdkHandlers = getAppProp(store, 'rnSdkHandlers');
 
     switch (type) {
-    case SET_AUDIO_MUTED:
-        rnSdkHandlers?.onAudioMutedChanged && rnSdkHandlers?.onAudioMutedChanged(action.muted);
-        break;
-    case SET_VIDEO_MUTED:
-        rnSdkHandlers?.onVideoMutedChanged && rnSdkHandlers?.onVideoMutedChanged(Boolean(action.muted));
-        break;
-    case CONFERENCE_BLURRED:
-        rnSdkHandlers?.onConferenceBlurred && rnSdkHandlers?.onConferenceBlurred();
-        break;
-    case CONFERENCE_FOCUSED:
-        rnSdkHandlers?.onConferenceFocused && rnSdkHandlers?.onConferenceFocused();
-        break;
-    case CONFERENCE_JOINED:
-        rnSdkHandlers?.onConferenceJoined && rnSdkHandlers?.onConferenceJoined();
-        break;
-    case CONFERENCE_LEFT:
-        //  Props are torn down at this point, perhaps need to leave this one out
-        break;
-    case CONFERENCE_WILL_JOIN:
-        rnSdkHandlers?.onConferenceWillJoin && rnSdkHandlers?.onConferenceWillJoin();
-        break;
-    case ENTER_PICTURE_IN_PICTURE:
-        rnSdkHandlers?.onEnterPictureInPicture && rnSdkHandlers?.onEnterPictureInPicture();
-        break;
-    case ENTER_FLOAT_MEETING_IN_APP:
-        rnSdkHandlers?.onEnterFloatMeetingInApp && rnSdkHandlers?.onEnterFloatMeetingInApp();
-        break;
-    case PARTICIPANT_JOINED: {
-        const { participant } = action;
-        const participantInfo = participantToParticipantInfo(participant);
+        case SET_AUDIO_MUTED:
+            rnSdkHandlers?.onAudioMutedChanged && rnSdkHandlers?.onAudioMutedChanged(action.muted);
+            break;
+        case SET_VIDEO_MUTED:
+            rnSdkHandlers?.onVideoMutedChanged && rnSdkHandlers?.onVideoMutedChanged(Boolean(action.muted));
+            break;
+        case CONFERENCE_BLURRED:
+            rnSdkHandlers?.onConferenceBlurred && rnSdkHandlers?.onConferenceBlurred();
+            break;
+        case CONFERENCE_FOCUSED:
+            rnSdkHandlers?.onConferenceFocused && rnSdkHandlers?.onConferenceFocused();
+            break;
+        case CONFERENCE_JOINED:
+            rnSdkHandlers?.onConferenceJoined && rnSdkHandlers?.onConferenceJoined();
+            break;
+        case CONFERENCE_LEFT:
+            //  Props are torn down at this point, perhaps need to leave this one out
+            break;
+        case CONFERENCE_WILL_JOIN:
+            rnSdkHandlers?.onConferenceWillJoin && rnSdkHandlers?.onConferenceWillJoin();
+            break;
+        case ENTER_PICTURE_IN_PICTURE:
+            rnSdkHandlers?.onEnterPictureInPicture && rnSdkHandlers?.onEnterPictureInPicture();
+            break;
+        case ENTER_FLOAT_MEETING_IN_APP:
+            rnSdkHandlers?.onEnterFloatMeetingInApp && rnSdkHandlers?.onEnterFloatMeetingInApp();
+            break;
+        case PARTICIPANT_JOINED: {
+            const { participant } = action;
+            const participantInfo = participantToParticipantInfo(participant);
 
-        rnSdkHandlers?.onParticipantJoined && rnSdkHandlers?.onParticipantJoined(participantInfo);
-        break;
-    }
-    case PARTICIPANT_LEFT: {
-        const { participant } = action;
+            rnSdkHandlers?.onParticipantJoined && rnSdkHandlers?.onParticipantJoined(participantInfo);
+            break;
+        }
+        case PARTICIPANT_LEFT: {
+            const { participant } = action;
 
-        const { id } = participant ?? {};
+            const { id } = participant ?? {};
 
-        rnSdkHandlers?.onParticipantLeft && rnSdkHandlers?.onParticipantLeft({ id });
-        break;
-    }
-    case READY_TO_CLOSE:
-        rnSdkHandlers?.onReadyToClose && rnSdkHandlers?.onReadyToClose();
-        break;
+            rnSdkHandlers?.onParticipantLeft && rnSdkHandlers?.onParticipantLeft({ id });
+            break;
+        }
+        case READY_TO_CLOSE:
+            rnSdkHandlers?.onReadyToClose && rnSdkHandlers?.onReadyToClose();
+            break;
 
-    case UPLOAD_PRE_BREAKROOMS: {
-        const { meetingData } = action;
+        case LOAD_PRE_BREAKROOMS: {
+            rnSdkHandlers?.onLoadPreJsonData && rnSdkHandlers.onLoadPreJsonData(meetingData => {
+                if (meetingData && Object.keys(meetingData).length > 0) {
+                    store.dispatch(setLoadPreBreakoutRooms(meetingData));
+                    store.dispatch({ type: 'SET_HAS_PRE_BREAKOUT_ROOMS', hasPre: true });
+                } else {
+                    store.dispatch({ type: 'SET_HAS_PRE_BREAKOUT_ROOMS', hasPre: false });
+                }
+            });
 
-        rnSdkHandlers?.onUploadPreJsonData && rnSdkHandlers?.onUploadPreJsonData(meetingData, res => {
-            store.dispatch(setUploadResult(res));
-        });
-        break;
-    }
+            
+            break;
+        }
+        case UPLOAD_PRE_BREAKROOMS: {
+            const { meetingData } = action;
+
+            rnSdkHandlers?.onUploadPreJsonData && rnSdkHandlers?.onUploadPreJsonData(meetingData, res => {
+                store.dispatch(setUploadResult(res));
+            });
+            break;
+        }
     }
 
     return result;
