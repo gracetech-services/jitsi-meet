@@ -4,7 +4,7 @@ import { IStore } from '../app/types';
 import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
 
-import { UPDATE_BREAKOUT_ROOMS } from './actionTypes';
+import { UPDATE_BREAKOUT_ROOMS, SET_LOAD_PRE_BREAKOUT_ROOMS } from './actionTypes';
 import {
     AllRoomsData, IParticipant,
     addParticipantToRoom,
@@ -190,9 +190,11 @@ export function autoPreAssignToBreakoutRooms() {
  */
 export function setLoadPreBreakoutRooms(meetingData: any) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        console.log('!!!!!!!!!!!!! actions - setLoadPreBreakoutRooms trigger');
         const state = getState();
         const remoteParticipants = getRemoteParticipants(state);
         
+        // 保存当前本地已重命名的房间名称，避免被服务器数据覆盖
         const currentRooms = getAllRoomsData();
         const renamedRooms: { [key: string]: string } = {};
         
@@ -215,7 +217,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
                 participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
             });
             
-
+            // 如果本地有这个房间的重命名，优先使用本地名称
             if (renamedRooms[roomId]) {
                 room.name = renamedRooms[roomId];
             }
@@ -252,6 +254,15 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
         });
     };
 }
+
+/* export function setLoadPreBreakoutRooms(meetingData: any) {
+    console.log('!!!!!!!!!!!!! actions - setLoadPreBreakoutRooms trigger');
+    setAllRoomsData(meetingData);
+    return {
+        type: SET_LOAD_PRE_BREAKOUT_ROOMS,
+        meetingData
+    };
+} */
 
 /**
  * Action to IsInMeeting.
@@ -354,9 +365,10 @@ export function removeParticipantsFromPreloadBreakoutRoom(roomId: string) {
  */
 export function renamePreloadBreakoutRoom(roomId: string, name: string) {
     return (dispatch: IStore['dispatch']) => {
+        // 只更新本地状态，不与服务器通信
         updateRoomData(roomId, { name });
         
-
+        // 更新 Redux 状态
         const roomCounter = Object.keys(getAllRoomsData()).length;
         const rooms = { ...getAllRoomsData() };
 

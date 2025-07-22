@@ -538,6 +538,7 @@ export function setIsShowLoading(isShowLoading: boolean) {
  * @returns {Function}
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
+    console.log('!!!!!!!!!!!!!upLoadPreBreakRoomsData trigger');
     return (dispatch: IStore['dispatch']) => {
         fishMeetPassInData.breakRoomData = meetingData;
         dispatch({
@@ -571,8 +572,14 @@ export function loadPreBreakRoomsData() {
 }
 
 export function setLoadPreBreakoutRooms(meetingData: any) {
+    console.log('!!!!!!!!!!!!! actions - setLoadPreBreakoutRooms trigger');
     return {
         type: SET_LOAD_PRE_BREAKOUT_ROOMS,
         meetingData
     };
 }
+
+
+
+
+

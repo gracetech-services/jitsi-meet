@@ -11,10 +11,10 @@ import Button from '../../../base/ui/components/native/Button';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
 import {
     closeAllRooms, createBreakoutRoom,
-    openAllRooms, setUploadResult, upLoadPreBreakRoomsData,loadPreBreakRoomsData
+    loadPreBreakRoomsData, openAllRooms, setUploadResult, upLoadPreBreakRoomsData
 } from '../../actions';
 import { getAreAllRoomsOpen, getBreakoutRooms, getUploadResult } from '../../functions';
-import { createPreloadBreakoutRoom, setLoadPreBreakoutRooms } from '../../preActions';
+import { createPreloadBreakoutRoom } from '../../preActions';
 import { getAllRoomsData } from '../../preRoomData';
 
 import FishMeetTimerOptions from './FishMeetTimerOptions';
@@ -34,9 +34,7 @@ const FishMeetBreakRoomFooterButtons = () => {
     const uploadResult = useSelector(getUploadResult);
     const rooms = Object.values(useSelector(getBreakoutRooms, equals)).filter(room => !room.isMainRoom);
 
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [awaitingEditAfterLoad, setAwaitingEditAfterLoad] = useState(false);
-    const [noPreGroup, setNoPreGroup] = useState(false);
+    const [ awaitingEditAfterLoad, setAwaitingEditAfterLoad ] = useState(false);
 
     const onClose = () => {
         dispatch(hideDialog());
@@ -62,9 +60,8 @@ const FishMeetBreakRoomFooterButtons = () => {
         } else {
             dispatch(createPreloadBreakoutRoom());
             if (awaitingEditAfterLoad) {
-            setIsEditMode(true);
-            setAwaitingEditAfterLoad(false);
-        }
+                setAwaitingEditAfterLoad(false);
+            }
         }
     }, [ dispatch ]);
 
@@ -81,27 +78,11 @@ const FishMeetBreakRoomFooterButtons = () => {
     };
 
     const onSave = useCallback(() => {
-        console.log('!!!!!!!!!!!!!onSave trigger');
         dispatch(upLoadPreBreakRoomsData(getAllRoomsData()));
-        setIsEditMode(false);
     }, [ dispatch ]);
 
     const loadPreRooms = useCallback(() => {
-        console.log('!!!!!!!!!!!!! footer - loadPreRooms trigger');
-       /*  const preRoomData = fishMeetPassInData.breakRoomData;
-         if (!preRoomData) {
-        dispatch(openDialog(FishMeetToastView, {
-            text: '没有预分组，请先添加并保存',
-            onClose
-        }));
-        setAwaitingEditAfterLoad(true);
-        return;
-    }
-
-    const copiedData = JSON.parse(JSON.stringify(preRoomData));
-    dispatch(setLoadPreBreakoutRooms(copiedData)); */
-
-    dispatch(loadPreBreakRoomsData());
+        dispatch(loadPreBreakRoomsData());
 
     }, [ dispatch ]);
 
@@ -124,30 +105,22 @@ const FishMeetBreakRoomFooterButtons = () => {
                 onClick = { onAdd }
                 style = { fishmeetStyles.Button }
                 type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
-            {/* 新增：始终可见的测试保存按钮 */}
             <Button
-                accessibilityLabel = 'breakoutRooms.actions.saveTest'
-                labelKey = 'breakoutRooms.actions.saveTest'
+                accessibilityLabel = 'breakoutRooms.actions.save'
+                disabled = { areAllRoomsOpen || rooms.length === 0 }
+                labelKey = 'breakoutRooms.actions.save'
                 onClick = { onSave }
                 style = { fishmeetStyles.Button }
                 type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
-            {isEditMode ? (
-    <Button
-        accessibilityLabel = 'breakoutRooms.actions.save'
-        disabled = { areAllRoomsOpen || rooms.length === 0 }
-        labelKey = 'breakoutRooms.actions.save'
-        onClick = { onSave }
-        style = { fishmeetStyles.Button }
-        type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
-) : (
-    <Button
-        accessibilityLabel = 'breakoutRooms.actions.loadPreBreakoutRoom'
-        disabled = { areAllRoomsOpen && !fishMeetPassInData.breakRoomData }
-        labelKey = 'breakoutRooms.actions.loadPreBreakoutRoom'
-        onClick = { loadPreRooms }
-        style = { fishmeetStyles.Button }
-        type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
-)}
+
+            <Button
+                accessibilityLabel = 'breakoutRooms.actions.loadPreBreakoutRoom'
+                disabled = { areAllRoomsOpen && !fishMeetPassInData.breakRoomData }
+                labelKey = 'breakoutRooms.actions.loadPreBreakoutRoom'
+                onClick = { loadPreRooms }
+                style = { fishmeetStyles.Button }
+                type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+
 
             <Button
                 accessibilityLabel = { areAllRoomsOpen
