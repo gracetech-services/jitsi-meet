@@ -24,10 +24,10 @@ import { clearNotifications, showNotification } from '../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 
 import {
-    IS_SHOW_LOADING, SET_ALL_ROOMS_OPEN,
-    UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT,
-    _RESET_BREAKOUT_ROOMS, _UPDATE_ROOM_COUNTER,LOAD_PRE_BREAKROOMS,
-    SET_LOAD_PRE_BREAKOUT_ROOMS
+    IS_SHOW_LOADING, LOAD_PRE_BREAKROOMS,
+    SET_ALL_ROOMS_OPEN, SET_LOAD_PRE_BREAKOUT_ROOMS,
+    UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT, _RESET_BREAKOUT_ROOMS,
+    _UPDATE_ROOM_COUNTER
 } from './actionTypes';
 import { FEATURE_KEY } from './constants';
 import {
@@ -367,7 +367,7 @@ function _findRoomIdByParticipantJid(getState: IStore['getState'], participantId
 export function moveToRoom(roomId?: string) {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const mainRoomId = getMainRoom(getState)?.id;
-        let _roomId: string | undefined | String = roomId || mainRoomId;
+        let _roomId: string | undefined | string = roomId || mainRoomId;
 
         // Check if we got a full JID.
         if (_roomId && _roomId?.indexOf('@') !== -1) {
@@ -538,7 +538,6 @@ export function setIsShowLoading(isShowLoading: boolean) {
  * @returns {Function}
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
-    console.log('!!!!!!!!!!!!!upLoadPreBreakRoomsData trigger');
     return (dispatch: IStore['dispatch']) => {
         fishMeetPassInData.breakRoomData = meetingData;
         dispatch({
@@ -572,14 +571,9 @@ export function loadPreBreakRoomsData() {
 }
 
 export function setLoadPreBreakoutRooms(meetingData: any) {
-    console.log('!!!!!!!!!!!!! actions - setLoadPreBreakoutRooms trigger');
     return {
         type: SET_LOAD_PRE_BREAKOUT_ROOMS,
         meetingData
     };
 }
-
-
-
-
 

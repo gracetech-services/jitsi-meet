@@ -81,17 +81,6 @@ export const FishMeetCollapsibleRoom = ({ room, roomId }: IProps) => {
         = `${room.name
         || t('breakoutRooms.mainRoom')} (${roomParticipantsNr})`;
 
-/*                const fakeParticipants = Array.from({ length: 10 }, (_, i) => ({
-    jid: `fake-jid-${i + 1}`,
-    name: `假人${i + 1}`,
-    avatarURL: '', 
-    email: `fake${i + 1}@example.com`,
-    isFake: true
-}));
-const participants = [
-    ...fakeParticipants,
-    ...Object.values(room.participants || [])
-]; */
     const participants = Object.values(room.participants || []);
 
     const data = room.isMainRoom
