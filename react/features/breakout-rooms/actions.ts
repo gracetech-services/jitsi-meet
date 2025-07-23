@@ -381,6 +381,7 @@ export function moveToRoom(roomId?: string) {
             _roomId = id;
 
             // @ts-ignore
+            // eslint-disable-next-line no-extra-parens
             (_roomId as any).domain = domainParts.join('@');
         }
 
