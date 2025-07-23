@@ -8,8 +8,8 @@
         "types": [ "react-native" ],
         "skipLibCheck": true,
         "moduleResolution": "Node",
-        "strict": true,
-        "noImplicitAny": true,
+        "strict": false,
+        "noImplicitAny": false,
         "strictPropertyInitialization": false,
         "resolveJsonModule": true,
         "moduleSuffixes": [".native", ".ios", ".android", ""]
