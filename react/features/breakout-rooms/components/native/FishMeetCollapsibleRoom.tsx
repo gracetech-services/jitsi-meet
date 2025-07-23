@@ -96,7 +96,7 @@ export const FishMeetCollapsibleRoom = ({ room, roomId }: IProps) => {
                 keyExtractor = { _keyExtractor }
 
                 /* @ts-ignore */
-                listKey = { roomId as String }
+                listKey = { roomId as string }
                 numColumns = { avatarGridConstants.NUM_COLUMNS }
                 // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
                 renderItem = { ({ item }) => {

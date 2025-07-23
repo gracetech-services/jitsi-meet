@@ -56,7 +56,7 @@ export default {
         alignItems: 'center',
         justifyContent: 'center'
     },
-     arrowInlineRight: {
+    arrowInlineRight: {
         marginLeft: 'auto',
         marginRight: BaseTheme.spacing[2],
     },

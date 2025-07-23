@@ -562,6 +562,11 @@ export function setUploadResult(uploadResult: boolean | undefined) {
     };
 }
 
+/**
+ * Action to load pre-breakout rooms data.
+ *
+ * @returns {Function}
+ */
 export function loadPreBreakRoomsData() {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
@@ -570,6 +575,12 @@ export function loadPreBreakRoomsData() {
     };
 }
 
+/**
+ * Action to set the preloaded breakout rooms data.
+ *
+ * @param {any} meetingData - The meeting data to set.
+ * @returns {Object}
+ */
 export function setLoadPreBreakoutRooms(meetingData: any) {
     return {
         type: SET_LOAD_PRE_BREAKOUT_ROOMS,
