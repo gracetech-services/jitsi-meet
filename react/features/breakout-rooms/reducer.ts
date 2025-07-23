@@ -103,7 +103,8 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
     case 'SET_HAS_PRE_BREAKOUT_ROOMS': {
         return {
             ...state,
-            hasPreBreakoutRooms: action.hasPre
+
+            // hasPreBreakoutRooms: action.hasPre
         };
     }
 
