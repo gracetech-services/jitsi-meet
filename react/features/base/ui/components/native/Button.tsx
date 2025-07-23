@@ -124,15 +124,7 @@ const Button: React.FC<IProps> = ({
                     { backgroundColor: color }
                 ] }
                 underlayColor = { color }>
-                <View
-                // eslint-disable-next-line react-native/no-inline-styles
-                    style = {{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: BaseTheme.spacing[7],
-                        paddingHorizontal: 16,
-                        paddingVertical: 12
-                    }}>
+                <View>
                     <Text
                         numberOfLines = { 0 }
                         style = { [
