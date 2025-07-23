@@ -20,7 +20,7 @@ interface IProps {
     /**
      * Collapsible list title.
      */
-    title: String;
+    title: string;
 }
 
 const FishMeetCollapsibleList = ({ children, onLongPress, title }: IProps) => {
@@ -30,22 +30,22 @@ const FishMeetCollapsibleList = ({ children, onLongPress, title }: IProps) => {
     }, [ collapsed ]);
 
     return (
-        <View style={fishmeetStyles.collapsibleWrapper as ViewStyle}>
+        <View style = { fishmeetStyles.collapsibleWrapper as ViewStyle }>
             <TouchableOpacity
-                onLongPress={onLongPress}
-                onPress={_toggleCollapsed}
-                style={fishmeetStyles.collapsibleList as ViewStyle}>
-                
-                <Text style={fishmeetStyles.listTile as TextStyle}>
+                onLongPress = { onLongPress }
+                onPress = { _toggleCollapsed }
+                style = { fishmeetStyles.collapsibleList as ViewStyle }>
+
+                <Text style = { fishmeetStyles.listTile as TextStyle }>
                     {title}
                 </Text>
 
                 {collapsed && (
                     <Icon
-                    color = { 'transparent' }
-                        size={25}
-                        src={IconFishmeetArrowDown}
-                        style={fishmeetStyles.arrowInlineRight as ViewStyle} />
+                        color = { 'transparent' }
+                        size = { 25 }
+                        src = { IconFishmeetArrowDown }
+                        style = { fishmeetStyles.arrowInlineRight as ViewStyle } />
                 )}
             </TouchableOpacity>
 
@@ -54,12 +54,12 @@ const FishMeetCollapsibleList = ({ children, onLongPress, title }: IProps) => {
                     {children}
 
                     <TouchableOpacity
-                        onPress={_toggleCollapsed}
-                        style={fishmeetStyles.arrowBottomRight as ViewStyle}>
+                        onPress = { _toggleCollapsed }
+                        style = { fishmeetStyles.arrowBottomRight as ViewStyle }>
                         <Icon
-                        color = { 'transparent' }
-                            size={25}
-                            src={IconFishmeetArrowUp} />
+                            color = { 'transparent' }
+                            size = { 25 }
+                            src = { IconFishmeetArrowUp } />
                     </TouchableOpacity>
                 </>
             )}

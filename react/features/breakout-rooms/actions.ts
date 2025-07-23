@@ -570,7 +570,7 @@ export function setUploadResult(uploadResult: boolean | undefined) {
 export function loadPreBreakRoomsData() {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
-            type: LOAD_PRE_BREAKROOMS,
+            type: LOAD_PRE_BREAKROOMS
         });
     };
 }

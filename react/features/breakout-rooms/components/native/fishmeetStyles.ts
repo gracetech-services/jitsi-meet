@@ -34,7 +34,7 @@ export default {
         height: BaseTheme.spacing[7],
         marginHorizontal: BaseTheme.spacing[2],
         marginTop: BaseTheme.spacing[3],
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
     },
 
     normalList: {
@@ -58,7 +58,7 @@ export default {
     },
     arrowInlineRight: {
         marginLeft: 'auto',
-        marginRight: BaseTheme.spacing[2],
+        marginRight: BaseTheme.spacing[2]
     },
     arrowBottomRight: {
         position: 'absolute',
