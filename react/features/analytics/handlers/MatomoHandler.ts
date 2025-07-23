@@ -8,7 +8,7 @@ import AbstractHandler, { IEvent } from './AbstractHandler';
  * Analytics handler for Matomo.
  */
 export default class MatomoHandler extends AbstractHandler {
-    _userProperties: Object;
+    _userProperties: object;
 
     /**
      * Creates new instance of the Matomo handler.

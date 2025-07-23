@@ -50,7 +50,7 @@ export function initUpdateStats(getSpeakerStats: () => ISpeakerStats) {
  * @param {Object} stats - The new stats.
  * @returns {Object}
  */
-export function updateStats(stats: Object) {
+export function updateStats(stats: object) {
     return {
         type: UPDATE_STATS,
         stats

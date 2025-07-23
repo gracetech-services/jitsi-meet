@@ -14,7 +14,7 @@ export function preloadImage(
         src: string,
         useCORS = false,
         tryOnce = false
-): Promise<{ isUsingCORS?: boolean; src: string | Object; }> {
+): Promise<{ isUsingCORS?: boolean; src: string | object; }> {
     if (isIconUrl(src)) {
         return Promise.resolve({ src });
     }

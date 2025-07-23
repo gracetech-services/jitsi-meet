@@ -17,12 +17,12 @@ interface IProps {
     /**
      * The Icon of this {@code AbstractToolbarButton}.
      */
-    icon: Object;
+    icon: object;
 
     /**
      * The style of the Icon of this {@code AbstractToolbarButton}.
      */
-    iconStyle?: Object;
+    iconStyle?: object;
 
     /**
      * Optional label for the button.
@@ -37,7 +37,7 @@ interface IProps {
     /**
      * {@code AbstractToolbarButton} Styles.
      */
-    style?: Array<string> | Object;
+    style?: Array<string> | object;
 
     /**
      * An optional modifier to render the button toggled.

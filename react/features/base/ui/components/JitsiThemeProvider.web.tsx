@@ -11,7 +11,7 @@ interface IProps {
     /**
      * The default theme or theme set through advanced branding.
      */
-    _theme: Object;
+    _theme: object;
 
     /**
     * The children of the component.

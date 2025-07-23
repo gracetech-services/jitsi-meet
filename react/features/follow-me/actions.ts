@@ -28,7 +28,7 @@ export function setFollowMeModerator(id?: string) {
  *     state: Object
  * }}
  */
-export function setFollowMeState(state?: Object) {
+export function setFollowMeState(state?: object) {
     return {
         type: SET_FOLLOW_ME_STATE,
         state

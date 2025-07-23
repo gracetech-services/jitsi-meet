@@ -84,7 +84,7 @@ function _stopSound({ getState }: IStore, soundId: string) {
  * @param {string} language - The requested language.
  * @returns {boolean}
  */
-function isLanguageSupported(language: string): Boolean {
+function isLanguageSupported(language: string): boolean {
     return Boolean(AudioSupportedLanguage[language as keyof typeof AudioSupportedLanguage]);
 }
 
@@ -95,7 +95,7 @@ function isLanguageSupported(language: string): Boolean {
  * @param {string} prevLanguage - The previous language.
  * @returns {boolean}
  */
-function shouldReloadAudioFiles(language: string, prevLanguage: string): Boolean {
+function shouldReloadAudioFiles(language: string, prevLanguage: string): boolean {
     const isNextLanguageSupported = isLanguageSupported(language);
     const isPrevLanguageSupported = isLanguageSupported(prevLanguage);
 

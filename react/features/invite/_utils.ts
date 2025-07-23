@@ -16,7 +16,7 @@ import { doGetJSON } from '../base/util/httpUtils';
  * @returns {string} - The formatted conference pin.
  * @private
  */
-export function _formatConferenceIDPin(conferenceID: Object) {
+export function _formatConferenceIDPin(conferenceID: object) {
     const conferenceIDStr = conferenceID.toString();
 
     // let's split the conferenceID in 3 parts, to be easier to read

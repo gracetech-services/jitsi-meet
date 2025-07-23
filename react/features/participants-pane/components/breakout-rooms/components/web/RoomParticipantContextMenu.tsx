@@ -71,7 +71,7 @@ export const RoomParticipantContextMenu = ({
     const { t } = useTranslation();
     const isLocalModerator = useSelector(isLocalParticipantModerator);
     const lowerMenu = useCallback(() => onSelect(true), [ onSelect ]);
-    const rooms: Object = useSelector(getBreakoutRooms);
+    const rooms: object = useSelector(getBreakoutRooms);
     const overflowDrawer = useSelector(showOverflowDrawer);
     const buttonsWithNotifyClick = useSelector(getParticipantMenuButtonsWithNotifyClick);
 

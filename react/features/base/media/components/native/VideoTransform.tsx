@@ -65,7 +65,7 @@ interface IProps {
     /**
      * The current aspect ratio of the screen.
      */
-    _aspectRatio: Symbol;
+    _aspectRatio: symbol;
 
     /**
      * Action to dispatch when the component is unmounted.
@@ -76,12 +76,12 @@ interface IProps {
      * The stored transforms retrieved from Redux to be initially applied
      * to different streams.
      */
-    _transforms: Object;
+    _transforms: object;
 
     /**
      * The children components of this view.
      */
-    children: Object;
+    children: object;
 
     /**
      * Transformation is only enabled when this flag is true.
@@ -101,7 +101,7 @@ interface IProps {
     /**
      * Style of the top level transformable view.
      */
-    style: Object;
+    style: object;
 }
 
 interface IState {
@@ -546,7 +546,7 @@ class VideoTransform extends Component<IProps, IState> {
      * @private
      * @returns {boolean}
      */
-    _onMoveShouldSetPanResponder(evt: Object, gestureState: any) {
+    _onMoveShouldSetPanResponder(evt: object, gestureState: any) {
         return this.props.enabled
             && (this._didMove(gestureState)
                 || gestureState.numberActiveTouches === 2);
@@ -560,7 +560,7 @@ class VideoTransform extends Component<IProps, IState> {
      * @private
      * @returns {void}
      */
-    _onPanResponderGrant(evt: Object, { numberActiveTouches }: any) {
+    _onPanResponderGrant(evt: object, { numberActiveTouches }: any) {
         if (numberActiveTouches === 1) {
             this.initialPosition = this._getTouchPosition(evt);
             this.lastTap = Date.now();
@@ -578,7 +578,7 @@ class VideoTransform extends Component<IProps, IState> {
      * @private
      * @returns {void}
      */
-    _onPanResponderMove(evt: Object, gestureState: any) {
+    _onPanResponderMove(evt: object, gestureState: any) {
         if (gestureState.numberActiveTouches === 2) {
             // this is a zoom event
             if (

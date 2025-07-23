@@ -33,7 +33,7 @@ export interface IProps {
     /**
      * The JitsiLocalTrack to display.
      */
-    videoTrack?: Object;
+    videoTrack?: object;
 }
 
 /**

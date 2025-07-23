@@ -682,9 +682,9 @@ class Thumbnail extends Component<IProps, IState> {
         const isPortraitVideo = (track?.getSettings()?.aspectRatio || 1) < 1;
 
         let styles: {
-            avatar: Object;
+            avatar: object;
             thumbnail: any;
-            video: Object;
+            video: object;
         } = {
             thumbnail: {},
             avatar: {},
@@ -918,7 +918,7 @@ class Thumbnail extends Component<IProps, IState> {
      * @param {Object} styles - The styles that will be applied to the avatar.
      * @returns {ReactElement}
      */
-    _renderAvatar(styles: Object) {
+    _renderAvatar(styles: object) {
         const { _participant } = this.props;
         const { id } = _participant;
 
@@ -1235,7 +1235,7 @@ class Thumbnail extends Component<IProps, IState> {
  * @private
  * @returns {IProps}
  */
-function _mapStateToProps(state: IReduxState, ownProps: any): Object {
+function _mapStateToProps(state: IReduxState, ownProps: any): object {
     const { participantID, filmstripType = FILMSTRIP_TYPE.MAIN } = ownProps;
 
     const participant = getParticipantByIdOrUndefined(state, participantID);

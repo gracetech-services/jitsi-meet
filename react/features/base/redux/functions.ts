@@ -16,7 +16,7 @@ import { IStateful } from '../app/types';
  * from the specified target by setting the specified properties to the
  * specified values.
  */
-export function assign<T extends Object>(target: T, source: Partial<T>): T {
+export function assign<T extends object>(target: T, source: Partial<T>): T {
     let t = target;
 
     for (const property in source) { // eslint-disable-line guard-for-in
@@ -55,7 +55,7 @@ export function equals(a: any, b: any) {
  * constructed from the specified {@code state} by setting the specified
  * {@code property} to the specified {@code value}.
  */
-export function set<T extends Object>(state: T, property: keyof T, value: any): T {
+export function set<T extends object>(state: T, property: keyof T, value: any): T {
     return _set(state, property, value, /* copyOnWrite */ true);
 }
 
@@ -78,7 +78,7 @@ export function set<T extends Object>(state: T, property: keyof T, value: any): 
  * {@code state} by setting the specified {@code property} to the specified
  * {@code value}.
  */
-function _set<T extends Object>(
+function _set<T extends object>(
         state: T,
         property: keyof T,
         value: any,

@@ -26,7 +26,7 @@ interface IProps extends WithTranslation {
     /**
      * The message that is about to be sent.
      */
-    message: Object;
+    message: object;
 
     /**
      * The ID of the participant that we think the message may be intended to.

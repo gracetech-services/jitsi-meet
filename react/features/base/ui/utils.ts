@@ -6,8 +6,8 @@
  * @param {Object} colors - An object containing all the theme colors.
  * @returns {Object}
  */
-export function createColorTokens(colorMap: Object, colors: Object): any {
+export function createColorTokens(colorMap: object, colors: object): any {
     return Object.entries(colorMap)
-        .reduce((result, [ token, value ]: [any, keyof Object]) =>
+        .reduce((result, [ token, value ]: [any, keyof object]) =>
             Object.assign(result, { [token]: colors[value] || value }), {});
 }

@@ -15,7 +15,7 @@ interface IProps extends ISwitchProps {
     /**
      * Custom styles for the switch.
      */
-    style?: Object;
+    style?: object;
 
     /**
      * Color of the switch button.

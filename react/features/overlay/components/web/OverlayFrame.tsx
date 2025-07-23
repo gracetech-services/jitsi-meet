@@ -19,7 +19,7 @@ interface IProps {
     /**
      * The style property.
      */
-    style?: Object;
+    style?: object;
 }
 
 /**

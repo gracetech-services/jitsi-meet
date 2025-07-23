@@ -144,14 +144,14 @@ export default class AbstractButton<P extends IProps, S = any> extends Component
      */
     toggledAccessibilityLabel: string;
 
-    labelProps: Object;
+    labelProps: object;
 
     /**
      * The icon of this button.
      *
      * @abstract
      */
-    icon: Object;
+    icon: object;
 
     /**
      * The text associated with this button. When `showLabel` is set to
@@ -171,7 +171,7 @@ export default class AbstractButton<P extends IProps, S = any> extends Component
      *
      * @abstract
      */
-    toggledIcon: Object;
+    toggledIcon: object;
 
     /**
      * The text to display in the tooltip. Used only on web.
@@ -375,7 +375,7 @@ export default class AbstractButton<P extends IProps, S = any> extends Component
 
         // blur after click to release focus from button to allow PTT.
         // @ts-ignore
-        e?.currentTarget?.blur && e.currentTarget.blur();
+        e?.currentTarget?.blur?.();
     }
 
     /**

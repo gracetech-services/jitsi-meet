@@ -9,7 +9,7 @@ interface IProps {
     /**
      * Rendered when the list is empty. Should be a rendered element.
      */
-    ListEmptyComponent: Object;
+    ListEmptyComponent: object;
 
     /**
      * Used to extract a unique key for a given item at the specified index.

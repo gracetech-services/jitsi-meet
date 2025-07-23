@@ -33,7 +33,7 @@ interface IProps {
     /**
      * Application's aspect ratio.
      */
-    _aspectRatio: Symbol;
+    _aspectRatio: symbol;
 
     _clientHeight: number;
 
@@ -54,7 +54,7 @@ interface IProps {
     /**
      * Whether or not the toolbox is displayed.
      */
-    _toolboxVisible: Boolean;
+    _toolboxVisible: boolean;
 
     /**
      * The indicator which determines whether the filmstrip is visible.
@@ -69,7 +69,7 @@ interface IProps {
     /**
      * Object containing the safe area insets.
      */
-    insets?: Object;
+    insets?: object;
 }
 
 /**
@@ -88,7 +88,7 @@ class Filmstrip extends PureComponent<IProps> {
     /**
      * The FlatList's viewabilityConfig.
      */
-    _viewabilityConfig: Object;
+    _viewabilityConfig: object;
 
     /**
      * Constructor of the component.

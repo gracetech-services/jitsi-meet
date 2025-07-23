@@ -124,7 +124,7 @@ export function openFeedbackDialog(conference?: IJitsiConference, title?: string
  *
  * @returns {Promise}
  */
-export function sendJaasFeedbackMetadata(conference: IJitsiConference, feedback: Object) {
+export function sendJaasFeedbackMetadata(conference: IJitsiConference, feedback: object) {
     return (_dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
 

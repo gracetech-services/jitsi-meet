@@ -311,9 +311,9 @@ export function createInviteDialogEvent(
  * @returns {Object}
  */
 export function createNetworkInfoEvent({ isOnline, networkType, details }:
-    { details?: Object; isOnline: boolean; networkType?: string; }) {
+{ details?: object; isOnline: boolean; networkType?: string; }) {
     const attributes: {
-        details?: Object;
+        details?: object;
         isOnline: boolean;
         networkType?: string;
     } = { isOnline };
@@ -366,7 +366,7 @@ export function createOfferAnswerFailedEvent() {
  * @returns {Object} The event in a format suitable for sending via
  * sendAnalytics.
  */
-export function createPageReloadScheduledEvent(reason: string, timeout: number, details: Object = {}) {
+export function createPageReloadScheduledEvent(reason: string, timeout: number, details: object = {}) {
     return {
         action: 'page.reload.scheduled',
         attributes: {

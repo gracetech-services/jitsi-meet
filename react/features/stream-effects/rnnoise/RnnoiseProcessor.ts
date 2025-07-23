@@ -159,7 +159,7 @@ export default class RnnoiseProcessor {
      * @param {boolean} shouldDenoise - Should the denoised frame be returned in pcmFrame.
      * @returns {Float} Contains VAD score in the interval 0 - 1 i.e. 0.90 .
      */
-    processAudioFrame(pcmFrame: Float32Array, shouldDenoise: Boolean = false): number {
+    processAudioFrame(pcmFrame: Float32Array, shouldDenoise: boolean = false): number {
         // Convert 32 bit Float PCM samples to 16 bit Float PCM samples as that's what rnnoise accepts as input
         for (let i = 0; i < RNNOISE_SAMPLE_LENGTH; i++) {
             this._wasmInterface.HEAPF32[this._wasmPcmInputF32Index + i] = pcmFrame[i] * SHIFT_16_BIT_NR;

@@ -48,7 +48,7 @@ export function fetchCustomBrandingData() {
  * @param {Object} value - The custom data to be set.
  * @returns {Object}
  */
-export function setDynamicBrandingData(value: Object) {
+export function setDynamicBrandingData(value: object) {
     return {
         type: SET_DYNAMIC_BRANDING_DATA,
         value

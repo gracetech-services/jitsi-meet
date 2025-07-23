@@ -16,7 +16,7 @@ MiddlewareRegistry.register(({ dispatch, getState }) => next => action => {
         const { conference } = action;
 
         conference.addCommandListener(SHARED_VIDEO, ({ attributes }: { attributes:
-            { from: string; state: string; }; }) => {
+        { from: string; state: string; }; }) => {
             const { from } = attributes;
             const status = attributes.state;
 

@@ -84,7 +84,7 @@ export function setVolume(participantId: string, volume: number) {
  * @param {string} participantName - The display name of the participant.
  * @returns {Function}
  */
-export function showRoomParticipantMenu(room: Object, participantJid: string, participantName: string) {
+export function showRoomParticipantMenu(room: object, participantJid: string, participantName: string) {
     // @ts-ignore
     return openSheet(RoomParticipantMenu, { room,
         participantJid,

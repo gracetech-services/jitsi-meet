@@ -420,7 +420,7 @@ export function invitePeopleAndChatRooms(
         inviteServiceUrl: string,
         inviteUrl: string,
         jwt: string,
-        inviteItems: Array<Object>
+        inviteItems: Array<object>
 ): Promise<any> {
 
     if (!inviteItems || inviteItems.length === 0) {
@@ -464,7 +464,7 @@ export function isDialOutEnabled(state: IReduxState): boolean {
     const { conference } = state['features/base/conference'];
 
     return isLocalParticipantModerator(state)
-        && conference && conference.isSIPCallingSupported();
+        && conference?.isSIPCallingSupported();
 }
 
 /**
@@ -720,7 +720,7 @@ export function shouldDisplayDialIn(dialIn: any) {
  * @private
  * @returns {boolean}
  */
-export function hasMultipleNumbers(dialInNumbers?: { numbers: Object; } | string[]) {
+export function hasMultipleNumbers(dialInNumbers?: { numbers: object; } | string[]) {
     if (!dialInNumbers) {
         return false;
     }
@@ -835,7 +835,7 @@ export function getDefaultDialInNumber(stateful: IStateful) {
  * @param {string} reqId - The unique request id.
  * @returns {Object}
  */
-export async function executeDialOutRequest(url: string, body: Object, reqId: string) {
+export async function executeDialOutRequest(url: string, body: object, reqId: string) {
     const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -901,7 +901,7 @@ export function inviteSipEndpoints( // eslint-disable-line max-params
         sipInviteUrl: string,
         jwt: string,
         roomName: string,
-        roomPassword: String,
+        roomPassword: string,
         displayName: string
 ): Promise<any> {
     if (inviteItems.length === 0) {

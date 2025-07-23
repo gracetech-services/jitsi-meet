@@ -199,7 +199,7 @@ class GoogleSigninForm extends Component<IProps> {
      * @param {?Object} googleResponse - The response from the API.
      * @returns {void}
      */
-    _setApiState(apiState: number, googleResponse?: Object) {
+    _setApiState(apiState: number, googleResponse?: object) {
         this.props.onUserChanged(googleResponse);
         this.props.dispatch(setGoogleAPIState(apiState, googleResponse));
     }

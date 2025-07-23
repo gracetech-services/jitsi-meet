@@ -75,7 +75,7 @@ let permissionsListener: Function | undefined;
 MiddlewareRegistry.register(store => next => action => {
     switch (action.type) {
     case APP_WILL_MOUNT: {
-        const _permissionsListener = (permissions: Object) => {
+        const _permissionsListener = (permissions: object) => {
             store.dispatch(devicePermissionsChanged(permissions));
         };
         const { mediaDevices } = JitsiMeetJS;

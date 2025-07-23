@@ -26,7 +26,7 @@ interface IProps {
     /**
      * Application's aspect ratio.
      */
-    _aspectRatio: Symbol;
+    _aspectRatio: symbol;
 
     /**
      * The number of columns.
@@ -111,7 +111,7 @@ class TileView extends PureComponent<IProps> {
     /**
      * The FlatList's viewabilityConfig.
      */
-    _viewabilityConfig: Object;
+    _viewabilityConfig: object;
 
     /**
      * Creates new TileView component.

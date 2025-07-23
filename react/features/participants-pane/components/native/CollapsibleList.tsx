@@ -20,7 +20,7 @@ interface IProps {
     /**
      * Collapsible list title.
      */
-    title: Object;
+    title: object;
 }
 
 const CollapsibleList = ({ children, onLongPress, title }: IProps) => {

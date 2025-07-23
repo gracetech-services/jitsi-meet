@@ -513,7 +513,7 @@ export function trackMuteUnmuteFailed(track: any, wasMuting: boolean): {
  *     track: Track
  * }}
  */
-export function trackNoDataFromSourceNotificationInfoChanged(track: any, noDataFromSourceNotificationInfo?: Object) {
+export function trackNoDataFromSourceNotificationInfoChanged(track: any, noDataFromSourceNotificationInfo?: object) {
     return {
         type: TRACK_UPDATED,
         track: {

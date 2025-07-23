@@ -25,7 +25,7 @@ export interface IProps extends WithTranslation {
      * The details is an object containing more information about the connection
      * failed (shard changes, was the computer suspended, etc.).
      */
-    details?: Object;
+    details?: object;
 
     /**
      * Redux dispatch function.

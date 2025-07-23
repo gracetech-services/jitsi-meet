@@ -5,7 +5,7 @@
  * @param {string} filename - The filename to give to the downloaded file.
  * @returns {void}
  */
-export function downloadJSON(json: Object, filename: string) {
+export function downloadJSON(json: object, filename: string) {
     const data = encodeURIComponent(JSON.stringify(json, null, '  '));
 
     const elem = document.createElement('a');

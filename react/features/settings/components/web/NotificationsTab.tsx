@@ -27,17 +27,17 @@ export interface IProps extends AbstractDialogTabProps, WithTranslation {
     /**
      * Whether or not the reactions feature is enabled.
      */
-    enableReactions: Boolean;
+    enableReactions: boolean;
 
     /**
      * The types of enabled notifications that can be configured and their specific visibility.
      */
-    enabledNotifications: Object;
+    enabledNotifications: object;
 
     /**
      * Whether or not moderator muted the sounds.
      */
-    moderatorMutedSoundsReactions: Boolean;
+    moderatorMutedSoundsReactions: boolean;
 
     /**
      * Whether or not to display notifications settings.
@@ -52,32 +52,32 @@ export interface IProps extends AbstractDialogTabProps, WithTranslation {
     /**
      * Whether or not the sound for the incoming message should play.
      */
-    soundsIncomingMessage: Boolean;
+    soundsIncomingMessage: boolean;
 
     /**
      * Whether or not the sound for the participant joined should play.
      */
-    soundsParticipantJoined: Boolean;
+    soundsParticipantJoined: boolean;
 
     /**
      * Whether or not the sound for the participant entering the lobby should play.
      */
-    soundsParticipantKnocking: Boolean;
+    soundsParticipantKnocking: boolean;
 
     /**
      * Whether or not the sound for the participant left should play.
      */
-    soundsParticipantLeft: Boolean;
+    soundsParticipantLeft: boolean;
 
     /**
     * Whether or not the sound for reactions should play.
     */
-    soundsReactions: Boolean;
+    soundsReactions: boolean;
 
     /**
      * Whether or not the sound for the talk while muted notification should play.
      */
-    soundsTalkWhileMuted: Boolean;
+    soundsTalkWhileMuted: boolean;
 }
 
 const styles = (theme: Theme) => {

@@ -396,8 +396,8 @@ function getLobbyChatDisplayName(state: IReduxState, id: string) {
  */
 function _handleReceivedMessage({ dispatch, getState }: IStore,
         { displayName, id, isGuest, message, privateMessage, timestamp, lobbyChat }: {
-        displayName?: string; id: string; isGuest?: boolean; lobbyChat: boolean;
-        message: string; privateMessage: boolean; timestamp: number; },
+            displayName?: string; id: string; isGuest?: boolean; lobbyChat: boolean;
+            message: string; privateMessage: boolean; timestamp: number; },
         shouldPlaySound = true,
         isReaction = false
 ) {

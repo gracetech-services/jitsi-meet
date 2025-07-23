@@ -185,7 +185,7 @@ export function highlightMeetingMoment() {
  * @param {Object} props - The Props needed to render the notification.
  * @returns {showErrorNotification}
  */
-export function showRecordingError(props: Object) {
+export function showRecordingError(props: object) {
     return showErrorNotification(props, NOTIFICATION_TIMEOUT_TYPE.LONG);
 }
 
@@ -195,7 +195,7 @@ export function showRecordingError(props: Object) {
  * @param {Object} props - The Props needed to render the notification.
  * @returns {showWarningNotification}
  */
-export function showRecordingWarning(props: Object) {
+export function showRecordingWarning(props: object) {
     return showWarningNotification(props);
 }
 

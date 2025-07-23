@@ -75,7 +75,7 @@ export default class PrejoinApp extends BaseApp<Props> {
      *
      * @override
      */
-    _createMainElement(component: ComponentType<any>, props: Object) {
+    _createMainElement(component: ComponentType<any>, props: object) {
         return (
             <JitsiThemeProvider>
                 <GlobalStyles />

@@ -6,7 +6,7 @@
  * @param {Object} source - The source object.
  * @returns {Object}
  */
-export function assignIfDefined(target: Object, source: Object) {
+export function assignIfDefined(target: object, source: object) {
     const to = Object(target);
 
     for (const nextKey in source) {
@@ -173,7 +173,7 @@ function parseShorthandColor(color: string) {
  * @param {Function} callback - The sort function.
  * @returns {void}
  */
-export function objectSort(object: Object, callback: Function) {
+export function objectSort(object: object, callback: Function) {
     return Object.entries(object)
         .sort(([ , a ], [ , b ]) => callback(a, b))
         .reduce((row, [ key, value ]) => {

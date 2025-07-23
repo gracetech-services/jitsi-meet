@@ -35,7 +35,7 @@ export type Sound = {
      * can be either a path to the file or an object depending on the platform
      * (native vs web).
      */
-    src?: Object | string;
+    src?: object | string;
 };
 
 /**

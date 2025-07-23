@@ -36,7 +36,7 @@ export interface IProps {
      * @type {Object | string}
      */
     src: any | string;
-    stream?: Object;
+    stream?: object;
 }
 
 /**

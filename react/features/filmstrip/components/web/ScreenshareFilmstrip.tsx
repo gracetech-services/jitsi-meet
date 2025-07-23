@@ -41,7 +41,7 @@ interface IProps {
     /**
      * The participants in the call.
      */
-    _remoteParticipants: Array<Object>;
+    _remoteParticipants: Array<object>;
 
     /**
      * The length of the remote participants array.

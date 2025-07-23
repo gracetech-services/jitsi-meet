@@ -12,9 +12,9 @@ import {
 
 export interface IDialogState {
     component?: ComponentType;
-    componentProps?: Object;
+    componentProps?: object;
     sheet?: ComponentType;
-    sheetProps?: Object;
+    sheetProps?: object;
 }
 
 /**

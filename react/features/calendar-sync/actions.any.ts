@@ -52,7 +52,7 @@ export function setCalendarAuthorization(authorization?: string) {
  *     events: Array<Object>
  * }}
  */
-export function setCalendarEvents(events: Array<Object>) {
+export function setCalendarEvents(events: Array<object>) {
     return {
         type: SET_CALENDAR_EVENTS,
         events

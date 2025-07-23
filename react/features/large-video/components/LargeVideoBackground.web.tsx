@@ -34,7 +34,7 @@ interface IProps {
     /**
      * Additional CSS class names to add to the root of the component.
      */
-    className: String;
+    className: string;
 
     /**
      * Whether or not the background should have its visibility hidden.

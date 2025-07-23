@@ -9,7 +9,7 @@ import { isIconUrl } from './functions';
  * @param {boolean} _isUsingCORS - Used on web.
  * @returns {Promise}
  */
-export function preloadImage(src: string | Object, _isUsingCORS: boolean): Promise<any> {
+export function preloadImage(src: string | object, _isUsingCORS: boolean): Promise<any> {
     if (isIconUrl(src)) {
         return Promise.resolve(src);
     }

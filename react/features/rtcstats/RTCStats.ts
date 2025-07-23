@@ -75,7 +75,7 @@ class RTCStats {
      * @param {Object} identityData - The object that holds the identity data.
      * @returns {void}
      */
-    sendIdentityData(identityData: Object) {
+    sendIdentityData(identityData: object) {
         JitsiMeetJS.rtcstats.sendIdentityEntry(identityData);
     }
 

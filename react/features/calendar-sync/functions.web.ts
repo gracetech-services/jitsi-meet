@@ -78,7 +78,7 @@ export function _fetchCalendarEntries(
         })
         .then(() => dispatch(integration.getCalendarEntries(
             FETCH_START_DAYS, FETCH_END_DAYS)))
-        .then((events: Object[]) => _updateCalendarEntries.call({
+        .then((events: object[]) => _updateCalendarEntries.call({
             dispatch,
             getState
         }, events))

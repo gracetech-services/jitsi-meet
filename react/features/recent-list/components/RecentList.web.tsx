@@ -56,7 +56,7 @@ class RecentList extends AbstractRecentList<IProps> {
      * @param {Object} entry - The entry to be deleted.
      * @inheritdoc
      */
-    _onItemDelete(entry: Object) {
+    _onItemDelete(entry: object) {
         this.props.dispatch(deleteRecentListEntry(entry));
     }
 

@@ -29,7 +29,7 @@ interface IProps {
     /**
      * Whether the remote video context menu is disabled.
      */
-    _disabled: Boolean;
+    _disabled: boolean;
 
     /**
      * Shared video local participant owner.
@@ -60,7 +60,7 @@ interface IProps {
     /**
      * Whether the popover should render the Connection Info stats.
      */
-    _showConnectionInfo: Boolean;
+    _showConnectionInfo: boolean;
 
     /**
      * Whether or not the button should be visible.

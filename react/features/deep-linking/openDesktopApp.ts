@@ -8,7 +8,7 @@ import { URI_PROTOCOL_PATTERN } from '../base/util/uri';
  * @returns {Promise<boolean>} - Resolves with true if the attempt to open the desktop app was successful and resolves
  * with false otherwise.
  */
-export function _openDesktopApp(_state: Object) {
+export function _openDesktopApp(_state: object) {
     const state = _state as IReduxState;
     const deeplinkingDesktop = state['features/base/config'].deeplinking?.desktop;
 

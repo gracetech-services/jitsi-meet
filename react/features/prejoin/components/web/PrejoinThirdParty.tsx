@@ -29,7 +29,7 @@ interface IProps extends WithTranslation {
     /**
      * The JitsiLocalTrack to display.
      */
-    videoTrack?: Object;
+    videoTrack?: object;
 }
 
 

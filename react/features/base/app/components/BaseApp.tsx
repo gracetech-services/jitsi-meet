@@ -27,7 +27,7 @@ interface IState {
      */
     route: {
         component?: ComponentType;
-        props?: Object;
+        props?: object;
     };
 
     /**
@@ -121,7 +121,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      *
      * @returns {void}
      */
-    componentDidCatch(error: Error, info: Object) {
+    componentDidCatch(error: Error, info: object) {
         logger.error(error, info);
     }
 
@@ -201,7 +201,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      * @returns {ReactElement}
      * @protected
      */
-    _createMainElement(component?: ComponentType, props?: Object) {
+    _createMainElement(component?: ComponentType, props?: object) {
         return component ? React.createElement(component, props || {}) : null;
     }
 
@@ -251,7 +251,7 @@ export default class BaseApp<P> extends Component<P, IState> {
     _navigate(route: {
         component?: ComponentType<any>;
         href?: string;
-        props?: Object;
+        props?: object;
     }): Promise<any> {
         if (_.isEqual(route, this.state.route)) {
             return Promise.resolve();

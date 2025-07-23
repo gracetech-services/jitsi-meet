@@ -8,7 +8,7 @@ export interface IIconButtonProps {
     onPress?: (e?: GestureResponderEvent) => void;
     size?: number | string;
     src: Function;
-    style?: Object | undefined;
+    style?: object | undefined;
     tapColor?: string;
     type?: string;
 }
@@ -81,9 +81,9 @@ export type Section = {
      */
     key?: string;
 
-    keyExtractor?: (item: Object) => string;
+    keyExtractor?: (item: object) => string;
 
-    renderItem?: (info: Object) => null | React.ReactElement<any>;
+    renderItem?: (info: object) => null | React.ReactElement<any>;
 
     /**
      * Section title.

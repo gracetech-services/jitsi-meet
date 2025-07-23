@@ -19,7 +19,7 @@ interface IProps extends WithTranslation {
      * The notifications to be displayed, with the first index being the
      * notification at the top and the rest shown below it in order.
      */
-    _notifications: Array<Object>;
+    _notifications: Array<object>;
 
     /**
      * Invoked to update the redux store in order to remove notifications.

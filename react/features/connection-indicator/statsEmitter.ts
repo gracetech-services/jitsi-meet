@@ -17,9 +17,9 @@ import {
 const subscribers: any = {};
 
 interface IStats {
-    codec?: Object;
-    framerate?: Object;
-    resolution?: Object;
+    codec?: object;
+    framerate?: object;
+    resolution?: object;
 }
 
 /**

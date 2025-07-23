@@ -150,7 +150,7 @@ interface IProps {
     /**
      * A styles that will be applied on the video element.
      */
-    style?: Object;
+    style?: object;
 
     /**
      * The JitsiLocalTrack to display.
@@ -354,7 +354,7 @@ class Video extends Component<IProps> {
      * @returns {void}
      */
     _detachTrack(videoTrack?: Partial<ITrack>) {
-        if (this._videoElement && videoTrack && videoTrack.jitsiTrack) {
+        if (this._videoElement && videoTrack?.jitsiTrack) {
             videoTrack.jitsiTrack.detach(this._videoElement);
         }
     }

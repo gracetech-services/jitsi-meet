@@ -171,7 +171,7 @@ class MeetingsList extends Component<IProps> {
      * @private
      * @returns {Function}
      */
-    _onDelete(item: Object) {
+    _onDelete(item: object) {
         const { onItemDelete } = this.props;
 
         return (evt?: React.MouseEvent) => {
@@ -188,7 +188,7 @@ class MeetingsList extends Component<IProps> {
      * @private
      * @returns {Function}
      */
-    _onDeleteKeyPress(item: Object) {
+    _onDeleteKeyPress(item: object) {
         const { onItemDelete } = this.props;
 
         return (e: React.KeyboardEvent) => {

@@ -68,7 +68,7 @@ export function createLocalTracksF(options: ITrackOptions = {}, store?: IStore) 
     const constraints = options.constraints ?? state['features/base/config'].constraints;
 
     return (
-        loadEffects(store).then((effectsArray: Object[]) => {
+        loadEffects(store).then((effectsArray: object[]) => {
             // Filter any undefined values returned by Promise.resolve().
             const effects = effectsArray.filter(effect => Boolean(effect));
 

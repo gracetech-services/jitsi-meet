@@ -16,7 +16,7 @@ const { JavaScriptSandbox } = NativeModules;
  * @param {string} url - The URL to load.
  * @returns {Promise<Object>}
  */
-export async function loadConfig(url: string): Promise<Object> {
+export async function loadConfig(url: string): Promise<object> {
     try {
         const configTxt = await loadScript(url, 10 * 1000 /* Timeout in ms */, true /* skipeval */);
         const configJson = await JavaScriptSandbox.evaluate(`${configTxt}\nJSON.stringify(config);`);

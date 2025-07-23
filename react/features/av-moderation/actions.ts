@@ -121,7 +121,7 @@ export const rejectParticipantVideo = (id: string) => (dispatch: IStore['dispatc
  *     type: REQUEST_DISABLE_MODERATED_AUDIO
  * }}
  */
-export const disableModeration = (mediaType: MediaType, actor: Object) => {
+export const disableModeration = (mediaType: MediaType, actor: object) => {
     return {
         type: DISABLE_MODERATION,
         mediaType,
@@ -164,7 +164,7 @@ export function dismissPendingParticipant(id: string, mediaType: MediaType) {
  *     type: REQUEST_ENABLE_MODERATED_AUDIO
  * }}
  */
-export const enableModeration = (mediaType: MediaType, actor: Object) => {
+export const enableModeration = (mediaType: MediaType, actor: object) => {
     return {
         type: ENABLE_MODERATION,
         mediaType,

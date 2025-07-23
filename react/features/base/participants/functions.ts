@@ -30,7 +30,7 @@ import { FakeParticipant, IJitsiParticipant, IParticipant, ISourceInfo } from '.
 /**
  * Temp structures for avatar urls to be checked/preloaded.
  */
-const AVATAR_QUEUE: Object[] = [];
+const AVATAR_QUEUE: object[] = [];
 const AVATAR_CHECKED_URLS = new Map();
 /* eslint-disable arrow-body-style */
 const AVATAR_CHECKER_FUNCTIONS = [
@@ -615,7 +615,7 @@ export function isEveryoneModerator(stateful: IStateful) {
  * @param {?string | ?Object} icon - The icon to check.
  * @returns {boolean}
  */
-export function isIconUrl(icon?: string | Object) {
+export function isIconUrl(icon?: string | object) {
     return Boolean(icon) && (typeof icon === 'object' || typeof icon === 'function');
 }
 

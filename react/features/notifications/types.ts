@@ -7,7 +7,7 @@ export interface INotificationProps {
     customActionNameKey?: string[];
     customActionType?: string[];
     description?: string | React.ReactNode;
-    descriptionArguments?: Object;
+    descriptionArguments?: object;
     descriptionKey?: string;
     hideErrorSupportLink?: boolean;
     icon?: string;

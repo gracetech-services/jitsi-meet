@@ -7,7 +7,7 @@ import { IStore } from '../app/types';
  * @param {boolean} _ignoreJoiningInProgress - If true we won't check the joiningInProgress flag.
  * @returns {Function}
  */
-export function joinConference(options?: Object, _ignoreJoiningInProgress = false) {
+export function joinConference(options?: object, _ignoreJoiningInProgress = false) {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     return async function(_dispatch: IStore['dispatch'], _getState: IStore['getState']) {
     };

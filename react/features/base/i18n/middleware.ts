@@ -22,7 +22,7 @@ MiddlewareRegistry.register(store => next => async action => {
             ? action.value
             : store.getState()['features/dynamic-branding'];
 
-        if (language && labels && labels[language]) {
+        if (language && labels?.[language]) {
             try {
                 await changeLanguageBundle(language, labels[language]);
             } catch (err) {

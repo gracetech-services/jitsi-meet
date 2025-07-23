@@ -18,7 +18,7 @@ interface IProps extends AbstractProps, WithTranslation {
      * translated using the provided params. See i18n function
      * {@code translate(string, Object)} for more details.
      */
-    contentKey: string | { key: string; params: Object; };
+    contentKey: string | { key: string; params: object; };
 }
 
 /**

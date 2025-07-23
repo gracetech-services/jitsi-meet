@@ -138,7 +138,7 @@ export function setParticipantContextMenuOpen(isOpen: boolean) {
  *    insets: Object
  * }}
  */
-export function setSafeAreaInsets(insets: Object) {
+export function setSafeAreaInsets(insets: object) {
     return {
         type: SAFE_AREA_INSETS_CHANGED,
         insets

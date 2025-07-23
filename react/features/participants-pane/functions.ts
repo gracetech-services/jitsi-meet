@@ -60,7 +60,7 @@ export function isForceMuted(participant: IParticipant | undefined, mediaType: M
  * @returns {MediaState}
  */
 export function getParticipantAudioMediaState(participant: IParticipant | undefined,
-        muted: Boolean, state: IReduxState) {
+        muted: boolean, state: IReduxState) {
     const dominantSpeaker = getDominantSpeakerParticipant(state);
 
     if (muted) {
@@ -87,7 +87,7 @@ export function getParticipantAudioMediaState(participant: IParticipant | undefi
  * @returns {MediaState}
  */
 export function getParticipantVideoMediaState(participant: IParticipant | undefined,
-        muted: Boolean, state: IReduxState) {
+        muted: boolean, state: IReduxState) {
     if (muted) {
         if (isForceMuted(participant, MEDIA_TYPE.VIDEO, state)) {
             return MEDIA_STATE.FORCE_MUTED;
@@ -141,8 +141,8 @@ export const getParticipantsPaneOpen = (state: IReduxState) => Boolean(getState(
  */
 export function getQuickActionButtonType(
         participant: IParticipant | undefined,
-        isAudioMuted: Boolean,
-        isVideoMuted: Boolean,
+        isAudioMuted: boolean,
+        isVideoMuted: boolean,
         state: IReduxState) {
     // handled only by moderators
     const isVideoForceMuted = isForceMuted(participant, MEDIA_TYPE.VIDEO, state);

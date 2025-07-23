@@ -196,7 +196,7 @@ export function dialOut(onSuccess: Function, onFail: Function) {
  *
  * @returns {Function}
  */
-export function initPrejoin(tracks: Object[], errors: Object) {
+export function initPrejoin(tracks: object[], errors: object) {
     console.log('GT:conf:initPrejoin', tracks, errors);
 
     return async function(dispatch: IStore['dispatch']) {
@@ -216,7 +216,7 @@ export function initPrejoin(tracks: Object[], errors: Object) {
  * @param {string?} password - The XMPP user's password.
  * @returns {Function}
  */
-export function joinConference(options?: Object, ignoreJoiningInProgress = false,
+export function joinConference(options?: object, ignoreJoiningInProgress = false,
         jid?: string, password?: string) {
     return async function(dispatch: IStore['dispatch'], getState: IStore['getState']) {
         if (!ignoreJoiningInProgress) {
@@ -450,7 +450,7 @@ function setDialOutStatus(value: string) {
  * @param {{ name: string, dialCode: string, code: string }} value - The country.
  * @returns {Object}
  */
-export function setDialOutCountry(value: Object) {
+export function setDialOutCountry(value: object) {
     return {
         type: SET_DIALOUT_COUNTRY,
         value
@@ -503,7 +503,7 @@ export function setJoinByPhoneDialogVisiblity(value: boolean) {
  * @param {Object} value - The track errors.
  * @returns {Object}
  */
-export function setPrejoinDeviceErrors(value: Object) {
+export function setPrejoinDeviceErrors(value: object) {
     return {
         type: SET_PREJOIN_DEVICE_ERRORS,
         value

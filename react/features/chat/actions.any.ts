@@ -42,7 +42,7 @@ import {
  *     isReaction: boolean
  * }}
  */
-export function addMessage(messageDetails: Object) {
+export function addMessage(messageDetails: object) {
     return {
         type: ADD_MESSAGE,
         ...messageDetails
@@ -59,7 +59,7 @@ export function addMessage(messageDetails: Object) {
  *     message: Object
  * }}
  */
-export function editMessage(message: Object) {
+export function editMessage(message: object) {
     return {
         type: EDIT_MESSAGE,
         message
@@ -120,7 +120,7 @@ export function sendMessage(message: string, ignorePrivacy = false) {
  *     type: SET_PRIVATE_MESSAGE_RECIPIENT
  * }}
  */
-export function setPrivateMessageRecipient(participant?: Object) {
+export function setPrivateMessageRecipient(participant?: object) {
     return {
         participant,
         type: SET_PRIVATE_MESSAGE_RECIPIENT

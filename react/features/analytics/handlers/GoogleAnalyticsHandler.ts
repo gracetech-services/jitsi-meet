@@ -8,7 +8,7 @@ import AbstractHandler, { IEvent } from './AbstractHandler';
  * Analytics handler for Google Analytics.
  */
 class GoogleAnalyticsHandler extends AbstractHandler {
-    _userProperties: Object;
+    _userProperties: object;
     _userPropertiesString: string;
 
     /**

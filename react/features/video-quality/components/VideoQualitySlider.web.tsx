@@ -50,7 +50,7 @@ interface IProps extends WithTranslation {
     /**
      * Whether or not the conference is in audio only mode.
      */
-    _audioOnly: Boolean;
+    _audioOnly: boolean;
 
     /**
      * The channelLastN value configured for the conference.
@@ -60,7 +60,7 @@ interface IProps extends WithTranslation {
     /**
      * Whether or not the conference is in peer to peer mode.
      */
-    _p2p?: Object;
+    _p2p?: object;
 
     /**
      * The currently configured maximum quality resolution to be sent and

@@ -10,7 +10,7 @@ export const conferenceNavigationRef = React.createRef<NavigationContainerRef<an
  * @param {Object} params - Params to pass to the destination route.
  * @returns {Function}
  */
-export function navigate(name: string, params?: Object) {
+export function navigate(name: string, params?: object) {
     return conferenceNavigationRef.current?.navigate(name, params);
 }
 
@@ -29,7 +29,7 @@ export function goBack() {
  * @param {Object} params - Params to pass to the destination route.
  * @returns {Function}
  */
-export function setParams(params: Object) {
+export function setParams(params: object) {
     return conferenceNavigationRef.current?.setParams(params);
 }
 

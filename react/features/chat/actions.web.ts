@@ -17,7 +17,7 @@ export * from './actions.any';
  *     type: OPEN_CHAT
  * }}
  */
-export function openChat(participant?: Object, _disablePolls?: boolean) {
+export function openChat(participant?: object, _disablePolls?: boolean) {
     return function(dispatch: IStore['dispatch']) {
         dispatch({
             participant,

@@ -12,7 +12,7 @@ import {
 } from './actionTypes';
 
 export interface IAuthenticationState {
-    error?: Object | undefined;
+    error?: object | undefined;
     progress?: number | undefined;
     thenableWithCancel?: {
         cancel: Function;

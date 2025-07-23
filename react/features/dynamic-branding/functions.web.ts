@@ -73,7 +73,7 @@ export function createMuiBrandingTheme(customTheme: Theme) {
 * @param {Object} obj2 - The object to compare to and take values from.
 * @returns {void}
 */
-function overwriteRecurrsive(obj1: Object, obj2: Object) {
+function overwriteRecurrsive(obj1: object, obj2: object) {
     Object.keys(obj2).forEach(key => {
         if (obj1.hasOwnProperty(key)) {
             if (typeof obj1[key as keyof typeof obj1] === 'object') {

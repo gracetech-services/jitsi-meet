@@ -21,7 +21,7 @@ interface IProps {
     /**
      * The CSS style to be applied to this Link for the purposes of display.
      */
-    style?: Object;
+    style?: object;
 
     /**
      * The URL to be opened when this Link is clicked/pressed.

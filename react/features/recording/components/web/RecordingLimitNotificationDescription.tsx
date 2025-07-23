@@ -28,7 +28,7 @@ interface IProps extends WithTranslation {
     /**
      * True if the notification is related to the livestreaming and false if not.
      */
-    isLiveStreaming: Boolean;
+    isLiveStreaming: boolean;
 }
 
 /**

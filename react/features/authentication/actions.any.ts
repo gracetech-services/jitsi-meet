@@ -79,7 +79,7 @@ export function authenticateAndUpgradeRole(
  * }}
  */
 function _upgradeRoleFinished(
-        thenableWithCancel: Object,
+        thenableWithCancel: object,
         progressOrError: number | any) {
     let error;
     let progress;
@@ -122,7 +122,7 @@ function _upgradeRoleFinished(
  *     thenableWithCancel: Object
  * }}
  */
-function _upgradeRoleStarted(thenableWithCancel: Object) {
+function _upgradeRoleStarted(thenableWithCancel: object) {
     return {
         type: UPGRADE_ROLE_STARTED,
         thenableWithCancel

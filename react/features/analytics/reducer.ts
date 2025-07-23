@@ -40,7 +40,7 @@ interface IValue {
 }
 
 export interface IAnalyticsState {
-    initialPermanentProperties: Object;
+    initialPermanentProperties: object;
     isInitialized: boolean;
     localTracksDuration: {
         audio: IValue;

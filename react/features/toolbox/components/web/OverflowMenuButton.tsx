@@ -40,7 +40,7 @@ interface IProps {
     /**
      * Information about the buttons that need to be rendered in the overflow menu.
      */
-    buttons: Object[];
+    buttons: object[];
 
     /**
      * Whether or not the OverflowMenu popover should display.

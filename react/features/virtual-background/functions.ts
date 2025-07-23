@@ -106,7 +106,7 @@ export function resizeImage(base64image: any, width = 1920, height = 1080): Prom
  * after the specified timeout is to be implemented.
  * @returns {Promise}
  */
-export function timeout(milliseconds: number, promise: Promise<any>): Promise<Object> {
+export function timeout(milliseconds: number, promise: Promise<any>): Promise<object> {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             reject(new Error('408'));

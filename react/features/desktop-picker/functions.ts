@@ -12,7 +12,7 @@ import { ElectronWindowType } from './types';
  * return native image object used for the preview image of the source.
  * @returns {Function}
  */
-export function obtainDesktopSources(options: { thumbnailSize?: Object; types: string[]; }) {
+export function obtainDesktopSources(options: { thumbnailSize?: object; types: string[]; }) {
     const { JitsiMeetElectron } = window as ElectronWindowType;
 
     // TODO: delete this after 2 releases

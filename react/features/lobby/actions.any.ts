@@ -64,7 +64,7 @@ export function knockingParticipantLeft(id: string) {
  *     type: KNOCKING_PARTICIPANT_ARRIVED_OR_UPDATED
  * }}
  */
-export function participantIsKnockingOrUpdated(participant: IKnockingParticipant | Object) {
+export function participantIsKnockingOrUpdated(participant: IKnockingParticipant | object) {
     return {
         participant,
         type: KNOCKING_PARTICIPANT_ARRIVED_OR_UPDATED
@@ -335,7 +335,7 @@ export function onSendMessage(message: string) {
  *
  * @returns {Promise<void>}
  */
-export function sendLobbyChatMessage(message: Object) {
+export function sendLobbyChatMessage(message: object) {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const conference = getCurrentConference(getState);
 

@@ -32,7 +32,7 @@ export function isRemoteControlEnabled(state: IReduxState) {
 export function sendRemoteControlEndpointMessage(
         conference: IJitsiConference | undefined,
         to: string | undefined,
-        event: Object) {
+        event: object) {
     if (!to) {
         logger.warn('Remote control: Skip sending remote control event. Params:', to);
 

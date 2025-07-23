@@ -17,7 +17,7 @@ import { readyToClose } from './actions';
  * by/associated with the specified {@code name}.
  * @returns {void}
  */
-export function sendEvent(store: Object, name: string, data: Object) {
+export function sendEvent(store: object, name: string, data: object) {
     NativeModules.ExternalAPI.sendEvent(name, data);
 }
 

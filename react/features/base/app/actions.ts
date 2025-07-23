@@ -15,7 +15,7 @@ import {
  *     app: App
  * }}
  */
-export function appWillMount(app: Object) {
+export function appWillMount(app: object) {
     return (dispatch: IStore['dispatch']) => {
         // TODO There was a redux action creator appInit which I did not like
         // because we already had the redux action creator appWillMount and,
@@ -42,7 +42,7 @@ export function appWillMount(app: Object) {
  *     app: App
  * }}
  */
-export function appWillUnmount(app: Object) {
+export function appWillUnmount(app: object) {
     return {
         type: APP_WILL_UNMOUNT,
         app
@@ -60,7 +60,7 @@ export function appWillUnmount(app: Object) {
  *     route: Object
  * }}
  */
-export function appWillNavigate(app: Object, route: Object) {
+export function appWillNavigate(app: object, route: object) {
     return {
         type: APP_WILL_NAVIGATE,
         app,

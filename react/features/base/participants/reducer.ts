@@ -504,7 +504,7 @@ ReducerRegistry.register<IParticipantsState>('features/base/participants',
  * @param {string} name - The display name of the participant.
  * @returns {string}
  */
-function _getDisplayName(state: Object, name?: string): string {
+function _getDisplayName(state: object, name?: string): string {
     // @ts-ignore
     const config = state['features/base/config'];
 

@@ -91,7 +91,7 @@ export async function getSessionRecordDetails(
 export async function executeLinkMeetingRequest(
         url: string,
         jwt: string,
-        sessionId: String,
+        sessionId: string,
         body: {
             id?: string;
             notes: string;

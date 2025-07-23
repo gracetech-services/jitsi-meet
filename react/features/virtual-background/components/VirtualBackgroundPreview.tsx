@@ -56,7 +56,7 @@ interface IState {
     /**
      * Activate the selected device camera only.
      */
-    jitsiTrack: Object | null;
+    jitsiTrack: object | null;
 
     /**
      * Loader activated on setting virtual background.
@@ -228,7 +228,7 @@ class VirtualBackgroundPreview extends PureComponent<IProps, IState> {
      * @param {Object} data - The track data.
      * @returns {React$Node}
      */
-    _renderPreviewEntry(data: Object) {
+    _renderPreviewEntry(data: object) {
         const { t } = this.props;
         const classes = withStyles.getClasses(this.props);
 

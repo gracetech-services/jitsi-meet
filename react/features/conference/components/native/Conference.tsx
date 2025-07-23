@@ -68,7 +68,7 @@ interface IProps extends AbstractProps {
     /**
      * Application's aspect ratio.
      */
-    _aspectRatio: Symbol;
+    _aspectRatio: symbol;
 
     /**
      * Whether the audio only is enabled or not.
