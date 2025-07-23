@@ -125,6 +125,7 @@ const Button: React.FC<IProps> = ({
                 ] }
                 underlayColor = { color }>
                 <View
+                // eslint-disable-next-line react-native/no-inline-styles
                     style = {{
                         justifyContent: 'center',
                         alignItems: 'center',
