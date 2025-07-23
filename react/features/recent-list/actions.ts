@@ -14,7 +14,7 @@ import {
  *     entryId: Object
  * }}
  */
-export function deleteRecentListEntry(entryId: object) {
+export function deleteRecentListEntry(entryId: Object) {
     return {
         type: DELETE_RECENT_LIST_ENTRY,
         entryId
@@ -31,7 +31,7 @@ export function deleteRecentListEntry(entryId: object) {
  *     locationURL: Object
  * }}
  */
-export function _storeCurrentConference(locationURL: object) {
+export function _storeCurrentConference(locationURL: Object) {
     return {
         type: _STORE_CURRENT_CONFERENCE,
         locationURL
@@ -48,7 +48,7 @@ export function _storeCurrentConference(locationURL: object) {
  *     locationURL: Object
  * }}
  */
-export function _updateConferenceDuration(locationURL: object) {
+export function _updateConferenceDuration(locationURL: Object) {
     return {
         type: _UPDATE_CONFERENCE_DURATION,
         locationURL

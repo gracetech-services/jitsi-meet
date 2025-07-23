@@ -16,7 +16,7 @@ interface IProps extends WithTranslation {
     /**
      * ID of the menu that is controlled by this button.
      */
-    ariaControls: string;
+    ariaControls: String;
 
     /**
      * A child React Element to display within {@code InlineDialog}.

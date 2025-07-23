@@ -235,7 +235,8 @@ function _conferenceFailed({ dispatch, getState }: IStore, next: Function, actio
     }
 
     !error.recoverable
-        && conference?.leave(CONFERENCE_LEAVE_REASONS.UNRECOVERABLE_ERROR).catch((reason: Error) => {
+        && conference
+        && conference.leave(CONFERENCE_LEAVE_REASONS.UNRECOVERABLE_ERROR).catch((reason: Error) => {
             // Even though we don't care too much about the failure, it may be
             // good to know that it happen, so log it (on the info level).
             logger.info('JitsiConference.leave() rejected with:', reason);
@@ -513,7 +514,7 @@ function _pinParticipant({ getState }: IStore, next: Function, action: AnyAction
     const actionName = id ? ACTION_PINNED : ACTION_UNPINNED;
     const local
         = participantById?.local
-        || (!id && pinnedParticipant?.local);
+        || (!id && pinnedParticipant && pinnedParticipant.local);
     let participantIdForEvent;
 
     if (local) {

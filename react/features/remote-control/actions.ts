@@ -228,7 +228,7 @@ export function processPermissionRequestReply(participantId: string, event: any)
  * @property {string} type - The function process only events with name REMOTE_CONTROL_MESSAGE_NAME.
  * @returns {void}
  */
-export function handleRemoteControlStoppedEvent(participantId: object, event: { name: string; type: string; }) {
+export function handleRemoteControlStoppedEvent(participantId: Object, event: { name: string; type: string; }) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         const { name, type } = event;
@@ -315,7 +315,7 @@ export function clearRequest() {
  *      transport: Transport
  * }}
  */
-export function setReceiverTransport(transport?: object) {
+export function setReceiverTransport(transport?: Object) {
     return {
         type: SET_RECEIVER_TRANSPORT,
         transport

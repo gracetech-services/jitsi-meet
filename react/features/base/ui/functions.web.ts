@@ -14,13 +14,13 @@ declare module '@mui/material/styles' {
 }
 
 interface ThemeProps {
-    breakpoints: object;
-    colorMap: object;
-    colors: object;
-    font: object;
-    shape: object;
+    breakpoints: Object;
+    colorMap: Object;
+    colors: Object;
+    font: Object;
+    shape: Object;
     spacing: Array<number>;
-    typography: object;
+    typography: Object;
 }
 
 /**

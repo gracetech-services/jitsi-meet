@@ -52,7 +52,7 @@ type Props = {
     /**
      * The component's external style.
      */
-    style?: object;
+    style?: Object;
 };
 
 /**

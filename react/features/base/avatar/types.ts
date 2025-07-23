@@ -23,7 +23,7 @@ export interface IAvatarProps {
     /**
      * Additional parameters to be passed to onAvatarLoadError function.
      */
-    onAvatarLoadErrorParams?: object;
+    onAvatarLoadErrorParams?: Object;
 
     /**
      * Expected size of the avatar.

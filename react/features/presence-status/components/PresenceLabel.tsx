@@ -39,7 +39,7 @@ interface IProps extends WithTranslation {
     /**
      * Styles for the presence label.
      */
-    style: object;
+    style: Object;
 }
 
 /**

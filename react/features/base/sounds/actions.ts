@@ -101,7 +101,7 @@ export function playSound(soundId: string) {
  * }}
  */
 export function registerSound(
-        soundId: string, soundName: string, options: object = {}) {
+        soundId: string, soundName: string, options: Object = {}) {
     return {
         type: REGISTER_SOUND,
         soundId,

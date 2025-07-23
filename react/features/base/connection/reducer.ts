@@ -21,13 +21,13 @@ export interface IConnectionState {
         addFeature: Function;
         disconnect: Function;
         getJid: () => string;
-        getLogs: () => object;
+        getLogs: () => Object;
         initJitsiConference: Function;
         removeFeature: Function;
     };
     error?: ConnectionFailedError;
     locationURL?: URL;
-    passwordRequired?: object;
+    passwordRequired?: Object;
     preferVisitor?: boolean;
     showConnectionInfo?: boolean;
     timeEstablished?: number;
@@ -85,7 +85,7 @@ ReducerRegistry.register<IConnectionState>(
  */
 function _connectionDisconnected(
         state: IConnectionState,
-        { connection }: { connection: object; }) {
+        { connection }: { connection: Object; }) {
     const connection_ = _getCurrentConnection(state);
 
     if (connection_ !== connection) {
@@ -138,7 +138,7 @@ function _connectionEstablished(
 function _connectionFailed(
         state: IConnectionState,
         { connection, error }: {
-            connection: object;
+            connection: Object;
             error: ConnectionFailedError;
         }) {
     const connection_ = _getCurrentConnection(state);
@@ -170,7 +170,7 @@ function _connectionFailed(
  */
 function _connectionWillConnect(
         state: IConnectionState,
-        { connection }: { connection: object; }) {
+        { connection }: { connection: Object; }) {
     return assign(state, {
         connecting: connection,
 

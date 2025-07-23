@@ -14,7 +14,7 @@ interface IProps {
     /**
      * Style to be applied to the rendered text.
      */
-    textStyle?: object;
+    textStyle?: Object;
 }
 
 export interface IDisplayProps {
@@ -22,7 +22,7 @@ export interface IDisplayProps {
     /**
      * Style to be applied to text (native only).
      */
-    textStyle?: object;
+    textStyle?: Object;
 
     /**
      * String to display as time.

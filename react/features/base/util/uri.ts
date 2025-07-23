@@ -379,7 +379,7 @@ export function parseURIString(uri?: string): any {
  * function is invoked on such an instance.
  * @returns {string}
  */
-function _standardURIToString(thiz?: object) {
+function _standardURIToString(thiz?: Object) {
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-invalid-this
     const { hash, host, pathname, protocol, search } = thiz || this;
@@ -427,7 +427,7 @@ export function safeDecodeURIComponent(text: string) {
  * @returns {string} - A {@code String} representation of the specified
  * {@code obj} which is supposed to represent a URL.
  */
-export function toURLString(obj?: (object | string)) {
+export function toURLString(obj?: (Object | string)) {
     let str;
 
     switch (typeof obj) {
@@ -593,7 +593,7 @@ export function urlObjectToString(o: { [key: string]: any; }): string | undefine
  * @param {Object} hashParamsToAdd - A map with the parameters to be set.
  * @returns {URL} - The new URL.
  */
-export function addHashParamsToURL(url: URL, hashParamsToAdd: object = {}) {
+export function addHashParamsToURL(url: URL, hashParamsToAdd: Object = {}) {
     const params = parseURLParams(url);
     const urlParamsArray = _objectToURLParamsArray({
         ...params,

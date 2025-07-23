@@ -93,7 +93,7 @@ interface IProps {
     /**
      * The video track to render as preview (if omitted, the default local track will be rendered).
      */
-    videoTrack?: object;
+    videoTrack?: Object;
 }
 
 const useStyles = makeStyles()(theme => {

@@ -152,7 +152,7 @@ export interface IDynamicBrandingState {
     defaultBranding: boolean;
     didPageUrl: string;
     inviteDomain: string;
-    labels: object | null;
+    labels: Object | null;
     logoClickUrl: string;
     logoImageUrl: string;
     muiBrandedTheme?: boolean;

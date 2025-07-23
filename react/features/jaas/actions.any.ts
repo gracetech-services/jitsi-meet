@@ -10,7 +10,7 @@ import logger from './logger';
  * @param {Object} details - The customer details object.
  * @returns {Object}
  */
-function setCustomerDetails(details: object) {
+function setCustomerDetails(details: Object) {
     return {
         type: SET_DETAILS,
         payload: details

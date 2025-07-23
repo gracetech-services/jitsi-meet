@@ -162,7 +162,7 @@ export function overrideConfigJSON(config: IConfig, interfaceConfig: any, json: 
  * @returns {Object} - The result object only with the keys
  * that are whitelisted.
  */
-export function getWhitelistedJSON(configName: 'interfaceConfig' | 'config', configJSON: any): object {
+export function getWhitelistedJSON(configName: 'interfaceConfig' | 'config', configJSON: any): Object {
     if (configName === 'interfaceConfig') {
         return _.pick(configJSON, INTERFACE_CONFIG_WHITELIST);
     } else if (configName === 'config') {

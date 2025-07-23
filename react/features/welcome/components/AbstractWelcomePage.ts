@@ -41,7 +41,7 @@ export interface IProps extends WithTranslation {
     /**
      * Whether the recent list is enabled.
      */
-    _recentListEnabled: boolean;
+    _recentListEnabled: Boolean;
 
     /**
      * Room name to join to.
@@ -51,7 +51,7 @@ export interface IProps extends WithTranslation {
     /**
      * The current settings.
      */
-    _settings: object;
+    _settings: Object;
 
     /**
      * The Redux dispatch Function.

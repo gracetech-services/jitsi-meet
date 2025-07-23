@@ -36,7 +36,7 @@ export function removeTranscriptMessage(transcriptMessageID: string) {
  * }}
  */
 export function updateTranscriptMessage(transcriptMessageID: string,
-        newTranscriptMessage: object) {
+        newTranscriptMessage: Object) {
     return {
         type: UPDATE_TRANSCRIPT_MESSAGE,
         transcriptMessageID,

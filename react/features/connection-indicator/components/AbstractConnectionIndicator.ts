@@ -32,7 +32,7 @@ export interface IProps {
     /**
      * Custom icon style.
      */
-    iconStyle?: object;
+    iconStyle?: Object;
 
     /**
      * The ID of the participant associated with the displayed connection indication and

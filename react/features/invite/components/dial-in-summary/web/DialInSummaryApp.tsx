@@ -51,7 +51,7 @@ export default class DialInSummaryApp extends BaseApp<any> {
      *
      * @override
      */
-    _createMainElement(component: ComponentType<any>, props: object) {
+    _createMainElement(component: ComponentType<any>, props: Object) {
         return (
             <JitsiThemeProvider>
                 <GlobalStyles />

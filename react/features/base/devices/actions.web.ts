@@ -58,7 +58,7 @@ const DEVICE_TYPE_TO_SETTINGS_KEYS = {
  *      request: Object
  * }}
  */
-export function addPendingDeviceRequest(request: object) {
+export function addPendingDeviceRequest(request: Object) {
     return {
         type: ADD_PENDING_DEVICE_REQUEST,
         request
@@ -343,7 +343,7 @@ export function checkAndNotifyForNewDevice(newDevices: MediaDeviceInfo[], oldDev
  *      permissions: Object
  * }}
  */
-export function devicePermissionsChanged(permissions: object) {
+export function devicePermissionsChanged(permissions: Object) {
     return {
         type: DEVICE_PERMISSIONS_CHANGED,
         permissions

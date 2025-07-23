@@ -37,7 +37,7 @@ class OpenCarmodeButton extends AbstractButton<AbstractButtonProps> {
  * @private
  * @returns {Object}
  */
-function _mapStateToProps(state: IReduxState, ownProps: AbstractButtonProps): object {
+function _mapStateToProps(state: IReduxState, ownProps: AbstractButtonProps): Object {
     const enabled = getFeatureFlag(state, CAR_MODE_ENABLED, true);
     const { visible = enabled } = ownProps;
 

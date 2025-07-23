@@ -43,9 +43,9 @@ interface IProps extends IInputProps {
 }
 
 interface ICustomStyles {
-    container?: object;
-    input?: object;
-    inputMultiline?: object;
+    container?: Object;
+    input?: Object;
+    inputMultiline?: Object;
 }
 
 const Input = forwardRef<TextInput, IProps>(({

@@ -22,7 +22,7 @@ interface IProps {
     /**
      * The JitsiLocalTrack to display.
      */
-    track: object;
+    track: Object;
 }
 
 const useStyles = makeStyles()(theme => {

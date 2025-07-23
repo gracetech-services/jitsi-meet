@@ -233,7 +233,7 @@ StateListenerRegistry.register(
             });
 
             conference.on(JitsiConferenceEvents.AV_MODERATION_CHANGED, ({ enabled, mediaType, actor }: {
-                actor: object; enabled: boolean; mediaType: MediaType;
+                actor: Object; enabled: boolean; mediaType: MediaType;
             }) => {
                 enabled ? dispatch(enableModeration(mediaType, actor)) : dispatch(disableModeration(mediaType, actor));
             });

@@ -9,7 +9,7 @@ import amplitude from './amplitude/lib';
  */
 export default class AmplitudeHandler extends AbstractHandler {
     _deviceId: string;
-    _userId: object;
+    _userId: Object;
 
     /**
      * Creates new instance of the Amplitude analytics handler.

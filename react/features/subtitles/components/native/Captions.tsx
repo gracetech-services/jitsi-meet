@@ -39,7 +39,7 @@ class Captions extends AbstractCaptions<IProps> {
             <Text
                 key = { id }
                 onPress = { this.props.onPress }
-                style = { styles.captionsSubtitles as StyleProp<object> } >
+                style = { styles.captionsSubtitles as StyleProp<Object> } >
                 { text }
             </Text>
         );

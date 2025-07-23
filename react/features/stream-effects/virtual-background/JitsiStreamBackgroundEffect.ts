@@ -44,7 +44,7 @@ export default class JitsiStreamBackgroundEffect {
      * @param {Object} model - Meet model.
      * @param {Object} options - Segmentation dimensions.
      */
-    constructor(model: object, options: IBackgroundEffectOptions) {
+    constructor(model: Object, options: IBackgroundEffectOptions) {
         this._options = options;
 
         if (this._options.virtualBackground.backgroundType === VIRTUAL_BACKGROUND_TYPE.IMAGE) {

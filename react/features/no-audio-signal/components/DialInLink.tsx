@@ -14,7 +14,7 @@ interface IProps extends WithTranslation {
     /**
      * The redux state representing the dial-in numbers feature.
      */
-    _dialIn: object;
+    _dialIn: Object;
 
     /**
      * The url of the page containing the dial-in numbers list.

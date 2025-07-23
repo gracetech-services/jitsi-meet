@@ -131,7 +131,7 @@ export function requestLiveStreamsForYouTubeBroadcast(boundStreamID: string) {
  * }}
  */
 export function setGoogleAPIState(
-        googleAPIState: number, googleResponse?: object) {
+        googleAPIState: number, googleResponse?: Object) {
     return {
         type: SET_GOOGLE_API_STATE,
         googleAPIState,

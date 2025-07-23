@@ -251,7 +251,7 @@ export function updateDialInNumbers() {
  */
 export function setCalleeInfoVisible(
         calleeInfoVisible: boolean,
-        initialCalleeInfo?: object) {
+        initialCalleeInfo?: Object) {
     return {
         type: SET_CALLEE_INFO_VISIBLE,
         calleeInfoVisible,
@@ -269,7 +269,7 @@ export function setCalleeInfoVisible(
  * }}
  */
 export function addPendingInviteRequest(
-        request: { callback: Function; invitees: Array<object>; }) {
+        request: { callback: Function; invitees: Array<Object>; }) {
     return {
         type: ADD_PENDING_INVITE_REQUEST,
         request

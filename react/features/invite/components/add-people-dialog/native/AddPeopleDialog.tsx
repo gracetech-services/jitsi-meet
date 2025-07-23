@@ -56,7 +56,7 @@ interface IProps extends AbstractProps, WithTranslation {
     /**
      * Theme used for styles.
      */
-    theme: object;
+    theme: Object;
 }
 
 interface IState extends AbstractState {
@@ -80,7 +80,7 @@ interface IState extends AbstractState {
      * An array of items that are selectable on this dialog. This is usually
      * populated by an async search.
      */
-    selectableItems: Array<object>;
+    selectableItems: Array<Object>;
 }
 
 /**

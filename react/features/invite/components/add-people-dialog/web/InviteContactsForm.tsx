@@ -43,7 +43,7 @@ interface IProps extends AbstractProps {
     /**
      * The {@link JitsiMeetConference} which will be used to invite "room" participants.
      */
-    _conference?: object;
+    _conference?: Object;
 
     /**
      * Whether the meeting belongs to JaaS user.

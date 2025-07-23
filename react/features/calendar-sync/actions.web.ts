@@ -114,7 +114,7 @@ export function openUpdateCalendarEventDialog(
  *     msAuthState: Object
  * }}
  */
-export function setCalendarAPIAuthState(newState?: object) {
+export function setCalendarAPIAuthState(newState?: Object) {
     return {
         type: SET_CALENDAR_AUTH_STATE,
         msAuthState: newState
@@ -130,7 +130,7 @@ export function setCalendarAPIAuthState(newState?: object) {
  *     error: Object
  * }}
  */
-export function setCalendarError(error?: object) {
+export function setCalendarError(error?: Object) {
     return {
         type: SET_CALENDAR_ERROR,
         error

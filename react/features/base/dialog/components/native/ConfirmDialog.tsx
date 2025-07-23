@@ -39,12 +39,12 @@ interface IProps extends AbstractProps, WithTranslation {
     /**
      * Whether or not the nature of the confirm button is destructive.
      */
-    isConfirmDestructive?: boolean;
+    isConfirmDestructive?: Boolean;
 
     /**
      * Whether or not the confirm button is hidden.
      */
-    isConfirmHidden?: boolean;
+    isConfirmHidden?: Boolean;
 
     /**
      * Dialog title.

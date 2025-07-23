@@ -261,7 +261,7 @@ const Toolbox = ({
      * @param {Object} buttons - The list of toolbar buttons.
      * @returns {void}
      */
-    function setButtonsNotifyClickMode(buttons: object) {
+    function setButtonsNotifyClickMode(buttons: Object) {
         if (typeof APP === 'undefined' || (_buttonsWithNotifyClick?.size ?? 0) <= 0) {
             return;
         }

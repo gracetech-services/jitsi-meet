@@ -563,7 +563,7 @@ function requestCalendarEvents( // eslint-disable-line max-params
         .select('id,subject,start,end,location,body')
         .orderby('createdDateTime DESC')
         .get()
-        .then((result: any) => result.value.map((item: object) => {
+        .then((result: any) => result.value.map((item: Object) => {
             return {
                 ...item,
                 calendarId

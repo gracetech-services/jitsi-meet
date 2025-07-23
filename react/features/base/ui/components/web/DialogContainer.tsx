@@ -17,7 +17,7 @@ interface IProps {
     /**
      * The props to pass to the component that will be rendered.
      */
-    _componentProps?: object;
+    _componentProps?: Object;
 
     /**
      * Whether the overflow drawer should be used.

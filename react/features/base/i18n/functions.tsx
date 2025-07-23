@@ -39,7 +39,7 @@ export function translate<P extends WithTranslation>(component: React.ComponentT
  * @returns {ReactElement} A ReactElement which depicts the translated HTML
  * text.
  */
-export function translateToHTML(t: Function, key: string, options: object = {}) {
+export function translateToHTML(t: Function, key: string, options: Object = {}) {
     // eslint-disable-next-line react/no-danger
     return <span dangerouslySetInnerHTML = {{ __html: t(key, options) }} />;
 }

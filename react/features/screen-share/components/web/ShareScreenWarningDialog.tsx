@@ -12,7 +12,7 @@ export interface IProps extends WithTranslation {
     /**
      * Whether or not the dialog was opened for the audio screen sharing flow or the normal one.
      */
-    _isAudioScreenShareWarning: boolean;
+    _isAudioScreenShareWarning: Boolean;
 
     /**
      * The redux {@code dispatch} function.

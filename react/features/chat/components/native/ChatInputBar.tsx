@@ -20,7 +20,7 @@ interface IProps extends WithTranslation {
     /**
      * Application's aspect ratio.
      */
-    aspectRatio: symbol;
+    aspectRatio: Symbol;
 
     /**
      * Callback to invoke on message send.

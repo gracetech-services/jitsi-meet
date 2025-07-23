@@ -158,7 +158,7 @@ export interface IConferenceState {
     metadata?: IConferenceMetadata;
     obfuscatedRoom?: string;
     obfuscatedRoomSource?: string;
-    p2p?: object;
+    p2p?: Object;
     password?: string;
     passwordRequired?: IJitsiConference;
     pendingSubjectChange?: string;
@@ -426,7 +426,7 @@ function _conferenceJoined(state: IConferenceState, { conference }: { conference
  * reduction of the specified action.
  */
 function _conferenceLeftOrWillLeave(state: IConferenceState, { conference, type }:
-{ conference: IJitsiConference; type: string; }) {
+    { conference: IJitsiConference; type: string; }) {
     const nextState = { ...state };
 
     // The redux action CONFERENCE_LEFT is the last time that we should be
@@ -497,7 +497,7 @@ function _conferenceWillJoin(state: IConferenceState, { conference }: { conferen
  * @returns {Object} The new state of the feature base/conference after the
  * reduction of the specified action.
  */
-function _lockStateChanged(state: IConferenceState, { conference, locked }: { conference: object; locked: boolean; }) {
+function _lockStateChanged(state: IConferenceState, { conference, locked }: { conference: Object; locked: boolean; }) {
     if (state.conference !== conference) {
         return state;
     }
@@ -532,7 +532,7 @@ function _p2pStatusChanged(state: IConferenceState, action: AnyAction) {
  * reduction of the specified action.
  */
 function _setPassword(state: IConferenceState, { conference, method, password }: {
-    conference: IJitsiConference; method: object; password: string; }) {
+    conference: IJitsiConference; method: Object; password: string; }) {
     switch (method) {
     case conference.join:
         return assign(state, {

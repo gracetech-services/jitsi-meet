@@ -93,7 +93,7 @@ class CalleeInfo extends Component<IProps> {
      */
     _style(...classNames: Array<string | undefined>) {
         let className = '';
-        let style: object = {};
+        let style: Object = {};
 
         for (const aClassName of classNames) {
             if (aClassName) {

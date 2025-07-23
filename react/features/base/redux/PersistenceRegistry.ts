@@ -14,7 +14,7 @@ declare let __DEV__: any;
  * {@code true}), we persist the entire subtree. If it's an {@code Object}, we
  * perist a filtered subtree based on the properties of the config object.
  */
-declare type ElementConfig = boolean | object;
+declare type ElementConfig = boolean | Object;
 
 /**
  * The type of the name-config pairs stored in {@code PersistenceRegistry}.
@@ -27,7 +27,7 @@ declare type PersistencyConfigMap = { [name: string]: ElementConfig; };
  */
 class PersistenceRegistry {
     _checksum = '';
-    _defaultStates: { [name: string ]: object | undefined; } = {};
+    _defaultStates: { [name: string ]: Object | undefined; } = {};
     _elements: PersistencyConfigMap = {};
 
     /**
@@ -73,7 +73,7 @@ class PersistenceRegistry {
      * @param {Object} state - The redux state.
      * @returns {void}
      */
-    persistState(state: object) {
+    persistState(state: Object) {
         const filteredState = this._getFilteredState(state);
         const checksum = this._calculateChecksum(filteredState);
 
@@ -104,7 +104,7 @@ class PersistenceRegistry {
     register(
             name: string,
             config: ElementConfig = true,
-            defaultState?: object) {
+            defaultState?: Object) {
         this._elements[name] = config;
         this._defaultStates[name] = defaultState;
     }
@@ -116,7 +116,7 @@ class PersistenceRegistry {
      * @private
      * @returns {string} The checksum of the specified {@code state}.
      */
-    _calculateChecksum(state: object) {
+    _calculateChecksum(state: Object) {
         try {
             return md5.hex(JSON.stringify(state) || '');
         } catch (error) {
@@ -188,7 +188,7 @@ class PersistenceRegistry {
      * @private
      * @returns {Object}
      */
-    _getPersistedSubtree(subtreeName: string, subtreeConfig: object, subtreeDefaults?: object) {
+    _getPersistedSubtree(subtreeName: string, subtreeConfig: Object, subtreeDefaults?: Object) {
         let persistedSubtree = jitsiLocalStorage.getItem(subtreeName);
 
         if (persistedSubtree) {
@@ -223,7 +223,7 @@ class PersistenceRegistry {
      * @param {?Object} defaults - The defaults, if any.
      * @returns {Object}
      */
-    _mergeDefaults(subtree: object, defaults?: object) {
+    _mergeDefaults(subtree: Object, defaults?: Object) {
         if (!defaults) {
             return subtree;
         }

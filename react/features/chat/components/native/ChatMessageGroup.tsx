@@ -53,7 +53,7 @@ export default class ChatMessageGroup extends Component<IProps> {
      * @param {number} index - The index of the element.
      * @returns {string}
      */
-    _keyExtractor(_item: object, index: number) {
+    _keyExtractor(_item: Object, index: number) {
         return `key_${index}`;
     }
 

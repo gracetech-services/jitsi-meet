@@ -10,7 +10,7 @@ import { UPDATE_FLAGS } from './actionTypes';
 const DEFAULT_STATE = {};
 
 export interface IFlagsState {
-    flags?: object;
+    flags?: Object;
 }
 
 /**

@@ -13,7 +13,7 @@ const DEFAULT_STATE = {
 export interface INetInfoState {
     _cleanup?: Function;
     cellularGeneration?: NetInfoCellularGeneration;
-    details?: object;
+    details?: Object;
     isOnline?: boolean;
     networkType?: NetInfoStateType;
 }

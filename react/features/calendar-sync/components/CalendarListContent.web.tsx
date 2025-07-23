@@ -19,7 +19,7 @@ interface IProps {
     /**
      * The calendar event list.
      */
-    _eventList: Array<object>;
+    _eventList: Array<Object>;
 
     /**
      * Indicates if the list is disabled or not.

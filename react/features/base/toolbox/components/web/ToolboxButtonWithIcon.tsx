@@ -75,7 +75,7 @@ interface IProps {
     /**
      * Additional styles.
      */
-    styles?: object;
+    styles?: Object;
 }
 
 /**

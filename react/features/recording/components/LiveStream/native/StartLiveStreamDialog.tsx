@@ -131,7 +131,7 @@ class StartLiveStreamDialog extends AbstractStartLiveStreamDialog<IProps> {
      * @param {Object} response - The retrieved signin response.
      * @returns {void}
      */
-    _onUserChanged(response: object) {
+    _onUserChanged(response: Object) {
         if (response) {
             googleApi.getTokens()
                 .then((tokens: any) => {

@@ -201,7 +201,7 @@ export function getAllToolboxButtons(_customToolbarButtons?: {
     icon: string;
     id: string;
     text: string;
-}[]): { [key: string]: IToolboxButton; } {
+    }[]): { [key: string]: IToolboxButton; } {
 
     const audioonly = {
         key: 'audioonly',

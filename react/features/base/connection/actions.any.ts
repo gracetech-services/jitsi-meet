@@ -42,7 +42,7 @@ interface IOptions extends IConfigState {
  *     connection: JitsiConnection
  * }}
  */
-export function connectionDisconnected(connection?: object) {
+export function connectionDisconnected(connection?: Object) {
     return {
         type: CONNECTION_DISCONNECTED,
         connection
@@ -64,7 +64,7 @@ export function connectionDisconnected(connection?: object) {
  * }}
  */
 export function connectionEstablished(
-        connection: object, timeEstablished: number) {
+        connection: Object, timeEstablished: number) {
     return {
         type: CONNECTION_ESTABLISHED,
         connection,
@@ -86,7 +86,7 @@ export function connectionEstablished(
  * }}
  */
 export function connectionFailed(
-        connection: object,
+        connection: Object,
         error: ConnectionFailedError) {
     const { credentials } = error;
 
@@ -273,7 +273,7 @@ export function _connectInternal(id?: string, password?: string) {
                     err: string,
                     message: string,
                     credentials: any,
-                    details: object) {
+                    details: Object) {
                 unsubscribe();
 
                 dispatch(connectionFailed(connection, {
@@ -336,7 +336,7 @@ export function _connectInternal(id?: string, password?: string) {
  *     connection: JitsiConnection
  * }}
  */
-function _connectionWillConnect(connection: object) {
+function _connectionWillConnect(connection: Object) {
     return {
         type: CONNECTION_WILL_CONNECT,
         connection

@@ -10,7 +10,7 @@ export interface IProps extends AbstractButtonProps {
     /**
      * The ID of the entry to be deleted.
      */
-    itemId: object;
+    itemId: Object;
 }
 
 /**

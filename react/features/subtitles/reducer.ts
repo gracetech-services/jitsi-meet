@@ -88,7 +88,7 @@ function _removeTranscriptMessage(state: ISubtitlesState, { transcriptMessageID 
  * reduction of the specified action.
  */
 function _updateTranscriptMessage(state: ISubtitlesState, { transcriptMessageID, newTranscriptMessage }:
-{ newTranscriptMessage: ITranscriptMessage; transcriptMessageID: string; }) {
+    { newTranscriptMessage: ITranscriptMessage; transcriptMessageID: string; }) {
     const newTranscriptMessages = new Map(state._transcriptMessages);
 
     // Updates the new message for the given key in the Map.

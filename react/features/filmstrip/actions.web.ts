@@ -504,7 +504,7 @@ export function removeStageParticipant(participantId: string) {
  * @param {Array<Object>} queue - The new list.
  * @returns {Object}
  */
-export function setStageParticipants(queue: object[]) {
+export function setStageParticipants(queue: Object[]) {
     return {
         type: SET_STAGE_PARTICIPANTS,
         queue

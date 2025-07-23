@@ -18,7 +18,7 @@ const DEFAULT_STATE = {
 
 export interface IGoogleApiState {
     googleAPIState: number;
-    googleResponse?: object;
+    googleResponse?: Object;
     profileEmail: string;
 }
 

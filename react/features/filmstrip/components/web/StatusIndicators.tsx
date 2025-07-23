@@ -24,22 +24,22 @@ interface IProps {
     /**
      * Indicates if the audio muted indicator should be visible or not.
      */
-    _showAudioMutedIndicator: boolean;
+    _showAudioMutedIndicator: Boolean;
 
     /**
      * Indicates if the moderator indicator should be visible or not.
      */
-    _showModeratorIndicator: boolean;
+    _showModeratorIndicator: Boolean;
 
     /**
      * Indicates if the screen share indicator should be visible or not.
      */
-    _showScreenShareIndicator: boolean;
+    _showScreenShareIndicator: Boolean;
 
     /**
      * The ID of the participant for which the status bar is rendered.
      */
-    participantID: string;
+    participantID: String;
 
     /**
      * The type of thumbnail.

@@ -9,7 +9,7 @@ import { SET_INITIAL_PERMANENT_PROPERTIES } from './actionTypes';
  * @param {Object} properties - An object with properties to be updated.
  * @returns {Function}
  */
-export function setPermanentProperty(properties: object) {
+export function setPermanentProperty(properties: Object) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const { isInitialized = false } = getState()['features/analytics'];
 

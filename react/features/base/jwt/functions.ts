@@ -82,7 +82,7 @@ function isValidUnixTimestamp(timestamp: number | string) {
  * @returns {Array} - An array containing all jwt validation errors.
  */
 export function validateJwt(jwt: string) {
-    const errors: object[] = [];
+    const errors: Object[] = [];
     const currentTimestamp = new Date().getTime();
 
     try {

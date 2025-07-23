@@ -13,7 +13,7 @@ interface IProps extends WithTranslation {
     /**
      * Style for text.
      */
-    style: object;
+    style: Object;
 
     /**
      * The milliseconds to be converted into a human-readable format.

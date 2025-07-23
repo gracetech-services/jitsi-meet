@@ -10,7 +10,7 @@ import { SET_LOGGING_CONFIG, SET_LOG_COLLECTOR } from './actionTypes';
  *     logCollector: Object
  * }}
  */
-export function setLogCollector(logCollector?: object) {
+export function setLogCollector(logCollector?: Object) {
     return {
         type: SET_LOG_COLLECTOR,
         logCollector
@@ -27,7 +27,7 @@ export function setLogCollector(logCollector?: object) {
  *     config: Object
  * }}
  */
-export function setLoggingConfig(config: object) {
+export function setLoggingConfig(config: Object) {
     return {
         type: SET_LOGGING_CONFIG,
         config

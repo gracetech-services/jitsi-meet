@@ -44,7 +44,7 @@ class AbstractDialogTab<P extends IProps, S> extends Component<P, S> {
      * value.
      * @returns {void}
      */
-    _onChange(change: object) {
+    _onChange(change: Object) {
         const { onTabStateChange, tabId } = this.props;
 
         onTabStateChange(tabId, {

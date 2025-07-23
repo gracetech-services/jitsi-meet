@@ -9,12 +9,12 @@ interface IProps {
     /**
      * The ImageSource to be rendered as image.
      */
-    src: object;
+    src: Object;
 
     /**
      * The component's external style.
      */
-    style: object;
+    style: Object;
 }
 
 /**

@@ -66,7 +66,7 @@ interface IProps {
     /**
      * The entity for which the context menu is displayed.
      */
-    entity?: object;
+    entity?: Object;
 
     /**
      * Whether or not the menu is hidden. Used to overwrite the internal isHidden.
@@ -244,9 +244,9 @@ const ContextMenu = ({
                 list: Element | null,
                 currentFocus: Element | null,
                 traversalFunction: (
-                    list: Element | null,
-                    currentFocus: Element | null
-                ) => Element | null
+                list: Element | null,
+                currentFocus: Element | null
+            ) => Element | null
         ) => {
             let wrappedOnce = false;
             let nextFocus = traversalFunction(list, currentFocus);

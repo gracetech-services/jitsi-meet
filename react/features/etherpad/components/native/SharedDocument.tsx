@@ -25,7 +25,7 @@ interface IProps extends WithTranslation {
     /**
      * Default prop for navigation between screen components(React Navigation).
      */
-    navigation: object;
+    navigation: Object;
 }
 
 /**

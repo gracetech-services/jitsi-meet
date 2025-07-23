@@ -42,7 +42,7 @@ export type DialogProps = {
      *
      * NOTE: Not all dialog types support this!
      */
-    style?: object;
+    style?: Object;
 
     /**
      * Key to use for showing a title.

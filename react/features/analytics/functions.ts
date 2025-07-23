@@ -29,7 +29,7 @@ import logger from './logger';
  * described in AnalyticsAdapter.js in lib-jitsi-meet.
  * @returns {void}
  */
-export function sendAnalytics(event: object) {
+export function sendAnalytics(event: Object) {
     try {
         analytics.sendEvent(event);
     } catch (e) {
@@ -163,7 +163,7 @@ export async function createHandlers({ getState }: IStore) {
  * @param {Array<Object>} handlers - The analytics handlers.
  * @returns {boolean} - True if the analytics were successfully initialized and false otherwise.
  */
-export function initAnalytics(store: IStore, handlers: Array<object>): boolean {
+export function initAnalytics(store: IStore, handlers: Array<Object>): boolean {
     const { getState, dispatch } = store;
 
     if (!isAnalyticsEnabled(getState) || handlers.length === 0) {
@@ -268,7 +268,7 @@ export function initAnalytics(store: IStore, handlers: Array<object>): boolean {
  * @returns {Promise} Resolves with the handlers that have been successfully loaded and rejects if there are no handlers
  * loaded or the analytics is disabled.
  */
-function _loadHandlers(scriptURLs: string[] = [], handlerConstructorOptions: object) {
+function _loadHandlers(scriptURLs: string[] = [], handlerConstructorOptions: Object) {
     const promises: Promise<{ error?: Error; type: string; url?: string; }>[] = [];
 
     for (const url of scriptURLs) {

@@ -50,7 +50,7 @@ export const CollapsibleRoom = ({ room, roomId }: IProps) => {
                 keyExtractor = { _keyExtractor }
 
                 /* @ts-ignore */
-                listKey = { roomId as string }
+                listKey = { roomId as String }
 
                 // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
                 renderItem = { ({ item: participant }) => (

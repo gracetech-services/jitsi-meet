@@ -35,7 +35,7 @@ interface IProps {
     /**
      * Indicates whether the support link should be shown in case of an error.
      */
-    showSupportLink: boolean;
+    showSupportLink: Boolean;
 }
 
 /**

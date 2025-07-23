@@ -38,7 +38,7 @@ interface IProps extends AbstractProps, WithTranslation {
     /**
      * Props for the text input.
      */
-    textInputProps?: object;
+    textInputProps?: Object;
 
     /**
      * The untranslated i18n key for the dialog title.

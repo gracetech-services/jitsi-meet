@@ -25,7 +25,7 @@ interface IProps {
     /**
      * Style to override the base style.
      */
-    style?: object;
+    style?: Object;
 }
 
 /**

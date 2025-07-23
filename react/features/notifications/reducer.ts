@@ -19,10 +19,10 @@ const DEFAULT_STATE = {
 };
 
 interface INotification {
-    component: object;
+    component: Object;
     props: {
         appearance?: string;
-        descriptionArguments?: object;
+        descriptionArguments?: Object;
         descriptionKey?: string;
         titleKey: string;
     };

@@ -81,7 +81,7 @@ export function loadConfigError(error: Error, locationURL: URL) {
  *     config: Object
  * }}
  */
-export function overwriteConfig(config: object) {
+export function overwriteConfig(config: Object) {
     return {
         type: OVERWRITE_CONFIG,
         config
@@ -163,7 +163,7 @@ export function setConfig(config: IConfig = {}) {
  * @param {Object} config - The Jitsi Meet config.js to store.
  * @returns {Function}
  */
-export function storeConfig(baseURL: string, config: object) {
+export function storeConfig(baseURL: string, config: Object) {
     return (dispatch: IStore['dispatch']) => {
         // Try to store the configuration in localStorage. If the deployment
         // specified 'getroom' as a function, for example, it does not make

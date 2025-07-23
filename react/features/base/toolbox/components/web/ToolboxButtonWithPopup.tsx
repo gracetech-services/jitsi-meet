@@ -43,7 +43,7 @@ interface IProps {
     /**
      * Additional styles.
      */
-    styles?: object;
+    styles?: Object;
 
     /**
      * Whether the trigger for open/ close should be click or hover.

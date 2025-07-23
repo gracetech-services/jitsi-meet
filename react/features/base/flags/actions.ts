@@ -9,7 +9,7 @@ import { UPDATE_FLAGS } from './actionTypes';
  *     flags: Object
  * }}
  */
-export function updateFlags(flags: object) {
+export function updateFlags(flags: Object) {
     return {
         type: UPDATE_FLAGS,
         flags

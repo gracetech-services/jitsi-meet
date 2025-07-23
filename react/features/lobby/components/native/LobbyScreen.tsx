@@ -31,7 +31,7 @@ interface IProps extends AbstractProps {
     /**
      * The current aspect ratio of the screen.
      */
-    _aspectRatio: symbol;
+    _aspectRatio: Symbol;
 
     /**
      * The room name.

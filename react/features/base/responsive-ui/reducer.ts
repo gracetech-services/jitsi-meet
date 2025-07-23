@@ -29,7 +29,7 @@ const DEFAULT_STATE = {
 };
 
 export interface IResponsiveUIState {
-    aspectRatio: symbol;
+    aspectRatio: Symbol;
     clientHeight: number;
     clientWidth: number;
     contextMenuOpened: boolean;

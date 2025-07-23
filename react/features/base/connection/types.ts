@@ -26,7 +26,7 @@ export type ConnectionFailedError = {
     /**
      * The details about the connection failed event.
      */
-    details?: object;
+    details?: Object;
 
     /**
      * Error message.

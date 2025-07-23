@@ -258,7 +258,7 @@ interface IVideoState {
     facingMode: string;
     gumPending: IGUMPendingState;
     muted: number;
-    transforms: object;
+    transforms: Object;
     unmuteBlocked: boolean;
 }
 

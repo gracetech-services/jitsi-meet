@@ -80,7 +80,7 @@ type State = {
     /**
      * The dial-in numbers to be displayed.
      */
-    numbers: Array<object> | object | null;
+    numbers: Array<Object> | Object | null;
 
     /**
      * Whether or not dial-in is allowed.
@@ -286,7 +286,7 @@ class DialInSummary extends Component<IProps, State> {
      * @returns {void}
      */
     _onGetNumbersSuccess(
-            response: Array<object> | { numbersEnabled?: boolean; }) {
+            response: Array<Object> | { numbersEnabled?: boolean; }) {
 
         this.setState({
             numbersEnabled:

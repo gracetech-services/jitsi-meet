@@ -216,7 +216,7 @@ export function setVideoUnmutePermissions(blocked: boolean, skipNotification = f
  *     transform: Object
  * }}
  */
-export function storeVideoTransform(streamId: string, transform: object) {
+export function storeVideoTransform(streamId: string, transform: Object) {
     return {
         type: STORE_VIDEO_TRANSFORM,
         streamId,

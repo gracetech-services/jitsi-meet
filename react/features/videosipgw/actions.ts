@@ -10,8 +10,8 @@ import { SIP_GW_INVITE_ROOMS } from './actionTypes';
  * @returns {void}
  */
 export function inviteVideoRooms(
-        conference: object,
-        rooms: object) {
+        conference: Object,
+        rooms: Object) {
     return {
         type: SIP_GW_INVITE_ROOMS,
         conference,

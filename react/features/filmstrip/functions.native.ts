@@ -216,7 +216,7 @@ export function getFilmstripDimensions({
     insets = {},
     localParticipantVisible = true
 }: {
-    aspectRatio: symbol;
+    aspectRatio: Symbol;
     clientHeight: number;
     clientWidth: number;
     insets?: {
@@ -286,4 +286,5 @@ export function shouldDisplayLocalThumbnailSeparately() {
 export function getScreenshareFilmstripParticipantId(_state: any) {
     return undefined;
 }
+
 

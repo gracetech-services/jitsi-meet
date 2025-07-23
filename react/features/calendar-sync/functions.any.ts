@@ -14,7 +14,7 @@ const ALLDAY_EVENT_LENGTH = 23 * 60 * 60 * 1000;
  * @param {Object} entry - The calendar entry.
  * @returns {boolean}
  */
-function _isDisplayableCalendarEntry(entry: { allDay: boolean; attendees: object[];
+function _isDisplayableCalendarEntry(entry: { allDay: boolean; attendees: Object[];
     endDate: number; startDate: number; }) {
     // Entries are displayable if:
     //   - Ends in the future (future or ongoing events)
@@ -39,7 +39,7 @@ function _isDisplayableCalendarEntry(entry: { allDay: boolean; attendees: object
  * @private
  * @returns {void}
  */
-export function _updateCalendarEntries(events: Array<object>) {
+export function _updateCalendarEntries(events: Array<Object>) {
     if (!events?.length) {
         return;
     }

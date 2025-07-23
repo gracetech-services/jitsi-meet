@@ -134,7 +134,7 @@ interface IProps {
     /**
      * The JitsiLocalTrack to display.
      */
-    videoTrack?: object;
+    videoTrack?: Object;
 }
 
 const useStyles = makeStyles()(theme => {

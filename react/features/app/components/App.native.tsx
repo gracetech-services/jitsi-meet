@@ -45,7 +45,7 @@ interface IProps extends AbstractAppProps {
     /**
      * An object with user information (display name, email, avatar URL).
      */
-    userInfo?: object;
+    userInfo?: Object;
 }
 
 /**
@@ -193,7 +193,7 @@ export class App extends AbstractApp<IProps> {
      *
      * @override
      */
-    _createMainElement(component: ComponentType<any>, props: object) {
+    _createMainElement(component: ComponentType<any>, props: Object) {
         return (
             <SafeAreaProvider>
                 <DimensionsDetector
@@ -271,7 +271,7 @@ export class App extends AbstractApp<IProps> {
      * @private
      * @returns {void}
      */
-    _onSafeAreaInsetsChanged(insets: object) {
+    _onSafeAreaInsetsChanged(insets: Object) {
         const { dispatch } = this.state.store ?? {};
 
         dispatch?.(setSafeAreaInsets(insets));

@@ -107,7 +107,7 @@ interface IProps extends WithTranslation {
     /**
     * Whether or not the toolbox is displayed.
     */
-    _isToolboxVisible: boolean;
+    _isToolboxVisible: Boolean;
 
     /**
      * Whether or not the current layout is vertical filmstrip.

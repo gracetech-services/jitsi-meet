@@ -19,7 +19,7 @@ interface IProps {
     /**
      * Collapsible list title.
      */
-    title: object;
+    title: Object;
 }
 
 const FishMeetNormalList = ({ onLongPress, onPress, onDelete, title }: IProps) => (

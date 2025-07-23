@@ -17,7 +17,7 @@ export interface IProps {
     /**
      * The URL, if any, with which the app was launched.
      */
-    url: object | string;
+    url: Object | string;
 }
 
 /**
@@ -90,7 +90,7 @@ export class AbstractApp<P extends IProps = IProps> extends BaseApp<P> {
      * @protected
      * @returns {void}
      */
-    _openURL(url: string | object) {
+    _openURL(url: string | Object) {
         this.state.store?.dispatch(appNavigate(toURLString(url)));
     }
 }

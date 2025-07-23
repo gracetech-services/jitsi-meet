@@ -14,7 +14,7 @@ export interface IProps {
     /**
      * Custom styles.
      */
-    style?: object;
+    style?: Object;
 }
 
 interface IState {

@@ -42,7 +42,7 @@ export function setE2EEMaxMode(maxMode: string) {
  *     keyInfo: Object
  * }}
  */
-export function setMediaEncryptionKey(keyInfo: object) {
+export function setMediaEncryptionKey(keyInfo: Object) {
     return {
         type: SET_MEDIA_ENCRYPTION_KEY,
         keyInfo

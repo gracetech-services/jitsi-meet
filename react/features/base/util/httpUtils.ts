@@ -19,7 +19,7 @@ const RETRY_TIMEOUT = 3000;
  * @returns {Promise<Object>} The response body, in JSON format, will be
  * through the Promise.
  */
-export function doGetJSON(url: string, retry?: boolean, options?: object) {
+export function doGetJSON(url: string, retry?: boolean, options?: Object) {
     const fetchPromise = fetch(url, options)
         .then(response => {
             const jsonify = response.json();

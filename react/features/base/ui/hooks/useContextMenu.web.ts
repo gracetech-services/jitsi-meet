@@ -18,7 +18,7 @@ type RaiseContext<T> = {
 
 const initialState = Object.freeze({});
 
-const useContextMenu = <T>(): [(force?: boolean | object) => void,
+const useContextMenu = <T>(): [(force?: boolean | Object) => void,
     (entity: T, target: HTMLElement | null) => void,
     (entity: T) => (e?: MouseEvent) => void,
     () => void,
@@ -27,7 +27,7 @@ const useContextMenu = <T>(): [(force?: boolean | object) => void,
     const [ raiseContext, setRaiseContext ] = useState < RaiseContext<T> >(initialState);
     const isMouseOverMenu = useRef(false);
 
-    const lowerMenu = useCallback((force: boolean | object = false) => {
+    const lowerMenu = useCallback((force: boolean | Object = false) => {
         /**
          * We are tracking mouse movement over the active participant item and
          * the context menu. Due to the order of enter/leave events, we need to

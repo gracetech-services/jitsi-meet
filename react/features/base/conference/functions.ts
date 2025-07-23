@@ -55,7 +55,7 @@ export const getIsConferenceJoined = (state: IReduxState) => Boolean(getConferen
  */
 export function _addLocalTracksToConference(
         conference: IJitsiConference,
-        localTracks: Array<object>) {
+        localTracks: Array<Object>) {
     const conferenceLocalTracks = conference.getLocalTracks();
     const promises = [];
 
@@ -500,7 +500,7 @@ export function isRoomValid(room?: string) {
  */
 export function _removeLocalTracksFromConference(
         conference: IJitsiConference,
-        localTracks: Array<object>) {
+        localTracks: Array<Object>) {
     return Promise.all(localTracks.map(track =>
         conference.removeTrack(track)
             .catch((err: Error) => {
