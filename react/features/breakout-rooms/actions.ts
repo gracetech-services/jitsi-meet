@@ -25,7 +25,7 @@ import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 
 import {
     IS_SHOW_LOADING, LOAD_PRE_BREAKROOMS,
-    SET_ALL_ROOMS_OPEN, SET_LOAD_PRE_BREAKOUT_ROOMS,
+    SET_ALL_ROOMS_OPEN,
     UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT, _RESET_BREAKOUT_ROOMS,
     _UPDATE_ROOM_COUNTER
 } from './actionTypes';
@@ -538,8 +538,6 @@ export function setIsShowLoading(isShowLoading: boolean) {
  * @returns {Function}
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
-    console.log('!!!!!!!!!!!!!upLoadPreBreakRoomsData trigger');
-
     return (dispatch: IStore['dispatch']) => {
         fishMeetPassInData.breakRoomData = meetingData;
         dispatch({
@@ -567,7 +565,7 @@ export function setUploadResult(uploadResult: boolean | undefined) {
 export function loadPreBreakRoomsData() {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
-            type: LOAD_PRE_BREAKROOMS,
+            type: LOAD_PRE_BREAKROOMS
         });
     };
 }
