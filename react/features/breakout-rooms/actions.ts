@@ -378,11 +378,10 @@ export function moveToRoom(roomId?: string) {
             // a little hack.
 
             // eslint-disable-next-line no-new-wrappers
-            _roomId = id;
+            _roomId = new String(id);
 
             // @ts-ignore
-            // eslint-disable-next-line no-extra-parens
-            (_roomId as any).domain = domainParts.join('@');
+            _roomId.domain = domainParts.join('@');
         }
 
         const roomIdStr = _roomId?.toString();
