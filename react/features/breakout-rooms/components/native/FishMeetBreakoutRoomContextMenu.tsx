@@ -77,20 +77,20 @@ const FishMeetBreakoutRoomContextMenu = ({ room, actions = ALL_ACTIONS }: IProps
     }, [ dispatch, room ]);
 
     const onRenameBreakoutRoom = useCallback(() => {
-        dispatch(openDialog(BreakoutRoomNamePrompt, {
-            breakoutRoomJid: room.jid,
-            initialRoomName: room.name,
-            onSubmit: (newName: string) => {
-                if (areAllRoomsOpen) {
-                    dispatch(renameBreakoutRoom(room.jid, newName));
-                } else {
-                    dispatch(renamePreloadBreakoutRoom(room.id, newName));
-                }
-
-                dispatch(hideSheet());
+    dispatch(openDialog(BreakoutRoomNamePrompt, {
+        breakoutRoomJid: room.jid,
+        initialRoomName: room.name,
+        onSubmit: (newName: string) => {
+            if (areAllRoomsOpen) {
+                dispatch(renameBreakoutRoom(room.jid, newName));
+            } else {
+                dispatch(renamePreloadBreakoutRoom(room.id, newName));
             }
-        }));
-    }, [ dispatch, room, areAllRoomsOpen ]);
+
+            dispatch(hideSheet()); 
+        }
+    }));
+}, [ dispatch, room, areAllRoomsOpen ]);
 
 
     const onCloseBreakoutRoom = useCallback(() => {

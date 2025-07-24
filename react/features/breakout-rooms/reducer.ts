@@ -23,10 +23,10 @@ const DEFAULT_STATE = {
 export interface IBreakoutRoomsState {
     areAllRoomsOpen: boolean;
     isShowLoading: boolean;
-    preBreakoutRooms: any;
     roomCounter: number;
     rooms: IRooms;
     uploadResult: boolean | undefined;
+    preBreakoutRooms: any;
 }
 
 /**
@@ -76,34 +76,39 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
     }
 
     case 'RENAME_PRELOAD_ROOM': {
-        const { roomId, name } = action;
-
-        return {
-            ...state,
-            rooms: {
-                ...state.rooms,
-                [roomId]: {
-                    ...state.rooms[roomId],
-                    name
-                }
+    const { roomId, name } = action;
+    return {
+        ...state,
+        rooms: {
+            ...state.rooms,
+            [roomId]: {
+                ...state.rooms[roomId],
+                name
             }
-        };
-    }
+        }
+    };
+}
 
-
+  /*   case 'SET_LOAD_PRE_BREAKOUT_ROOMS': {
+        console.log('!!!!!!!!!!!!! reducer - SET_LOAD_PRE_BREAKOUT_ROOMS trigger');
+    return {
+        ...state,
+        preBreakoutRooms: action.meetingData
+    };
+} */
     case 'SET_LOAD_PRE_BREAKOUT_ROOMS': {
+        console.log('!!!!!!!!!!!!! reducer - SET_LOAD_PRE_BREAKOUT_ROOMS trigger');
         return {
             ...state,
             preBreakoutRooms: action.meetingData,
-            rooms: action.meetingData,
-            roomCounter: Object.keys(action.meetingData).length
+            rooms: action.meetingData, // <--- 新增
+            roomCounter: Object.keys(action.meetingData).length // <--- 新增
         };
     }
 
     case 'SET_HAS_PRE_BREAKOUT_ROOMS': {
         return {
-            ...state
-
+            ...state,
             // hasPreBreakoutRooms: action.hasPre
         };
     }
@@ -112,4 +117,5 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
 
     return state;
 });
+
 

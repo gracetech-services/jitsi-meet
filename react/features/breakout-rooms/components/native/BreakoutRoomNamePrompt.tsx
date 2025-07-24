@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { appType } from '../../../base/config/AppType';
 import InputDialog from '../../../base/dialog/components/native/InputDialog';
 import { IBreakoutRoomNamePromptProps as IProps } from '../../../participants-pane/types';
 import { renameBreakoutRoom } from '../../actions';
+import { appType } from '../../../base/config/AppType';
 
 
 /**
@@ -17,12 +17,6 @@ interface IExtendedProps extends IProps {
     onSubmit?: (name: string) => void;
 }
 
-/**
- * Implements a component to render a breakout room name prompt.
- *
- * @param {IProps} props - The props of the component.
- * @returns {JSX.Element}
- */
 export default function BreakoutRoomNamePrompt({
     breakoutRoomJid,
     initialRoomName,
@@ -51,7 +45,7 @@ export default function BreakoutRoomNamePrompt({
     return (
         <InputDialog
             descriptionKey = 'dialog.renameBreakoutRoomTitle'
-            initialValue = { initialRoomName?.trim() }
-            onSubmit = { _onSubmit } />
+            initialValue   = { initialRoomName?.trim() }
+            onSubmit       = { _onSubmit } />
     );
 }
