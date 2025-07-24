@@ -378,11 +378,10 @@ export function moveToRoom(roomId?: string) {
             // a little hack.
 
             // eslint-disable-next-line no-new-wrappers
-            _roomId = id;
+            _roomId = new String(id);
 
             // @ts-ignore
-            // eslint-disable-next-line no-extra-parens
-            (_roomId as any).domain = domainParts.join('@');
+            _roomId.domain = domainParts.join('@');
         }
 
         const roomIdStr = _roomId?.toString();
@@ -539,6 +538,8 @@ export function setIsShowLoading(isShowLoading: boolean) {
  * @returns {Function}
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
+    console.log('!!!!!!!!!!!!!upLoadPreBreakRoomsData trigger');
+
     return (dispatch: IStore['dispatch']) => {
         fishMeetPassInData.breakRoomData = meetingData;
         dispatch({
@@ -563,29 +564,11 @@ export function setUploadResult(uploadResult: boolean | undefined) {
     };
 }
 
-/**
- * Action to load pre-breakout rooms data.
- *
- * @returns {Function}
- */
 export function loadPreBreakRoomsData() {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
-            type: LOAD_PRE_BREAKROOMS
+            type: LOAD_PRE_BREAKROOMS,
         });
-    };
-}
-
-/**
- * Action to set the preloaded breakout rooms data.
- *
- * @param {any} meetingData - The meeting data to set.
- * @returns {Object}
- */
-export function setLoadPreBreakoutRooms(meetingData: any) {
-    return {
-        type: SET_LOAD_PRE_BREAKOUT_ROOMS,
-        meetingData
     };
 }
 
