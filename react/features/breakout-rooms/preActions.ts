@@ -193,6 +193,17 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
         const state = getState();
         const remoteParticipants = getRemoteParticipants(state);
 
+        const currentRooms = getAllRoomsData();
+        const renamedRooms: { [key: string]: string; } = {};
+
+        Object.keys(currentRooms).forEach(roomId => {
+            const room = currentRooms[roomId];
+
+            if (room.name && room.name !== i18next.t('breakoutRooms.defaultName', { index: roomId })) {
+                renamedRooms[roomId] = room.name;
+            }
+        });
+
         Object.keys(meetingData).forEach(roomId => {
             const room = meetingData[roomId];
 
@@ -204,6 +215,10 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
                 // we use the participant's email to make the judgment.
                 participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
             });
+
+            if (renamedRooms[roomId]) {
+                room.name = renamedRooms[roomId];
+            }
         });
 
         setAllRoomsData(meetingData as AllRoomsData);
@@ -319,6 +334,29 @@ export function removeParticipantsFromPreloadBreakoutRoom(roomId: string) {
     return (dispatch: IStore['dispatch']) => {
 
         removeRoomAllParticipants(roomId);
+        const roomCounter = Object.keys(getAllRoomsData()).length;
+        const rooms = { ...getAllRoomsData() };
+
+        dispatch({
+            type: UPDATE_BREAKOUT_ROOMS,
+            rooms,
+            roomCounter
+        });
+    };
+}
+
+/**
+ * Action to rename a preload breakout room.
+ *
+ * @param {string} roomId - Room roomId.
+ * @param {string} name - New room name.
+ * @returns {Function}
+ */
+export function renamePreloadBreakoutRoom(roomId: string, name: string) {
+    return (dispatch: IStore['dispatch']) => {
+
+        updateRoomData(roomId, { name });
+
         const roomCounter = Object.keys(getAllRoomsData()).length;
         const rooms = { ...getAllRoomsData() };
 

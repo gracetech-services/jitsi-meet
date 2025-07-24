@@ -16,12 +16,14 @@ const DEFAULT_STATE = {
     roomCounter: 0,
     areAllRoomsOpen: false,
     isShowLoading: false,
-    uploadResult: undefined
+    uploadResult: undefined,
+    preBreakoutRooms: null
 };
 
 export interface IBreakoutRoomsState {
     areAllRoomsOpen: boolean;
     isShowLoading: boolean;
+    preBreakoutRooms: any;
     roomCounter: number;
     rooms: IRooms;
     uploadResult: boolean | undefined;
@@ -72,9 +74,42 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
             uploadResult: action.uploadResult
         };
     }
+
+    case 'RENAME_PRELOAD_ROOM': {
+        const { roomId, name } = action;
+
+        return {
+            ...state,
+            rooms: {
+                ...state.rooms,
+                [roomId]: {
+                    ...state.rooms[roomId],
+                    name
+                }
+            }
+        };
+    }
+
+
+    case 'SET_LOAD_PRE_BREAKOUT_ROOMS': {
+        return {
+            ...state,
+            preBreakoutRooms: action.meetingData,
+            rooms: action.meetingData,
+            roomCounter: Object.keys(action.meetingData).length
+        };
+    }
+
+    case 'SET_HAS_PRE_BREAKOUT_ROOMS': {
+        return {
+            ...state
+
+            // hasPreBreakoutRooms: action.hasPre
+        };
+    }
+
     }
 
     return state;
 });
-
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TouchableHighlight } from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
 import { Button as NativePaperButton, Text } from 'react-native-paper';
 
 import { appType } from '../../../config/AppType';
@@ -13,10 +13,10 @@ import fishMeetButtonStyles from './fishMeetButtonStyles';
 
 export interface IProps extends IButtonProps {
     color?: string | undefined;
-    contentStyle?: Object | undefined;
-    labelStyle?: Object | undefined;
+    contentStyle?: object | undefined;
+    labelStyle?: object | undefined;
     mode?: any;
-    style?: Object | undefined;
+    style?: object | undefined;
 }
 
 const Button: React.FC<IProps> = ({
@@ -106,8 +106,13 @@ const Button: React.FC<IProps> = ({
         );
     }
 
-    if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
-
+    if (appType.isFishMeet && (
+        type === DESTRUCTIVE
+    || type === SECONDARY
+    || type === FISHMEET_PRIMARY
+    || type === FISHMEET_SECONDARY
+    || type === FISHMEET_TERTIARY
+    )) {
         return (
             <TouchableHighlight
                 accessibilityLabel = { accessibilityLabel }
@@ -119,14 +124,16 @@ const Button: React.FC<IProps> = ({
                     { backgroundColor: color }
                 ] }
                 underlayColor = { color }>
-                <Text
-                    numberOfLines = { 0 }
-                    style = { [
-                        buttonLabelStyles,
-                        labelStyle
-                    ] }>
-                    {t(labelKey ?? '')}
-                </Text>
+                <View>
+                    <Text
+                        numberOfLines = { 0 }
+                        style = { [
+                            buttonLabelStyles,
+                            labelStyle
+                        ] }>
+                        {t(labelKey ?? '')}
+                    </Text>
+                </View>
             </TouchableHighlight>
         );
     }

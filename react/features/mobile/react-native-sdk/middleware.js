@@ -9,8 +9,9 @@ import {
 import { SET_AUDIO_MUTED, SET_VIDEO_MUTED } from '../../base/media/actionTypes';
 import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from '../../base/participants/actionTypes';
 import MiddlewareRegistry from '../../base/redux/MiddlewareRegistry';
-import { UPLOAD_PRE_BREAKROOMS } from '../../breakout-rooms/actionTypes';
+import { LOAD_PRE_BREAKROOMS, UPLOAD_PRE_BREAKROOMS } from '../../breakout-rooms/actionTypes';
 import { setUploadResult } from '../../breakout-rooms/actions';
+import { setLoadPreBreakoutRooms } from '../../breakout-rooms/preActions';
 import { READY_TO_CLOSE } from '../external-api/actionTypes';
 import { participantToParticipantInfo } from '../external-api/functions';
 import { ENTER_FLOAT_MEETING_IN_APP, ENTER_PICTURE_IN_PICTURE } from '../picture-in-picture/actionTypes';
@@ -77,6 +78,21 @@ const externalAPIEnabled = isExternalAPIAvailable();
         rnSdkHandlers?.onReadyToClose && rnSdkHandlers?.onReadyToClose();
         break;
 
+    case LOAD_PRE_BREAKROOMS: {
+        rnSdkHandlers?.onLoadPreJsonData && rnSdkHandlers.onLoadPreJsonData(meetingData => {
+            if (meetingData && Object.keys(meetingData).length > 0) {
+                store.dispatch(setLoadPreBreakoutRooms(meetingData));
+                store.dispatch({ type: 'SET_HAS_PRE_BREAKOUT_ROOMS',
+                    hasPre: true });
+            } else {
+                store.dispatch({ type: 'SET_HAS_PRE_BREAKOUT_ROOMS',
+                    hasPre: false });
+            }
+        });
+
+
+        break;
+    }
     case UPLOAD_PRE_BREAKROOMS: {
         const { meetingData } = action;
 

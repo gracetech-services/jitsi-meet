@@ -20,7 +20,7 @@ interface IProps {
     /**
      * Collapsible list title.
      */
-    title: String;
+    title: string;
 }
 
 const FishMeetCollapsibleList = ({ children, onLongPress, title }: IProps) => {
@@ -30,24 +30,39 @@ const FishMeetCollapsibleList = ({ children, onLongPress, title }: IProps) => {
     }, [ collapsed ]);
 
     return (
-        <View>
+        <View style = { fishmeetStyles.collapsibleWrapper as ViewStyle }>
             <TouchableOpacity
                 onLongPress = { onLongPress }
                 onPress = { _toggleCollapsed }
                 style = { fishmeetStyles.collapsibleList as ViewStyle }>
-                <TouchableOpacity
-                    onPress = { _toggleCollapsed }
-                    style = { fishmeetStyles.arrowIcon as ViewStyle }>
-                    <Icon
-                        color = { 'transparent' }
-                        size = { 25 }
-                        src = { collapsed ? IconFishmeetArrowUp : IconFishmeetArrowDown } />
-                </TouchableOpacity>
+
                 <Text style = { fishmeetStyles.listTile as TextStyle }>
                     {title}
                 </Text>
+
+                {collapsed && (
+                    <Icon
+                        color = { 'transparent' }
+                        size = { 25 }
+                        src = { IconFishmeetArrowDown }
+                        style = { fishmeetStyles.arrowInlineRight as ViewStyle } />
+                )}
             </TouchableOpacity>
-            {!collapsed && children}
+
+            {!collapsed && (
+                <>
+                    {children}
+
+                    <TouchableOpacity
+                        onPress = { _toggleCollapsed }
+                        style = { fishmeetStyles.arrowBottomRight as ViewStyle }>
+                        <Icon
+                            color = { 'transparent' }
+                            size = { 25 }
+                            src = { IconFishmeetArrowUp } />
+                    </TouchableOpacity>
+                </>
+            )}
         </View>
     );
 };

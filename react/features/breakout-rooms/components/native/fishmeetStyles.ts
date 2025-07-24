@@ -18,6 +18,14 @@ export default {
         marginBottom: 30
     },
 
+    collapsibleWrapper: {
+        position: 'relative',
+        backgroundColor: '#2c2c2e',
+        borderRadius: BaseTheme.shape.borderRadius,
+        marginBottom: BaseTheme.spacing[3],
+        overflow: 'hidden'
+    },
+
     collapsibleList: {
         alignItems: 'center',
         borderRadius: BaseTheme.shape.borderRadius,
@@ -25,7 +33,8 @@ export default {
         flexDirection: 'row',
         height: BaseTheme.spacing[7],
         marginHorizontal: BaseTheme.spacing[2],
-        marginTop: BaseTheme.spacing[3]
+        marginTop: BaseTheme.spacing[3],
+        justifyContent: 'flex-start'
     },
 
     normalList: {
@@ -46,6 +55,17 @@ export default {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    arrowInlineRight: {
+        marginLeft: 'auto',
+        marginRight: BaseTheme.spacing[2]
+    },
+    arrowBottomRight: {
+        position: 'absolute',
+        right: 8,
+        bottom: 8,
+        zIndex: 10,
+        padding: 8
     },
 
     closeIcon: {
