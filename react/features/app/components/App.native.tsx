@@ -139,6 +139,9 @@ export class App extends AbstractApp<IProps> {
             appType.isFishMeet = config.isFishMeet ?? false;
             fishMeetPassInData.email = config.email ?? '';
             fishMeetPassInData.breakRoomData = config.preMeetingData;
+            if (userInfo && (userInfo as any).userId) {
+                fishMeetPassInData.userId = (userInfo as any).userId;
+            }
         }
 
         // We set these early enough so then we avoid any unnecessary re-renders.

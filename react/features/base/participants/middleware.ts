@@ -554,7 +554,8 @@ function _localParticipantJoined({ getState, dispatch }: IStore, next: Function,
         avatarURL: settings.avatarURL,
         email: fishMeetPassInData.email,
         name: settings.displayName,
-        id: ''
+        id: '',
+        userId: fishMeetPassInData.userId
     }));
 
     return result;

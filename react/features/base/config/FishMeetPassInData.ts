@@ -1,5 +1,6 @@
 
 export const fishMeetPassInData = {
     email: '',
-    breakRoomData: undefined
+    breakRoomData: undefined,
+    userId: ''
 };
