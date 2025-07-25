@@ -83,7 +83,6 @@ export function addParticipantToPreloadMainRoom() {
         // Get remote participants
         const remoteParticipants = getRemoteParticipants(state);
 
-
         // If you do not assign a value to this name,
         // the default is the localization of the main conference name.
         updateRoomData('fishmeet-main-room', {
@@ -354,7 +353,6 @@ export function removeParticipantsFromPreloadBreakoutRoom(roomId: string) {
  */
 export function renamePreloadBreakoutRoom(roomId: string, name: string) {
     return (dispatch: IStore['dispatch']) => {
-
         updateRoomData(roomId, { name });
 
         const roomCounter = Object.keys(getAllRoomsData()).length;
