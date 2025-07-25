@@ -378,6 +378,7 @@ export function moveToRoom(roomId?: string) {
             // a little hack.
 
             // eslint-disable-next-line no-new-wrappers
+            // @ts-ignore
             _roomId = new String(id);
 
             // @ts-ignore
