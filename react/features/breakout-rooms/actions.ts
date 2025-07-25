@@ -25,7 +25,7 @@ import { NOTIFICATION_TIMEOUT_TYPE } from '../notifications/constants';
 
 import {
     IS_SHOW_LOADING, LOAD_PRE_BREAKROOMS,
-    SET_ALL_ROOMS_OPEN,
+    SET_ALL_ROOMS_OPEN, SET_LOAD_PRE_BREAKOUT_ROOMS,
     UPLOAD_PRE_BREAKROOMS, UPLOAD_RESULT, _RESET_BREAKOUT_ROOMS,
     _UPDATE_ROOM_COUNTER
 } from './actionTypes';
@@ -367,7 +367,7 @@ function _findRoomIdByParticipantJid(getState: IStore['getState'], participantId
 export function moveToRoom(roomId?: string) {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const mainRoomId = getMainRoom(getState)?.id;
-        let _roomId: string | undefined | string = roomId || mainRoomId;
+        let _roomId: string | undefined | String = roomId || mainRoomId;
 
         // Check if we got a full JID.
         if (_roomId && _roomId?.indexOf('@') !== -1) {
@@ -378,8 +378,7 @@ export function moveToRoom(roomId?: string) {
             // a little hack.
 
             // eslint-disable-next-line no-new-wrappers
-            //_roomId = new String(id);
-            _roomId = new String(id) as unknown as string;
+            _roomId = new String(id);
 
             // @ts-ignore
             _roomId.domain = domainParts.join('@');
@@ -563,11 +562,6 @@ export function setUploadResult(uploadResult: boolean | undefined) {
     };
 }
 
-/**
- * Action to load pre-breakout rooms data.
- *
- * @returns {Function}
- */
 export function loadPreBreakRoomsData() {
     return (dispatch: IStore['dispatch']) => {
         dispatch({
