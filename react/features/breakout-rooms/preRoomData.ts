@@ -5,6 +5,7 @@ export interface IParticipant {
     isSelected: boolean;
     jid: string;
     role: 'participant' | 'moderator';
+    userId?: string;
 }
 
 export interface IBreakoutRoom {

@@ -66,5 +66,6 @@ export interface IJitsiParticipant {
     getJid: () => string;
     getRole: () => string;
     getSources: () => Map<string, Map<string, ISourceInfo>>;
+    getUserId?: () => string;
     isHidden: () => boolean;
 }

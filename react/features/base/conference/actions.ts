@@ -74,6 +74,7 @@ import {
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
+    USER_ID_COMMAND,
     JITSI_CONFERENCE_URL_KEY
 } from './constants';
 import {
@@ -281,6 +282,16 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
             id,
             email: data.value
         })));
+    conference.addCommandListener(
+        USER_ID_COMMAND,
+        (data: { value: string; }, id: string) => {
+            console.log('🔧 USER_ID_COMMAND received - data:', data, 'id:', id);
+            dispatch(participantUpdated({
+                conference,
+                id,
+                userId: data.value
+            }));
+        });
 }
 
 /**

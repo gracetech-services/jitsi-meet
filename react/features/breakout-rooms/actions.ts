@@ -539,6 +539,21 @@ export function setIsShowLoading(isShowLoading: boolean) {
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
     return (dispatch: IStore['dispatch']) => {
+        console.log('🔧 Uploading preloaded breakout rooms data with userId:', meetingData);
+        
+        // Log participants with userId for debugging
+        Object.entries(meetingData).forEach(([roomId, room]: [string, any]) => {
+            if (room.participants) {
+                Object.entries(room.participants).forEach(([participantId, participant]: [string, any]) => {
+                    console.log(`🔧 Room ${roomId} - Participant ${participantId}:`, {
+                        displayName: participant.displayName,
+                        email: participant.email,
+                        userId: participant.userId
+                    });
+                });
+            }
+        });
+        
         fishMeetPassInData.breakRoomData = meetingData;
         dispatch({
             type: UPLOAD_PRE_BREAKROOMS,

@@ -83,6 +83,17 @@ export function addParticipantToPreloadMainRoom() {
         // Get remote participants
         const remoteParticipants = getRemoteParticipants(state);
 
+        console.log('🔧 Remote participants from Redux state:', remoteParticipants);
+        console.log('🔧 Remote participants details:');
+        for (const [id, participant] of remoteParticipants) {
+            console.log(`  - ${id}:`, {
+                name: participant.name,
+                email: participant.email,
+                userId: participant.userId,
+                fullParticipant: participant
+            });
+        }
+
         // If you do not assign a value to this name,
         // the default is the localization of the main conference name.
         updateRoomData('fishmeet-main-room', {
@@ -95,22 +106,37 @@ export function addParticipantToPreloadMainRoom() {
         // Add local participants and remote participants
         // to the preloaded data structure
         if (mainRoomId) {
+            console.log('🔧 Adding local participant to preload main room:', {
+                displayName: localParticipant?.name,
+                email: localParticipant?.email,
+                userId: localParticipant?.userId
+            });
+            
             addParticipantToRoom(mainRoomId, {
                 displayName: localParticipant?.name,
                 role: 'moderator',
                 jid: localParticipant?.id,
                 isSelected: false,
                 isNotInMeeting: false,
-                email: localParticipant?.email
+                email: localParticipant?.email,
+                userId: localParticipant?.userId
             });
+            
             for (const [ , participant ] of remoteParticipants) {
+                console.log('🔧 Adding remote participant to preload main room:', {
+                    displayName: participant?.name,
+                    email: participant.email,
+                    userId: participant?.userId
+                });
+                
                 addParticipantToRoom(mainRoomId, {
                     displayName: participant?.name,
                     role: 'participant',
                     jid: participant?.id,
                     isSelected: false,
                     isNotInMeeting: false,
-                    email: participant.email
+                    email: participant.email,
+                    userId: participant?.userId
                 });
             }
         }
@@ -235,7 +261,8 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
                         jid: id,
                         isSelected: false,
                         isNotInMeeting: false,
-                        email
+                        email,
+                        userId: participant?.userId
                     });
                 }
             }

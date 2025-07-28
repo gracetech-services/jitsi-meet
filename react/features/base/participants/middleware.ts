@@ -21,7 +21,7 @@ import { CALLING, INVITED } from '../../presence-status/constants';
 import { RAISE_HAND_SOUND_ID } from '../../reactions/constants';
 import { RECORDING_OFF_SOUND_ID, RECORDING_ON_SOUND_ID } from '../../recording/constants';
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../app/actionTypes';
-import { CONFERENCE_WILL_JOIN } from '../conference/actionTypes';
+import {CONFERENCE_JOINED, CONFERENCE_WILL_JOIN } from '../conference/actionTypes';
 import { forEachConference, getCurrentConference } from '../conference/functions';
 import { IJitsiConference } from '../conference/reducer';
 import { fishMeetPassInData } from '../config/FishMeetPassInData';
@@ -108,6 +108,18 @@ MiddlewareRegistry.register(store => next => action => {
     case CONFERENCE_WILL_JOIN:
         store.dispatch(localParticipantIdChanged(action.conference.myUserId()));
         break;
+
+        case CONFERENCE_JOINED: {
+            const { conference } = store.getState()['features/base/conference'];
+            
+            // 在会议加入后设置自定义属性，让其他客户端能获取到 userId 和 email
+            if (conference && fishMeetPassInData.userId) {
+                console.log('🔧 Conference joined - Setting custom properties for userId:', fishMeetPassInData.userId);
+                conference.setLocalParticipantProperty('userId', fishMeetPassInData.userId);
+                conference.setLocalParticipantProperty('email', fishMeetPassInData.email);
+            }
+            break;
+        }
 
     case DOMINANT_SPEAKER_CHANGED: {
         // Lower hand through xmpp when local participant becomes dominant speaker.
@@ -550,6 +562,7 @@ function _localParticipantJoined({ getState, dispatch }: IStore, next: Function,
 
     const settings = getState()['features/base/settings'];
 
+    console.log('##### localParticipantJoined fishMeetPassInData is:', fishMeetPassInData);
     dispatch(localParticipantJoined({
         avatarURL: settings.avatarURL,
         email: fishMeetPassInData.email,

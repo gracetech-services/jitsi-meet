@@ -1,6 +1,8 @@
 import { sha512_256 as sha512 } from 'js-sha512';
 import _ from 'lodash';
 
+import { fishMeetPassInData } from '../config/FishMeetPassInData';
+
 import { getName } from '../../app/functions';
 import { IReduxState, IStore } from '../../app/types';
 import { determineTranscriptionLanguage } from '../../transcribing/functions';
@@ -24,6 +26,7 @@ import { setObfuscatedRoom } from './actions';
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
+    USER_ID_COMMAND,
     JITSI_CONFERENCE_URL_KEY
 } from './constants';
 import logger from './logger';
@@ -93,6 +96,21 @@ export function commonUserJoinedHandling(
     const id = user.getId();
     const displayName = user.getDisplayName();
 
+    // 调试：检查 JitsiParticipant 对象的方法和属性
+    console.log('🔍 Remote user joined - Debug info:', {
+        id,
+        name: displayName,
+        hasGetUserId: typeof user.getUserId === 'function',
+        getUserIdResult: user.getUserId?.(),
+        getIdentityResult: user.getIdentity?.(),
+        getPropertyUserId: user.getProperty?.('userId'),
+        getPropertyEmail: user.getProperty?.('email'),
+        jwtId: user.jwtId,
+        userKeys: Object.keys(user),
+        userMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(user)),
+        fullUserObject: user
+    });
+
     if (user.isHidden()) {
         dispatch(hiddenParticipantJoined(id, displayName));
     } else {
@@ -106,7 +124,8 @@ export function commonUserJoinedHandling(
             presence: user.getStatus(),
             role: user.getRole(),
             isReplacing,
-            sources: user.getSources()
+            sources: user.getSources(),
+            userId: user.getUserId?.() || user.getIdentity?.() || user.getProperty?.('userId')
         }));
     }
 }
@@ -551,8 +570,12 @@ export function sendLocalParticipant(
         avatarURL,
         email,
         features,
-        name
+        name,
+        userId
     } = getLocalParticipant(stateful) ?? {};
+
+    console.log('!!!!!!!!!!!!!!!! sendLocalParticipant trigger!!!!!!!!!!!!!!!!!!!!!!1');
+    console.log('🔍 sendLocalParticipant - localParticipant:', getLocalParticipant(stateful));
 
     avatarURL && conference?.sendCommand(AVATAR_URL_COMMAND, {
         value: avatarURL
@@ -560,6 +583,12 @@ export function sendLocalParticipant(
     email && conference?.sendCommand(EMAIL_COMMAND, {
         value: email
     });
+
+    userId && conference?.sendCommand(USER_ID_COMMAND, {
+        value: userId
+    });
+
+    console.log('🔧 sendLocalParticipant - Sent USER_ID_COMMAND with value:', userId);
 
     if (features && features['screen-sharing'] === 'true') {
         conference?.setLocalParticipantProperty('features_screen-sharing', true);
