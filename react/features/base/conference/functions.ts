@@ -96,21 +96,6 @@ export function commonUserJoinedHandling(
     const id = user.getId();
     const displayName = user.getDisplayName();
 
-    // 调试：检查 JitsiParticipant 对象的方法和属性
-    console.log('🔍 Remote user joined - Debug info:', {
-        id,
-        name: displayName,
-        hasGetUserId: typeof user.getUserId === 'function',
-        getUserIdResult: user.getUserId?.(),
-        getIdentityResult: user.getIdentity?.(),
-        getPropertyUserId: user.getProperty?.('userId'),
-        getPropertyEmail: user.getProperty?.('email'),
-        jwtId: user.jwtId,
-        userKeys: Object.keys(user),
-        userMethods: Object.getOwnPropertyNames(Object.getPrototypeOf(user)),
-        fullUserObject: user
-    });
-
     if (user.isHidden()) {
         dispatch(hiddenParticipantJoined(id, displayName));
     } else {
@@ -574,8 +559,6 @@ export function sendLocalParticipant(
         userId
     } = getLocalParticipant(stateful) ?? {};
 
-    console.log('!!!!!!!!!!!!!!!! sendLocalParticipant trigger!!!!!!!!!!!!!!!!!!!!!!1');
-    console.log('🔍 sendLocalParticipant - localParticipant:', getLocalParticipant(stateful));
 
     avatarURL && conference?.sendCommand(AVATAR_URL_COMMAND, {
         value: avatarURL
@@ -588,7 +571,6 @@ export function sendLocalParticipant(
         value: userId
     });
 
-    console.log('🔧 sendLocalParticipant - Sent USER_ID_COMMAND with value:', userId);
 
     if (features && features['screen-sharing'] === 'true') {
         conference?.setLocalParticipantProperty('features_screen-sharing', true);
