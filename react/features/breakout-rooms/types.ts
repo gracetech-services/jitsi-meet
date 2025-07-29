@@ -10,6 +10,13 @@ export interface IRoom {
             role: string;
         };
     };
+    users?: {
+        [key: string]: {
+            isGroupLeader: boolean;
+            name: string;
+            userId: string;
+        };
+    };
 }
 
 export interface IRooms {

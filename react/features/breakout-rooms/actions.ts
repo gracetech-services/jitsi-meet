@@ -367,7 +367,7 @@ function _findRoomIdByParticipantJid(getState: IStore['getState'], participantId
 export function moveToRoom(roomId?: string) {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const mainRoomId = getMainRoom(getState)?.id;
-        let _roomId: string | undefined | String = roomId || mainRoomId;
+        let _roomId: string | undefined | string = roomId || mainRoomId;
 
         // Check if we got a full JID.
         if (_roomId && _roomId?.indexOf('@') !== -1) {
