@@ -1,8 +1,8 @@
 export interface IParticipant {
     displayName?: string;
     email?: string;
-    isNotInMeeting: boolean;
-    isSelected: boolean;
+    isNotInMeeting?: boolean;
+    isSelected?: boolean;
     jid?: string;
     role: 'participant' | 'moderator';
     userId?: string;
@@ -124,6 +124,7 @@ export const addParticipantToRoom = (
 
     if (!existingRoom) {
         console.warn(`⚠️ Room with ID ${roomId} does not exist.`);
+
         return;
     }
 
@@ -153,7 +154,7 @@ export const addParticipantToRoom = (
                     }
                 }
             }
-            
+
             // Check by email if available
             if (participant.email) {
                 for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
@@ -167,10 +168,13 @@ export const addParticipantToRoom = (
         }
     }
 
-    // Add the participant to the room (participants structure) using userId as key
+
     existingRoom.participants[participantKey] = {
-        ...participant,
-        userId: participant.userId || participantKey
+        displayName: participant.displayName,
+        role: participant.role,
+        email: participant.email,
+        userId: participant.userId || participantKey,
+        isNotInMeeting: participant.isNotInMeeting
     };
 
     // Add the participant to the room (users structure)

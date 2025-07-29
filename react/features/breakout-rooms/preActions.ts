@@ -151,11 +151,14 @@ export function addParticipantToPreloadRoom(roomId: string, selectParticipants: 
             if (item.isSelected) {
                 // 移除 jid 字段
                 const { jid, ...participantWithoutJid } = item;
+
                 addParticipantToRoom(roomId, participantWithoutJid);
             } else if (isParticipantInRoom(roomId, item.jid)) {
                 const mainRoom = getPreMainRoom();
+
                 if (mainRoom) {
                     const { jid, ...participantWithoutJid } = item;
+
                     addParticipantToRoom(mainRoom.id, participantWithoutJid);
                     removeParticipantFromRoom(roomId, item.jid);
                 }
@@ -222,15 +225,22 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             Object.keys(room.participants).forEach(participantId => {
                 const participant = room.participants[participantId];
 
-                // Regenerate participant's jid field (if not exist)
+                // 重新生成 jid（如果不存在）
                 if (!participant.jid) {
                     participant.jid = participant.userId || participant.email || participantId;
                 }
 
-                // We need to determine whether the current participant is actually in the meeting.
-                // Since the participant's ID is different each time a meeting is started,
-                // we use the participant's email to make the judgment.
-                participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
+                // 检查用户是否真的在会议中
+                if (participant.isNotInMeeting === undefined) {
+                    // 根据实际情况设置
+                    // 这里需要检查用户的真实在线状态
+                    participant.isNotInMeeting = checkIfUserIsInMeeting(participant, getState);
+                }
+
+                // 设置选择状态
+                if (participant.isSelected === undefined) {
+                    participant.isSelected = false;
+                }
             });
 
             if (renamedRooms[roomId]) {
@@ -382,4 +392,26 @@ export function renamePreloadBreakoutRoom(roomId: string, name: string) {
             roomCounter
         });
     };
+}
+
+// 需要实现这个函数来检查用户是否真的在会议中
+function checkIfUserIsInMeeting(participant: IParticipant, getState: IStore['getState']): boolean {
+    // 使用现有的函数获取当前会议参与者
+    const state = getState();
+    const localParticipant = getLocalParticipant(state);
+    const remoteParticipants = getRemoteParticipants(state);
+
+    // 检查本地参与者
+    if (localParticipant && (localParticipant.email === participant.email || localParticipant.userId === participant.userId)) {
+        return false; // 本地参与者在会议中
+    }
+
+    // 检查远程参与者
+    for (const [ , remoteParticipant ] of remoteParticipants) {
+        if (remoteParticipant.email === participant.email || remoteParticipant.userId === participant.userId) {
+            return false; // 远程参与者在会议中
+        }
+    }
+
+    return true; // 不在会议中
 }
