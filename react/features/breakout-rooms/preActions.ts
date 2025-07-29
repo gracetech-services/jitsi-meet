@@ -151,14 +151,11 @@ export function addParticipantToPreloadRoom(roomId: string, selectParticipants: 
             if (item.isSelected) {
                 // 移除 jid 字段
                 const { jid, ...participantWithoutJid } = item;
-
                 addParticipantToRoom(roomId, participantWithoutJid);
             } else if (isParticipantInRoom(roomId, item.jid)) {
                 const mainRoom = getPreMainRoom();
-
                 if (mainRoom) {
                     const { jid, ...participantWithoutJid } = item;
-
                     addParticipantToRoom(mainRoom.id, participantWithoutJid);
                     removeParticipantFromRoom(roomId, item.jid);
                 }
@@ -232,14 +229,18 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
                 // 检查用户是否真的在会议中
                 if (participant.isNotInMeeting === undefined) {
-                    // 根据实际情况设置
-                    // 这里需要检查用户的真实在线状态
                     participant.isNotInMeeting = checkIfUserIsInMeeting(participant, getState);
                 }
 
                 // 设置选择状态
                 if (participant.isSelected === undefined) {
                     participant.isSelected = false;
+                }
+
+                // 根据 users 结构中的 isGroupLeader 设置 role
+                if (participant.role === undefined) {
+                    const userInfo = room.users?.[participant.userId];
+                    participant.role = (userInfo && userInfo.isGroupLeader) ? 'moderator' : 'participant';
                 }
             });
 
@@ -400,18 +401,18 @@ function checkIfUserIsInMeeting(participant: IParticipant, getState: IStore['get
     const state = getState();
     const localParticipant = getLocalParticipant(state);
     const remoteParticipants = getRemoteParticipants(state);
-
+    
     // 检查本地参与者
     if (localParticipant && (localParticipant.email === participant.email || localParticipant.userId === participant.userId)) {
         return false; // 本地参与者在会议中
     }
-
+    
     // 检查远程参与者
-    for (const [ , remoteParticipant ] of remoteParticipants) {
+    for (const [, remoteParticipant] of remoteParticipants) {
         if (remoteParticipant.email === participant.email || remoteParticipant.userId === participant.userId) {
             return false; // 远程参与者在会议中
         }
     }
-
+    
     return true; // 不在会议中
 }
