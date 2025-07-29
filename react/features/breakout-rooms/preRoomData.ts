@@ -14,13 +14,6 @@ export interface IBreakoutRoom {
     jid: string;
     name: string;
     participants: { [key: string]: IParticipant; };
-    users?: {
-        [key: string]: {
-            isGroupLeader: boolean;
-            name: string;
-            userId: string;
-        };
-    };
 }
 
 export type AllRoomsData = {
@@ -132,11 +125,6 @@ export const addParticipantToRoom = (
         existingRoom.participants = {};
     }
 
-    // Ensure users object exists
-    if (!existingRoom.users) {
-        existingRoom.users = {};
-    }
-
     // Use userId as the primary key for participants
     const participantKey = participant.userId || participant.email || participant.jid || generateUniqueId();
 
@@ -174,17 +162,7 @@ export const addParticipantToRoom = (
         userId: participant.userId || participantKey,
     };
 
-    // Add the participant to the room (users structure)
-    if (participant.userId) {
-        existingRoom.users[participant.userId] = {
-            userId: participant.userId,
-            name: participant.displayName || 'Unknown',
-            isGroupLeader: false
-        };
-    }
-
     console.log(`✅ IParticipant ${participantKey} has been added to room ${roomId}`);
-    console.log(`✅ User ${participant.userId} has been added to users structure`);
 };
 
 
