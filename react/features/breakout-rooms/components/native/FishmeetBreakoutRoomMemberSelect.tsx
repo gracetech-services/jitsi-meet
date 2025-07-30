@@ -86,14 +86,15 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
         setSelectedParticipants(prevParticipants =>
             prevParticipants.map(participant => {
                 // 会议开始后使用jid，预分配阶段使用userId或email
-                const currentParticipantId = areAllRoomsOpen ? participant.jid : (participant.userId || participant.email);
+                const currentParticipantId = areAllRoomsOpen ? participant.jid : participant.userId;
+
                 return {
                     ...participant,
                     isSelected: currentParticipantId === participantId ? !participant.isSelected : participant.isSelected
                 };
             })
         );
-    }, [areAllRoomsOpen]);
+    }, [ areAllRoomsOpen ]);
 
     const handleAssign = useCallback(() => {
         onAssign(selectedParticipants);
@@ -111,7 +112,7 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
 
     const renderItem = useCallback(({ item }: { item: IParticipant; }) => (
         <View style = { fishmeetStyles.listItem as ViewStyle }>
-            <TouchableOpacity onPress = { handleSelectParticipant(areAllRoomsOpen ? (item.jid || '') : (item.userId || item.email || '')) }>
+            <TouchableOpacity onPress = { handleSelectParticipant(areAllRoomsOpen ? item.jid || '' : item.userId || '') }>
                 <Icon
                     color = 'transparent'
                     size = { 16 }
@@ -122,8 +123,8 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
         </View>
     ), [ handleSelectParticipant, areAllRoomsOpen ]);
     const keyExtractor = useCallback((item: IParticipant) =>
-        areAllRoomsOpen ? (item.jid || '') : (item.userId || item.email || ''),
-        [areAllRoomsOpen]
+        areAllRoomsOpen ? (item.jid || '') : (item.userId || ''),
+        [ areAllRoomsOpen ]
     );
 
     return (

@@ -1,11 +1,11 @@
 export interface IParticipant {
     displayName?: string;
-    email?: string;
     isNotInMeeting?: boolean;
     isSelected?: boolean;
     jid?: string;
     role?: 'participant' | 'moderator';
     userId?: string;
+    isGroupLeader?: number;
 }
 
 export interface IBreakoutRoom {
@@ -126,27 +126,14 @@ export const addParticipantToRoom = (
     }
 
     // Use userId as the primary key for participants
-    const participantKey = participant.userId || participant.email || participant.jid || generateUniqueId();
+    const participantKey = participant.userId || participant.jid || generateUniqueId();
 
-    // Enhanced deduplication: check by userId and email
+    // Enhanced deduplication: check by userId
     for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
         if (otherRoom.participants) {
-            // Check by userId if available
             if (participant.userId) {
                 for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
                     if (existingParticipant.userId === participant.userId) {
-                        console.log(`🔄 Removing ${existingKey} from room ${otherRoomId} (by userId: ${participant.userId})`);
-                        removeParticipantFromRoom(otherRoomId, existingKey);
-                        break;
-                    }
-                }
-            }
-            
-            // Check by email if available
-            if (participant.email) {
-                for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
-                    if (existingParticipant.email === participant.email) {
-                        console.log(`🔄 Removing ${existingKey} from room ${otherRoomId} (by email: ${participant.email})`);
                         removeParticipantFromRoom(otherRoomId, existingKey);
                         break;
                     }
@@ -158,8 +145,8 @@ export const addParticipantToRoom = (
     // Add the participant to the room (participants structure) using userId as key
     existingRoom.participants[participantKey] = {
         displayName: participant.displayName,
-        email: participant.email,
         userId: participant.userId || participantKey,
+        isGroupLeader: participant.isGroupLeader || 0
     };
 
     console.log(`✅ IParticipant ${participantKey} has been added to room ${roomId}`);
