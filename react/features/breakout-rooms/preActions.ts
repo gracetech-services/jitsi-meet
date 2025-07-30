@@ -9,7 +9,7 @@ import {
     AllRoomsData, IParticipant,
     addParticipantToRoom,
     distributeParticipantsEvenly, getAllRoomsData,
-    getPreMainRoom, isEmailInAnyRoom, isParticipantInRoom,
+    getPreMainRoom, isUserIdInAnyRoom, isParticipantInRoom,
     removeParticipantFromRoom, removeRoom,
     removeRoomAllParticipants, sendParticipantToRoom, setAllRoomsData, updateRoomData
 } from './preRoomData';
@@ -96,7 +96,6 @@ export function addParticipantToPreloadMainRoom() {
         if (mainRoomId) {
             console.log('🔧 Adding local participant to preload main room:', {
                 displayName: localParticipant?.name,
-                email: localParticipant?.email,
                 userId: localParticipant?.userId
             });
 
@@ -105,13 +104,13 @@ export function addParticipantToPreloadMainRoom() {
                 role: 'moderator',
                 isSelected: false,
                 isNotInMeeting: false,
+                //email: localParticipant?.email,
                 userId: localParticipant?.userId
             });
 
             for (const [ , participant ] of remoteParticipants) {
                 console.log('🔧 Adding remote participant to preload main room:', {
                     displayName: participant?.name,
-                    email: participant.email,
                     userId: participant?.userId
                 });
 
@@ -120,6 +119,7 @@ export function addParticipantToPreloadMainRoom() {
                     role: 'participant',
                     isSelected: false,
                     isNotInMeeting: false,
+                    //email: participant.email,
                     userId: participant?.userId
                 });
             }
@@ -250,9 +250,9 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
         setAllRoomsData(meetingData as AllRoomsData);
 
         Object.entries(remoteParticipants).forEach(([ id, participant ]) => {
-            const email = participant.email ?? '';
+            const userId = participant.userId ?? '';
 
-            if (!isEmailInAnyRoom(email)) {
+            if (!isUserIdInAnyRoom(userId)) {
                 const mainRoomId = getPreMainRoom()?.id;
 
                 if (mainRoomId) {
@@ -276,28 +276,6 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             roomCounter
         });
     };
-}
-
-/**
- * Action to IsInMeeting.
- * Determine whether participants are in the meeting through email.
- *
- * @param {any} participantsMap - ParticipantsMap.
- * @param {string} targetEmail - TargetEmail.
- * @returns {Function}
- */
-function isInMeeting(participantsMap: any, targetEmail: string) {
-
-    if (targetEmail === fishMeetPassInData.email) {
-        return true;
-    }
-    for (const participant of participantsMap.values()) {
-        if (participant.email === targetEmail) {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 /**
@@ -394,17 +372,22 @@ export function renamePreloadBreakoutRoom(roomId: string, name: string) {
 
 // 需要实现这个函数来检查用户是否真的在会议中
 function checkIfUserIsInMeeting(participant: IParticipant, getState: IStore['getState']): boolean {
+    // 使用现有的函数获取当前会议参与者
     const state = getState();
     const localParticipant = getLocalParticipant(state);
     const remoteParticipants = getRemoteParticipants(state);
-
-    if (localParticipant && localParticipant.userId === participant.userId) {
-        return false;
+    
+    // 检查本地参与者
+    if (localParticipant && (localParticipant.userId === participant.userId)) {
+        return true; // 本地参与者在会议中
     }
+    
+    // 检查远程参与者
     for (const [, remoteParticipant] of remoteParticipants) {
         if (remoteParticipant.userId === participant.userId) {
-            return false;
+            return true; // 远程参与者在会议中
         }
     }
-    return true;
+    
+    return false; // 不在会议中
 }

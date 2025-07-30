@@ -139,7 +139,7 @@ export function openAllRooms() {
                 if (participants) {
                     Object.values(participants).forEach(participant => {
                         if (mainRoom) {
-                            const jid = getJidByEmail(participant.email, state, mainRoom);
+                            const jid = getJidByUserId(participant.userId, state, mainRoom);
 
                             if (jid) {
                                 dispatch(sendParticipantToRoom(jid, room.id));
@@ -165,23 +165,22 @@ export function openAllRooms() {
  * @param {IRoom} roomData - RoomData.
  * @returns {string | undefined}
  */
-function getJidByEmail(targetEmail: string | undefined, state: IReduxState, roomData: IRoom) {
+function getJidByUserId(targetUserId: string | undefined, state: IReduxState, roomData: IRoom) {
     const localParticipant = getLocalParticipant(state);
     const remoteParticipants = getRemoteParticipants(state);
 
-    if (targetEmail === fishMeetPassInData.email) {
+    if (targetUserId === localParticipant?.userId) {
         const prefix = localParticipant?.id;
         const participantId = Object.keys(roomData.participants)
             .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
-
         return participantId;
     }
+    
     for (const participant of remoteParticipants.values()) {
-        if (participant.email === targetEmail) {
+        if (participant.userId === targetUserId) {
             const prefix = participant.id;
             const participantId = Object.keys(roomData.participants)
                 .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
-
             return participantId;
         }
     }
