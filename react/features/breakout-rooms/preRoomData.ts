@@ -1,5 +1,6 @@
 export interface IParticipant {
     displayName?: string;
+    isGroupLeader?: number;
     isNotInMeeting?: boolean;
     isSelected?: boolean;
     jid?: string;
@@ -112,6 +113,7 @@ export const addParticipantToRoom = (
 
     if (!existingRoom) {
         console.warn(`⚠️ Room with ID ${roomId} does not exist.`);
+
         return;
     }
 
@@ -121,7 +123,7 @@ export const addParticipantToRoom = (
     }
 
     // Use userId as the primary key for participants
-    const participantKey = participant.userId  || generateUniqueId();
+    const participantKey = participant.userId || generateUniqueId();
 
     // Enhanced deduplication: check by userId
     for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
@@ -136,16 +138,18 @@ export const addParticipantToRoom = (
                     }
                 }
             }
-            
-           
+
+
         }
     }
 
     // Add the participant to the room (participants structure) using userId as key
     existingRoom.participants[participantKey] = {
         displayName: participant.displayName,
-        //email: participant.email,
+
+        // email: participant.email,
         userId: participant.userId || participantKey,
+        isGroupLeader: participant.isGroupLeader,
     };
 
     console.log(`✅ IParticipant ${participantKey} has been added to room ${roomId}`);
@@ -240,7 +244,6 @@ export const isParticipantInRoom = (roomId: string, participantJid: string): boo
 
     return false; // Return false if room doesn't exist or has no participants
 };
-
 
 
 export const isUserIdInAnyRoom = (userId: string): boolean => {

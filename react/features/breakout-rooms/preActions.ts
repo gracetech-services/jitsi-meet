@@ -105,7 +105,8 @@ export function addParticipantToPreloadMainRoom() {
                 isSelected: false,
                 isNotInMeeting: false,
                 //email: localParticipant?.email,
-                userId: localParticipant?.userId
+                userId: localParticipant?.userId,
+                isGroupLeader: 1
             });
 
             for (const [ , participant ] of remoteParticipants) {
@@ -120,7 +121,8 @@ export function addParticipantToPreloadMainRoom() {
                     isSelected: false,
                     isNotInMeeting: false,
                     //email: participant.email,
-                    userId: participant?.userId
+                    userId: participant?.userId,
+                    isGroupLeader: 0
                 });
             }
         }
@@ -235,10 +237,9 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
                     participant.isSelected = false;
                 }
 
-                // 根据 users 结构中的 isGroupLeader 设置 role
+                // 根据 participant 中的 isGroupLeader 设置 role
                 if (participant.role === undefined) {
-                    const userInfo = room.users?.[participant.userId];
-                    participant.role = (userInfo && userInfo.isGroupLeader) ? 'moderator' : 'participant';
+                    participant.role = participant.isGroupLeader === 1 ? 'moderator' : 'participant';
                 }
             });
 
@@ -261,7 +262,8 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
                         role: 'participant' as const,
                         isSelected: false,
                         isNotInMeeting: false,
-                        userId: participant?.userId
+                        userId: participant?.userId,
+                        isGroupLeader: 0
                     });
                 }
             }
