@@ -229,7 +229,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
                 // 检查用户是否真的在会议中
                 if (participant.isNotInMeeting === undefined) {
-                    participant.isNotInMeeting = checkIfUserIsInMeeting(participant, getState);
+                    participant.isNotInMeeting = !checkIfUserIsInMeeting(participant, getState);
                 }
 
                 // 设置选择状态
