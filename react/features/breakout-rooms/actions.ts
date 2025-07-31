@@ -542,7 +542,11 @@ export function upLoadPreBreakRoomsData(meetingData: any) {
     return (dispatch: IStore['dispatch']) => {
         const cleanMeetingData = JSON.parse(JSON.stringify(meetingData));
 
+        // We need to keep update MeetingData clean.
         Object.values(cleanMeetingData).forEach((room: any) => {
+            // remove room id
+            delete room.id;
+
             // remove room jid
             delete room.jid;
 
