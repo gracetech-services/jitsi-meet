@@ -139,7 +139,7 @@ export function addParticipantToPreloadRoom(roomId: string, selectParticipants: 
                 const { ...participantWithoutJid } = item;
 
                 addParticipantToRoom(roomId, participantWithoutJid);
-            } else if (isParticipantInRoom(roomId, item.jid)) {
+            } else if (item.jid && isParticipantInRoom(roomId, item.jid)) {
                 const mainRoom = getPreMainRoom();
 
                 if (mainRoom) {
