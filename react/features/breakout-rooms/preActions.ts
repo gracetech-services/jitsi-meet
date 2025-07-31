@@ -136,14 +136,14 @@ export function addParticipantToPreloadRoom(roomId: string, selectParticipants: 
     return (dispatch: IStore['dispatch']) => {
         for (const item of selectParticipants) {
             if (item.isSelected) {
-                const { jid: _jid, ...participantWithoutJid } = item;
+                const { ...participantWithoutJid } = item;
 
                 addParticipantToRoom(roomId, participantWithoutJid);
             } else if (isParticipantInRoom(roomId, item.jid)) {
                 const mainRoom = getPreMainRoom();
 
                 if (mainRoom) {
-                    const { jid: _jid, ...participantWithoutJid } = item;
+                    const { ...participantWithoutJid } = item;
 
                     addParticipantToRoom(mainRoom.id, participantWithoutJid);
                     removeParticipantFromRoom(roomId, item.jid);
