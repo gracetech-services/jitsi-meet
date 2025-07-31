@@ -152,7 +152,7 @@ export const addParticipantToRoom = (
     existingRoom.participants[participantKey] = {
         displayName: participant.displayName,
         userId: participant.userId || participantKey,
-        isGroupLeader: participant.isGroupLeader,
+        isGroupLeader: participant.isGroupLeader
     };
 };
 

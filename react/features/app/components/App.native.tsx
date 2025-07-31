@@ -135,12 +135,14 @@ export class App extends AbstractApp<IProps> {
 
         if (typeof url === 'object' && url !== null && 'config' in url) {
             const config: IConfig = url?.config as IConfig;
+            const userInfoAny = userInfo as any;
 
             appType.isFishMeet = config.isFishMeet ?? false;
             fishMeetPassInData.email = config.email ?? '';
             fishMeetPassInData.breakRoomData = config.preMeetingData;
-            if (userInfo && (userInfo as any).userId) {
-                fishMeetPassInData.userId = (userInfo as any).userId;
+
+            if (userInfo && userInfoAny.userId) {
+                fishMeetPassInData.userId = userInfoAny.userId;
             }
         }
 

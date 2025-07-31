@@ -126,10 +126,12 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
                 {item.displayName + (item.isNotInMeeting ? t('breakoutRooms.notInMeeting') : '')}</Text>
         </View>
     ), [ handleSelectParticipant, areAllRoomsOpen ]);
-    const keyExtractor = useCallback((item: IParticipant) =>
-        areAllRoomsOpen ? (item.jid || '') : (item.userId || ''),
-        [ areAllRoomsOpen ]
-    );
+
+    const keyExtractor = useCallback((item: IParticipant) => {
+        const key = areAllRoomsOpen ? item.jid || '' : item.userId || '';
+
+        return key;
+    }, [ areAllRoomsOpen ]);
 
     return (
         <View style = { fishmeetStyles.modalContainer as ViewStyle }>

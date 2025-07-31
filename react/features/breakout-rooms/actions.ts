@@ -160,6 +160,7 @@ export function openAllRooms() {
 /**
  * Action to getJidByUserId.
  *
+ * @param {string | undefined} targetUserId - The target user ID.
  * @param {IReduxState} state - State.
  * @param {IRoom} roomData - RoomData.
  * @returns {string | undefined}
