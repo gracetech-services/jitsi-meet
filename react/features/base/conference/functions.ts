@@ -6,7 +6,6 @@ import { getName } from '../../app/functions';
 import { IReduxState, IStore } from '../../app/types';
 import { determineTranscriptionLanguage } from '../../transcribing/functions';
 import { IStateful } from '../app/types';
-import { fishMeetPassInData } from '../config/FishMeetPassInData';
 import { JitsiTrackErrors } from '../lib-jitsi-meet';
 import {
     hiddenParticipantJoined,

@@ -101,6 +101,29 @@ export const removeParticipantFromRoom = (roomId: string, participantJid: string
     }
 };
 
+// Helper function to remove participant from other rooms
+const removeParticipantFromOtherRooms = (
+        participant: Omit<IParticipant, 'jid'> & { id?: string; jid?: string; }
+): void => {
+    if (!participant.userId) {
+        return;
+    }
+
+    for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
+        if (!otherRoom.participants) {
+            return;
+        }
+
+        for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
+            if (existingParticipant.userId === participant.userId) {
+                removeParticipantFromRoom(otherRoomId, existingKey);
+
+                return; // Exit early since we found and removed the participant
+            }
+        }
+    }
+};
+
 // Add a participant to a room
 export const addParticipantToRoom = (
         roomId: string,
@@ -122,22 +145,8 @@ export const addParticipantToRoom = (
     // Use userId as the primary key for participants
     const participantKey = participant.userId || generateUniqueId();
 
-
-    for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
-        if (otherRoom.participants) {
-            // Check by userId if available
-            if (participant.userId) {
-                for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
-                    if (existingParticipant.userId === participant.userId) {
-                        removeParticipantFromRoom(otherRoomId, existingKey);
-                        break;
-                    }
-                }
-            }
-
-
-        }
-    }
+    // Remove participant from other rooms first
+    removeParticipantFromOtherRooms(participant);
 
     // Add the participant to the room (participants structure) using userId as key
     existingRoom.participants[participantKey] = {

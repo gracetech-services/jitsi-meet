@@ -1,7 +1,6 @@
 import i18next from 'i18next';
 
 import { IStore } from '../app/types';
-import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
 
 import { UPDATE_BREAKOUT_ROOMS } from './actionTypes';
@@ -240,7 +239,7 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
         setAllRoomsData(meetingData as AllRoomsData);
 
-        Object.entries(remoteParticipants).forEach(([ id, participant ]) => {
+        Object.entries(remoteParticipants).forEach(([ _id, participant ]) => {
             const userId = participant.userId ?? '';
 
             if (!isUserIdInAnyRoom(userId)) {
@@ -363,6 +362,13 @@ export function renamePreloadBreakoutRoom(roomId: string, name: string) {
 }
 
 
+/**
+ * Check if a user is currently in the meeting.
+ *
+ * @param {IParticipant} participant - The participant to check.
+ * @param {Function} getState - Function to get the current state.
+ * @returns {boolean} True if the user is in the meeting, false otherwise.
+ */
 function checkIfUserIsInMeeting(participant: IParticipant, getState: IStore['getState']): boolean {
     const state = getState();
     const localParticipant = getLocalParticipant(state);

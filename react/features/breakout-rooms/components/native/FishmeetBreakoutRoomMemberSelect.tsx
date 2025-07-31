@@ -89,7 +89,9 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
 
                 return {
                     ...participant,
-                    isSelected: currentParticipantId === participantId ? !participant.isSelected : participant.isSelected
+                    isSelected: currentParticipantId === participantId
+                        ? !participant.isSelected
+                        : participant.isSelected
                 };
             })
         );
@@ -111,7 +113,10 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
 
     const renderItem = useCallback(({ item }: { item: IParticipant; }) => (
         <View style = { fishmeetStyles.listItem as ViewStyle }>
-            <TouchableOpacity onPress = { handleSelectParticipant(areAllRoomsOpen ? item.jid || '' : item.userId || '') }>
+            <TouchableOpacity
+                onPress = { handleSelectParticipant(
+                    areAllRoomsOpen ? item.jid || '' : item.userId || ''
+                ) }>
                 <Icon
                     color = 'transparent'
                     size = { 16 }

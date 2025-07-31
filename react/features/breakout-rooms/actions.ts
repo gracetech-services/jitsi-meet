@@ -158,9 +158,8 @@ export function openAllRooms() {
 
 
 /**
- * Action to getJidByEmail.
+ * Action to getJidByUserId.
  *
- * @param {string | undefined} targetEmail - TargetEmail.
  * @param {IReduxState} state - State.
  * @param {IRoom} roomData - RoomData.
  * @returns {string | undefined}
