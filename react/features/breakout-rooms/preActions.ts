@@ -9,7 +9,7 @@ import {
     AllRoomsData, IParticipant,
     addParticipantToRoom,
     distributeParticipantsEvenly, getAllRoomsData,
-    getPreMainRoom, isUserIdInAnyRoom, isParticipantInRoom,
+    getPreMainRoom, isParticipantInRoom, isUserIdInAnyRoom,
     removeParticipantFromRoom, removeRoom,
     removeRoomAllParticipants, sendParticipantToRoom, setAllRoomsData, updateRoomData
 } from './preRoomData';
@@ -94,33 +94,21 @@ export function addParticipantToPreloadMainRoom() {
         // Add local participants and remote participants
         // to the preloaded data structure
         if (mainRoomId) {
-            console.log('🔧 Adding local participant to preload main room:', {
-                displayName: localParticipant?.name,
-                userId: localParticipant?.userId
-            });
-
             addParticipantToRoom(mainRoomId, {
                 displayName: localParticipant?.name,
                 role: 'moderator',
                 isSelected: false,
                 isNotInMeeting: false,
-                //email: localParticipant?.email,
                 userId: localParticipant?.userId,
                 isGroupLeader: 1
             });
 
             for (const [ , participant ] of remoteParticipants) {
-                console.log('🔧 Adding remote participant to preload main room:', {
-                    displayName: participant?.name,
-                    userId: participant?.userId
-                });
-
                 addParticipantToRoom(mainRoomId, {
                     displayName: participant?.name,
                     role: 'participant',
                     isSelected: false,
                     isNotInMeeting: false,
-                    //email: participant.email,
                     userId: participant?.userId,
                     isGroupLeader: 0
                 });
@@ -149,13 +137,15 @@ export function addParticipantToPreloadRoom(roomId: string, selectParticipants: 
     return (dispatch: IStore['dispatch']) => {
         for (const item of selectParticipants) {
             if (item.isSelected) {
-                // 移除 jid 字段
                 const { jid, ...participantWithoutJid } = item;
+
                 addParticipantToRoom(roomId, participantWithoutJid);
             } else if (isParticipantInRoom(roomId, item.jid)) {
                 const mainRoom = getPreMainRoom();
+
                 if (mainRoom) {
                     const { jid, ...participantWithoutJid } = item;
+
                     addParticipantToRoom(mainRoom.id, participantWithoutJid);
                     removeParticipantFromRoom(roomId, item.jid);
                 }
@@ -222,22 +212,22 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             Object.keys(room.participants).forEach(participantId => {
                 const participant = room.participants[participantId];
 
-                // 重新生成 jid（如果不存在）
+                // regenerate jid
                 if (!participant.jid) {
                     participant.jid = participant.userId || participantId;
                 }
 
-                // 检查用户是否真的在会议中
+                // check if user is in meeting
                 if (participant.isNotInMeeting === undefined) {
                     participant.isNotInMeeting = !checkIfUserIsInMeeting(participant, getState);
                 }
 
-                // 设置选择状态
+                // set selected state
                 if (participant.isSelected === undefined) {
                     participant.isSelected = false;
                 }
 
-                // 根据 participant 中的 isGroupLeader 设置 role
+                // set role based on isGroupLeader
                 if (participant.role === undefined) {
                     participant.role = participant.isGroupLeader === 1 ? 'moderator' : 'participant';
                 }
@@ -372,24 +362,21 @@ export function renamePreloadBreakoutRoom(roomId: string, name: string) {
     };
 }
 
-// 需要实现这个函数来检查用户是否真的在会议中
+
 function checkIfUserIsInMeeting(participant: IParticipant, getState: IStore['getState']): boolean {
-    // 使用现有的函数获取当前会议参与者
     const state = getState();
     const localParticipant = getLocalParticipant(state);
     const remoteParticipants = getRemoteParticipants(state);
-    
-    // 检查本地参与者
+
     if (localParticipant && (localParticipant.userId === participant.userId)) {
-        return true; // 本地参与者在会议中
+        return true;
     }
-    
-    // 检查远程参与者
-    for (const [, remoteParticipant] of remoteParticipants) {
+
+    for (const [ , remoteParticipant ] of remoteParticipants) {
         if (remoteParticipant.userId === participant.userId) {
-            return true; // 远程参与者在会议中
+            return true;
         }
     }
-    
-    return false; // 不在会议中
+
+    return false;
 }

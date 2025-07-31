@@ -85,7 +85,6 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
     const handleSelectParticipant = useCallback((participantId: string) => () => {
         setSelectedParticipants(prevParticipants =>
             prevParticipants.map(participant => {
-                // 会议开始后使用jid，预分配阶段使用userId或email
                 const currentParticipantId = areAllRoomsOpen ? participant.jid : participant.userId;
 
                 return {

@@ -114,7 +114,6 @@ MiddlewareRegistry.register(store => next => action => {
 
         if (conference && fishMeetPassInData.userId) {
             conference.setLocalParticipantProperty('userId', fishMeetPassInData.userId);
-            conference.setLocalParticipantProperty('email', fishMeetPassInData.email);
         }
         break;
     }

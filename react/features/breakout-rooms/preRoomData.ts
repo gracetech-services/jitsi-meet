@@ -94,9 +94,6 @@ export const removeParticipantFromRoom = (roomId: string, participantJid: string
     const existingRoom = allRooms[roomId];
 
     if (existingRoom) {
-        // Remove from participants structure
-        const participant = existingRoom.participants[participantJid];
-
         delete existingRoom.participants[participantJid];
 
     } else {
@@ -107,7 +104,7 @@ export const removeParticipantFromRoom = (roomId: string, participantJid: string
 // Add a participant to a room
 export const addParticipantToRoom = (
         roomId: string,
-        participant: Omit<IParticipant, 'jid'> & { id?: string; jid?: string; }
+        participant: Omit<IParticipant, 'jid'> & { id?: string; jid?: string; } // Add optional `id` field
 ): void => {
     const existingRoom = allRooms[roomId];
 
@@ -125,14 +122,13 @@ export const addParticipantToRoom = (
     // Use userId as the primary key for participants
     const participantKey = participant.userId || generateUniqueId();
 
-    // Enhanced deduplication: check by userId
+
     for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
         if (otherRoom.participants) {
             // Check by userId if available
             if (participant.userId) {
                 for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
                     if (existingParticipant.userId === participant.userId) {
-                        console.log(`🔄 Removing ${existingKey} from room ${otherRoomId} (by userId: ${participant.userId})`);
                         removeParticipantFromRoom(otherRoomId, existingKey);
                         break;
                     }
@@ -146,13 +142,9 @@ export const addParticipantToRoom = (
     // Add the participant to the room (participants structure) using userId as key
     existingRoom.participants[participantKey] = {
         displayName: participant.displayName,
-
-        // email: participant.email,
         userId: participant.userId || participantKey,
         isGroupLeader: participant.isGroupLeader,
     };
-
-    console.log(`✅ IParticipant ${participantKey} has been added to room ${roomId}`);
 };
 
 

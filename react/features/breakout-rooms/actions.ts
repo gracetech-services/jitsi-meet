@@ -173,14 +173,16 @@ function getJidByUserId(targetUserId: string | undefined, state: IReduxState, ro
         const prefix = localParticipant?.id;
         const participantId = Object.keys(roomData.participants)
             .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
+
         return participantId;
     }
-    
+
     for (const participant of remoteParticipants.values()) {
         if (participant.userId === targetUserId) {
             const prefix = participant.id;
             const participantId = Object.keys(roomData.participants)
                 .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
+
             return participantId;
         }
     }

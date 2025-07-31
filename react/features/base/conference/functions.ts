@@ -1,12 +1,12 @@
 import { sha512_256 as sha512 } from 'js-sha512';
 import _ from 'lodash';
 
-import { fishMeetPassInData } from '../config/FishMeetPassInData';
 
 import { getName } from '../../app/functions';
 import { IReduxState, IStore } from '../../app/types';
 import { determineTranscriptionLanguage } from '../../transcribing/functions';
 import { IStateful } from '../app/types';
+import { fishMeetPassInData } from '../config/FishMeetPassInData';
 import { JitsiTrackErrors } from '../lib-jitsi-meet';
 import {
     hiddenParticipantJoined,
@@ -26,8 +26,8 @@ import { setObfuscatedRoom } from './actions';
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
-    USER_ID_COMMAND,
-    JITSI_CONFERENCE_URL_KEY
+    JITSI_CONFERENCE_URL_KEY,
+    USER_ID_COMMAND
 } from './constants';
 import logger from './logger';
 import { IJitsiConference } from './reducer';
@@ -58,7 +58,7 @@ export const getIsConferenceJoined = (state: IReduxState) => Boolean(getConferen
  */
 export function _addLocalTracksToConference(
         conference: IJitsiConference,
-        localTracks: Array<Object>) {
+        localTracks: Array<object>) {
     const conferenceLocalTracks = conference.getLocalTracks();
     const promises = [];
 
@@ -504,7 +504,7 @@ export function isRoomValid(room?: string) {
  */
 export function _removeLocalTracksFromConference(
         conference: IJitsiConference,
-        localTracks: Array<Object>) {
+        localTracks: Array<object>) {
     return Promise.all(localTracks.map(track =>
         conference.removeTrack(track)
             .catch((err: Error) => {
