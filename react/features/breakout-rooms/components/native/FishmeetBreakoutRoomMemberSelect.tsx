@@ -82,16 +82,20 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
     const [ selectedParticipants, setSelectedParticipants ] = useState<IParticipant[]>(participants);
     const [ searchText, setSearchText ] = useState('');
 
-    const handleSelectParticipant = useCallback((jid: string) => () => {
+    const handleSelectParticipant = useCallback((participantId: string) => () => {
         setSelectedParticipants(prevParticipants =>
             prevParticipants.map(participant => {
+                const currentParticipantId = areAllRoomsOpen ? participant.jid : participant.userId;
+
                 return {
                     ...participant,
-                    isSelected: participant.jid === jid ? !participant.isSelected : participant.isSelected
+                    isSelected: currentParticipantId === participantId
+                        ? !participant.isSelected
+                        : participant.isSelected
                 };
             })
         );
-    }, []);
+    }, [ areAllRoomsOpen ]);
 
     const handleAssign = useCallback(() => {
         onAssign(selectedParticipants);
@@ -109,7 +113,10 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
 
     const renderItem = useCallback(({ item }: { item: IParticipant; }) => (
         <View style = { fishmeetStyles.listItem as ViewStyle }>
-            <TouchableOpacity onPress = { handleSelectParticipant(item.jid) }>
+            <TouchableOpacity
+                onPress = { handleSelectParticipant(
+                    areAllRoomsOpen ? item.jid || '' : item.userId || ''
+                ) }>
                 <Icon
                     color = 'transparent'
                     size = { 16 }
@@ -118,8 +125,13 @@ const FishmeetBreakoutRoomMemberSelect = ({ room, onClose, onAssign }: IProps) =
             <Text style = { fishmeetStyles.listText }>
                 {item.displayName + (item.isNotInMeeting ? t('breakoutRooms.notInMeeting') : '')}</Text>
         </View>
-    ), [ handleSelectParticipant ]);
-    const keyExtractor = useCallback((item: IParticipant) => item.jid, []);
+    ), [ handleSelectParticipant, areAllRoomsOpen ]);
+
+    const keyExtractor = useCallback((item: IParticipant) => {
+        const key = areAllRoomsOpen ? item.jid || '' : item.userId || '';
+
+        return key;
+    }, [ areAllRoomsOpen ]);
 
     return (
         <View style = { fishmeetStyles.modalContainer as ViewStyle }>

@@ -39,6 +39,7 @@ interface IUserInfo {
     avatarURL: string;
     displayName: string;
     email: string;
+    userId?: string;
 }
 
 interface IAppProps {

@@ -1,6 +1,7 @@
 import { sha512_256 as sha512 } from 'js-sha512';
 import _ from 'lodash';
 
+
 import { getName } from '../../app/functions';
 import { IReduxState, IStore } from '../../app/types';
 import { determineTranscriptionLanguage } from '../../transcribing/functions';
@@ -24,7 +25,8 @@ import { setObfuscatedRoom } from './actions';
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
-    JITSI_CONFERENCE_URL_KEY
+    JITSI_CONFERENCE_URL_KEY,
+    USER_ID_COMMAND
 } from './constants';
 import logger from './logger';
 import { IJitsiConference } from './reducer';
@@ -55,7 +57,7 @@ export const getIsConferenceJoined = (state: IReduxState) => Boolean(getConferen
  */
 export function _addLocalTracksToConference(
         conference: IJitsiConference,
-        localTracks: Array<Object>) {
+        localTracks: Array<object>) {
     const conferenceLocalTracks = conference.getLocalTracks();
     const promises = [];
 
@@ -106,7 +108,8 @@ export function commonUserJoinedHandling(
             presence: user.getStatus(),
             role: user.getRole(),
             isReplacing,
-            sources: user.getSources()
+            sources: user.getSources(),
+            userId: user.getUserId?.() || user.getIdentity?.() || user.getProperty?.('userId')
         }));
     }
 }
@@ -500,7 +503,7 @@ export function isRoomValid(room?: string) {
  */
 export function _removeLocalTracksFromConference(
         conference: IJitsiConference,
-        localTracks: Array<Object>) {
+        localTracks: Array<object>) {
     return Promise.all(localTracks.map(track =>
         conference.removeTrack(track)
             .catch((err: Error) => {
@@ -551,8 +554,10 @@ export function sendLocalParticipant(
         avatarURL,
         email,
         features,
-        name
+        name,
+        userId
     } = getLocalParticipant(stateful) ?? {};
+
 
     avatarURL && conference?.sendCommand(AVATAR_URL_COMMAND, {
         value: avatarURL
@@ -560,6 +565,11 @@ export function sendLocalParticipant(
     email && conference?.sendCommand(EMAIL_COMMAND, {
         value: email
     });
+
+    userId && conference?.sendCommand(USER_ID_COMMAND, {
+        value: userId
+    });
+
 
     if (features && features['screen-sharing'] === 'true') {
         conference?.setLocalParticipantProperty('features_screen-sharing', true);

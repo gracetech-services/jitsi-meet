@@ -139,7 +139,7 @@ export function openAllRooms() {
                 if (participants) {
                     Object.values(participants).forEach(participant => {
                         if (mainRoom) {
-                            const jid = getJidByEmail(participant.email, state, mainRoom);
+                            const jid = getJidByUserId(participant.userId, state, mainRoom);
 
                             if (jid) {
                                 dispatch(sendParticipantToRoom(jid, room.id));
@@ -158,26 +158,27 @@ export function openAllRooms() {
 
 
 /**
- * Action to getJidByEmail.
+ * Action to getJidByUserId.
  *
- * @param {string | undefined} targetEmail - TargetEmail.
+ * @param {string | undefined} targetUserId - The target user ID.
  * @param {IReduxState} state - State.
  * @param {IRoom} roomData - RoomData.
  * @returns {string | undefined}
  */
-function getJidByEmail(targetEmail: string | undefined, state: IReduxState, roomData: IRoom) {
+function getJidByUserId(targetUserId: string | undefined, state: IReduxState, roomData: IRoom) {
     const localParticipant = getLocalParticipant(state);
     const remoteParticipants = getRemoteParticipants(state);
 
-    if (targetEmail === fishMeetPassInData.email) {
+    if (targetUserId === localParticipant?.userId) {
         const prefix = localParticipant?.id;
         const participantId = Object.keys(roomData.participants)
             .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
 
         return participantId;
     }
+
     for (const participant of remoteParticipants.values()) {
-        if (participant.email === targetEmail) {
+        if (participant.userId === targetUserId) {
             const prefix = participant.id;
             const participantId = Object.keys(roomData.participants)
                 .find(key => key.startsWith(`${roomData.jid}/${prefix}`));
@@ -414,7 +415,7 @@ export function moveToRoom(roomId?: string) {
             }
 
             dispatch(clearNotifications());
-            dispatch(createConference(_roomId));
+            dispatch(createConference(_roomId as string));
             dispatch(setAudioMuted(audio.muted));
             dispatch(setVideoMuted(Boolean(video.muted)));
             dispatch(createDesiredLocalTracks());
@@ -539,10 +540,28 @@ export function setIsShowLoading(isShowLoading: boolean) {
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
     return (dispatch: IStore['dispatch']) => {
-        fishMeetPassInData.breakRoomData = meetingData;
+        const cleanMeetingData = JSON.parse(JSON.stringify(meetingData));
+
+        // We need to keep update MeetingData clean.
+        Object.values(cleanMeetingData).forEach((room: any) => {
+            // remove room id
+            delete room.id;
+
+            // remove room jid
+            delete room.jid;
+
+            // remove jid, displayName, isGroupLeader
+            Object.values(room.participants || {}).forEach((participant: any) => {
+                delete participant.jid;
+                delete participant.displayName;
+                delete participant.isGroupLeader;
+            });
+        });
+
+        fishMeetPassInData.breakRoomData = cleanMeetingData;
         dispatch({
             type: UPLOAD_PRE_BREAKROOMS,
-            meetingData
+            meetingData: cleanMeetingData
         });
     };
 }

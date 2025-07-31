@@ -74,7 +74,8 @@ import {
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
-    JITSI_CONFERENCE_URL_KEY
+    JITSI_CONFERENCE_URL_KEY,
+    USER_ID_COMMAND
 } from './constants';
 import {
     _addLocalTracksToConference,
@@ -236,11 +237,11 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
 
     conference.on(
         JitsiConferenceEvents.ENDPOINT_MESSAGE_RECEIVED,
-        (participant: Object, json: Object) => dispatch(endpointMessageReceived(participant, json)));
+        (participant: object, json: object) => dispatch(endpointMessageReceived(participant, json)));
 
     conference.on(
         JitsiConferenceEvents.NON_PARTICIPANT_MESSAGE_RECEIVED,
-        (id: string, json: Object) => dispatch(nonParticipantMessageReceived(id, json)));
+        (id: string, json: object) => dispatch(nonParticipantMessageReceived(id, json)));
 
     conference.on(
         JitsiConferenceEvents.USER_JOINED,
@@ -257,7 +258,7 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
 
     conference.on(
         JitsiE2ePingEvents.E2E_RTT_CHANGED,
-        (participant: Object, rtt: number) => dispatch(e2eRttChanged(participant, rtt)));
+        (participant: object, rtt: number) => dispatch(e2eRttChanged(participant, rtt)));
 
     conference.on(
         JitsiConferenceEvents.BOT_TYPE_CHANGED,
@@ -281,6 +282,15 @@ function _addConferenceListeners(conference: IJitsiConference, dispatch: IStore[
             id,
             email: data.value
         })));
+    conference.addCommandListener(
+        USER_ID_COMMAND,
+        (data: { value: string; }, id: string) => {
+            dispatch(participantUpdated({
+                conference,
+                id,
+                userId: data.value
+            }));
+        });
 }
 
 /**
@@ -312,7 +322,7 @@ export function updateConferenceMetadata(metadata: IConferenceMetadata | null) {
  *     }
  * }}
  */
-export function e2eRttChanged(participant: Object, rtt: number) {
+export function e2eRttChanged(participant: object, rtt: number) {
     return {
         type: E2E_RTT_CHANGED,
         e2eRtt: {
@@ -555,7 +565,7 @@ export function conferenceWillLeave(conference?: IJitsiConference, isRedirect?: 
  * from Redux.
  * @returns {Function}
  */
-export function createConference(overrideRoom?: string | String) {
+export function createConference(overrideRoom?: string | string) {
     return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         const { connection, locationURL } = state['features/base/connection'];
@@ -664,7 +674,7 @@ export function dataChannelClosed(code: number, reason: string) {
 *      data: Object
 * }}
 */
-export function endpointMessageReceived(participant: Object, data: Object) {
+export function endpointMessageReceived(participant: object, data: object) {
     return {
         type: ENDPOINT_MESSAGE_RECEIVED,
         participant,
@@ -698,7 +708,7 @@ export function endConference() {
  *     participant: JitsiParticipant
  * }}
  */
-export function kickedOut(conference: IJitsiConference, participant: Object) {
+export function kickedOut(conference: IJitsiConference, participant: object) {
     return {
         type: KICKED_OUT,
         conference,
@@ -748,7 +758,7 @@ export function lockStateChanged(conference: IJitsiConference, locked: boolean) 
  *      json: Object
  * }}
  */
-export function nonParticipantMessageReceived(id: string, json: Object) {
+export function nonParticipantMessageReceived(id: string, json: object) {
     return {
         type: NON_PARTICIPANT_MESSAGE_RECEIVED,
         id,

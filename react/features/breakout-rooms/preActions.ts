@@ -1,7 +1,6 @@
 import i18next from 'i18next';
 
 import { IStore } from '../app/types';
-import { fishMeetPassInData } from '../base/config/FishMeetPassInData';
 import { getLocalParticipant, getRemoteParticipants } from '../base/participants/functions';
 
 import { UPDATE_BREAKOUT_ROOMS } from './actionTypes';
@@ -9,7 +8,7 @@ import {
     AllRoomsData, IParticipant,
     addParticipantToRoom,
     distributeParticipantsEvenly, getAllRoomsData,
-    getPreMainRoom, isEmailInAnyRoom, isParticipantInRoom,
+    getPreMainRoom, isParticipantInRoom, isUserIdInAnyRoom,
     removeParticipantFromRoom, removeRoom,
     removeRoomAllParticipants, sendParticipantToRoom, setAllRoomsData, updateRoomData
 } from './preRoomData';
@@ -91,26 +90,26 @@ export function addParticipantToPreloadMainRoom() {
         });
         const mainRoomId = getPreMainRoom()?.id;
 
-
         // Add local participants and remote participants
         // to the preloaded data structure
         if (mainRoomId) {
             addParticipantToRoom(mainRoomId, {
                 displayName: localParticipant?.name,
                 role: 'moderator',
-                jid: localParticipant?.id,
                 isSelected: false,
                 isNotInMeeting: false,
-                email: localParticipant?.email
+                userId: localParticipant?.userId,
+                isGroupLeader: 1
             });
+
             for (const [ , participant ] of remoteParticipants) {
                 addParticipantToRoom(mainRoomId, {
                     displayName: participant?.name,
                     role: 'participant',
-                    jid: participant?.id,
                     isSelected: false,
                     isNotInMeeting: false,
-                    email: participant.email
+                    userId: participant?.userId,
+                    isGroupLeader: 0
                 });
             }
         }
@@ -135,15 +134,18 @@ export function addParticipantToPreloadMainRoom() {
  */
 export function addParticipantToPreloadRoom(roomId: string, selectParticipants: IParticipant[]) {
     return (dispatch: IStore['dispatch']) => {
-
         for (const item of selectParticipants) {
             if (item.isSelected) {
-                addParticipantToRoom(roomId, item);
-            } else if (isParticipantInRoom(roomId, item.jid)) {
+                const { ...participantWithoutJid } = item;
+
+                addParticipantToRoom(roomId, participantWithoutJid);
+            } else if (item.jid && isParticipantInRoom(roomId, item.jid)) {
                 const mainRoom = getPreMainRoom();
 
                 if (mainRoom) {
-                    addParticipantToRoom(mainRoom.id, item);
+                    const { ...participantWithoutJid } = item;
+
+                    addParticipantToRoom(mainRoom.id, participantWithoutJid);
                     removeParticipantFromRoom(roomId, item.jid);
                 }
             }
@@ -209,10 +211,25 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             Object.keys(room.participants).forEach(participantId => {
                 const participant = room.participants[participantId];
 
-                // We need to determine whether the current participant is actually in the meeting.
-                // Since the participant's ID is different each time a meeting is started,
-                // we use the participant's email to make the judgment.
-                participant.isNotInMeeting = !isInMeeting(remoteParticipants, participant.email);
+                // regenerate jid
+                if (!participant.jid) {
+                    participant.jid = participant.userId || participantId;
+                }
+
+                // check if user is in meeting
+                if (participant.isNotInMeeting === undefined) {
+                    participant.isNotInMeeting = !checkIfUserIsInMeeting(participant, getState);
+                }
+
+                // set selected state
+                if (participant.isSelected === undefined) {
+                    participant.isSelected = false;
+                }
+
+                // set role based on isGroupLeader
+                if (participant.role === undefined) {
+                    participant.role = participant.isGroupLeader === 1 ? 'moderator' : 'participant';
+                }
             });
 
             if (renamedRooms[roomId]) {
@@ -222,20 +239,20 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
 
         setAllRoomsData(meetingData as AllRoomsData);
 
-        Object.entries(remoteParticipants).forEach(([ id, participant ]) => {
-            const email = participant.email ?? '';
+        Object.entries(remoteParticipants).forEach(([ _id, participant ]) => {
+            const userId = participant.userId ?? '';
 
-            if (!isEmailInAnyRoom(email)) {
+            if (!isUserIdInAnyRoom(userId)) {
                 const mainRoomId = getPreMainRoom()?.id;
 
                 if (mainRoomId) {
                     addParticipantToRoom(mainRoomId, {
                         displayName: participant.name ?? 'Unknown',
                         role: 'participant' as const,
-                        jid: id,
                         isSelected: false,
                         isNotInMeeting: false,
-                        email
+                        userId: participant?.userId,
+                        isGroupLeader: 0
                     });
                 }
             }
@@ -250,28 +267,6 @@ export function setLoadPreBreakoutRooms(meetingData: any) {
             roomCounter
         });
     };
-}
-
-/**
- * Action to IsInMeeting.
- * Determine whether participants are in the meeting through email.
- *
- * @param {any} participantsMap - ParticipantsMap.
- * @param {string} targetEmail - TargetEmail.
- * @returns {Function}
- */
-function isInMeeting(participantsMap: any, targetEmail: string) {
-
-    if (targetEmail === fishMeetPassInData.email) {
-        return true;
-    }
-    for (const participant of participantsMap.values()) {
-        if (participant.email === targetEmail) {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 /**
@@ -364,4 +359,30 @@ export function renamePreloadBreakoutRoom(roomId: string, name: string) {
             roomCounter
         });
     };
+}
+
+
+/**
+ * Check if a user is currently in the meeting.
+ *
+ * @param {IParticipant} participant - The participant to check.
+ * @param {Function} getState - Function to get the current state.
+ * @returns {boolean} True if the user is in the meeting, false otherwise.
+ */
+function checkIfUserIsInMeeting(participant: IParticipant, getState: IStore['getState']): boolean {
+    const state = getState();
+    const localParticipant = getLocalParticipant(state);
+    const remoteParticipants = getRemoteParticipants(state);
+
+    if (localParticipant && (localParticipant.userId === participant.userId)) {
+        return true;
+    }
+
+    for (const [ , remoteParticipant ] of remoteParticipants) {
+        if (remoteParticipant.userId === participant.userId) {
+            return true;
+        }
+    }
+
+    return false;
 }

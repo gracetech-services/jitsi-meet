@@ -45,7 +45,7 @@ interface IProps extends AbstractAppProps {
     /**
      * An object with user information (display name, email, avatar URL).
      */
-    userInfo?: Object;
+    userInfo?: object;
 }
 
 /**
@@ -135,10 +135,15 @@ export class App extends AbstractApp<IProps> {
 
         if (typeof url === 'object' && url !== null && 'config' in url) {
             const config: IConfig = url?.config as IConfig;
+            const userInfoAny = userInfo as any;
 
             appType.isFishMeet = config.isFishMeet ?? false;
             fishMeetPassInData.email = config.email ?? '';
             fishMeetPassInData.breakRoomData = config.preMeetingData;
+
+            if (userInfo && userInfoAny.userId) {
+                fishMeetPassInData.userId = userInfoAny.userId;
+            }
         }
 
         // We set these early enough so then we avoid any unnecessary re-renders.
@@ -193,7 +198,7 @@ export class App extends AbstractApp<IProps> {
      *
      * @override
      */
-    _createMainElement(component: ComponentType<any>, props: Object) {
+    _createMainElement(component: ComponentType<any>, props: object) {
         return (
             <SafeAreaProvider>
                 <DimensionsDetector
@@ -271,7 +276,7 @@ export class App extends AbstractApp<IProps> {
      * @private
      * @returns {void}
      */
-    _onSafeAreaInsetsChanged(insets: Object) {
+    _onSafeAreaInsetsChanged(insets: object) {
         const { dispatch } = this.state.store ?? {};
 
         dispatch?.(setSafeAreaInsets(insets));

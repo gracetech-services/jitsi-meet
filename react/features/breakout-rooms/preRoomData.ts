@@ -1,10 +1,11 @@
 export interface IParticipant {
     displayName?: string;
-    email?: string;
-    isNotInMeeting: boolean;
-    isSelected: boolean;
-    jid: string;
-    role: 'participant' | 'moderator';
+    isGroupLeader?: number;
+    isNotInMeeting?: boolean;
+    isSelected?: boolean;
+    jid?: string;
+    role?: 'participant' | 'moderator';
+    userId?: string;
 }
 
 export interface IBreakoutRoom {
@@ -94,8 +95,32 @@ export const removeParticipantFromRoom = (roomId: string, participantJid: string
 
     if (existingRoom) {
         delete existingRoom.participants[participantJid];
+
     } else {
         console.warn(`Room with ID ${roomId} does not exist.`);
+    }
+};
+
+// Helper function to remove participant from other rooms
+const removeParticipantFromOtherRooms = (
+        participant: Omit<IParticipant, 'jid'> & { id?: string; jid?: string; }
+): void => {
+    if (!participant.userId) {
+        return;
+    }
+
+    for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
+        if (!otherRoom.participants) {
+            return;
+        }
+
+        for (const [ existingKey, existingParticipant ] of Object.entries(otherRoom.participants)) {
+            if (existingParticipant.userId === participant.userId) {
+                removeParticipantFromRoom(otherRoomId, existingKey);
+
+                return; // Exit early since we found and removed the participant
+            }
+        }
     }
 };
 
@@ -117,25 +142,18 @@ export const addParticipantToRoom = (
         existingRoom.participants = {};
     }
 
-    // Generate jid:
-    const jid = participant.jid
-        || (participant.id ? `${participant.id}-${generateUniqueId()}` : generateUniqueId());
+    // Use userId as the primary key for participants
+    const participantKey = participant.userId || generateUniqueId();
 
-    // Traverse all rooms to remove participant if already exists
-    for (const [ otherRoomId, otherRoom ] of Object.entries(allRooms)) {
-        if (otherRoom.participants?.[jid]) {
-            console.log(`🔄 Removing ${jid} from room ${otherRoomId}`);
-            removeParticipantFromRoom(otherRoomId, jid);
-        }
-    }
+    // Remove participant from other rooms first
+    removeParticipantFromOtherRooms(participant);
 
-
-    // Add the participant to the room
-    existingRoom.participants[jid] = {
-        ...participant,
-        jid
+    // Add the participant to the room (participants structure) using userId as key
+    existingRoom.participants[participantKey] = {
+        displayName: participant.displayName,
+        userId: participant.userId || participantKey,
+        isGroupLeader: participant.isGroupLeader
     };
-    console.log(`✅ IParticipant ${jid} has been added to room ${roomId}`);
 };
 
 
@@ -185,8 +203,8 @@ export const getParticipants = (roomId: string): { [participantJidkey: string]: 
     console.warn(`Room with ID ${roomId} does not exist.`);
 
     return null; // Return null if room doesn't exist
-
 };
+
 
 // Get all participants from all rooms (ignore roomId)
 export const getAllParticipants = (): { [participantJid: string]: IParticipant; } => {
@@ -228,11 +246,12 @@ export const isParticipantInRoom = (roomId: string, participantJid: string): boo
     return false; // Return false if room doesn't exist or has no participants
 };
 
-export const isEmailInAnyRoom = (email: string): boolean => {
+
+export const isUserIdInAnyRoom = (userId: string): boolean => {
     for (const room of Object.values(allRooms)) {
         if (room?.participants) {
             for (const participant of Object.values(room.participants)) {
-                if (participant.email === email) {
+                if (participant.userId === userId) {
                     return true;
                 }
             }
