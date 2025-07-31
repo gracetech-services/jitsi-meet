@@ -540,10 +540,24 @@ export function setIsShowLoading(isShowLoading: boolean) {
  */
 export function upLoadPreBreakRoomsData(meetingData: any) {
     return (dispatch: IStore['dispatch']) => {
-        fishMeetPassInData.breakRoomData = meetingData;
+        const cleanMeetingData = JSON.parse(JSON.stringify(meetingData));
+
+        Object.values(cleanMeetingData).forEach((room: any) => {
+            // remove room jid
+            delete room.jid;
+
+            // remove jid, displayName, isGroupLeader
+            Object.values(room.participants || {}).forEach((participant: any) => {
+                delete participant.jid;
+                delete participant.displayName;
+                delete participant.isGroupLeader;
+            });
+        });
+
+        fishMeetPassInData.breakRoomData = cleanMeetingData;
         dispatch({
             type: UPLOAD_PRE_BREAKROOMS,
-            meetingData
+            meetingData: cleanMeetingData
         });
     };
 }
