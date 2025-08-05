@@ -10,6 +10,7 @@ import '../keyboard-shortcuts/middleware';
 import '../no-audio-signal/middleware';
 import '../notifications/middleware';
 import '../noise-detection/middleware';
+import '../breakout-room-presetup/middleware';
 import '../old-client-notification/middleware';
 import '../power-monitor/middleware';
 import '../prejoin/middleware';
