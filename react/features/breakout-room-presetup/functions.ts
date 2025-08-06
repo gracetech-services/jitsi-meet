@@ -1,8 +1,14 @@
+import { IStateful } from '../base/app/types';
+import { isLocalParticipantModerator } from '../base/participants/functions';
+import { toState } from '../base/redux/functions';
+
 import { updatePresetBreakoutRoom } from './actions';
+import { FEATURE_KEY } from './constants';
 import { IBreakoutPayload, IMessageData } from './types';
 
-export const isEnablePreBreakout = () => {
-    return location.search.includes('pre-breakout=1') || location.hash.includes('pre-breakout');
+
+export const isEnablePreBreakout = (search = location.search) => {
+    return search.includes('pre-breakout=1') || search.includes('pre-breakout');
 };
 
 export const getBreakoutConfig = () => {
@@ -19,7 +25,6 @@ export const getBreakoutConfig = () => {
 
             event.source?.postMessage({ type: 'Received-MeetingBreakoutRoomParams' }, { targetOrigin: event.origin });
         }
-
     };
 
     window.addEventListener('message', messageListener);
@@ -34,3 +39,31 @@ export const getBreakoutConfig = () => {
 
     return { clean };
 };
+
+export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
+    const state = toState(stateful);
+    const isLocalModerator = isLocalParticipantModerator(state);
+    const { conference } = state['features/base/conference'];
+    const isBreakoutRoomsSupported = conference?.getBreakoutRooms()?.isSupported();
+
+    const { enablePresetBreakoutRoom } = state['features/breakout-room-presetup'] ?? {};
+
+    0 && console.log('[GTS-PBR] isPresetBreakoutRoomButtonVisible', {
+        isLocalModerator,
+        isBreakoutRoomsSupported,
+        enablePresetBreakoutRoom
+    });
+
+    return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom;
+};
+
+
+export const getPresetupBreakoutRoomsConfig = (stateful: IStateful) => {
+    const state = toState(stateful);
+    const { presetupBreakoutRooms = {} } = state['features/base/config'];
+
+    return presetupBreakoutRooms;
+};
+
+export const getPresetBreakoutRoomData = (stateful: IStateful): IBreakoutPayload => toState(stateful)[FEATURE_KEY]?.presetBreakoutRoomData;
+

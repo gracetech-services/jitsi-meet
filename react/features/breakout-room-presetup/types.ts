@@ -21,6 +21,9 @@ export type IMeetingRoom = {
     isMainRoom: boolean;
     name?: string;
     participants: {
-        [key: IUserId]: IUserId;
+        [key: IUserId]: {
+            name: string;
+            userId: IUserId;
+        };
     };
 };

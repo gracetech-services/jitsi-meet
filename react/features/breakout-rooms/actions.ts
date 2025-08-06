@@ -38,7 +38,7 @@ import logger from './logger';
  * @returns {Function}
  */
 export function createBreakoutRoom(name?: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         let { roomCounter } = state[FEATURE_KEY];
         const subject = name || i18next.t('breakoutRooms.defaultName', { index: ++roomCounter });
@@ -50,7 +50,7 @@ export function createBreakoutRoom(name?: string) {
             roomCounter
         });
 
-        getCurrentConference(state)?.getBreakoutRooms()
+        return getCurrentConference(state)?.getBreakoutRooms()
             ?.createBreakoutRoom(subject);
     };
 }
@@ -116,7 +116,8 @@ export function removeBreakoutRoom(breakoutRoomJid: string) {
         if (Object.keys(room.participants).length > 0) {
             dispatch(closeBreakoutRoom(room.id));
         }
-        getCurrentConference(getState)?.getBreakoutRooms()
+
+        return getCurrentConference(getState)?.getBreakoutRooms()
             ?.removeBreakoutRoom(breakoutRoomJid);
     };
 }
@@ -191,7 +192,7 @@ export function moveToRoom(roomId?: string) {
 
         // Check if we got a full JID.
         if (_roomId && _roomId?.indexOf('@') !== -1) {
-            const [ id, ...domainParts ] = _roomId.split('@');
+            const [id, ...domainParts] = _roomId.split('@');
 
             // On mobile we first store the room and the connection is created
             // later, so let's attach the domain to the room String object as

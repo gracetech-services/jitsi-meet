@@ -23,6 +23,7 @@ import '../base/testing/reducer';
 import '../base/tracks/reducer';
 import '../base/user-interaction/reducer';
 import '../breakout-rooms/reducer';
+import '../breakout-room-presetup/reducer';
 import '../calendar-sync/reducer';
 import '../chat/reducer';
 import '../deep-linking/reducer';
