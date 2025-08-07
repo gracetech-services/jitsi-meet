@@ -1,4 +1,4 @@
-import { size } from 'lodash-es';
+import { filter, size } from 'lodash-es';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,13 +6,15 @@ import { makeStyles } from 'tss-react/mui';
 
 import { IReduxState } from '../../app/types';
 import { getLocalParticipant, getRemoteParticipants } from '../../base/participants/functions';
+import { toState } from '../../base/redux/functions';
 import Button from '../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../base/ui/constants.web';
-import { getBreakoutRooms } from '../../breakout-rooms/functions';
+import { getBreakoutRooms, getRoomsInfo } from '../../breakout-rooms/functions';
+import logger from '../../breakout-rooms/logger';
 import { getSortedParticipantIds } from '../../participants-pane/functions';
 import { getVisitorsList } from '../../visitors/functions';
-import { setPresetBreakoutRoom } from '../actions';
-import { getPresetBreakoutRoomData } from '../functions';
+import { prepareBreakoutRoom } from '../actions';
+import { getAllParticipants, getPresetBreakoutRoomData } from '../functions';
 
 const useStyles = makeStyles()(theme => {
     return {
@@ -32,26 +34,46 @@ export const LoadPresetBreakoutRoomButton = () => {
     const sortedParticipantIds = useSelector((state: IReduxState) => getSortedParticipantIds(state));
     const remoteParticipants = useSelector((state: IReduxState) => getRemoteParticipants(state));
     const localParticipant = useSelector((state: IReduxState) => getLocalParticipant(state));
+    const { availableToSetup } = useSelector((state: IReduxState) => toState(state)['features/breakout-room-presetup']);
+    const { rooms: roomsInfo } = useSelector((state: IReduxState) => getRoomsInfo(state));
+    const allParticipants = useSelector((state: IReduxState) => getAllParticipants(state));
 
     const onAdd = useCallback(() => {
-        console.log('[GTS] LoadPresetBreakoutRoomButton click', {
+        if (availableToSetup) {
+            return;
+        }
+
+        const subRooms = filter(rooms, room => !room.isMainRoom);
+
+        logger.debug('[GTS] LoadPresetBreakoutRoomButton click', {
             presetBreakoutRoomData,
             rooms,
+            roomsInfo,
+            subRooms,
             visitorsList,
             sortedParticipantIds,
             remoteParticipants,
-            localParticipant
+            localParticipant,
+            allParticipants,
         });
 
-        if (size(rooms) > 1) {
+        if (size(subRooms) > 0) {
             if (!confirm(t('presetBreakoutRooms.confirm.prompt'))) {
                 return;
             }
         }
 
-        dispatch(setPresetBreakoutRoom());
-    }
-    , [ dispatch, presetBreakoutRoomData, rooms, visitorsList, sortedParticipantIds ]);
+        dispatch(prepareBreakoutRoom());
+    }, [
+        presetBreakoutRoomData,
+        rooms,
+        roomsInfo,
+        visitorsList,
+        sortedParticipantIds,
+        remoteParticipants,
+        localParticipant,
+        allParticipants,
+    ]);
 
     return (
         <Button

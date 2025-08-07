@@ -1,13 +1,17 @@
 import { APP_WILL_MOUNT, APP_WILL_UNMOUNT } from '../base/app/actionTypes';
 import { CONFERENCE_JOINED } from '../base/conference/actionTypes';
+import { JitsiConferenceEvents } from '../base/lib-jitsi-meet';
 import MiddlewareRegistry from '../base/redux/MiddlewareRegistry';
+import StateListenerRegistry from '../base/redux/StateListenerRegistry';
+import logger from '../breakout-rooms/logger';
+import { IRooms } from '../breakout-rooms/types';
 
-import { cleanListener, enablePresetFeature, retrievePresetBreakoutRoom } from './actions';
-import { isEnablePreBreakout } from './functions';
+import { cleanListener, enablePresetFeature, executeBreakoutRoom, retrievePresetBreakoutRoom } from './actions';
+import { getAllParticipants, isEnablePreBreakout } from './functions';
 
 
 MiddlewareRegistry.register(store => next => action => {
-    const { dispatch } = store;
+    const { dispatch, getState } = store;
     const result = next(action);
 
     switch (action.type) {
@@ -17,21 +21,44 @@ MiddlewareRegistry.register(store => next => action => {
 
         dispatch(enablePresetFeature(isEnable));
         if (isEnable) {
-            dispatch(retrievePresetBreakoutRoom())
+            dispatch(retrievePresetBreakoutRoom());
         }
-        console.log('[GTS-PBR] APP_WILL_MOUNT', { search, hash, isEnable });
+        logger.debug('[GTS-PBR] APP_WILL_MOUNT', { search, hash, isEnable });
         break;
 
     case APP_WILL_UNMOUNT:
         dispatch(cleanListener());
-        console.log('[GTS-PBR] APP_WILL_UNMOUNT');
+        logger.debug('[GTS-PBR] APP_WILL_UNMOUNT');
         break;
 
     case CONFERENCE_JOINED:
-        console.log('[GTS-PBR] CONFERENCE_JOINED');
+        const allParticipants = getAllParticipants(getState);
+
+        logger.debug('[GTS-PBR] CONFERENCE_JOINED', { allParticipants });
         break;
     }
 
     return result;
 });
 
+
+StateListenerRegistry.register(
+    state => state['features/base/conference'].conference,
+    (conference, { dispatch, getState }, previousConference) => {
+
+        if (conference && !previousConference) {
+            conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, ({ rooms, roomCounter }: {
+                roomCounter: number; rooms: IRooms;
+            }) => {
+                const { availableToSetup } = getState()['features/breakout-room-presetup'];
+
+                logger.debug('[GTS] Room list updated', {
+                    availableToSetup
+                });
+
+                if (availableToSetup) {
+                    dispatch(executeBreakoutRoom());
+                }
+            });
+        }
+    });

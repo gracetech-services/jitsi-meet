@@ -27,6 +27,7 @@ import {
     isRemoteScreenshareParticipant,
     isScreenShareParticipant
 } from './functions';
+import logger from './logger';
 import { FakeParticipant, ILocalParticipant, IParticipant, ISourceInfo } from './types';
 
 /**
@@ -276,6 +277,8 @@ ReducerRegistry.register<IParticipantsState>('features/base/participants',
 
     case PARTICIPANT_JOINED: {
         const participant = _participantJoined(action);
+
+        logger.debug('[GTS] PARTICIPANT_JOINED', { participant });
         const {
             fakeParticipant,
             id,
@@ -638,6 +641,9 @@ function _participantJoined({ participant }: { participant: IParticipant; }) {
         id || (id = LOCAL_PARTICIPANT_DEFAULT_ID);
     }
 
+    // parse then userId from Idigest Name, the format is 'userName[userId]'
+    const [ _, userName, userId ] = name?.match(/([^\[]+)\[([^\]]+)\]/) ?? [];
+
     return {
         avatarURL,
         botType,
@@ -646,11 +652,12 @@ function _participantJoined({ participant }: { participant: IParticipant; }) {
         email,
         fakeParticipant,
         id,
+        iDigestId: userId,
         isPromoted,
         isReplacing,
         loadableAvatarUrl,
         local: local || false,
-        name,
+        name: userName || name,
         pinned: pinned || false,
         presence,
         role: role || PARTICIPANT_ROLE.NONE,

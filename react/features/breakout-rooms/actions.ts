@@ -50,8 +50,12 @@ export function createBreakoutRoom(name?: string) {
             roomCounter
         });
 
-        return getCurrentConference(state)?.getBreakoutRooms()
+        const res = await getCurrentConference(state)?.getBreakoutRooms()
             ?.createBreakoutRoom(subject);
+
+        logger.debug('[GTS] createBreakoutRoom API response', res);
+
+        return res;
     };
 }
 
@@ -62,7 +66,7 @@ export function createBreakoutRoom(name?: string) {
  * @returns {Function}
  */
 export function closeBreakoutRoom(roomId: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const rooms = getBreakoutRooms(getState);
         const room = rooms[roomId];
         const mainRoom = getMainRoom(getState);
@@ -70,9 +74,13 @@ export function closeBreakoutRoom(roomId: string) {
         sendAnalytics(createBreakoutRoomsEvent('close'));
 
         if (room && mainRoom) {
-            Object.values(room.participants).forEach(p => {
-                dispatch(sendParticipantToRoom(p.jid, mainRoom.id));
+            const prList = Object.values(room.participants).map(p => {
+                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room')
+
+                return dispatch(sendParticipantToRoom(p.jid, mainRoom.id));
             });
+
+            return Promise.all(prList);
         }
     };
 }
@@ -103,7 +111,7 @@ export function renameBreakoutRoom(breakoutRoomJid: string, name = '') {
  * @returns {Function}
  */
 export function removeBreakoutRoom(breakoutRoomJid: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         sendAnalytics(createBreakoutRoomsEvent('remove'));
         const room = getRoomByJid(getState, breakoutRoomJid);
 
@@ -114,7 +122,7 @@ export function removeBreakoutRoom(breakoutRoomJid: string) {
         }
 
         if (Object.keys(room.participants).length > 0) {
-            dispatch(closeBreakoutRoom(room.id));
+            await dispatch(closeBreakoutRoom(room.id));
         }
 
         return getCurrentConference(getState)?.getBreakoutRooms()
@@ -154,7 +162,7 @@ export function autoAssignToBreakoutRooms() {
  * @returns {Function}
  */
 export function sendParticipantToRoom(participantId: string, roomId: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const rooms = getBreakoutRooms(getState);
         const room = rooms[roomId];
 
@@ -174,7 +182,7 @@ export function sendParticipantToRoom(participantId: string, roomId: string) {
             return;
         }
 
-        getCurrentConference(getState)?.getBreakoutRooms()
+        return getCurrentConference(getState)?.getBreakoutRooms()
             ?.sendParticipantToRoom(participantJid, room.jid);
     };
 }

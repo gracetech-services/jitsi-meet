@@ -21,6 +21,7 @@ export interface IParticipant {
     fakeParticipant?: FakeParticipant;
     features?: IParticipantFeatures;
     getId?: Function;
+    iDigestId?: string;
     id: string;
     isJigasi?: boolean;
     isPromoted?: boolean;

@@ -77,6 +77,7 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
             padding: `0 ${participantsPaneTheme.panePadding}px`,
             display: 'flex',
             flexDirection: 'column',
+            overflowY: 'auto',
 
             '&::-webkit-scrollbar': {
                 display: 'none'

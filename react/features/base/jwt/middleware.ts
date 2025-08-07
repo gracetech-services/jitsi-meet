@@ -77,7 +77,7 @@ MiddlewareRegistry.register(store => next => action => {
  */
 function _overwriteLocalParticipant(
         { dispatch, getState }: IStore,
-        { avatarURL, email, id: jwtId, name, features }:
+        { avatarURL, email, id: jwtId, name, features, iDigestId }:
         { avatarURL?: string; email?: string; features?: any; id?: string; name?: string; }) {
     let localParticipant;
 
@@ -101,6 +101,9 @@ function _overwriteLocalParticipant(
         }
         if (features) {
             newProperties.features = features;
+        }
+        if (iDigestId) {
+            newProperties.iDigestId = iDigestId;
         }
         dispatch(participantUpdated(newProperties));
     }
@@ -296,6 +299,7 @@ function _user2participant({ avatar, avatarUrl, email, id, name, 'hidden-from-re
         avatarURL?: string;
         email?: string;
         hiddenFromRecorder?: boolean;
+        iDigestId?: string;
         id?: string;
         name?: string;
     } = {};
@@ -313,6 +317,16 @@ function _user2participant({ avatar, avatarUrl, email, id, name, 'hidden-from-re
     }
     if (typeof name === 'string') {
         participant.name = name.trim();
+    }
+
+    // parse then userId from Idigest Name, the format is 'userName[userId]'
+    const [ _, userName, userId ] = name?.match(/([^\[]+)\[([^\]]+)\]/) ?? [];
+
+    if (typeof userName === 'string') {
+        participant.name = userName.trim();
+    }
+    if (typeof userId === 'string') {
+        participant.id = userId.trim();
     }
 
     if (hiddenFromRecorder === 'true' || hiddenFromRecorder === true) {

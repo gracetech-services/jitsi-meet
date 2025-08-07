@@ -1,6 +1,8 @@
 import ReducerRegistry from '../base/redux/ReducerRegistry';
+import logger from '../breakout-rooms/logger';
 
 import {
+    _AVAILABLE_TO_SET_BREAKOUT_ROOMS,
     _ENABlE_PRESET_BREAKOUT_ROOMS,
     _PRESET_BREAKOUT_ROOMS_ADD_LISTENER,
     _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER,
@@ -11,29 +13,31 @@ import type { IBreakoutPayload } from './types';
 
 const DEFAULT_STATE = {
     enablePresetBreakoutRoom: false,
-    presetBreakoutRoomData: {
+    presetRoomData: {
         groupId: -1,
         meetingCode: -1,
         meetingData: {}
     },
-    msgListener: []
+    msgListener: [],
+    availableToSetup: false
 };
 
 export type IPresetBreakoutRoomsState = {
+    availableToSetup: boolean;
     enablePresetBreakoutRoom: boolean;
     msgListener: Array<(params?: unknown) => void>;
-    presetBreakoutRoomData: IBreakoutPayload;
+    presetRoomData: IBreakoutPayload;
 };
 
 /**
  * Listen for actions for the breakout-rooms feature.
  */
 ReducerRegistry.register<IPresetBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STATE, action): IPresetBreakoutRoomsState => {
-    const { payload } = action;
+    const { type, payload } = action;
 
-    switch (action.type) {
+    switch (type) {
     case _ENABlE_PRESET_BREAKOUT_ROOMS:
-        console.log('[GTS] reducer: _ENABlE_PRESET_BREAKOUT_ROOMS', payload);
+        logger.debug('[GTS] reducer: _ENABlE_PRESET_BREAKOUT_ROOMS', payload);
 
         return {
             ...state,
@@ -41,15 +45,15 @@ ReducerRegistry.register<IPresetBreakoutRoomsState>(FEATURE_KEY, (state = DEFAUL
         };
 
     case _UPDATE_PRESET_BREAKOUT_ROOMS:
-        console.log('[GTS] reducer: _UPDATE_PRESET_BREAKOUT_ROOMS', payload);
+        logger.debug('[GTS] reducer: _UPDATE_PRESET_BREAKOUT_ROOMS', payload);
 
         return {
             ...state,
-            presetBreakoutRoomData: payload
+            presetRoomData: payload
         };
 
     case _PRESET_BREAKOUT_ROOMS_ADD_LISTENER:
-        console.log('[GTS] reducer: _PRESET_BREAKOUT_ROOMS_ADD_LISTENER');
+        logger.debug('[GTS] reducer: _PRESET_BREAKOUT_ROOMS_ADD_LISTENER');
 
         return {
             ...state,
@@ -60,12 +64,18 @@ ReducerRegistry.register<IPresetBreakoutRoomsState>(FEATURE_KEY, (state = DEFAUL
         };
 
     case _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER:
-        console.log('[GTS] reducer: _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER');
+        logger.debug('[GTS] reducer: _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER');
         state.msgListener.forEach(listener => listener());
 
         return {
             ...state,
             msgListener: []
+        };
+
+    case _AVAILABLE_TO_SET_BREAKOUT_ROOMS:
+        return {
+            ...state,
+            availableToSetup: payload
         };
     }
 
