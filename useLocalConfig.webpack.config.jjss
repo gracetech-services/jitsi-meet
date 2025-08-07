@@ -11,8 +11,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
  * The URL of the Jitsi Meet deployment to be proxy to in the context of
  * development with webpack-dev-server.
  */
-const devServerProxyTarget = 'https://meet.fishmeet.online';
-    //= process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
+const devServerProxyTarget //= 'https://meet.fishmeet.online';
+    = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
 
 /**
  * Build a Performance configuration object for the given size.
@@ -67,7 +67,7 @@ function devServerProxyBypass({ path }) {
     let tpath = path;
 
     // Serve the main HTML page and config.js locally
-    if (['/interface_config.js', '/index.html', '/config.js', '/'].indexOf(tpath) !== -1) {
+    if (['/interface_config.js', '/index.html', '/config.js', '/', '/fishmeet-config.js', '/alpha-jitsi-net.js'].indexOf(tpath) !== -1) {
         console.log('GT: Serving main HTML page locally:', tpath);
         return tpath;
     }
