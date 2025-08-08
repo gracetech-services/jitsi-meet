@@ -4,6 +4,7 @@ console.log("GT: loading fishmeet-config.js");
 
 var config;
 
+/* -- this is for localhost -- later
 config.hosts = {
     ...config.hosts, 
     domain: 'localhost',
@@ -12,6 +13,8 @@ config.hosts = {
 
 config.bosh = 'http://localhost:5280/http-bind';
 config.websocket = 'ws://localhost:5280/xmpp-websocket';
+*/
+
 config.disableSelfView = true; 
 config.disableSelfViewSettings = true;
 
@@ -48,11 +51,11 @@ config.startWithVideoMuted = true;
     // },
 //==
 //==
-config.channelLastN = 0;
+config.channelLastN = 4; //TODO??
 config.startLastN = 0;
 
 config.welcomePage = { ...config.welcomePage, 
-    customUrl: 'welcome page: instructions needed'
+    customUrl: '' // '/fishmeet-Welcome.html'
 };
     // Enables forced reload of the client when the call is migrated as a result of
     // the bridge going down.
@@ -90,7 +93,8 @@ config.hideEmailInSettings = true;
 
 config.prejoinConfig = {
     ...config.prejoinConfig,
-    enabled: false 
+    hideExtraJoinButtons: ['no-audio', 'by-phone'],
+    enabled: true //false 
 };
 
     // Moved from interfaceConfig(TOOLBAR_BUTTONS).
@@ -136,8 +140,8 @@ config.toolbarButtons = [
         //    'shortcuts',
         //    'stats',
         'tileview',
-        'toggle-camera',
-        'videoquality'
+        'toggle-camera'
+        //'videoquality'  // make it a stop all incoming video button***
         //    'whiteboard',
     ];
     // Overrides the buttons displayed in the main toolbar. Depending on the screen size the number of displayed
@@ -169,16 +173,16 @@ config.defaultLanguage = 'zhCN'; //?? will this work, since it's moved to 'lang'
    // Message to show the users. Example: 'The service will be down for
     // maintenance at 01:00 AM GMT,
     // noticeMessage: '',
-config.noticeMessage = 'we will be back soon';
+config.noticeMessage = ''; //== tihs shows up at the top of the conference -- we will be back soon';
 
     // Disables all invite functions from the app (share, invite, dial out...etc)
 config.disableInviteFunctions = true; 
 
     // Options related to the remote participant menu.
-    //TODO: another provider might want the below to be true TODO:
+    //BSF: another provider might want the below to be true :
     // we need a version for china, disabling them all
 config.remoteVideoMenu = {...config.remoteVideoMenu, 
-    disableKick: true,
+    disableKick: false,
     disableGrantModerator: true,
     disablePrivateChat: true
 }
@@ -195,12 +199,8 @@ config.sharedVideoAllowedURLDomains = ['*'];  // ???? uncleaer how it's used ---
     // Hides the conference subject
 config.hideConferenceSubject = true;
 
-config.tileView = {...config.tileView, numberOfVisibleTiles: 4}; // Zoom offers 25 or 9 as two optoins to choose 1... this impacts lastN
-    //??? TODO: might be the lastN is 4 for users from china, and the client shoud set his lastN to 4, and then this value is
-    // also 4 for china users
-
     // Hide login button on auth dialog, you may want to enable this if you are using JWT tokens to authenticate users
-config.hideLoginButton = false;  // but once login, which meeting to join???
+config.hideLoginButton = true;  // but once login, which meeting to join???
 
 
 //??? more research needed
@@ -331,7 +331,7 @@ config.hideLoginButton = false;  // but once login, which meeting to join???
         }
     }
     */
-
+config.participantsPane = {...config.participantsPane, hideModeratorSettingsTab: true, hideMoreActionsButton: false};
     // ??? will checkout the partipantspane to decide
     // Options related to the participants pane.
     // participantsPane: {
@@ -356,6 +356,7 @@ config.hideLoginButton = false;  // but once login, which meeting to join???
     //     hideJoinRoomButton: false,
     // },
  
+config.disableVirtualBackground = true;
     //?????*** except this feature is NOT well implemented** -- try higher CPU */
     // When true, virtual background feature will be disabled.
     // disableVirtualBackground: false,
@@ -508,6 +509,7 @@ config.hideLoginButton = false;  // but once login, which meeting to join???
     // Prevent the filmstrip from autohiding when screen width is under a certain threshold
     // disableFilmstripAutohiding: false,
 
+config.filmstrip = {...config.filmstrip, disableStageFilmstrip: true};
     // filmstrip: {
     //     // Disable the vertical/horizontal filmstrip.
     //     disabled: false,
@@ -538,6 +540,9 @@ config.hideLoginButton = false;  // but once login, which meeting to join???
     //     alwaysShowResizeBar: true,
     // },
 
+config.tileView = {...config.tileView, numberOfVisibleTiles: 9}; // Zoom offers 25 or 9 as two optoins to choose 1... this impacts lastN
+    //??? TODO: might be the lastN is 4 for users from china, and the client shoud set his lastN to 4, and then this value is
+    // also 4 for china users
     // Tile view related config options.
     // tileView: {
     //     // Whether tileview should be disabled.
@@ -570,5 +575,212 @@ config.hideLoginButton = false;  // but once login, which meeting to join???
     // List of pre meeting screens buttons to hide. The values must be one or more of the 5 allowed buttons:
     // 'microphone', 'camera', 'select-background', 'invite', 'settings'
     config.hiddenPremeetingButtons = ['invite', 'settings'];
+
+
+/// interface_config.js section
+/* eslint-disable no-unused-vars, no-var, max-len */
+/* eslint sort-keys: ["error", "asc", {"caseSensitive": false}] */
+
+/**
+ * !!!IMPORTANT!!!
+ *
+ * This file is considered deprecated. All options will eventually be moved to
+ * config.js, and no new options should be added here.
+ */
+
+var interfaceConfig;
+
+interfaceConfig.APP_NAME = 'Fishmeet';
+interfaceConfig.BRAND_WATERMARK_LINK = ''; // TODO: 
+interfaceConfig.DEFAULT_BACKGROUND = '#040404'; // TODO
+interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES = true;
+
+    /**
+     * Whether or not the blurred video background for large video should be
+     * displayed on browsers that can support it.
+     */
+    //DISABLE_VIDEO_BACKGROUND: false,
+
+interfaceConfig.ENABLE_DIAL_OUT = false;
+
+    //TODO
+    //FILM_STRIP_MAX_HEIGHT: 120,
+
+interfaceConfig.HIDE_INVITE_MORE_HEADER = true;
+
+    //TODO: 
+    //JITSI_WATERMARK_LINK: 'https://jitsi.org',
+
+    /**
+     * Whether the mobile app Jitsi Meet is to be promoted to participants
+     * attempting to join a conference in a mobile Web browser. If
+     * {@code undefined}, defaults to {@code true}.
+     *
+     * @type {boolean}
+     */
+interfaceConfig.MOBILE_APP_PROMO = false; 
+
+    // Names of browsers which should show a warning stating the current browser
+    // has a suboptimal experience. Browsers which are not listed as optimal or
+    // unsupported are considered suboptimal. Valid values are:
+    // chrome, chromium, electron, firefox , safari, webkit
+    //OPTIMAL_BROWSERS: [ 'chrome', 'chromium', 'firefox', 'electron', 'safari', 'webkit' ],
+
+    //TODO:
+    // POLICY_LOGO: null,
+interfaceConfig.PROVIDER_NAME = 'fishmeet',
+
+    /**
+     * If true, will display recent list
+     *
+     * @type {boolean}
+     */
+    //TODO
+    // RECENT_LIST_ENABLED: true,
+    
+    /**
+     * Specify which sharing features should be displayed. If the value is not set
+     * all sharing features will be shown. You can set [] to disable all.
+     */
+    // SHARING_FEATURES: ['email', 'url', 'dial-in', 'embed'],
+
+    //TODO
+    //SHOW_BRAND_WATERMARK: false,
+
+    /**
+     * Decides whether the chrome extension banner should be rendered on the landing page and during the meeting.
+     * If this is set to false, the banner will not be rendered at all. If set to true, the check for extension(s)
+     * being already installed is done before rendering.
+     */
+    /* TODO
+    SHOW_CHROME_EXTENSION_BANNER: false,
+
+    SHOW_JITSI_WATERMARK: true,
+    SHOW_POWERED_BY: false,
+    SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+    */
+
+    /*
+     * If indicated some of the error dialogs may point to the support URL for
+     * help.
+     */
+interfaceConfig.SUPPORT_URL = 'https://fishmeet.online/support';
+
+    // Browsers, in addition to those which do not fully support WebRTC, that
+    // are not supported and should show the unsupported browser page.
+    //TODO:
+    //UNSUPPORTED_BROWSERS: [],
+
+    /**
+     * Whether to show thumbnails in filmstrip as a column instead of as a row.
+     */
+    //TODO:
+    //VERTICAL_FILMSTRIP: true,
+
+    // Determines how the video would fit the screen. 'both' would fit the whole
+    // screen, 'height' would fit the original video height to the height of the
+    // screen, 'width' would fit the original video width to the width of the
+    // screen respecting ratio, 'nocrop' would make the video as large as
+    // possible and preserve aspect ratio without cropping.
+    //TODO
+    //VIDEO_LAYOUT_FIT: 'both',
+
+    /**
+     * If true, hides the video quality label indicating the resolution status
+     * of the current large video.
+     *
+     * @type {boolean}
+     */
+interfaceConfig.VIDEO_QUALITY_LABEL_DISABLED = true; //: false,
+
+    /**
+     * How many columns the tile view can expand to. The respected range is
+     * between 1 and 5.
+     */
+    // TILE_VIEW_MAX_COLUMNS: 5,
+
+    // List of undocumented settings
+    /**
+     INDICATOR_FONT_SIZES
+     PHONE_NUMBER_REGEX
+    */
+
+    // -----------------DEPRECATED CONFIGS BELOW THIS LINE-----------------------------
+
+    /**
+     * Specify URL for downloading ios mobile app.
+     */
+    // MOBILE_DOWNLOAD_LINK_IOS: 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905',
+
+    /**
+     * Specify custom URL for downloading android mobile app.
+     */
+    // MOBILE_DOWNLOAD_LINK_ANDROID: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
+
+    /**
+     * Specify mobile app scheme for opening the app from the mobile browser.
+     */
+    // APP_SCHEME: 'org.jitsi.meet',
+
+    // NATIVE_APP_NAME: 'Jitsi Meet',
+
+    /**
+     * Hide the logo on the deep linking pages.
+     */
+    // HIDE_DEEP_LINKING_LOGO: false,
+
+    /**
+     * Specify the Android app package name.
+     */
+    // ANDROID_APP_PACKAGE: 'org.jitsi.meet',
+
+    /**
+     * Specify custom URL for downloading f droid app.
+     */
+    // MOBILE_DOWNLOAD_LINK_F_DROID: 'https://f-droid.org/packages/org.jitsi.meet/',
+
+    // Connection indicators (
+    // CONNECTION_INDICATOR_AUTO_HIDE_ENABLED,
+    // CONNECTION_INDICATOR_AUTO_HIDE_TIMEOUT,
+    // CONNECTION_INDICATOR_DISABLED) got moved to config.js.
+
+    // Please use disableModeratorIndicator from config.js
+    // DISABLE_FOCUS_INDICATOR: false,
+
+    // Please use defaultLocalDisplayName from config.js
+    // DEFAULT_LOCAL_DISPLAY_NAME: 'me',
+
+    // Please use defaultLogoUrl from config.js
+    // DEFAULT_LOGO_URL: 'images/watermark.svg',
+
+    // Please use defaultRemoteDisplayName from config.js
+    // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
+
+    // Moved to config.js as `toolbarConfig.initialTimeout`.
+    // INITIAL_TOOLBAR_TIMEOUT: 20000,
+
+    // Please use `liveStreaming.helpLink` from config.js
+    // Documentation reference for the live streaming feature.
+    // LIVE_STREAMING_HELP_LINK: 'https://jitsi.org/live',
+
+    // Moved to config.js as `toolbarConfig.alwaysVisible`.
+    // TOOLBAR_ALWAYS_VISIBLE: false,
+
+    // This config was moved to config.js as `toolbarButtons`.
+    // TOOLBAR_BUTTONS: [],
+
+    // Moved to config.js as `toolbarConfig.timeout`.
+    // TOOLBAR_TIMEOUT: 4000,
+
+    // Allow all above example options to include a trailing comma and
+    // prevent fear when commenting out the last value.
+    // eslint-disable-next-line sort-keys
+    //TODO: 
+    //makeJsonParserHappy: 'even if last key had a trailing comma'
+
+    // No configuration value should follow this line.
+
+
+/* eslint-enable no-unused-vars, no-var, max-len */
 
 

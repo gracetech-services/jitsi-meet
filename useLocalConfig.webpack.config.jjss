@@ -67,7 +67,9 @@ function devServerProxyBypass({ path }) {
     let tpath = path;
 
     // Serve the main HTML page and config.js locally
-    if (['/interface_config.js', '/index.html', '/config.js', '/', '/fishmeet-config.js', '/alpha-jitsi-net.js'].indexOf(tpath) !== -1) {
+    if (['/interface_config.js', '/index.html', '/config.js', '/', '/fishmeet-config.js', '/alpha-jitsi-net.js',
+        '/fishmeet-Welcome.html'
+    ].indexOf(tpath) !== -1) {
         console.log('GT: Serving main HTML page locally:', tpath);
         return tpath;
     }
