@@ -42,6 +42,11 @@
     "audioOnly": {
         "audioOnly": "省流"
     },
+    "autoBreakoutRooms": {
+        "actions": {
+            "button": "自动分组讨论"
+        }
+    },
     "bandwidthSettings": {
         "assumedBandwidthBps": "例如，10000000为10兆",
         "assumedBandwidthBpsWarning": "较高的数值可能会导致网络问题。",
@@ -76,6 +81,9 @@
             "joined": "正在加入“{{name}}”分组讨论室",
             "joinedMainRoom": "正在加入主会议室",
             "joinedTitle": "分组讨论室"
+        },
+        "prompts": {
+            "EnterTotalRoom": "请输入分组讨论的房间总数"
         },
         "showParticipantList": "显示成员列表",
         "title": "分组讨论室"

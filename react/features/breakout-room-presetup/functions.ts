@@ -4,7 +4,7 @@ import { IStateful } from '../base/app/types';
 import { getParticipantById, isLocalParticipantModerator } from '../base/participants/functions';
 import { IParticipant } from '../base/participants/types';
 import { toState } from '../base/redux/functions';
-import { getRoomsInfo } from '../breakout-rooms/functions';
+import { getBreakoutRoomsConfig, getRoomsInfo } from '../breakout-rooms/functions';
 import { IRoomInfo } from '../breakout-rooms/types';
 
 import { FEATURE_KEY } from './constants';
@@ -29,6 +29,21 @@ export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
     });
 
     return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom;
+};
+
+export const isAutoBreakoutRoomButtonVisible = (stateful: IStateful) => {
+    const state = toState(stateful);
+    const isLocalModerator = isLocalParticipantModerator(state);
+    const { conference } = state['features/base/conference'];
+    const isBreakoutRoomsSupported = conference?.getBreakoutRooms()?.isSupported();
+    const { hideAutoAssignButton } = getBreakoutRoomsConfig(state);
+
+    0 && console.log('[GTS-PBR] isAutoBreakoutRoomButtonVisible', {
+        isLocalModerator,
+        isBreakoutRoomsSupported,
+    });
+
+    return isLocalModerator && isBreakoutRoomsSupported && !hideAutoAssignButton;
 };
 
 
