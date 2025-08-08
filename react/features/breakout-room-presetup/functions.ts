@@ -46,11 +46,10 @@ export const getAllParticipants = (stateful: IStateful) => {
 
     return reduce<IRoomInfo, IParticipant[]>(rooms, (result, room) => {
         room.participants.forEach(participant => {
-            const item = getParticipantById(stateful, participant.id);
+            const ids = participant.id.split('/');
+            const item = getParticipantById(stateful, ids.length > 1 ? ids[1] : participant.id);
 
-            if (item) {
-                result.push(item);
-            }
+            result.push(item ?? participant);
         });
 
         return result;

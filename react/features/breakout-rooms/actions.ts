@@ -78,7 +78,7 @@ export function closeBreakoutRoom(roomId: string) {
             const prList: Array<Promise<any>> = [];
 
             Object.values(room.participants).forEach(p => {
-                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room');
+                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room', p);
                 prList.push(dispatch(sendParticipantToRoom(p.jid, mainRoom.id)));
             });
 

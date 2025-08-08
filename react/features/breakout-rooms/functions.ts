@@ -65,7 +65,8 @@ export const getRoomsInfo = (stateful: IStateful) => {
                 role: localParticipant.role,
                 displayName: localParticipant.name,
                 avatarUrl: localParticipant.loadableAvatarUrl,
-                id: localParticipant.id
+                id: localParticipant.id,
+                email: localParticipant.email,
             };
         }
 
@@ -86,6 +87,7 @@ export const getRoomsInfo = (stateful: IStateful) => {
                                 role: participantItem.getRole(),
                                 displayName: participantItem.getDisplayName(),
                                 avatarUrl: storeParticipant?.loadableAvatarUrl,
+                                email: storeParticipant?.email,
                                 id: participantItem.getId()
                             } as IRoomInfoParticipant;
                         }) ]
@@ -115,6 +117,7 @@ export const getRoomsInfo = (stateful: IStateful) => {
                             role: participantItem?.role,
                             displayName: participantItem?.displayName,
                             avatarUrl: storeParticipant?.loadableAvatarUrl,
+                            email: storeParticipant?.email,
                             id: storeParticipant ? storeParticipant.id
                                 : participantLongId
                         } as IRoomInfoParticipant;

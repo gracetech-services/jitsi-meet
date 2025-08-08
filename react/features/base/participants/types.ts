@@ -26,7 +26,7 @@ export interface IParticipant {
      *  1. For Local:
      *      1.1 _user2participant：react/features/base/jwt/middleware.ts:323
      *      1.2 _overwriteLocalParticipant：react/features/base/jwt/middleware.ts:105
-     *  2. For Remote: _participantJoined：react/features/base/participants/reducer.ts:645
+     *  2. For Remote: _participantJoined：react/features/base/participants/reducer.ts:645.
      */
     iDigestId?: string;
     id: string;
