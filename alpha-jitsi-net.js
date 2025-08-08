@@ -1,4 +1,6 @@
-/* eslint-disable comma-dangle, no-unused-vars, no-var, prefer-template, vars-on-top */
+/* eslint-disable */
+var config;
+
 config.hosts = 
     {
         // XMPP domain.

@@ -1,4 +1,4 @@
-/* eslint-disable comma-dangle, no-unused-vars, no-var, prefer-template, vars-on-top */
+/* eslint-disable */
 
 console.log("GT: loading fishmeet-config.js");
 
