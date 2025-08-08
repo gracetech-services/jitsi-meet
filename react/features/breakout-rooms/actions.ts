@@ -50,6 +50,7 @@ export function createBreakoutRoom(name?: string) {
             roomCounter
         });
 
+        // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
         const res = await getCurrentConference(state)?.getBreakoutRooms()
             ?.createBreakoutRoom(subject);
 
@@ -74,12 +75,14 @@ export function closeBreakoutRoom(roomId: string) {
         sendAnalytics(createBreakoutRoomsEvent('close'));
 
         if (room && mainRoom) {
-            const prList = Object.values(room.participants).map(p => {
-                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room')
+            const prList: Array<Promise<any>> = [];
 
-                return dispatch(sendParticipantToRoom(p.jid, mainRoom.id));
+            Object.values(room.participants).forEach(p => {
+                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room');
+                prList.push(dispatch(sendParticipantToRoom(p.jid, mainRoom.id)));
             });
 
+            // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
             return Promise.all(prList);
         }
     };
@@ -125,6 +128,7 @@ export function removeBreakoutRoom(breakoutRoomJid: string) {
             await dispatch(closeBreakoutRoom(room.id));
         }
 
+        // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
         return getCurrentConference(getState)?.getBreakoutRooms()
             ?.removeBreakoutRoom(breakoutRoomJid);
     };
@@ -182,6 +186,7 @@ export function sendParticipantToRoom(participantId: string, roomId: string) {
             return;
         }
 
+        // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
         return getCurrentConference(getState)?.getBreakoutRooms()
             ?.sendParticipantToRoom(participantJid, room.jid);
     };
@@ -200,7 +205,7 @@ export function moveToRoom(roomId?: string) {
 
         // Check if we got a full JID.
         if (_roomId && _roomId?.indexOf('@') !== -1) {
-            const [id, ...domainParts] = _roomId.split('@');
+            const [ id, ...domainParts ] = _roomId.split('@');
 
             // On mobile we first store the room and the connection is created
             // later, so let's attach the domain to the room String object as

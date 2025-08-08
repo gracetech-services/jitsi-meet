@@ -27,7 +27,6 @@ export function redirectWithStoredParams(pathname: string) {
         const newLocationURL = new URL(locationURL?.href ?? '');
 
         newLocationURL.pathname = pathname;
-        debugger;
         window.location.assign(newLocationURL.toString());
     };
 }
@@ -82,7 +81,6 @@ export function reloadWithStoredParams() {
         const windowLocation = window.location;
         const oldSearchString = windowLocation.search;
 
-        debugger;
         windowLocation.replace(newURL.toString());
 
         if (newURL.search === oldSearchString) {

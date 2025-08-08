@@ -80,14 +80,6 @@
         "showParticipantList": "顯示與會者列表",
         "title": "分組討論室"
     },
-    "presetBreakoutRooms": {
-        "actions": {
-            "load": "加載分組討論室"
-        },
-        "confirm": {
-            "prompt": "使用預分組將完全覆蓋當前的分組方案，請確認？"
-        }
-    },
     "calendarSync": {
         "addMeetingURL": "增加會議連結",
         "confirmAddLink": "您要為此活動加入 Jitsi 連結嗎？",
@@ -1042,6 +1034,14 @@
         "invited": "受邀",
         "rejected": "拒絕",
         "ringing": "鈴鈴鈴…"
+    },
+    "presetBreakoutRooms": {
+        "actions": {
+            "load": "加載分組討論室"
+        },
+        "confirm": {
+            "prompt": "使用預分組將完全覆蓋當前的分組方案，請確認？"
+        }
     },
     "profile": {
         "avatar": "頭像",

@@ -47,7 +47,7 @@ StateListenerRegistry.register(
     (conference, { dispatch, getState }, previousConference) => {
 
         if (conference && !previousConference) {
-            conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, ({ rooms, roomCounter }: {
+            conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, (_params: {
                 roomCounter: number; rooms: IRooms;
             }) => {
                 const { availableToSetup } = getState()['features/breakout-room-presetup'];

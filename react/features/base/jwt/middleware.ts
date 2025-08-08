@@ -78,7 +78,7 @@ MiddlewareRegistry.register(store => next => action => {
 function _overwriteLocalParticipant(
         { dispatch, getState }: IStore,
         { avatarURL, email, id: jwtId, name, features, iDigestId }:
-        { avatarURL?: string; email?: string; features?: any; id?: string; name?: string; }) {
+        { avatarURL?: string; email?: string; features?: any; iDigestId?: string; id?: string; name?: string; }) {
     let localParticipant;
 
     if ((avatarURL || email || name || features) && (localParticipant = getLocalParticipant(getState))) {

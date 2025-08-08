@@ -7,41 +7,11 @@ import { toState } from '../base/redux/functions';
 import { getRoomsInfo } from '../breakout-rooms/functions';
 import { IRoomInfo } from '../breakout-rooms/types';
 
-import { updatePresetBreakoutRoom } from './actions';
 import { FEATURE_KEY } from './constants';
-import { IBreakoutPayload, IMessageData } from './types';
+import { IBreakoutPayload } from './types';
 
 export const isEnablePreBreakout = (search = location.search) => {
     return search.includes('pre-breakout=1') || search.includes('pre-breakout');
-};
-
-export const getBreakoutConfig = () => {
-    window.opener.postMessage({ type: 'Request-MeetingBreakoutRoomParams' }, '*');
-    let messageListener: ((event: MessageEvent<IMessageData<IBreakoutPayload>>) => void) | undefined = async (
-            event: MessageEvent<IMessageData>
-    ) => {
-        const { type: msgType, payload } = event.data ?? {};
-
-        if (msgType === 'Response-MeetingBreakoutRoomParams') {
-            console.log('[GTS-PBR] getBreakoutConfig data', payload);
-
-            updatePresetBreakoutRoom(payload);
-
-            event.source?.postMessage({ type: 'Received-MeetingBreakoutRoomParams' }, { targetOrigin: event.origin });
-        }
-    };
-
-    window.addEventListener('message', messageListener);
-
-    const clean = () => {
-        if (!messageListener) {
-            return;
-        }
-        window.removeEventListener('message', messageListener);
-        messageListener = undefined;
-    };
-
-    return { clean };
 };
 
 export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {

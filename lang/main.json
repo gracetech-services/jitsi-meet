@@ -80,14 +80,6 @@
         "showParticipantList": "Show participant list",
         "title": "Breakout Rooms"
     },
-    "presetBreakoutRooms": {
-        "actions": {
-            "load": "Load preset breakout room"
-        },
-        "confirm": {
-            "prompt": "Using pre-breakout-room will completely overwrite the current grouping scheme. Please confirm?"
-        }
-    },
     "calendarSync": {
         "addMeetingURL": "Add a meeting link",
         "confirmAddLink": "Do you want to add a Jitsi link to this event?",
@@ -1070,6 +1062,14 @@
         "invited": "Invited",
         "rejected": "Rejected",
         "ringing": "Ringing…"
+    },
+    "presetBreakoutRooms": {
+        "actions": {
+            "load": "Load preset breakout room"
+        },
+        "confirm": {
+            "prompt": "Using pre-breakout-room will completely overwrite the current grouping scheme. Please confirm?"
+        }
     },
     "profile": {
         "avatar": "avatar",

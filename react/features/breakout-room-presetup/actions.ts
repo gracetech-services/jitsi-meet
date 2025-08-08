@@ -27,9 +27,7 @@ export function updatePresetBreakoutRoom(data: IBreakoutPayload) {
 export function retrievePresetBreakoutRoom() {
     return (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
         window.opener.postMessage({ type: 'Request-MeetingBreakoutRoomParams' }, '*');
-        let messageListener: ((event: MessageEvent<IMessageData<IBreakoutPayload>>) => void) | undefined = async (
-                event: MessageEvent<IMessageData>
-        ) => {
+        let messageListener: ((event: MessageEvent<IMessageData<IBreakoutPayload>>) => void) | undefined = event => {
             const { type: msgType, payload } = event.data ?? {};
 
             if (msgType === 'Response-MeetingBreakoutRoomParams') {
@@ -40,7 +38,7 @@ export function retrievePresetBreakoutRoom() {
                     payload: payload
                 });
 
-                event.source?.postMessage({ type: 'Received-MeetingBreakoutRoomParams' }, { targetOrigin: event.origin });
+                (event.source as Window)?.postMessage({ type: 'Received-MeetingBreakoutRoomParams' }, event.origin);
 
                 dispatch({
                     type: _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER
