@@ -170,7 +170,7 @@ export function executeBreakoutRoom() {
                 return result;
             }
 
-            return [...result, ...map(room.participants, participant => participant)];
+            return [ ...result, ...map(room.participants, participant => participant) ];
         }, []);
         const mainRoom = getMainRoom(getState);
 
