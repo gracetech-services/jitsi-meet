@@ -55,7 +55,7 @@ config.channelLastN = 4; //TODO??
 config.startLastN = 0;
 
 config.welcomePage = { ...config.welcomePage, 
-    customUrl: '' // '/fishmeet-Welcome.html'
+    customUrl: '' // '/fishmeet/fishmeet-Welcome.html'
 };
     // Enables forced reload of the client when the call is migrated as a result of
     // the bridge going down.
@@ -164,7 +164,8 @@ config.feedbackPercentage = 100; // means 100%, it could be 0. ???? where is the
 config.disableThirdPartyRequests = true;
 
     // Application logo url
-config.defaultLogoUrl = 'images/watermark.svg';
+//config.defaultLogoUrl = 'images/watermark.svg';
+config.defaultLogoUrl = 'fishmeet.png';
 
     // Default language for the user interface. Cannot be overwritten.
     // DEPRECATED! Use the `lang` iframe option directly instead.
@@ -727,7 +728,7 @@ interfaceConfig.VIDEO_QUALITY_LABEL_DISABLED = true; //: false,
     /**
      * Hide the logo on the deep linking pages.
      */
-    // HIDE_DEEP_LINKING_LOGO: false,
+interfaceConfig.HIDE_DEEP_LINKING_LOGO = true;
 
     /**
      * Specify the Android app package name.
@@ -751,7 +752,8 @@ interfaceConfig.VIDEO_QUALITY_LABEL_DISABLED = true; //: false,
     // DEFAULT_LOCAL_DISPLAY_NAME: 'me',
 
     // Please use defaultLogoUrl from config.js
-    // DEFAULT_LOGO_URL: 'images/watermark.svg',
+    //DEFAULT_LOGO_URL: 'images/watermark.svg',
+interfaceConfig.DEFAULT_LOGO_URL = 'fishmeet.png';
 
     // Please use defaultRemoteDisplayName from config.js
     // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
