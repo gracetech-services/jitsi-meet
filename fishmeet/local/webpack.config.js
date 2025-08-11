@@ -11,7 +11,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
  * The URL of the Jitsi Meet deployment to be proxy to in the context of
  * development with webpack-dev-server.
  */
-const devServerProxyTarget //= 'https://meet.fishmeet.online';
+const devServerProxyTarget // = 'https://meet.fishmeet.online';
     = process.env.WEBPACK_DEV_SERVER_PROXY_TARGET || 'https://alpha.jitsi.net';
 
 /**
@@ -67,18 +67,21 @@ function devServerProxyBypass({ path }) {
     let tpath = path;
 
     // Serve the main HTML page and config.js locally
-    if (['/interface_config.js', '/index.html', '/config.js', '/'].indexOf(tpath) !== -1) {
+    if ([ '/interface_config.js', '/index.html', '/config.js', '/' ].indexOf(tpath) !== -1) {
         console.log('GT: Serving main HTML page locally:', tpath);
+
         return tpath;
     }
     if (tpath.startsWith('/fishmeet')) {
         console.log('GT: Serving main HTML page locally:', tpath);
+
         return tpath;
     }
 
     if (tpath.startsWith('/v1/_cdn/')) {
         // The CDN is not available in the dev server, so we need to bypass it.
         tpath = tpath.replace(/\/v1\/_cdn\/[^/]+\//, '/');
+
         return tpath;
     }
 
@@ -103,6 +106,7 @@ function devServerProxyBypass({ path }) {
     }
 
     console.log('Serving meeting URL locally:', tpath);
+
     return '/index.html'; // Serve the main index.html for all meeting URLs
 }
 
