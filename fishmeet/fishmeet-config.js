@@ -4,6 +4,8 @@ console.log("GT: loading fishmeet-config.js");
 
 var config;
 
+config.bosh = 'https://m.fishmeet.top/' + 'http-bind';
+config.websocket = 'wss://m.fishmeet.top/' + 'xmpp-websocket';
 /* -- this is for localhost -- later
 config.hosts = {
     ...config.hosts, 
@@ -52,10 +54,10 @@ config.startWithVideoMuted = true;
 //==
 //==
 config.channelLastN = 4; //TODO??
-config.startLastN = 0;
+config.startLastN = 2;
 
 config.welcomePage = { ...config.welcomePage, 
-    customUrl: '' // '/fishmeet/fishmeet-Welcome.html'
+    customUrl: 'fishmeet-Welcome.html'
 };
     // Enables forced reload of the client when the call is migrated as a result of
     // the bridge going down.
