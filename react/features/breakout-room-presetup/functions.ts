@@ -31,7 +31,6 @@ export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
     return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom;
 };
 
-
 export const getPresetupBreakoutRoomsConfig = (stateful: IStateful) => {
     const state = toState(stateful);
     const { presetupBreakoutRooms = {} } = state['features/base/config'];

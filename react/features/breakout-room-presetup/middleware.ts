@@ -4,11 +4,10 @@ import { JitsiConferenceEvents } from '../base/lib-jitsi-meet';
 import MiddlewareRegistry from '../base/redux/MiddlewareRegistry';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
 import logger from '../breakout-rooms/logger';
-import { IRooms } from '../breakout-rooms/types';
+import type { IRooms } from '../breakout-rooms/types';
 
 import { cleanListener, enablePresetFeature, executeBreakoutRoom, retrievePresetBreakoutRoom } from './actions';
 import { getAllParticipants, isEnablePreBreakout } from './functions';
-
 
 MiddlewareRegistry.register(store => next => action => {
     const { dispatch, getState } = store;
@@ -47,13 +46,16 @@ StateListenerRegistry.register(
     (conference, { dispatch, getState }, previousConference) => {
 
         if (conference && !previousConference) {
-            conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, (_params: {
+            conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, ({ roomCounter, rooms }: {
                 roomCounter: number; rooms: IRooms;
             }) => {
-                const { availableToSetup } = getState()['features/breakout-room-presetup'];
+                const { availableToSetup, availableToAutoSetup } = getState()['features/breakout-room-presetup'];
 
-                logger.debug('[GTS] Room list updated', {
-                    availableToSetup
+                logger.debug('[GTS-StateListenerRegistry] Room list updated', {
+                    availableToSetup,
+                    availableToAutoSetup,
+                    roomCounter,
+                    rooms
                 });
 
                 if (availableToSetup) {

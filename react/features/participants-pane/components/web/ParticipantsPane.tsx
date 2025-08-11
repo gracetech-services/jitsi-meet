@@ -13,6 +13,8 @@ import Button from '../../../base/ui/components/web/Button';
 import ClickableIcon from '../../../base/ui/components/web/ClickableIcon';
 import { BUTTON_TYPES } from '../../../base/ui/constants.web';
 import { findAncestorByClass } from '../../../base/ui/functions.web';
+import AutoBreakoutRoomButton from '../../../breakout-room-autosetup/components/AutoBreakoutRoomButton';
+import { isAutoBreakoutRoomButtonVisible } from '../../../breakout-room-autosetup/functions';
 import LoadPresetBreakoutRoomButton from '../../../breakout-room-presetup/components/LoadPresetBreakoutRoomButton';
 import { isPresetBreakoutRoomButtonVisible } from '../../../breakout-room-presetup/functions';
 import { isAddBreakoutRoomButtonVisible } from '../../../breakout-rooms/functions';
@@ -137,6 +139,7 @@ const ParticipantsPane = () => {
     const showCurrentVisitorsList = useSelector(shouldDisplayCurrentVisitorsList);
     const showAddRoomButton = useSelector(isAddBreakoutRoomButtonVisible);
     const showLoadBreakoutRoomButton = useSelector(isPresetBreakoutRoomButtonVisible);
+    const showAutoBreakoutRoomButton = useSelector(isAutoBreakoutRoomButtonVisible);
     const showFooter = useSelector(isLocalParticipantModerator);
     const showMuteAllButton = useSelector(isMuteAllVisible);
     const showMoreActionsButton = useSelector(isMoreActionsVisible);
@@ -200,6 +203,7 @@ const ParticipantsPane = () => {
                     setSearchString = { setSearchString } />
                 {isBreakoutRoomsSupported && <RoomList searchString = { searchString } />}
                 {showLoadBreakoutRoomButton && <LoadPresetBreakoutRoomButton />}
+                {showAutoBreakoutRoomButton && <AutoBreakoutRoomButton />}
                 {showAddRoomButton && <AddBreakoutRoomButton />}
                 {showCurrentVisitorsList && <CurrentVisitorsList searchString = { searchString } />}
             </div>

@@ -42,6 +42,11 @@
     "audioOnly": {
         "audioOnly": "Low bandwidth"
     },
+    "autoBreakoutRooms": {
+        "actions": {
+            "button": "Automatic room discussion"
+        }
+    },
     "bandwidthSettings": {
         "assumedBandwidthBps": "e.g. 10000000 for 10 Mbps",
         "assumedBandwidthBpsWarning": "Higher values might cause network issues.",
@@ -76,6 +81,9 @@
             "joined": "Joining the \"{{name}}\" breakout room",
             "joinedMainRoom": "Joining the main room",
             "joinedTitle": "Breakout Rooms"
+        },
+        "prompts": {
+            "EnterTotalRoom": "Enter total number of rooms for breakout"
         },
         "showParticipantList": "Show participant list",
         "title": "Breakout Rooms"

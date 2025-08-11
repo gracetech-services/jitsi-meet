@@ -42,6 +42,11 @@
     "audioOnly": {
         "audioOnly": "低頻寬"
     },
+    "autoBreakoutRooms": {
+        "actions": {
+            "button": "自動分組討論"
+        }
+    },
     "bandwidthSettings": {
         "assumedBandwidthBps": "例如，10 Mbps 的值為 10000000",
         "assumedBandwidthBpsWarning": "較高的數值可能導致網路問題。",
@@ -76,6 +81,9 @@
             "joined": "正在加入「{{name}}」分組討論室",
             "joinedMainRoom": "正在加入主會議室",
             "joinedTitle": "分組討論室"
+        },
+        "prompts": {
+            "EnterTotalRoom": "請輸入分組討論的房間總數"
         },
         "showParticipantList": "顯示與會者列表",
         "title": "分組討論室"

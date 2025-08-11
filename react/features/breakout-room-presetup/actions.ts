@@ -138,10 +138,7 @@ export function executeBreakoutRoom() {
                             return `${userId}` === `${item.userId}`;
                         }
 
-                        if (p.iDigestId) {
-                            return `${p.iDigestId}` === `${item.userId}`;
-                        }
-
+                        // Use name compare as a fallback
                         return (p.name ?? p.displayName) === item.name;
                     });
 
