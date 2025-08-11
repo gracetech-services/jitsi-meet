@@ -140,7 +140,7 @@ export function executeBreakoutRoom() {
                     const participant = find(allParticipants, p => {
                         // Email format: userid@idigest.app
                         if (p.email) {
-                            const [userId] = p.email.split('@');
+                            const [ userId ] = p.email.split('@');
 
                             return `${userId}` === `${item.userId}`;
                         }
@@ -177,7 +177,7 @@ export function executeBreakoutRoom() {
                 return result;
             }
 
-            return [...result, ...map(room.participants, participant => participant)];
+            return [ ...result, ...map(room.participants, participant => participant) ];
         }, []);
         const mainRoom = getMainRoom(getState);
 
