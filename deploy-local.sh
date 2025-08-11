@@ -1,2 +1,4 @@
 
-cp fishmeet/* libs
+cp fishmeet/*.js fishmeet/*.html fishmeet/*.png libs
+
+
