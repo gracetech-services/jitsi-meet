@@ -2,7 +2,6 @@ import ReducerRegistry from '../base/redux/ReducerRegistry';
 import logger from '../breakout-rooms/logger';
 
 import {
-    _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS,
     _AVAILABLE_TO_SET_BREAKOUT_ROOMS,
     _ENABlE_PRESET_BREAKOUT_ROOMS,
     _PRESET_BREAKOUT_ROOMS_ADD_LISTENER,
@@ -79,12 +78,6 @@ ReducerRegistry.register<IPresetBreakoutRoomsState>(FEATURE_KEY, (state = DEFAUL
         return {
             ...state,
             availableToSetup: payload
-        };
-
-    case _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS:
-        return {
-            ...state,
-            availableToAutoSetup: payload
         };
     }
 

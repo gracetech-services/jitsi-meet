@@ -641,9 +641,6 @@ function _participantJoined({ participant }: { participant: IParticipant; }) {
         id || (id = LOCAL_PARTICIPANT_DEFAULT_ID);
     }
 
-    // parse then userId from Idigest Name, the format is 'userName[userId]'
-    const [ _, userName, userId ] = name?.match(/([^\[]+)\[([^\]]+)\]/) ?? [];
-
     return {
         avatarURL,
         botType,
@@ -652,12 +649,11 @@ function _participantJoined({ participant }: { participant: IParticipant; }) {
         email,
         fakeParticipant,
         id,
-        iDigestId: userId,
         isPromoted,
         isReplacing,
         loadableAvatarUrl,
         local: local || false,
-        name: userName || name,
+        name,
         pinned: pinned || false,
         presence,
         role: role || PARTICIPANT_ROLE.NONE,

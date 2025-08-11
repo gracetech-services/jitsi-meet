@@ -4,11 +4,10 @@ import { JitsiConferenceEvents } from '../base/lib-jitsi-meet';
 import MiddlewareRegistry from '../base/redux/MiddlewareRegistry';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
 import logger from '../breakout-rooms/logger';
-import { IRooms } from '../breakout-rooms/types';
+import type { IRooms } from '../breakout-rooms/types';
 
-import { cleanListener, enablePresetFeature, executeAutoBreakoutRoom, executeBreakoutRoom, retrievePresetBreakoutRoom } from './actions';
+import { cleanListener, enablePresetFeature, executeBreakoutRoom, retrievePresetBreakoutRoom } from './actions';
 import { getAllParticipants, isEnablePreBreakout } from './functions';
-
 
 MiddlewareRegistry.register(store => next => action => {
     const { dispatch, getState } = store;
@@ -61,10 +60,6 @@ StateListenerRegistry.register(
 
                 if (availableToSetup) {
                     dispatch(executeBreakoutRoom());
-                }
-
-                if (availableToAutoSetup) {
-                    dispatch(executeAutoBreakoutRoom());
                 }
             });
         }

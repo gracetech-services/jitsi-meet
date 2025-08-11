@@ -2,12 +2,12 @@ import { filter, find, forEach, isEmpty, map, reduce } from 'lodash-es';
 
 import { IStore } from '../app/types';
 import { IParticipant } from '../base/participants/types';
-import { autoAssignToBreakoutRooms, closeBreakoutRoom, createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
+import { createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
 import { getBreakoutRooms, getMainRoom } from '../breakout-rooms/functions';
 import logger from '../breakout-rooms/logger';
 import type { IRoom, IRoomInfoParticipant, IRooms } from '../breakout-rooms/types';
 
-import { _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS, _AVAILABLE_TO_SET_BREAKOUT_ROOMS, _ENABlE_PRESET_BREAKOUT_ROOMS, _PRESET_BREAKOUT_ROOMS_ADD_LISTENER, _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER, _UPDATE_PRESET_BREAKOUT_ROOMS } from './actionTypes';
+import { _AVAILABLE_TO_SET_BREAKOUT_ROOMS, _ENABlE_PRESET_BREAKOUT_ROOMS, _PRESET_BREAKOUT_ROOMS_ADD_LISTENER, _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER, _UPDATE_PRESET_BREAKOUT_ROOMS } from './actionTypes';
 import { getAllParticipants, getPresetBreakoutRoomData } from './functions';
 import type { IBreakoutPayload, IMessageData } from './types';
 
@@ -76,13 +76,6 @@ export function availableToSetup(value: boolean) {
     };
 }
 
-export function availableAutoToSetup(value: boolean) {
-    return {
-        type: _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS,
-        payload: value
-    };
-}
-
 export function prepareBreakoutRoom() {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const { meetingData } = getPresetBreakoutRoomData(getState);
@@ -145,10 +138,7 @@ export function executeBreakoutRoom() {
                             return `${userId}` === `${item.userId}`;
                         }
 
-                        if (p.iDigestId) {
-                            return `${p.iDigestId}` === `${item.userId}`;
-                        }
-
+                        // Use name compare as a fallback
                         return (p.name ?? p.displayName) === item.name;
                     });
 
@@ -191,45 +181,5 @@ export function executeBreakoutRoom() {
         await Promise.all(map(toCleanSubRooms, room => dispatch(removeBreakoutRoom(room.jid))));
 
         logger.debug('[GTS-PBR] removeBreakoutRoom completed：', toCleanSubRooms.map(room => room.name));
-    };
-}
-
-export function removeAllRoomAndAdd(firstTime: boolean, nAdd: number) {
-    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
-        const rooms = getBreakoutRooms(getState);
-        const roomArr = Object.entries(rooms).filter(room => !room[1].isMainRoom);
-        const nRoom = roomArr.length;
-
-        const rooms2Close = roomArr.filter(room => Object.keys(room[1].participants).length > 0);
-        const n2Close = rooms2Close.length;
-
-        if (n2Close === 0) {
-            roomArr.forEach(room => dispatch(removeBreakoutRoom(room[1].jid)));
-            if (nAdd > 0) {
-                if (nRoom === 0) {
-                    while (nAdd > 0) {
-                        dispatch(createBreakoutRoom());
-                        --nAdd;
-                    }
-                } else {
-                    setTimeout(() => dispatch(removeAllRoomAndAdd(false, nAdd)), 100);
-                }
-            }
-        } else {
-            if (firstTime) {
-                rooms2Close.forEach(room => dispatch(closeBreakoutRoom(room[1].id)));
-            }
-            setTimeout(() => dispatch(removeAllRoomAndAdd(false, nAdd)), 100);
-        }
-    };
-}
-
-export function executeAutoBreakoutRoom() {
-    return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
-        dispatch(availableAutoToSetup(false));
-
-        // even if waiting for the middleware callback, it still takes some time to create rooms
-        await new Promise(resolve => setTimeout(resolve));
-        dispatch(autoAssignToBreakoutRooms());
     };
 }
