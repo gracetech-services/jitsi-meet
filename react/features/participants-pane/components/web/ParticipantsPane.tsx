@@ -14,7 +14,8 @@ import ClickableIcon from '../../../base/ui/components/web/ClickableIcon';
 import { BUTTON_TYPES } from '../../../base/ui/constants.web';
 import { findAncestorByClass } from '../../../base/ui/functions.web';
 import AutoBreakoutRoomButton from '../../../breakout-room-autosetup/components/AutoBreakoutRoomButton';
-import { isAutoBreakoutRoomButtonVisible } from '../../../breakout-room-autosetup/functions';
+import CloseAllBreakoutRoomButton from '../../../breakout-room-autosetup/components/CloseAllBreakoutRoomButton';
+import { isAutoBreakoutRoomButtonVisible, isCloseAllBreakoutRoomVisible } from '../../../breakout-room-autosetup/functions';
 import LoadPresetBreakoutRoomButton from '../../../breakout-room-presetup/components/LoadPresetBreakoutRoomButton';
 import { isPresetBreakoutRoomButtonVisible } from '../../../breakout-room-presetup/functions';
 import { isAddBreakoutRoomButtonVisible } from '../../../breakout-rooms/functions';
@@ -140,6 +141,7 @@ const ParticipantsPane = () => {
     const showAddRoomButton = useSelector(isAddBreakoutRoomButtonVisible);
     const showLoadBreakoutRoomButton = useSelector(isPresetBreakoutRoomButtonVisible);
     const showAutoBreakoutRoomButton = useSelector(isAutoBreakoutRoomButtonVisible);
+    const showCloseAllBreakoutRoomVisible = useSelector(isCloseAllBreakoutRoomVisible);
     const showFooter = useSelector(isLocalParticipantModerator);
     const showMuteAllButton = useSelector(isMuteAllVisible);
     const showMoreActionsButton = useSelector(isMoreActionsVisible);
@@ -204,6 +206,7 @@ const ParticipantsPane = () => {
                 {isBreakoutRoomsSupported && <RoomList searchString = { searchString } />}
                 {showLoadBreakoutRoomButton && <LoadPresetBreakoutRoomButton />}
                 {showAutoBreakoutRoomButton && <AutoBreakoutRoomButton />}
+                {showCloseAllBreakoutRoomVisible && <CloseAllBreakoutRoomButton />}
                 {showAddRoomButton && <AddBreakoutRoomButton />}
                 {showCurrentVisitorsList && <CurrentVisitorsList searchString = { searchString } />}
             </div>

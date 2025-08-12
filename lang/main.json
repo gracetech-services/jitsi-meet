@@ -44,7 +44,11 @@
     },
     "autoBreakoutRooms": {
         "actions": {
-            "button": "Automatic room discussion"
+            "button": "Automatic room discussion",
+            "closeAllButton": "Close all discussion rooms"
+        },
+        "confirm": {
+            "closeAll": "Close all discussion rooms. All participants will be moved to the main room. Please confirm the operation?"
         }
     },
     "bandwidthSettings": {

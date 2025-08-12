@@ -44,7 +44,11 @@
     },
     "autoBreakoutRooms": {
         "actions": {
-            "button": "自動分組討論"
+            "button": "自動分組討論",
+            "closeAllButton": "關閉所有討論組"
+        },
+        "confirm": {
+            "closeAll": "關閉所有討論組，全部人員將被移至主會議室，請確認操作？"
         }
     },
     "bandwidthSettings": {

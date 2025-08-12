@@ -27,7 +27,6 @@ import {
     isRemoteScreenshareParticipant,
     isScreenShareParticipant
 } from './functions';
-import logger from './logger';
 import { FakeParticipant, ILocalParticipant, IParticipant, ISourceInfo } from './types';
 
 /**
@@ -277,8 +276,6 @@ ReducerRegistry.register<IParticipantsState>('features/base/participants',
 
     case PARTICIPANT_JOINED: {
         const participant = _participantJoined(action);
-
-        logger.debug('[GTS] PARTICIPANT_JOINED', { participant });
         const {
             fakeParticipant,
             id,

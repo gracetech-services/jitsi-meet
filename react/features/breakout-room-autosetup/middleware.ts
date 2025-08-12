@@ -1,8 +1,9 @@
 import { JitsiConferenceEvents } from '../base/lib-jitsi-meet';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
+import logger from '../breakout-rooms/logger';
 import type { IRooms } from '../breakout-rooms/types';
 
-import { executeAutoBreakoutRoom } from './actions';
+import { executeAutoBreakoutRoom, executeRemoveAllRooms } from './actions';
 
 StateListenerRegistry.register(
     state => state['features/base/conference'].conference,
@@ -10,12 +11,21 @@ StateListenerRegistry.register(
 
         if (conference && !previousConference) {
             conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, (_params: {
-                roomCounter: number; rooms: IRooms;
+                rooms: IRooms;
             }) => {
-                const { availableToAutoSetup } = getState()['features/breakout-room-autosetup'];
+                const { availableToAutoSetup, availableToRemoveAllRooms } = getState()['features/breakout-room-autosetup'];
+
+                logger.debug('[GTS] StateListenerRegistry-autosetup Room Updated:', {
+                    availableToAutoSetup,
+                    availableToRemoveAllRooms,
+                });
 
                 if (availableToAutoSetup) {
                     dispatch(executeAutoBreakoutRoom());
+                }
+
+                if (availableToRemoveAllRooms) {
+                    dispatch(executeRemoveAllRooms());
                 }
             });
         }

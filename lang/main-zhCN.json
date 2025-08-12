@@ -44,7 +44,11 @@
     },
     "autoBreakoutRooms": {
         "actions": {
-            "button": "自动分组讨论"
+            "button": "自动分组讨论",
+            "closeAllButton": "关闭所有讨论组"
+        },
+        "confirm": {
+            "closeAll": "关闭所有讨论组，全部人员将被移至主会议室，请确认操作？"
         }
     },
     "bandwidthSettings": {

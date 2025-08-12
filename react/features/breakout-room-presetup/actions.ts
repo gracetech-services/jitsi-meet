@@ -5,10 +5,11 @@ import { IParticipant } from '../base/participants/types';
 import { createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
 import { getBreakoutRooms, getMainRoom } from '../breakout-rooms/functions';
 import logger from '../breakout-rooms/logger';
-import type { IRoom, IRoomInfoParticipant, IRooms } from '../breakout-rooms/types';
+import type { IRoom, IRoomInfoParticipant } from '../breakout-rooms/types';
 
 import { _AVAILABLE_TO_SET_BREAKOUT_ROOMS, _ENABlE_PRESET_BREAKOUT_ROOMS, _PRESET_BREAKOUT_ROOMS_ADD_LISTENER, _PRESET_BREAKOUT_ROOMS_CLEAN_LISTENER, _UPDATE_PRESET_BREAKOUT_ROOMS } from './actionTypes';
 import { getAllParticipants, getPresetBreakoutRoomData } from './functions';
+import type { IPresetBreakoutRoomsState } from './reducer';
 import type { IBreakoutPayload, IMessageData } from './types';
 
 export function enablePresetFeature(value: boolean) {
@@ -69,10 +70,46 @@ export function cleanListener() {
     };
 }
 
-export function availableToSetup(value: boolean) {
+export function availableToSetup(value: IPresetBreakoutRoomsState['availableToSetup']) {
     return {
         type: _AVAILABLE_TO_SET_BREAKOUT_ROOMS,
         payload: value
+    };
+}
+
+export function triggerBreakoutRoom() {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const { meetingData } = getPresetBreakoutRoomData(getState);
+        const presetSubRoomNameList = filter(meetingData, room => !room.isMainRoom).map(room => room.name as string);
+
+        logger.debug('[GTS-PBR] triggerBreakoutRoom', { meetingData });
+
+        // 1、Send participants who are not in the preset rooms back to the main room.
+        const toCleanSubRooms = filter(getBreakoutRooms(getState), room => !room.isMainRoom).filter(room => !presetSubRoomNameList.includes(room.name));
+
+        const mainRoom = getMainRoom(getState);
+
+        let toSendMainParticipants;
+
+        if (mainRoom) {
+            toSendMainParticipants = reduce(toCleanSubRooms, (result: Array<Pick<IRoomInfoParticipant, 'displayName' | 'jid'>>, room) => ([ ...result, ...map(room.participants, participant => participant) ]), []);
+
+            await toSendMainParticipants.map(p => {
+                logger.debug('[GTS] triggerBreakoutRoom: sending participant to main room', p);
+
+                return dispatch(sendParticipantToRoom(p.jid, mainRoom.id));
+            });
+        }
+
+        if (isEmpty(toSendMainParticipants)) {
+            dispatch(prepareBreakoutRoom());
+        } else {
+            dispatch(availableToSetup({
+                participantsReady: true,
+                cleanRoomReady: true,
+                createRoomReady: false,
+            }));
+        }
     };
 }
 
@@ -81,25 +118,26 @@ export function prepareBreakoutRoom() {
         const { meetingData } = getPresetBreakoutRoomData(getState);
         const presetSubRoomNameList = filter(meetingData, room => !room.isMainRoom).map(room => room.name as string);
 
-        logger.debug('[GTS-PBR] prepareBreakoutRoom', { meetingData });
-
-        // 1、Filter out the rooms that need to be newly created according to the current grouping situation
+        // 2、Filter out the rooms that need to be newly created according to the current grouping situation
         const currentSubRooms = filter(getBreakoutRooms(getState), room => !room.isMainRoom);
-
         const currentSubRoomNameList = currentSubRooms.map(room => room.name);
         const toCreateSubRoomNameList = presetSubRoomNameList.filter(name => !currentSubRoomNameList.includes(name));
 
         await Promise.all(toCreateSubRoomNameList.map(name => dispatch(createBreakoutRoom(name))));
 
-        logger.debug('[GTS-PBR] createBreakoutRooms ALL completed', {
+        logger.debug('[GTS-PBR] prepareBreakoutRoom ALL completed', {
             toCreateSubRooms: toCreateSubRoomNameList
         });
 
-        // 2、Wait for the middleware callback and move the people to the sub-room, that is, executeBreakoutRoom()
+        // 3、Wait for the middleware callback and move the people to the sub-room, that is, executeBreakoutRoom()
         if (isEmpty(toCreateSubRoomNameList)) {
             dispatch(executeBreakoutRoom());
         } else {
-            dispatch(availableToSetup(true));
+            dispatch(availableToSetup({
+                participantsReady: true,
+                cleanRoomReady: true,
+                createRoomReady: true,
+            }));
         }
     };
 }
@@ -108,16 +146,20 @@ export function executeBreakoutRoom() {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const { meetingData } = getPresetBreakoutRoomData(getState);
 
-        dispatch(availableToSetup(false));
+        dispatch(availableToSetup({
+            participantsReady: false,
+            cleanRoomReady: false,
+            createRoomReady: false,
+        }));
 
-        // even if waiting for the middleware callback, it still takes some time to obtain the current room information.
+        // Even if waiting for the middleware callback, it still takes some time to obtain the current room information.
         await new Promise(resolve => setTimeout(resolve));
         const currentSubRooms = getBreakoutRooms(getState);
         const allParticipants = getAllParticipants(getState);
 
         logger.debug('[GTS-PBR] executeSetBreakoutRoom', { currentSubRooms, allParticipants, meetingData });
 
-        // 1、According to the pre-breakout data, send participant to the corresponding room.
+        // 4、According to the pre-breakout data, send participant to the corresponding room.
         Promise.all(
             reduce(meetingData, (result: Array<{
                 participant: IParticipant;
@@ -152,30 +194,14 @@ export function executeBreakoutRoom() {
 
                 return result;
             }, []).map(({ room, participant }) => {
-                logger.debug(`[GTS-PBR] send [${participant.name ?? participant.displayName}]  To Room-{${room.name}}`, { participant, room });
+                logger.debug(`[GTS-PBR] send [${participant.name ?? participant.displayName}] To Room-{${room.name}}`, { participant, room });
 
                 return dispatch(sendParticipantToRoom(participant.id, room.id));
             })
         );
 
-        // 2、 Send participants who are not in the preset-data back to the main room.
-        await new Promise(resolve => setTimeout(resolve));
-        const breakoutRooms = getBreakoutRooms(getState);
+        // 5、Remove rooms that are not in the preset data
         const presetSubRoomNameList = filter(meetingData, room => !room.isMainRoom).map(room => room.name as string);
-        const toSendMainParticipants = reduce<IRooms, Array<Pick<IRoomInfoParticipant, 'displayName' | 'jid' | 'role'>>>(breakoutRooms, (result, room) => {
-            if (room.isMainRoom || presetSubRoomNameList.includes(room.name)) {
-                return result;
-            }
-
-            return [ ...result, ...map(room.participants, participant => participant) ];
-        }, []);
-        const mainRoom = getMainRoom(getState);
-
-        await Promise.all(toSendMainParticipants.map(p => dispatch(sendParticipantToRoom(p.jid, mainRoom!.id))));
-        logger.debug('[GTS-PBR] toSendMainParticipants', { toSendMainParticipants });
-
-        // 3、Clean the rooms that are not in the pre-breakout data
-        await new Promise(resolve => setTimeout(resolve, 1000));
         const toCleanSubRooms = filter(getBreakoutRooms(getState), room => !room.isMainRoom).filter(room => !presetSubRoomNameList.includes(room.name));
 
         await Promise.all(map(toCleanSubRooms, room => dispatch(removeBreakoutRoom(room.jid))));

@@ -13,7 +13,7 @@ import { getBreakoutRooms, getRoomsInfo } from '../../breakout-rooms/functions';
 import logger from '../../breakout-rooms/logger';
 import { getSortedParticipantIds } from '../../participants-pane/functions';
 import { getVisitorsList } from '../../visitors/functions';
-import { prepareBreakoutRoom } from '../actions';
+import { triggerBreakoutRoom } from '../actions';
 import { getAllParticipants, getPresetBreakoutRoomData } from '../functions';
 
 const useStyles = makeStyles()(theme => {
@@ -39,7 +39,7 @@ export const LoadPresetBreakoutRoomButton = () => {
     const allParticipants = useSelector((state: IReduxState) => getAllParticipants(state));
 
     const onAdd = useCallback(() => {
-        if (availableToSetup) {
+        if (Object.values(availableToSetup).some(value => !!value)) {
             return;
         }
 
@@ -63,10 +63,11 @@ export const LoadPresetBreakoutRoomButton = () => {
             }
         }
 
-        dispatch(prepareBreakoutRoom());
+        dispatch(triggerBreakoutRoom());
     }, [
-        presetBreakoutRoomData,
+        availableToSetup,
         rooms,
+        presetBreakoutRoomData,
         roomsInfo,
         visitorsList,
         sortedParticipantIds,

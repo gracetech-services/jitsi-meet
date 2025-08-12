@@ -19,13 +19,19 @@ const DEFAULT_STATE = {
         meetingData: {}
     },
     msgListener: [],
-    availableToSetup: false,
-    availableToAutoSetup: false
+    availableToSetup: {
+        cleanRoomReady: false,
+        createRoomReady: false,
+        participantsReady: false,
+    },
 };
 
 export type IPresetBreakoutRoomsState = {
-    availableToAutoSetup: boolean;
-    availableToSetup: boolean;
+    availableToSetup: {
+        cleanRoomReady: boolean;
+        createRoomReady: boolean;
+        participantsReady: boolean;
+    };
     enablePresetBreakoutRoom: boolean;
     msgListener: Array<(params?: unknown) => void>;
     presetRoomData: IBreakoutPayload;

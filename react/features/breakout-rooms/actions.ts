@@ -77,9 +77,12 @@ export function closeBreakoutRoom(roomId: string) {
         if (room && mainRoom) {
             const prList: Array<Promise<any>> = [];
 
-            Object.values(room.participants).forEach(p => {
-                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room', p);
-                prList.push(dispatch(sendParticipantToRoom(p.jid, mainRoom.id)));
+            Object.values(room.participants).forEach(participant => {
+                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room', {
+                    participant,
+                    mainRoom
+                });
+                prList.push(dispatch(sendParticipantToRoom(participant.jid, mainRoom.id)));
             });
 
             // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
@@ -127,6 +130,8 @@ export function removeBreakoutRoom(breakoutRoomJid: string) {
         if (Object.keys(room.participants).length > 0) {
             await dispatch(closeBreakoutRoom(room.id));
         }
+
+        console.log('[GTS] getBreakoutRooms().removeBreakoutRoom: removing room', breakoutRoomJid);
 
         // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
         return getCurrentConference(getState)?.getBreakoutRooms()

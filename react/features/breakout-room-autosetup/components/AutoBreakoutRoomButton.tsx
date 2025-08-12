@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
 
 import { IReduxState } from '../../app/types';
+import { toState } from '../../base/redux/functions';
 import Button from '../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../base/ui/constants.web';
 import { autoAssignToBreakoutRooms, createBreakoutRoom } from '../../breakout-rooms/actions';
@@ -25,10 +26,14 @@ export const AutoBreakoutRoomButton = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const rooms = useSelector((state: IReduxState) => getBreakoutRooms(state));
+    const { availableToAutoSetup } = useSelector((state: IReduxState) => toState(state)['features/breakout-room-autosetup']);
 
     const onAutoDiscussClick = useCallback(async () => {
-        const subRoomsSize = size(filter(rooms, room => !room.isMainRoom));
+        if (availableToAutoSetup) {
+            return;
+        }
 
+        const subRoomsSize = size(filter(rooms, room => !room.isMainRoom));
         const input = prompt(t('breakoutRooms.prompts.EnterTotalRoom'), `${subRoomsSize}`) ?? '';
         const shouldAssignRoomCount = parseInt(input, 10);
 
@@ -54,6 +59,7 @@ export const AutoBreakoutRoomButton = () => {
         }
 
     }, [
+        availableToAutoSetup,
         dispatch,
         rooms,
     ]);
