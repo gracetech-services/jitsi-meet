@@ -153,7 +153,7 @@ export function executeBreakoutRoom() {
         }));
 
         // Even if waiting for the middleware callback, it still takes some time to obtain the current room information.
-        await new Promise(resolve => setTimeout(resolve));
+        await new Promise(r => setTimeout(r, 100));
         const currentSubRooms = getBreakoutRooms(getState);
         const allParticipants = getAllParticipants(getState);
 

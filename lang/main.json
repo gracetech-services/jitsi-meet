@@ -1080,7 +1080,7 @@
             "load": "Load preset breakout room"
         },
         "confirm": {
-            "prompt": "Using pre-breakout-room will completely overwrite the current grouping scheme. Please confirm?"
+            "prompt": "Using pre-setup will overwrite the current rooms. We need to close the existing rooms and then perform the pre-setup operation. Please confirm and continue?"
         }
     },
     "profile": {

@@ -12,11 +12,6 @@ export const isAutoBreakoutRoomButtonVisible = (stateful: IStateful) => {
     const isBreakoutRoomsSupported = conference?.getBreakoutRooms()?.isSupported();
     const { hideAutoAssignButton } = getBreakoutRoomsConfig(state);
 
-    0 && console.log('[GTS-PBR] isAutoBreakoutRoomButtonVisible', {
-        isLocalModerator,
-        isBreakoutRoomsSupported,
-    });
-
     return isLocalModerator && isBreakoutRoomsSupported && !hideAutoAssignButton;
 };
 

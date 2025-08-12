@@ -22,12 +22,6 @@ export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
 
     const { enablePresetBreakoutRoom } = state['features/breakout-room-presetup'] ?? {};
 
-    0 && console.log('[GTS-PBR] isPresetBreakoutRoomButtonVisible', {
-        isLocalModerator,
-        isBreakoutRoomsSupported,
-        enablePresetBreakoutRoom
-    });
-
     return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom;
 };
 

@@ -1,11 +1,12 @@
 import { isEmpty, map } from 'lodash-es';
 
 import { IStore } from '../app/types';
-import { autoAssignToBreakoutRooms, closeBreakoutRoom, createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
+import { autoAssignToBreakoutRooms, createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
 import { getBreakoutRooms, getMainRoom } from '../breakout-rooms/functions';
 import { IRoomInfoParticipant } from '../breakout-rooms/types';
 
-import { _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS, _AVAILABLE_REMOVE_ALL_BREAKOUT_ROOMS } from './actionTypes';
+import { _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS, _AVAILABLE_REMOVE_ALL_BREAKOUT_ROOMS, _AVAILABLE_REMOVE_ALL_BREAKOUT_ROOMS_AND_ADD } from './actionTypes';
+import { IAutosetupBreakoutRoomsState } from './reducer';
 
 export function availableAutoToSetup(value: boolean) {
     return {
@@ -21,17 +22,25 @@ export function availableRemoveAllRooms(value: boolean) {
     };
 }
 
+export function availableReassign(value: IAutosetupBreakoutRoomsState['availableToReassign']) {
+    return {
+        type: _AVAILABLE_REMOVE_ALL_BREAKOUT_ROOMS_AND_ADD,
+        payload: value
+    };
+}
+
 export function executeAutoBreakoutRoom() {
     return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
         dispatch(availableAutoToSetup(false));
 
         // even if waiting for the middleware callback, it still takes some time to create rooms
-        await new Promise(resolve => setTimeout(resolve));
+        await new Promise(r => setTimeout(r, 100));
         dispatch(autoAssignToBreakoutRooms());
     };
 }
 
-export function triggerRemoveAllRooms() {
+
+export function sendAllParticipantsToMainRoom() {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const mainRoom = getMainRoom(getState);
         const rooms = getBreakoutRooms(getState);
@@ -39,10 +48,25 @@ export function triggerRemoveAllRooms() {
 
         const toSendMainRoomParticipants = toCleanRooms.reduce<Array<Pick<IRoomInfoParticipant, 'jid'>>>((result, room) => ([ ...result, ...Object.values(room.participants) ]), []);
 
-        if (isEmpty(toSendMainRoomParticipants)) {
+        const isEmptyToSend = isEmpty(toSendMainRoomParticipants);
+
+        if (!isEmptyToSend) {
+            await toSendMainRoomParticipants.map(p => dispatch(sendParticipantToRoom(p.jid, mainRoom!.id)));
+        }
+
+        return {
+            isEmptyToSend
+        };
+    };
+}
+
+export function triggerRemoveAllRooms() {
+    return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
+        const { isEmptyToSend } = await dispatch(sendAllParticipantsToMainRoom());
+
+        if (isEmptyToSend) {
             dispatch(executeRemoveAllRooms());
         } else {
-            await toSendMainRoomParticipants.map(p => dispatch(sendParticipantToRoom(p.jid, mainRoom!.id)));
             dispatch(availableRemoveAllRooms(true));
         }
     };
@@ -55,36 +79,66 @@ export function executeRemoveAllRooms() {
         const rooms = getBreakoutRooms(getState);
         const toCleanRooms = map(rooms, room => room).filter(room => !room.isMainRoom);
 
-        toCleanRooms.forEach(room => dispatch(removeBreakoutRoom(room.jid)));
+        return Promise.all(toCleanRooms.map(room => dispatch(removeBreakoutRoom(room.jid))));
     };
 }
 
-export function removeAllRoomAndAdd(firstTime: boolean, nAdd: number) {
-    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
-        const rooms = getBreakoutRooms(getState);
-        const roomArr = Object.entries(rooms).filter(room => !room[1].isMainRoom);
-        const nRoom = roomArr.length;
+export function triggerReassign(params: { assignRoomCount: number; }) {
+    return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
+        const { isEmptyToSend } = await dispatch(sendAllParticipantsToMainRoom());
 
-        const rooms2Close = roomArr.filter(room => Object.keys(room[1].participants).length > 0);
-        const n2Close = rooms2Close.length;
-
-        if (n2Close === 0) {
-            roomArr.forEach(room => dispatch(removeBreakoutRoom(room[1].jid)));
-            if (nAdd > 0) {
-                if (nRoom === 0) {
-                    while (nAdd > 0) {
-                        dispatch(createBreakoutRoom());
-                        --nAdd;
-                    }
-                } else {
-                    setTimeout(() => dispatch(removeAllRoomAndAdd(false, nAdd)), 100);
-                }
-            }
+        if (isEmptyToSend) {
+            await dispatch(prepareReassignRemove(params));
         } else {
-            if (firstTime) {
-                rooms2Close.forEach(room => dispatch(closeBreakoutRoom(room[1].id)));
-            }
-            setTimeout(() => dispatch(removeAllRoomAndAdd(false, nAdd)), 100);
+            dispatch(availableReassign({
+                participantsReady: true,
+                removeReady: false,
+                addReady: false,
+                assignRoomCount: params.assignRoomCount,
+            }));
         }
     };
 }
+
+export function prepareReassignRemove(params: { assignRoomCount: number; }) {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        const rooms = getBreakoutRooms(getState);
+
+        await map(rooms, room => room).filter(room => !room.isMainRoom).map(room => dispatch(removeBreakoutRoom(room.jid)));
+
+        dispatch(availableReassign({
+            participantsReady: true,
+            removeReady: true,
+            addReady: false,
+            assignRoomCount: params.assignRoomCount,
+        }));
+    };
+}
+
+export function prepareReassignAdd(params: { assignRoomCount: number; }) {
+    return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
+        await Promise.all(Array.from({ length: params.assignRoomCount }, () => dispatch(createBreakoutRoom())));
+
+        dispatch(availableReassign({
+            participantsReady: true,
+            removeReady: true,
+            addReady: true,
+            assignRoomCount: params.assignRoomCount,
+        }));
+    };
+}
+
+export function executeReassign() {
+    return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
+        dispatch(availableReassign({
+            participantsReady: false,
+            removeReady: false,
+            addReady: false,
+            assignRoomCount: -1,
+        }));
+
+        await new Promise(r => setTimeout(r, 100));
+        dispatch(autoAssignToBreakoutRooms());
+    };
+}
+

@@ -8,10 +8,10 @@ import { IReduxState } from '../../app/types';
 import { toState } from '../../base/redux/functions';
 import Button from '../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../base/ui/constants.web';
-import { autoAssignToBreakoutRooms, createBreakoutRoom } from '../../breakout-rooms/actions';
+import { autoAssignToBreakoutRooms } from '../../breakout-rooms/actions';
 import { getBreakoutRooms } from '../../breakout-rooms/functions';
 import logger from '../../breakout-rooms/logger';
-import { availableAutoToSetup, removeAllRoomAndAdd } from '../actions';
+import { prepareReassignAdd, triggerReassign } from '../actions';
 
 const useStyles = makeStyles()(theme => {
     return {
@@ -44,18 +44,15 @@ export const AutoBreakoutRoomButton = () => {
         logger.debug('[GTS] AutoDiscuss click', { shouldAssignRoomCount, subRoomsSize });
 
         if (shouldAssignRoomCount > subRoomsSize) {
-            await Promise.all(Array.from({ length: shouldAssignRoomCount - subRoomsSize }, () => {
-                return dispatch(createBreakoutRoom());
+            dispatch(prepareReassignAdd({
+                assignRoomCount: shouldAssignRoomCount - subRoomsSize
             }));
-
-            dispatch(availableAutoToSetup(true));
         } else if (shouldAssignRoomCount === subRoomsSize) {
             dispatch(autoAssignToBreakoutRooms());
 
         } else {
             // we'll close all rooms if there is too many, and then recreate
-            await dispatch(removeAllRoomAndAdd(true, shouldAssignRoomCount));
-            dispatch(availableAutoToSetup(true));
+            dispatch(triggerReassign({ assignRoomCount: shouldAssignRoomCount }));
         }
 
     }, [

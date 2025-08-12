@@ -9,6 +9,7 @@ import { getLocalParticipant, getRemoteParticipants } from '../../base/participa
 import { toState } from '../../base/redux/functions';
 import Button from '../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../base/ui/constants.web';
+import { triggerRemoveAllRooms } from '../../breakout-room-autosetup/actions';
 import { getBreakoutRooms, getRoomsInfo } from '../../breakout-rooms/functions';
 import logger from '../../breakout-rooms/logger';
 import { getSortedParticipantIds } from '../../participants-pane/functions';
@@ -38,7 +39,7 @@ export const LoadPresetBreakoutRoomButton = () => {
     const { rooms: roomsInfo } = useSelector((state: IReduxState) => getRoomsInfo(state));
     const allParticipants = useSelector((state: IReduxState) => getAllParticipants(state));
 
-    const onAdd = useCallback(() => {
+    const onBtnClick = useCallback(() => {
         if (Object.values(availableToSetup).some(value => !!value)) {
             return;
         }
@@ -61,6 +62,8 @@ export const LoadPresetBreakoutRoomButton = () => {
             if (!confirm(t('presetBreakoutRooms.confirm.prompt'))) {
                 return;
             }
+
+            return dispatch(triggerRemoveAllRooms());
         }
 
         dispatch(triggerBreakoutRoom());
@@ -82,7 +85,7 @@ export const LoadPresetBreakoutRoomButton = () => {
             className = { classes.button }
             fullWidth = { true }
             labelKey = 'presetBreakoutRooms.actions.load'
-            onClick = { onAdd }
+            onClick = { onBtnClick }
             type = { BUTTON_TYPES.PRIMARY } />
     );
 };
