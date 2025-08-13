@@ -14,15 +14,22 @@ export const isEnablePreBreakout = (search = location.search) => {
     return search.includes('pre-breakout=1') || search.includes('pre-breakout');
 };
 
+export const getPresetBreakoutRoomsConfig = (stateful: IStateful) => {
+    const state = toState(stateful);
+    const { presetupBreakoutRooms = {} } = state['features/base/config'];
+
+    return presetupBreakoutRooms;
+};
+
 export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
     const state = toState(stateful);
     const isLocalModerator = isLocalParticipantModerator(state);
     const { conference } = state['features/base/conference'];
     const isBreakoutRoomsSupported = conference?.getBreakoutRooms()?.isSupported();
-
     const { enablePresetBreakoutRoom } = state['features/breakout-room-presetup'] ?? {};
+    const { hideUsePresetRoomButton } = getPresetBreakoutRoomsConfig(state);
 
-    return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom;
+    return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom && !hideUsePresetRoomButton;
 };
 
 export const getPresetupBreakoutRoomsConfig = (stateful: IStateful) => {
