@@ -522,6 +522,9 @@ export interface IConfig {
         preCallTestICEUrl?: string;
     };
     prejoinPageEnabled?: boolean;
+    presetupBreakoutRooms?: {
+        hideUsePresetRoomButton?: boolean;
+    };
     raisedHands?: {
         disableLowerHandByModerator?: boolean;
         disableLowerHandNotification?: boolean;

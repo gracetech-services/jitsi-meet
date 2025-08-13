@@ -13,6 +13,11 @@ import Button from '../../../base/ui/components/web/Button';
 import ClickableIcon from '../../../base/ui/components/web/ClickableIcon';
 import { BUTTON_TYPES } from '../../../base/ui/constants.web';
 import { findAncestorByClass } from '../../../base/ui/functions.web';
+import AutoBreakoutRoomButton from '../../../breakout-room-autosetup/components/AutoBreakoutRoomButton';
+import CloseAllBreakoutRoomButton from '../../../breakout-room-autosetup/components/CloseAllBreakoutRoomButton';
+import { isAutoBreakoutRoomButtonVisible, isCloseAllBreakoutRoomVisible } from '../../../breakout-room-autosetup/functions';
+import LoadPresetBreakoutRoomButton from '../../../breakout-room-presetup/components/LoadPresetBreakoutRoomButton';
+import { isPresetBreakoutRoomButtonVisible } from '../../../breakout-room-presetup/functions';
 import { isAddBreakoutRoomButtonVisible } from '../../../breakout-rooms/functions';
 import MuteEveryoneDialog from '../../../video-menu/components/web/MuteEveryoneDialog';
 import { shouldDisplayCurrentVisitorsList } from '../../../visitors/functions';
@@ -75,6 +80,7 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
             padding: `0 ${participantsPaneTheme.panePadding}px`,
             display: 'flex',
             flexDirection: 'column',
+            overflowY: 'auto',
 
             '&::-webkit-scrollbar': {
                 display: 'none'
@@ -133,6 +139,9 @@ const ParticipantsPane = () => {
         .conference?.getBreakoutRooms()?.isSupported();
     const showCurrentVisitorsList = useSelector(shouldDisplayCurrentVisitorsList);
     const showAddRoomButton = useSelector(isAddBreakoutRoomButtonVisible);
+    const showLoadBreakoutRoomButton = useSelector(isPresetBreakoutRoomButtonVisible);
+    const showAutoBreakoutRoomButton = useSelector(isAutoBreakoutRoomButtonVisible);
+    const showCloseAllBreakoutRoomVisible = useSelector(isCloseAllBreakoutRoomVisible);
     const showFooter = useSelector(isLocalParticipantModerator);
     const showMuteAllButton = useSelector(isMuteAllVisible);
     const showMoreActionsButton = useSelector(isMoreActionsVisible);
@@ -195,6 +204,9 @@ const ParticipantsPane = () => {
                     searchString = { searchString }
                     setSearchString = { setSearchString } />
                 {isBreakoutRoomsSupported && <RoomList searchString = { searchString } />}
+                {showLoadBreakoutRoomButton && <LoadPresetBreakoutRoomButton />}
+                {showAutoBreakoutRoomButton && <AutoBreakoutRoomButton />}
+                {showCloseAllBreakoutRoomVisible && <CloseAllBreakoutRoomButton />}
                 {showAddRoomButton && <AddBreakoutRoomButton />}
                 {showCurrentVisitorsList && <CurrentVisitorsList searchString = { searchString } />}
             </div>

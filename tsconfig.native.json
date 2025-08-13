@@ -35,6 +35,8 @@
         "react/features/virtual-background",
         "react/features/web-hid",
         "react/features/whiteboard",
+        "react/features/breakout-room-presetup",
+        "react/features/breakout-room-autosetup",
         "**/web/*",
         "**/*.web.ts",
         "**/*.web.tsx"

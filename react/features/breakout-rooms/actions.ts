@@ -38,7 +38,7 @@ import logger from './logger';
  * @returns {Function}
  */
 export function createBreakoutRoom(name?: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const state = getState();
         let { roomCounter } = state[FEATURE_KEY];
         const subject = name || i18next.t('breakoutRooms.defaultName', { index: ++roomCounter });
@@ -50,8 +50,13 @@ export function createBreakoutRoom(name?: string) {
             roomCounter
         });
 
-        getCurrentConference(state)?.getBreakoutRooms()
+        // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
+        const res = await getCurrentConference(state)?.getBreakoutRooms()
             ?.createBreakoutRoom(subject);
+
+        logger.debug('[GTS] createBreakoutRoom API response', res);
+
+        return res;
     };
 }
 
@@ -62,7 +67,7 @@ export function createBreakoutRoom(name?: string) {
  * @returns {Function}
  */
 export function closeBreakoutRoom(roomId: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const rooms = getBreakoutRooms(getState);
         const room = rooms[roomId];
         const mainRoom = getMainRoom(getState);
@@ -70,9 +75,18 @@ export function closeBreakoutRoom(roomId: string) {
         sendAnalytics(createBreakoutRoomsEvent('close'));
 
         if (room && mainRoom) {
-            Object.values(room.participants).forEach(p => {
-                dispatch(sendParticipantToRoom(p.jid, mainRoom.id));
+            const prList: Array<Promise<any>> = [];
+
+            Object.values(room.participants).forEach(participant => {
+                logger.debug('[GTS] closeBreakoutRoom: sending participant to main room', {
+                    participant,
+                    mainRoom
+                });
+                prList.push(dispatch(sendParticipantToRoom(participant.jid, mainRoom.id)));
             });
+
+            // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
+            return Promise.all(prList);
         }
     };
 }
@@ -103,7 +117,7 @@ export function renameBreakoutRoom(breakoutRoomJid: string, name = '') {
  * @returns {Function}
  */
 export function removeBreakoutRoom(breakoutRoomJid: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         sendAnalytics(createBreakoutRoomsEvent('remove'));
         const room = getRoomByJid(getState, breakoutRoomJid);
 
@@ -114,9 +128,13 @@ export function removeBreakoutRoom(breakoutRoomJid: string) {
         }
 
         if (Object.keys(room.participants).length > 0) {
-            dispatch(closeBreakoutRoom(room.id));
+            await dispatch(closeBreakoutRoom(room.id));
         }
-        getCurrentConference(getState)?.getBreakoutRooms()
+
+        console.log('[GTS] getBreakoutRooms().removeBreakoutRoom: removing room', breakoutRoomJid);
+
+        // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
+        return getCurrentConference(getState)?.getBreakoutRooms()
             ?.removeBreakoutRoom(breakoutRoomJid);
     };
 }
@@ -153,7 +171,7 @@ export function autoAssignToBreakoutRooms() {
  * @returns {Function}
  */
 export function sendParticipantToRoom(participantId: string, roomId: string) {
-    return (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const rooms = getBreakoutRooms(getState);
         const room = rooms[roomId];
 
@@ -173,7 +191,8 @@ export function sendParticipantToRoom(participantId: string, roomId: string) {
             return;
         }
 
-        getCurrentConference(getState)?.getBreakoutRooms()
+        // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
+        return getCurrentConference(getState)?.getBreakoutRooms()
             ?.sendParticipantToRoom(participantJid, room.jid);
     };
 }

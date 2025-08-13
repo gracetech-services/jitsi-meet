@@ -42,6 +42,15 @@
     "audioOnly": {
         "audioOnly": "低頻寬"
     },
+    "autoBreakoutRooms": {
+        "actions": {
+            "button": "自動分組討論",
+            "closeAllButton": "關閉所有討論組"
+        },
+        "confirm": {
+            "closeAll": "關閉所有討論組，全部人員將被移至主會議室，請確認操作？"
+        }
+    },
     "bandwidthSettings": {
         "assumedBandwidthBps": "例如，10 Mbps 的值為 10000000",
         "assumedBandwidthBpsWarning": "較高的數值可能導致網路問題。",
@@ -76,6 +85,9 @@
             "joined": "正在加入「{{name}}」分組討論室",
             "joinedMainRoom": "正在加入主會議室",
             "joinedTitle": "分組討論室"
+        },
+        "prompts": {
+            "EnterTotalRoom": "請輸入分組討論的房間總數"
         },
         "showParticipantList": "顯示與會者列表",
         "title": "分組討論室"
@@ -1034,6 +1046,14 @@
         "invited": "受邀",
         "rejected": "拒絕",
         "ringing": "鈴鈴鈴…"
+    },
+    "presetBreakoutRooms": {
+        "actions": {
+            "load": "加載分組討論室"
+        },
+        "confirm": {
+            "prompt": "使用預分組將完全覆蓋當前的分組方案，需要關閉已存在的分組，再執行預分組操作，請確認操作？"
+        }
     },
     "profile": {
         "avatar": "頭像",
