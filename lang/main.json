@@ -44,7 +44,7 @@
     },
     "autoBreakoutRooms": {
         "actions": {
-            "button": "Use Automatic BreakoutRooms",
+            "button": "Automatic breakoutroom",
             "closeAllButton": "Close All BreakoutRooms"
         },
         "confirm": {
@@ -1077,7 +1077,7 @@
     },
     "presetBreakoutRooms": {
         "actions": {
-            "load": "Use PreSetup BreakoutRooms"
+            "load": "Presetup Breakoutroom"
         },
         "confirm": {
             "prompt": "Using pre-setup will overwrite the current rooms. We need to close the existing rooms and then perform the pre-setup operation. Please confirm and continue?"
