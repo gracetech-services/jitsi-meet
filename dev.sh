@@ -21,7 +21,7 @@ show_menu() {
 
 # Function to execute script and handle errors
 execute_script() {
-    local script_name=fishmeet/"$1"
+    local script_name=fishmeet/scripts/"$1"
     local backend_name="$2"
     
     if [ -f "$script_name" ]; then
