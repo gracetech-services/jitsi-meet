@@ -1,4 +1,5 @@
 interface_config.js		/usr/share/jitsi-meet/
+fishmeet-config.js		/usr/share/jitsi-meet/
 *.html					/usr/share/jitsi-meet/
 libs					/usr/share/jitsi-meet/
 static                  /usr/share/jitsi-meet/
