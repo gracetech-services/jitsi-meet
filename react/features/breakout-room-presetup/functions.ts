@@ -1,4 +1,4 @@
-import { reduce } from 'lodash-es';
+import { reduce, size } from 'lodash-es';
 
 import { IStateful } from '../base/app/types';
 import { getParticipantById, isLocalParticipantModerator } from '../base/participants/functions';
@@ -21,26 +21,6 @@ export const getPresetBreakoutRoomsConfig = (stateful: IStateful) => {
     return presetupBreakoutRooms;
 };
 
-export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
-    const state = toState(stateful);
-    const isLocalModerator = isLocalParticipantModerator(state);
-    const { conference } = state['features/base/conference'];
-    const isBreakoutRoomsSupported = conference?.getBreakoutRooms()?.isSupported();
-    const { enablePresetBreakoutRoom } = state['features/breakout-room-presetup'] ?? {};
-    const { hideUsePresetRoomButton } = getPresetBreakoutRoomsConfig(state);
-
-    return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom && !hideUsePresetRoomButton;
-};
-
-export const getPresetupBreakoutRoomsConfig = (stateful: IStateful) => {
-    const state = toState(stateful);
-    const { presetupBreakoutRooms = {} } = state['features/base/config'];
-
-    return presetupBreakoutRooms;
-};
-
-export const getPresetBreakoutRoomData = (stateful: IStateful): IBreakoutPayload => toState(stateful)[FEATURE_KEY]?.presetRoomData;
-
 export const getAllParticipants = (stateful: IStateful) => {
     const { rooms } = getRoomsInfo(stateful);
 
@@ -55,3 +35,25 @@ export const getAllParticipants = (stateful: IStateful) => {
         return result;
     }, []);
 };
+
+export const isPresetBreakoutRoomButtonVisible = (stateful: IStateful) => {
+    const state = toState(stateful);
+    const isLocalModerator = isLocalParticipantModerator(state);
+    const { conference } = state['features/base/conference'];
+    const isBreakoutRoomsSupported = conference?.getBreakoutRooms()?.isSupported();
+    const { enablePresetBreakoutRoom } = state['features/breakout-room-presetup'] ?? {};
+    const { hideUsePresetRoomButton } = getPresetBreakoutRoomsConfig(state);
+    const allParticipantsSize = size(getAllParticipants(stateful));
+
+    return isLocalModerator && isBreakoutRoomsSupported && enablePresetBreakoutRoom && !hideUsePresetRoomButton && allParticipantsSize > 3;
+};
+
+export const getPresetupBreakoutRoomsConfig = (stateful: IStateful) => {
+    const state = toState(stateful);
+    const { presetupBreakoutRooms = {} } = state['features/base/config'];
+
+    return presetupBreakoutRooms;
+};
+
+export const getPresetBreakoutRoomData = (stateful: IStateful): IBreakoutPayload => toState(stateful)[FEATURE_KEY]?.presetRoomData;
+
