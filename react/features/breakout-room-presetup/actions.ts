@@ -28,6 +28,10 @@ export function updatePresetBreakoutRoom(data: IBreakoutPayload) {
 
 export function retrievePresetBreakoutRoom() {
     return (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
+        if (!window.opener) {
+            return;
+        }
+
         window.opener.postMessage({ type: 'Request-MeetingBreakoutRoomParams' }, '*');
         let messageListener: ((event: MessageEvent<IMessageData<IBreakoutPayload>>) => void) | undefined = event => {
             const { type: msgType, payload } = event.data ?? {};

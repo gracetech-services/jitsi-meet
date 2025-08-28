@@ -6,7 +6,7 @@ var config;
 
 /* -- this is for localhost -- later
 config.hosts = {
-    ...config.hosts, 
+    ...config.hosts,
     domain: 'localhost',
     muc: 'conference.localhost'
 };
@@ -15,7 +15,7 @@ config.bosh = 'http://localhost:5280/http-bind';
 config.websocket = 'ws://localhost:5280/xmpp-websocket';
 */
 
-config.disableSelfView = false; 
+config.disableSelfView = false;
 config.disableSelfViewSettings = true;
 
     // Enabling this will show a "Save Logs" link in the GSM popover that can be
@@ -54,7 +54,7 @@ config.startWithVideoMuted = true;
 config.channelLastN = 4; //TODO??
 config.startLastN = 2;
 
-config.welcomePage = { ...config.welcomePage, 
+config.welcomePage = { ...config.welcomePage,
     customUrl: 'fishmeet-Welcome.html'
 };
     // Enables forced reload of the client when the call is migrated as a result of
@@ -62,7 +62,7 @@ config.welcomePage = { ...config.welcomePage,
     // enableForcedReload: true,
 //==
 
-config.disableShortcuts = true; 
+config.disableShortcuts = true;
 
     // Enabling the close page will ignore the welcome page redirection when
     // a call is hangup.
@@ -94,7 +94,7 @@ config.hideEmailInSettings = true;
 config.prejoinConfig = {
     ...config.prejoinConfig,
     hideExtraJoinButtons: ['no-audio', 'by-phone'],
-    enabled: true //false 
+    enabled: true //false
 };
 
     // Moved from interfaceConfig(TOOLBAR_BUTTONS).
@@ -177,12 +177,12 @@ config.defaultLanguage = 'zhCN'; //?? will this work, since it's moved to 'lang'
 config.noticeMessage = ''; //== tihs shows up at the top of the conference -- we will be back soon';
 
     // Disables all invite functions from the app (share, invite, dial out...etc)
-config.disableInviteFunctions = true; 
+config.disableInviteFunctions = true;
 
     // Options related to the remote participant menu.
     //BSF: another provider might want the below to be true :
     // we need a version for china, disabling them all
-config.remoteVideoMenu = {...config.remoteVideoMenu, 
+config.remoteVideoMenu = {...config.remoteVideoMenu,
     disableKick: false,
     disableGrantModerator: true,
     disablePrivateChat: true
@@ -346,7 +346,7 @@ config.participantsPane = {...config.participantsPane, hideModeratorSettingsTab:
     //     hideMuteAllButton: false,
     // },
 
-    // defaults are correct == 
+    // defaults are correct ==
     // Options related to the breakout rooms feature.
     // breakoutRooms: {
     //     // Hides the add breakout room button. This replaces `hideAddRoomButton`.
@@ -356,7 +356,7 @@ config.participantsPane = {...config.participantsPane, hideModeratorSettingsTab:
     //     // Hides the join breakout room button.
     //     hideJoinRoomButton: false,
     // },
- 
+
 config.disableVirtualBackground = true;
     //?????*** except this feature is NOT well implemented** -- try higher CPU */
     // When true, virtual background feature will be disabled.
@@ -367,7 +367,7 @@ config.disableVirtualBackground = true;
     // backgroundAlpha: 1,
 
     // If true, tile view will not be enabled automatically when the participants count threshold is reached.
-    // /??? unclear where is the threshold defined or define-able ???? 
+    // /??? unclear where is the threshold defined or define-able ????
     // disableTileView: true,
 
     // If true, the tiles will be displayed contained within the available space rather than enlarged to cover it,
@@ -592,7 +592,7 @@ config.tileView = {...config.tileView, numberOfVisibleTiles: 9}; // Zoom offers 
 var interfaceConfig;
 
 interfaceConfig.APP_NAME = 'Fishmeet';
-interfaceConfig.BRAND_WATERMARK_LINK = ''; // TODO: 
+interfaceConfig.BRAND_WATERMARK_LINK = ''; // TODO:
 interfaceConfig.DEFAULT_BACKGROUND = '#040404'; // TODO
 interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES = true;
 
@@ -609,7 +609,7 @@ interfaceConfig.ENABLE_DIAL_OUT = false;
 
 interfaceConfig.HIDE_INVITE_MORE_HEADER = true;
 
-    //TODO: 
+    //TODO:
     //JITSI_WATERMARK_LINK: 'https://jitsi.org',
 
     /**
@@ -619,7 +619,7 @@ interfaceConfig.HIDE_INVITE_MORE_HEADER = true;
      *
      * @type {boolean}
      */
-interfaceConfig.MOBILE_APP_PROMO = false; 
+interfaceConfig.MOBILE_APP_PROMO = false;
 
     // Names of browsers which should show a warning stating the current browser
     // has a suboptimal experience. Browsers which are not listed as optimal or
@@ -638,7 +638,7 @@ interfaceConfig.PROVIDER_NAME = 'fishmeet',
      */
     //TODO
     // RECENT_LIST_ENABLED: true,
-    
+
     /**
      * Specify which sharing features should be displayed. If the value is not set
      * all sharing features will be shown. You can set [] to disable all.
@@ -754,6 +754,7 @@ interfaceConfig.HIDE_DEEP_LINKING_LOGO = true;
     // Please use defaultLogoUrl from config.js
     //DEFAULT_LOGO_URL: 'images/watermark.svg',
 interfaceConfig.DEFAULT_LOGO_URL = 'fishmeet.jpg';
+interfaceConfig.JITSI_WATERMARK_LINK = 'https://fishmeet.top'
 
     // Please use defaultRemoteDisplayName from config.js
     // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
@@ -777,7 +778,7 @@ interfaceConfig.DEFAULT_LOGO_URL = 'fishmeet.jpg';
     // Allow all above example options to include a trailing comma and
     // prevent fear when commenting out the last value.
     // eslint-disable-next-line sort-keys
-    //TODO: 
+    //TODO:
     //makeJsonParserHappy: 'even if last key had a trailing comma'
 
     // No configuration value should follow this line.
