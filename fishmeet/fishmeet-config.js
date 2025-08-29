@@ -17,7 +17,7 @@ config.bosh = 'http://localhost:5280/http-bind';
 config.websocket = 'ws://localhost:5280/xmpp-websocket';
 */
 
-config.disableSelfView = true; 
+config.disableSelfView = false; 
 config.disableSelfViewSettings = true;
 
     // Enabling this will show a "Save Logs" link in the GSM popover that can be
