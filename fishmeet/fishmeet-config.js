@@ -4,8 +4,6 @@ console.log("GT: loading fishmeet-config.js");
 
 var config;
 
-config.bosh = 'https://m.fishmeet.top/' + 'http-bind';
-config.websocket = 'wss://m.fishmeet.top/' + 'xmpp-websocket';
 /* -- this is for localhost -- later
 config.hosts = {
     ...config.hosts, 
