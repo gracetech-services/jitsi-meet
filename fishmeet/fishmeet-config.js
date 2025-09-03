@@ -112,6 +112,7 @@ config.prejoinConfig = {
 config.toolbarButtons = [
         'camera',
         'chat',
+        'videoStream',
         //    'closedcaptions',
         'desktop',
         //    'download',
@@ -151,13 +152,13 @@ config.toolbarButtons = [
     // configuration (for example when 3 buttons are displayed) the default jitsi-meet configuration will be used.
     // The order of the buttons in the array is preserved.
 config.mainToolbarButtons = [
-         [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'reactions', 'participants-pane', 'tileview' ],
-         [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants-pane', 'tileview' ],
-         [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants-pane' ],
-         [ 'microphone', 'camera', 'desktop', 'chat', 'participants-pane' ],
-         [ 'microphone', 'camera', 'chat', 'participants-pane' ],
-         [ 'microphone', 'camera', 'chat' ],
-         [ 'microphone', 'camera' ]
+         [ 'microphone', 'camera', 'videoStream', 'desktop', 'chat', 'raisehand', 'reactions', 'participants-pane', 'tileview' ],
+         [ 'microphone', 'camera', 'videoStream', 'desktop', 'chat', 'raisehand', 'participants-pane', 'tileview' ],
+         [ 'microphone', 'camera', 'videoStream', 'desktop', 'chat', 'raisehand', 'participants-pane' ],
+         [ 'microphone', 'camera', 'videoStream', 'desktop', 'chat', 'participants-pane' ],
+         [ 'microphone', 'camera', 'videoStream', 'chat', 'participants-pane' ],
+         [ 'microphone', 'camera', 'videoStream', 'chat' ],
+         [ 'microphone', 'camera', 'videoStream' ]
     ];
 
 config.feedbackPercentage = 100; // means 100%, it could be 0. ???? where is the feedback sent?

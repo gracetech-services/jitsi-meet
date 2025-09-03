@@ -1390,6 +1390,8 @@
             "videoblur": "Toggle video blur",
             "videomute": "Stop camera",
             "videomuteGUMPending": "Connecting your camera",
+            "videoStreamTurnOn": "Turn off others' video streams",
+            "videoStreamTurnOff": "Turn on others' video streams",
             "videounmute": "Start camera"
         },
         "addPeople": "Add people to your call",
@@ -1490,6 +1492,8 @@
         "videoSettings": "Video settings",
         "videomute": "Stop camera",
         "videomuteGUMPending": "Connecting your camera",
+        "videoStreamTurnOn": "Turn off others' video streams",
+        "videoStreamTurnOff": "Turn on others' video streams",
         "videounmute": "Start camera"
     },
     "transcribing": {

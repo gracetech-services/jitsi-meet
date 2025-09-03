@@ -89,7 +89,7 @@ export function reloadWithStoredParams() {
             // location.replace will not trigger redirect/reload when
             // only the hash params are changed. That's why we need to call
             // reload in addition to replace.
-            windowLocation.reload();
+            // windowLocation.reload();
         }
     };
 }

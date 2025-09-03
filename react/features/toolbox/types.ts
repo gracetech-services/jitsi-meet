@@ -18,6 +18,7 @@ export interface IToolboxNativeButton {
 
 export type ToolbarButton = 'camera' |
     'chat' |
+    'videoStream' |
     'closedcaptions' |
     'desktop' |
     'download' |

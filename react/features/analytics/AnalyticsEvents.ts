@@ -74,6 +74,11 @@ export const DESKTOP_MUTE = 'desktop.mute';
 export const VIDEO_MUTE = 'video.mute';
 
 /**
+ * The name of the keyboard shortcut or toolbar button for muting video.
+ */
+export const VIDEO_STREAM_MUTE = 'video-stream.mute';
+
+/**
  * Creates an event which indicates that a certain action was requested through
  * the jitsi-meet API.
  *

@@ -1,3 +1,6 @@
+import { IStore } from '../../app/types';
+import { toggleVideoStream } from '../video-stream/actions';
+
 import { SET_LAST_N } from './actionTypes';
 
 /**
@@ -10,8 +13,12 @@ import { SET_LAST_N } from './actionTypes';
  * }}
  */
 export function setLastN(lastN: number) {
-    return {
-        type: SET_LAST_N,
-        lastN
+    return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
+        await dispatch({
+            type: SET_LAST_N,
+            lastN
+        });
+
+        await dispatch(toggleVideoStream(lastN > 0));
     };
 }
