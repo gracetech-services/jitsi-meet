@@ -1362,6 +1362,8 @@
             "videoblur": "切换虚化背景",
             "videomute": "关闭摄像头",
             "videomuteGUMPending": "正在连接摄像头",
+            "videoStreamTurnOn": "开启其他人视频流",
+            "videoStreamTurnOff": "关闭其他人视频流",
             "videounmute": "打开摄像头"
         },
         "addPeople": "添加成员到通话中",
@@ -1462,6 +1464,8 @@
         "videoSettings": "视频设置",
         "videomute": "关闭摄像头",
         "videomuteGUMPending": "连接你的摄像头",
+        "videoStreamTurnOn": "开启其他人视频流",
+        "videoStreamTurnOff": "关闭其他人视频流",
         "videounmute": "启动摄像头"
     },
     "transcribing": {

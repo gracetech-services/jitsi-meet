@@ -86,6 +86,8 @@ import { default as IconSites } from './sites.svg';
 import { default as IconRemoteControlStart } from './start-remote-control.svg';
 import { default as IconRemoteControlStop } from './stop-remote-control.svg';
 import { default as IconStop } from './stop.svg';
+import { default as IconVideoStreamOff } from './stream_off.svg';
+import { default as IconVideoStreamOn } from './stream_on.svg';
 import { default as IconSubtitles } from './subtitles.svg';
 import { default as IconTileView } from './tile-view.svg';
 import { default as IconTrash } from './trash.svg';
@@ -218,5 +220,7 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconWifi1Bar,
     IconWifi2Bars,
     IconWifi3Bars,
-    IconYahoo
+    IconYahoo,
+    IconVideoStreamOn,
+    IconVideoStreamOff
 };

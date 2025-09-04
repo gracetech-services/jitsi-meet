@@ -22,7 +22,7 @@ import logger from './logger';
  * @private
  * @returns {void}
  */
-const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
+export const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
     const state = getState();
     const { conference } = state['features/base/conference'];
 
@@ -75,7 +75,10 @@ const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
 
 
 MiddlewareRegistry.register(store => next => action => {
+    const { getState } = store;
     const result = next(action);
+
+    const { enable: enableVideoStream } = getState()['features/base/video-stream'];
 
     switch (action.type) {
     case APP_STATE_CHANGED:
@@ -84,6 +87,9 @@ MiddlewareRegistry.register(store => next => action => {
     case SET_CAR_MODE:
     case SET_FILMSTRIP_ENABLED:
     case VIRTUAL_SCREENSHARE_REMOTE_PARTICIPANTS_UPDATED:
+        if (!enableVideoStream) {
+            break;
+        }
         _updateLastN(store);
         break;
     }

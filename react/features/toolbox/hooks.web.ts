@@ -68,6 +68,7 @@ import LinkToSalesforceButton from './components/web/LinkToSalesforceButton';
 import ProfileButton from './components/web/ProfileButton';
 import ShareDesktopButton from './components/web/ShareDesktopButton';
 import ToggleCameraButton from './components/web/ToggleCameraButton';
+import ToggleVideoStreamButton from './components/web/ToggleVideoStreamButton';
 import VideoSettingsButton from './components/web/VideoSettingsButton';
 import { isButtonEnabled, isDesktopShareButtonDisabled } from './functions.web';
 import { ICustomToolbarButton, IToolboxButton, ToolbarButton } from './types';
@@ -90,6 +91,13 @@ const profile = {
     Content: ProfileButton,
     group: 1
 };
+
+const videoStream = {
+    key: 'videoStream',
+    Content: ToggleVideoStreamButton,
+    group: 0
+};
+
 
 const chat = {
     key: 'chat',
@@ -298,6 +306,7 @@ export function useToolboxButtons(
         camera,
         profile,
         desktop: desktopSharing,
+        videoStream,
         chat,
         raisehand,
         reactions,

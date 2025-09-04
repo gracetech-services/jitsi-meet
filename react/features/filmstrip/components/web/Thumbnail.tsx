@@ -35,6 +35,7 @@ import {
     getVideoTrackByParticipant
 } from '../../../base/tracks/functions';
 import { ITrack } from '../../../base/tracks/types';
+import { getVideoStreamEnable } from '../../../base/video-stream/functions';
 import { getVideoObjectPosition } from '../../../face-landmarks/functions';
 import { hideGif, showGif } from '../../../gifs/actions';
 import { getGifDisplayMode, getGifForParticipant } from '../../../gifs/functions';
@@ -104,6 +105,11 @@ export interface IProps extends WithTranslation {
      * Indicates whether enlargement of tiles to fill the available space is disabled.
      */
     _disableTileEnlargement: boolean;
+
+    /**
+     * Indicates whether the video stream with the thumbnail is playable.
+     */
+    _enableVideoStream: boolean;
 
     /**
      * URL of GIF sent by this participant, null if there's none.
@@ -913,14 +919,14 @@ class Thumbnail extends Component<IProps, IState> {
      * @param {Object} styles - The styles that will be applied to the avatar.
      * @returns {ReactElement}
      */
-    _renderAvatar(styles: Object) {
-        const { _participant } = this.props;
+    _renderAvatar(styles: React.CSSProperties) {
+        const { _participant, _enableVideoStream } = this.props;
         const { id } = _participant;
 
         return (
             <div
                 className = 'avatar-container'
-                style = { styles }>
+                style = {{ ...styles, ...(!_enableVideoStream ? { visibility: 'visible' } : {}) }}>
                 <Avatar
                     className = 'userAvatar'
                     participantId = { id }
@@ -1029,7 +1035,8 @@ class Thumbnail extends Component<IProps, IState> {
             _thumbnailType,
             _videoTrack,
             filmstripType,
-            t
+            t,
+            _enableVideoStream
         } = this.props;
         const classes = withStyles.getClasses(this.props);
         const { id, name, pinned } = _participant || {};
@@ -1054,7 +1061,8 @@ class Thumbnail extends Component<IProps, IState> {
             videoEventListeners.onCanPlay = this._onCanPlay;
         }
 
-        const video = _videoTrack && <VideoTrack
+        const showVideo = _videoTrack && (_enableVideoStream || local);
+        const video = showVideo && <VideoTrack
             className = { local ? videoTrackClassName : '' }
             eventHandlers = { videoEventListeners }
             id = { local ? 'localVideo_container' : `remoteVideo_${videoTrackId || ''}` }
@@ -1365,6 +1373,8 @@ function _mapStateToProps(state: IReduxState, ownProps: any): Object {
         && !screenshareParticipantIds.includes(id);
     const disableTintForeground = state['features/base/config'].disableCameraTintForeground ?? false;
 
+    const enableVideoStream = getVideoStreamEnable(state);
+
     return {
         _audioTrack,
         _currentLayout,
@@ -1390,6 +1400,7 @@ function _mapStateToProps(state: IReduxState, ownProps: any): Object {
         _videoObjectPosition: getVideoObjectPosition(state, participant?.id),
         _videoTrack,
         ...size,
+        _enableVideoStream: enableVideoStream,
         _gifSrc: mode === 'chat' ? null : gifSrc
     };
 }

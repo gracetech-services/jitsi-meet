@@ -280,6 +280,12 @@ export const UNSAFE_ROOM_WARNING = 'unsaferoomwarning.enabled';
 export const VIDEO_MUTE_BUTTON_ENABLED = 'video-mute.enabled';
 
 /**
+ * Flag indicating if the video stream mute button should be displayed.
+ * Default: enabled (true).
+ */
+export const VIDEO_STREAM_OFF_BUTTON_ENABLED = 'video-stream-off.enabled';
+
+/**
  * Flag indicating if the video share button should be enabled
  * Default: enabled (true).
  */
