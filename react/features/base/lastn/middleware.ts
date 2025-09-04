@@ -87,6 +87,7 @@ MiddlewareRegistry.register(store => next => action => {
     case SET_CAR_MODE:
     case SET_FILMSTRIP_ENABLED:
     case VIRTUAL_SCREENSHARE_REMOTE_PARTICIPANTS_UPDATED:
+        // If video streaming has been disabled, there is no need to receive other events to set lastN to enable video streaming.
         if (!enableVideoStream) {
             break;
         }

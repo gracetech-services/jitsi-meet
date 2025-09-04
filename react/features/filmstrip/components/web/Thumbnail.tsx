@@ -26,6 +26,7 @@ import {
     isWhiteboardParticipant
 } from '../../../base/participants/functions';
 import { IParticipant } from '../../../base/participants/types';
+import VideoStreamCover from '../../../base/react/components/web/VideoStreamCover';
 import { ASPECT_RATIO_NARROW } from '../../../base/responsive-ui/constants';
 import Tooltip from '../../../base/tooltip/components/Tooltip';
 import { trackStreamingStatusChanged } from '../../../base/tracks/actions';
@@ -926,7 +927,7 @@ class Thumbnail extends Component<IProps, IState> {
         return (
             <div
                 className = 'avatar-container'
-                style = {{ ...styles, ...(!_enableVideoStream ? { visibility: 'visible' } : {}) }}>
+                style = {{ ...styles, ...(!_enableVideoStream ? { visibility: 'visible', zIndex: 10 } : {}) }}>
                 <Avatar
                     className = 'userAvatar'
                     participantId = { id }
@@ -1061,8 +1062,7 @@ class Thumbnail extends Component<IProps, IState> {
             videoEventListeners.onCanPlay = this._onCanPlay;
         }
 
-        const showVideo = _videoTrack && (_enableVideoStream || local);
-        const video = showVideo && <VideoTrack
+        const video = _videoTrack && <VideoTrack
             className = { local ? videoTrackClassName : '' }
             eventHandlers = { videoEventListeners }
             id = { local ? 'localVideo_container' : `remoteVideo_${videoTrackId || ''}` }
@@ -1164,6 +1164,10 @@ class Thumbnail extends Component<IProps, IState> {
                         onMouseEnter = { this._onGifMouseEnter }
                         onMouseLeave = { this._onGifMouseLeave } />
                 )}
+                {
+                    // Only displayed when participating locally
+                    !local && <VideoStreamCover />
+                }
             </span>
         );
     }

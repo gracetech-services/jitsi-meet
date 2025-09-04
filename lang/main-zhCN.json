@@ -1544,7 +1544,8 @@
         "unpinFromStage": "取消固定",
         "verify": "验证参会者",
         "videoMuted": "摄像机已禁用",
-        "videomute": "参会者已关闭摄像头"
+        "videomute": "参会者已关闭摄像头",
+        "videoStreamOff": "已经停止视频流"
     },
     "virtualBackground": {
         "accessibilityLabel": {

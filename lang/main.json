@@ -1574,7 +1574,8 @@
         "unpinFromStage": "Unpin",
         "verify": "Verify participant",
         "videoMuted": "Camera disabled",
-        "videomute": "Participant has stopped the camera"
+        "videomute": "Participant has stopped the camera",
+        "videoStreamOff": "The video stream has been stopped"
     },
     "virtualBackground": {
         "accessibilityLabel": {

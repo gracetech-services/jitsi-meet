@@ -2,6 +2,7 @@ import { IStore } from '../../app/types';
 import { toggleVideoStream } from '../video-stream/actions';
 
 import { SET_LAST_N } from './actionTypes';
+import logger from './logger';
 
 /**
  * Sets the last-n, i.e., the number of remote videos to be requested from the bridge for the conference.
@@ -18,6 +19,8 @@ export function setLastN(lastN: number) {
             type: SET_LAST_N,
             lastN
         });
+
+        logger.debug('[GTS] setLastN', lastN);
 
         const { enable: curEnable } = getState()['features/base/video-stream'];
         const nextEnable = lastN !== 0;
