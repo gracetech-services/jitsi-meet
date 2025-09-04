@@ -1387,11 +1387,11 @@
             "toggleCamera": "Toggle camera",
             "toggleFilmstrip": "Toggle filmstrip",
             "unmute": "Unmute microphone",
+            "videoStreamTurnOff": "Turn on others' video streams",
+            "videoStreamTurnOn": "Turn off others' video streams",
             "videoblur": "Toggle video blur",
             "videomute": "Stop camera",
             "videomuteGUMPending": "Connecting your camera",
-            "videoStreamTurnOn": "Turn off others' video streams",
-            "videoStreamTurnOff": "Turn on others' video streams",
             "videounmute": "Start camera"
         },
         "addPeople": "Add people to your call",
@@ -1490,10 +1490,10 @@
         "toggleCamera": "Toggle camera",
         "unmute": "Unmute microphone",
         "videoSettings": "Video settings",
+        "videoStreamTurnOff": "Turn on others' video streams",
+        "videoStreamTurnOn": "Turn off others' video streams",
         "videomute": "Stop camera",
         "videomuteGUMPending": "Connecting your camera",
-        "videoStreamTurnOn": "Turn off others' video streams",
-        "videoStreamTurnOff": "Turn on others' video streams",
         "videounmute": "Start camera"
     },
     "transcribing": {
@@ -1574,8 +1574,8 @@
         "unpinFromStage": "Unpin",
         "verify": "Verify participant",
         "videoMuted": "Camera disabled",
-        "videomute": "Participant has stopped the camera",
-        "videoStreamOff": "The video stream has been stopped"
+        "videoStreamOff": "The video stream has been stopped",
+        "videomute": "Participant has stopped the camera"
     },
     "virtualBackground": {
         "accessibilityLabel": {
