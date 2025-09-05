@@ -22,7 +22,7 @@ import logger from './logger';
  * @private
  * @returns {void}
  */
-export const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
+const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
     const state = getState();
     const { conference } = state['features/base/conference'];
 
