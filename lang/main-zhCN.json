@@ -1359,6 +1359,8 @@
             "toggleCamera": "切换摄像头",
             "toggleFilmstrip": "切换缩略图栏",
             "unmute": "取消麦克风静音",
+            "videoStreamTurnOff": "关闭其他人视频流",
+            "videoStreamTurnOn": "开启其他人视频流",
             "videoblur": "切换虚化背景",
             "videomute": "关闭摄像头",
             "videomuteGUMPending": "正在连接摄像头",
@@ -1460,6 +1462,8 @@
         "toggleCamera": "切换摄像头",
         "unmute": "取消静音",
         "videoSettings": "视频设置",
+        "videoStreamTurnOff": "关闭其他人视频流",
+        "videoStreamTurnOn": "开启其他人视频流",
         "videomute": "关闭摄像头",
         "videomuteGUMPending": "连接你的摄像头",
         "videounmute": "启动摄像头"
@@ -1540,6 +1544,7 @@
         "unpinFromStage": "取消固定",
         "verify": "验证参会者",
         "videoMuted": "摄像机已禁用",
+        "videoStreamOff": "已经停止视频流",
         "videomute": "参会者已关闭摄像头"
     },
     "virtualBackground": {

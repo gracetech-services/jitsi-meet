@@ -28,6 +28,7 @@ import { ITestingState } from '../base/testing/reducer';
 import { ITooltipState } from '../base/tooltip/reducer';
 import { INoSrcDataState, ITracksState } from '../base/tracks/reducer';
 import { IUserInteractionState } from '../base/user-interaction/reducer';
+import { IVideoStreamState } from '../base/video-stream/reducer';
 import { IAutosetupBreakoutRoomsState } from '../breakout-room-autosetup/reducer';
 import { IPresetBreakoutRoomsState } from '../breakout-room-presetup/reducer';
 import { IBreakoutRoomsState } from '../breakout-rooms/reducer';
@@ -120,6 +121,7 @@ export interface IReduxState {
     'features/base/tooltip': ITooltipState;
     'features/base/tracks': ITracksState;
     'features/base/user-interaction': IUserInteractionState;
+    'features/base/video-stream': IVideoStreamState;
     'features/breakout-room-autosetup': IAutosetupBreakoutRoomsState;
     'features/breakout-room-presetup': IPresetBreakoutRoomsState;
     'features/breakout-rooms': IBreakoutRoomsState;

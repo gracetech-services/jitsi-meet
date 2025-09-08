@@ -1387,6 +1387,8 @@
             "toggleCamera": "Toggle camera",
             "toggleFilmstrip": "Toggle filmstrip",
             "unmute": "Unmute microphone",
+            "videoStreamTurnOff": "Turn on others' video streams",
+            "videoStreamTurnOn": "Turn off others' video streams",
             "videoblur": "Toggle video blur",
             "videomute": "Stop camera",
             "videomuteGUMPending": "Connecting your camera",
@@ -1488,6 +1490,8 @@
         "toggleCamera": "Toggle camera",
         "unmute": "Unmute microphone",
         "videoSettings": "Video settings",
+        "videoStreamTurnOff": "Turn on others' video streams",
+        "videoStreamTurnOn": "Turn off others' video streams",
         "videomute": "Stop camera",
         "videomuteGUMPending": "Connecting your camera",
         "videounmute": "Start camera"
@@ -1570,6 +1574,7 @@
         "unpinFromStage": "Unpin",
         "verify": "Verify participant",
         "videoMuted": "Camera disabled",
+        "videoStreamOff": "The video stream has been stopped",
         "videomute": "Participant has stopped the camera"
     },
     "virtualBackground": {
