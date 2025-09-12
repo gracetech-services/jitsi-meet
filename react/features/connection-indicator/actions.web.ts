@@ -13,7 +13,8 @@ export function saveLogs() {
 
         const logs = getState()['features/base/connection'].connection?.getLogs();
         const roomName = getRoomName() || '';
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 
-        downloadJSON(logs ?? {}, `meetlog-${roomName}.json`);
+        downloadJSON(logs ?? {}, `meetlog-${roomName}-${timestamp}.json`);
     };
 }

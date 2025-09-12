@@ -21,7 +21,7 @@ config.disableSelfViewSettings = true;
     // Enabling this will show a "Save Logs" link in the GSM popover that can be
     // used to collect debug information (XMPP IQs, SDP offer/answer cycles)
     // about the call.
-config.enableSaveLogs = false; //set to true?  === this is very useful for debugging purpose, but later
+config.enableSaveLogs = true; //set to true?  === this is very useful for debugging purpose, but later
 
     // Enabling this will hide the "Show More" link in the GSM popover that can be
     // used to display more statistics about the connection (IP, Port, protocol, etc).
