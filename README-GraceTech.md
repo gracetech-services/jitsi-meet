@@ -35,11 +35,7 @@ Note: Only commit updated version in `package.json`, do not commit any other cha
 1. Navigate to `react-native-sdk` directory in this repo, Run `node update_sdk_dependencies.js`
 2. Follow instructions above (1. Create new SDK version) to create new Jitsi SDK version
 
-### 4. Steps to regenerate index files
+### 4. How to Test generate sdk
 
-@Max: Not yet verified
-
-1. Navigate to `react-native-sdk` directory
-2. Run `npm run generate-index`
-3. Delete all other generated files except `react-native-sdk/index.js` and `react-native-sdk/index.d.ts`
-4. Navigate to repo root and run `eslint --fix react-native-sdk/index.js` if needed to fix lint errors
+Refer gracetech-services/iMeet README.md: 
+https://github.com/gracetech-services/iMeet/blob/fcd76aa406140671b6e031f0d43640d3446d9935/README.md
