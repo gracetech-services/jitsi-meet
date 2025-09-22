@@ -16,14 +16,14 @@ function mergeDependencyVersions() {
     // Updates SDK dependencies to match project dependencies.
     for (const key in SDKPackageJSON.dependencies) {
         if (SDKPackageJSON.dependencies.hasOwnProperty(key)) {
-            SDKPackageJSON.dependencies[key] = packageJSON.dependencies[key] || packageJSON.devDependencies[key];
+            SDKPackageJSON.dependencies[key] = addPatchVersion(packageJSON.dependencies[key] || packageJSON.devDependencies[key]);
         }
     }
 
     // Updates SDK peer dependencies.
     for (const key in packageJSON.dependencies) {
         if (SDKPackageJSON.peerDependencies.hasOwnProperty(key) && !skipDeps.includes(key)) {
-            SDKPackageJSON.peerDependencies[key] = packageJSON.dependencies[key];
+            SDKPackageJSON.peerDependencies[key] = addPatchVersion(packageJSON.dependencies[key])
         }
     }
 
@@ -47,6 +47,13 @@ function mergeDependencyVersions() {
     const data = JSON.stringify(SDKPackageJSON, null, 4);
 
     fs.writeFileSync('package.json', data);
+}
+
+// Check if it is a pure version number
+// if true, add `~` to be compatible with patch updates
+function addPatchVersion(ver) {
+    const isPureVer = /^\d+\.\d+\.\d+$/.test(ver);
+    return isPureVer ? `~${ver}`: ver;
 }
 
 mergeDependencyVersions();
