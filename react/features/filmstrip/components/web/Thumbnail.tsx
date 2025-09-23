@@ -1054,7 +1054,8 @@ class Thumbnail extends Component<IProps, IState> {
             videoEventListeners.onCanPlay = this._onCanPlay;
         }
 
-        const video = _videoTrack && <VideoTrack
+        const showVideo = _videoTrack && (_enableVideoStream || local || _videoTrack.videoType === 'desktop');
+        const video = showVideo && <VideoTrack
             className = { local ? videoTrackClassName : '' }
             eventHandlers = { videoEventListeners }
             id = { local ? 'localVideo_container' : `remoteVideo_${videoTrackId || ''}` }
