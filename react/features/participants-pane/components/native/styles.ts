@@ -109,7 +109,7 @@ export default {
     participantDetailsContainer: {
         display: 'flex',
         flexDirection: 'column',
-        width: '73%'
+        width: '38%'
     },
 
     participantDetailsContainerRaisedHand: {
@@ -117,8 +117,7 @@ export default {
     },
 
     participantNameContainer: {
-        ...participantNameContainer,
-        width: '65%'
+        ...participantNameContainer
     },
 
     lobbyParticipantNameContainer: {
@@ -225,7 +224,9 @@ export default {
 
     breakoutRoomsButton: {
         marginBottom: BaseTheme.spacing[2],
-        width: '100%'
+        width: '100%',
+        opacity: 0, // Temporarily disable
+        pointerEvents: 'none'
     },
 
     moreButton: {
