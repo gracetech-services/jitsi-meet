@@ -58,6 +58,7 @@ const ParticipantsPaneFooter = (): JSX.Element => {
     return (
         <View style = { styles.participantsPaneFooterContainer as ViewStyle }>
             {
+                // Temporarily disable this feature via styles.breakoutRoomsButton
                 isBreakoutRoomsSupported
                 && isBreakoutRoomsEnabled
                 && <Button
