@@ -161,6 +161,10 @@ config.mainToolbarButtons = [
          [ 'microphone', 'camera', 'videoStream' ]
     ];
 
+// TODO / USEFUL HELP: this is so that lastN on toggle video can be tested with participlants on the same Lan
+// Otherwise, the video will not route through JVB, and sent p2p
+//config.p2p = {/*...config.p2p, */enabled: false };
+
 config.feedbackPercentage = 100; // means 100%, it could be 0. ???? where is the feedback sent?
 config.disableThirdPartyRequests = true;
 
