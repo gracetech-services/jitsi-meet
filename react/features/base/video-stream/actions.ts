@@ -7,9 +7,10 @@ import { TOGGLE_VIDEO_STREAM } from './actionTypes';
 export function toggleVideoStream(enable?: boolean) {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         let finalEnable = enable;
+
         if (enable === undefined) {
-          // if not parameter passed in, just invert the state
-          finalEnable = !getState()['features/base/video-stream'].enable;
+            // if not parameter passed in, just invert the state
+            finalEnable = !getState()['features/base/video-stream'].enable;
         }
 
         await dispatch({
