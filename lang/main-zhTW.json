@@ -1361,7 +1361,7 @@
             "unmute": "取消靜音",
             "videoStreamTurnOff": "關閉遠程來的視頻流",
             "videoStreamTurnOn": "開啟遠程來的視頻流",
-		        "videoblur": "切換視訊模糊",
+            "videoblur": "切換視訊模糊",
             "videomute": "停用網路攝影機",
             "videomuteGUMPending": "正在連接您的網路攝影機",
             "videounmute": "啟用網路攝影機"
