@@ -11,6 +11,7 @@ import { SET_AUDIO_ONLY } from '../audio-only/actionTypes';
 import { CONFERENCE_JOINED } from '../conference/actionTypes';
 import { getParticipantById } from '../participants/functions';
 import MiddlewareRegistry from '../redux/MiddlewareRegistry';
+import { TOGGLE_VIDEO_STREAM } from '../video-stream/actionTypes';
 
 import { setLastN } from './actions';
 import logger from './logger';
@@ -25,6 +26,7 @@ import logger from './logger';
 const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
     const state = getState();
     const { conference } = state['features/base/conference'];
+    const { enable: enableVideoStream } = state['features/base/video-stream'];
 
     if (!conference) {
         logger.debug('There is no active conference, not updating last N');
@@ -48,7 +50,7 @@ const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
     // meaning that it is never active
     if (navigator.product === 'ReactNative' && (appState !== 'active' || carMode)) {
         lastNSelected = 0;
-    } else if (audioOnly) {
+    } else if (audioOnly || !enableVideoStream) {
         const { remoteScreenShares, tileViewEnabled } = state['features/video-layout'];
         const largeVideoParticipantId = state['features/large-video'].participantId;
         const largeVideoParticipant
@@ -75,10 +77,7 @@ const _updateLastN = debounce(({ dispatch, getState }: IStore) => {
 
 
 MiddlewareRegistry.register(store => next => action => {
-    const { getState } = store;
     const result = next(action);
-
-    const { enable: enableVideoStream } = getState()['features/base/video-stream'];
 
     switch (action.type) {
     case APP_STATE_CHANGED:
@@ -87,10 +86,7 @@ MiddlewareRegistry.register(store => next => action => {
     case SET_CAR_MODE:
     case SET_FILMSTRIP_ENABLED:
     case VIRTUAL_SCREENSHARE_REMOTE_PARTICIPANTS_UPDATED:
-        // If video streaming has been disabled, there is no need to receive other events to set lastN to enable video streaming.
-        if (!enableVideoStream) {
-            break;
-        }
+    case TOGGLE_VIDEO_STREAM:
         _updateLastN(store);
         break;
     }

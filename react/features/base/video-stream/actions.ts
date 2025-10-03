@@ -18,6 +18,7 @@ export function toggleVideoStream(enable?: boolean) {
             enable: finalEnable
         });
 
+        /* // change of lastN is consolidated in _updateLastN() function in lastn/middleware.ts
         let nextLastN;
 
         if (finalEnable) {
@@ -38,5 +39,6 @@ export function toggleVideoStream(enable?: boolean) {
 
         logger.debug('[GTS] ToggleVideoStream', { enable, setLastN: nextLastN });
         dispatch(setLastN(nextLastN));
+        */
     };
 }

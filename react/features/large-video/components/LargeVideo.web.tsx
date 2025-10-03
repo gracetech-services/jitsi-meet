@@ -7,7 +7,6 @@ import { IReduxState, IStore } from '../../app/types';
 import { isDisplayNameVisible } from '../../base/config/functions.web';
 import { VIDEO_TYPE } from '../../base/media/constants';
 import { getLocalParticipant } from '../../base/participants/functions';
-import VideoStreamCover from '../../base/react/components/web/VideoStreamCover';
 import Watermarks from '../../base/react/components/web/Watermarks';
 import { getHideSelfView } from '../../base/settings/functions.any';
 import { getVideoTrackByParticipant } from '../../base/tracks/functions.web';
@@ -207,9 +206,7 @@ class LargeVideo extends Component<IProps> {
             _noAutoPlayVideo,
             _showDominantSpeakerBadge,
             _whiteboardEnabled,
-            _showSubtitles,
-            _largeVideoParticipantId,
-            _localParticipantId
+            _showSubtitles
         } = this.props;
         const style = this._getCustomStyles();
         const className = 'videocontainer';
@@ -255,9 +252,6 @@ class LargeVideo extends Component<IProps> {
                             id = 'largeVideo'
                             muted = { true }
                             playsInline = { true } /* for Safari on iOS to work */ />
-                        {
-                            _largeVideoParticipantId !== _localParticipantId && <VideoStreamCover />
-                        }
                     </div>
                 </div>
                 { (!interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES && _showSubtitles)

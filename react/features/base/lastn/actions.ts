@@ -20,6 +20,8 @@ export function setLastN(lastN: number) {
             lastN
         });
 
+        /* === lastN might not be zero when there is desktop sharing. videostream state doesn't depend on 
+        // lastN values.  it's a user wish, and we'll keep the user wish state and use it wherever it's appropriate. 
         logger.debug('[GTS] setLastN', lastN);
 
         const { enable: curEnable } = getState()['features/base/video-stream'];
@@ -28,5 +30,6 @@ export function setLastN(lastN: number) {
         if (nextEnable !== curEnable) {
             await dispatch(toggleVideoStream(nextEnable));
         }
+        */
     };
 }
