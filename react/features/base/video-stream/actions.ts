@@ -1,6 +1,6 @@
 import { IStore } from '../../app/types';
-import { setLastN } from '../lastn/actions';
-import logger from '../video-stream/logger';
+// import { setLastN } from '../lastn/actions';
+// import logger from '../video-stream/logger';
 
 import { TOGGLE_VIDEO_STREAM } from './actionTypes';
 

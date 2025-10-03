@@ -1,8 +1,9 @@
-import { IStore } from '../../app/types';
-import { toggleVideoStream } from '../video-stream/actions';
+// TODO: just restore this file to the original
+// import { IStore } from '../../app/types';
+// import { toggleVideoStream } from '../video-stream/actions';
 
 import { SET_LAST_N } from './actionTypes';
-import logger from './logger';
+// import logger from './logger';
 
 /**
  * Sets the last-n, i.e., the number of remote videos to be requested from the bridge for the conference.
@@ -14,14 +15,20 @@ import logger from './logger';
  * }}
  */
 export function setLastN(lastN: number) {
+    return {
+        type: SET_LAST_N,
+        lastN
+    };
+
+    /*
+    // lastN might not be zero when there is desktop sharing. videostream state doesn't depend on
+    // lastN values.  it's a user wish, and we'll keep the user wish state and use it wherever it's appropriate
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         await dispatch({
             type: SET_LAST_N,
             lastN
         });
 
-        /* === lastN might not be zero when there is desktop sharing. videostream state doesn't depend on 
-        // lastN values.  it's a user wish, and we'll keep the user wish state and use it wherever it's appropriate. 
         logger.debug('[GTS] setLastN', lastN);
 
         const { enable: curEnable } = getState()['features/base/video-stream'];
@@ -30,6 +37,6 @@ export function setLastN(lastN: number) {
         if (nextEnable !== curEnable) {
             await dispatch(toggleVideoStream(nextEnable));
         }
-        */
     };
+    */
 }
