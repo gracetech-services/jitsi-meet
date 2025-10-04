@@ -26,7 +26,6 @@ import {
     isWhiteboardParticipant
 } from '../../../base/participants/functions';
 import { IParticipant } from '../../../base/participants/types';
-import VideoStreamCover from '../../../base/react/components/web/VideoStreamCover';
 import { ASPECT_RATIO_NARROW } from '../../../base/responsive-ui/constants';
 import Tooltip from '../../../base/tooltip/components/Tooltip';
 import { trackStreamingStatusChanged } from '../../../base/tracks/actions';
@@ -36,7 +35,6 @@ import {
     getVideoTrackByParticipant
 } from '../../../base/tracks/functions';
 import { ITrack } from '../../../base/tracks/types';
-import { getVideoStreamEnable } from '../../../base/video-stream/functions';
 import { getVideoObjectPosition } from '../../../face-landmarks/functions';
 import { hideGif, showGif } from '../../../gifs/actions';
 import { getGifDisplayMode, getGifForParticipant } from '../../../gifs/functions';
@@ -106,11 +104,6 @@ export interface IProps extends WithTranslation {
      * Indicates whether enlargement of tiles to fill the available space is disabled.
      */
     _disableTileEnlargement: boolean;
-
-    /**
-     * Indicates whether the video stream with the thumbnail is playable.
-     */
-    _enableVideoStream: boolean;
 
     /**
      * URL of GIF sent by this participant, null if there's none.
@@ -920,14 +913,14 @@ class Thumbnail extends Component<IProps, IState> {
      * @param {Object} styles - The styles that will be applied to the avatar.
      * @returns {ReactElement}
      */
-    _renderAvatar(styles: React.CSSProperties) {
-        const { _participant, _enableVideoStream } = this.props;
+    _renderAvatar(styles: Object) {
+        const { _participant } = this.props;
         const { id } = _participant;
 
         return (
             <div
                 className = 'avatar-container'
-                style = {{ ...styles, ...(!_enableVideoStream ? { visibility: 'visible', zIndex: 10 } : {}) }}>
+                style = { styles }>
                 <Avatar
                     className = 'userAvatar'
                     participantId = { id }
@@ -1036,8 +1029,7 @@ class Thumbnail extends Component<IProps, IState> {
             _thumbnailType,
             _videoTrack,
             filmstripType,
-            t,
-            _enableVideoStream
+            t
         } = this.props;
         const classes = withStyles.getClasses(this.props);
         const { id, name, pinned } = _participant || {};
@@ -1164,10 +1156,6 @@ class Thumbnail extends Component<IProps, IState> {
                         onMouseEnter = { this._onGifMouseEnter }
                         onMouseLeave = { this._onGifMouseLeave } />
                 )}
-                {
-                    // Only displayed when participating locally
-                    !local && <VideoStreamCover />
-                }
             </span>
         );
     }
@@ -1377,8 +1365,6 @@ function _mapStateToProps(state: IReduxState, ownProps: any): Object {
         && !screenshareParticipantIds.includes(id);
     const disableTintForeground = state['features/base/config'].disableCameraTintForeground ?? false;
 
-    const enableVideoStream = getVideoStreamEnable(state);
-
     return {
         _audioTrack,
         _currentLayout,
@@ -1404,7 +1390,6 @@ function _mapStateToProps(state: IReduxState, ownProps: any): Object {
         _videoObjectPosition: getVideoObjectPosition(state, participant?.id),
         _videoTrack,
         ...size,
-        _enableVideoStream: enableVideoStream,
         _gifSrc: mode === 'chat' ? null : gifSrc
     };
 }

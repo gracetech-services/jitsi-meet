@@ -1359,6 +1359,8 @@
             "toggleCamera": "切換網路攝影機",
             "toggleFilmstrip": "切換簡報",
             "unmute": "取消靜音",
+            "videoStreamTurnOff": "關閉遠程來的視頻流",
+            "videoStreamTurnOn": "開啟遠程來的視頻流",
             "videoblur": "切換視訊模糊",
             "videomute": "停用網路攝影機",
             "videomuteGUMPending": "正在連接您的網路攝影機",
@@ -1460,6 +1462,8 @@
         "toggleCamera": "切換網路攝影機",
         "unmute": "取消靜音",
         "videoSettings": "視訊設定",
+        "videoStreamTurnOff": "關閉遠程來的視頻流",
+        "videoStreamTurnOn": "開啟遠程來的視頻流",
         "videomute": "切換網路攝影機",
         "videomuteGUMPending": "正在連接您的網路攝影機",
         "videounmute": "啟用網路攝影機"
