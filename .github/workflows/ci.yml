@@ -35,6 +35,8 @@ jobs:
       run: $(exit $(git status --porcelain --untracked-files=no | head -255 | wc -l)) || (echo "Dirty git tree"; git diff; exit 1)
     - run: npm run lint:ci && npm run tsc:ci
   frontend:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Build Frontend
     runs-on: ${{ matrix.os }}
     strategy:
@@ -56,6 +58,8 @@ jobs:
     - name: Check config.js syntax
       run: node config.js
   android-rn-bundle-build:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Build mobile bundle (Android)
     runs-on: macos-15
     steps:
@@ -71,6 +75,8 @@ jobs:
     - run: npm install
     - run: npx react-native bundle --entry-file react/index.native.js --platform android --bundle-output /tmp/android.bundle --reset-cache
   ios-rn-bundle-build:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Build mobile bundle (iOS)
     runs-on: macos-15
     steps:
@@ -101,6 +107,8 @@ jobs:
       run: bundle exec pod install --repo-update --deployment
     - run: npx react-native bundle --entry-file react/index.native.js --platform ios --bundle-output /tmp/ios.bundle --reset-cache
   android-sdk-build:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Build mobile SDK (Android)
     runs-on: ubuntu-latest
     container: reactnativecommunity/react-native-android:v18.0
@@ -120,6 +128,8 @@ jobs:
         ./gradlew :sdk:clean
         ./gradlew :sdk:assembleRelease
   ios-sdk-build:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Build mobile SDK (iOS)
     runs-on: macos-15
     steps:
