@@ -42,6 +42,9 @@ import { default as IconFaceSmile } from './face-smile.svg';
 import { default as IconFavoriteSolid } from './favorite-solid.svg';
 import { default as IconFavorite } from './favorite.svg';
 import { default as IconFeedback } from './feedback.svg';
+import { default as IconFishmeetCameraRefresh } from './fishmeet-camera-refresh.svg';
+import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
+import { default as IconFishmeetRaiseHand } from './fishmeet-raise-hand.svg';
 import { default as IconGear } from './gear.svg';
 import { default as IconGoogle } from './google.svg';
 import { default as IconHangup } from './hangup.svg';
@@ -54,9 +57,12 @@ import { default as IconInfoCircle } from './info-circle.svg';
 import { default as IconInfo } from './info.svg';
 import { default as IconRecordLead } from './lead-record.svg';
 import { default as IconMessage } from './message.svg';
+import { default as IconFishmeetChatUnread, default as IconFishmeetMessage } from './fishmeet-message.svg';
 import { default as IconMeter } from './meter.svg';
 import { default as IconMicSlash } from './mic-slash.svg';
+import { default as IconFishmeetMicSlash } from './fishmeet-mic-slash.svg';
 import { default as IconMic } from './mic.svg';
+import { default as IconFishmeetMic } from './fishmeet-mic.svg';
 import { default as IconModerator } from './moderator.svg';
 import { default as IconConnectionInactive } from './ninja.svg';
 import { default as IconNoiseSuppressionOff } from './noise-suppression-off.svg';
@@ -95,7 +101,9 @@ import { default as IconUserDeleted } from './user-deleted.svg';
 import { default as IconUser } from './user.svg';
 import { default as IconUsers } from './users.svg';
 import { default as IconVideoOff } from './video-off.svg';
+import { default as IconFishmeetVideoOff } from './fishmeet-video-off.svg';
 import { default as IconVideo } from './video.svg';
+import { default as IconFishmeetVideo } from './fishmeet-video.svg';
 import { default as IconAudioOnlyOff } from './visibility-off.svg';
 import { default as IconAudioOnly } from './visibility.svg';
 import { default as IconVolumeOff } from './volume-off.svg';
@@ -158,6 +166,9 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconFavorite,
     IconFavoriteSolid,
     IconFeedback,
+    IconFishmeetCameraRefresh,
+    IconFishmeetHangup,
+    IconFishmeetRaiseHand,
     IconGear,
     IconGoogle,
     IconHangup,
@@ -167,9 +178,13 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconInfo,
     IconInfoCircle,
     IconMessage,
+    IconFishmeetMessage,
+    IconFishmeetChatUnread,
     IconMeter,
     IconMic,
+    IconFishmeetMic,
     IconMicSlash,
+    IconFishmeetMicSlash,
     IconModerator,
     IconNoiseSuppressionOff,
     IconNoiseSuppressionOn,
@@ -210,7 +225,9 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconUsers,
     IconUser,
     IconVideo,
+    IconFishmeetVideo,
     IconVideoOff,
+    IconFishmeetVideoOff,
     IconVolumeOff,
     IconVolumeUp,
     IconWarning,

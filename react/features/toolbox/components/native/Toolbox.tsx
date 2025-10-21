@@ -5,6 +5,7 @@ import { connect, useSelector } from 'react-redux';
 
 import { IReduxState, IStore } from '../../../app/types';
 import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry';
+import { appType } from '../../../base/config/AppType';
 import Platform from '../../../base/react/Platform.native';
 import { iAmVisitor } from '../../../visitors/functions';
 import { customButtonPressed } from '../../actions.native';
@@ -13,6 +14,7 @@ import { useNativeToolboxButtons } from '../../hooks.native';
 import { IToolboxNativeButton } from '../../types';
 
 import styles from './styles';
+import ToolboxFishMeet from './ToolboxFishMeet';
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
@@ -42,6 +44,10 @@ interface IProps {
 
 /**
  * Implements the conference Toolbox on React Native.
+ * 
+ * Smart component that dynamically loads either:
+ * - ToolboxFishMeet (when appType.isFishMeet is true)
+ * - Default Jitsi Toolbox (when appType.isFishMeet is false)
  *
  * @param {Object} props - The props of the component.
  * @returns {React$Element}
@@ -54,6 +60,13 @@ function Toolbox(props: IProps) {
         dispatch
     } = props;
 
+    // If FishMeet mode is enabled, use the FishMeet-specific Toolbox
+    // This component is kept in a separate file (ToolboxFishMeet.tsx) for easy maintenance
+    if (appType.isFishMeet) {
+        return <ToolboxFishMeet />;
+    }
+
+    // Default Jitsi Toolbox implementation below
     if (!_visible) {
         return null;
     }

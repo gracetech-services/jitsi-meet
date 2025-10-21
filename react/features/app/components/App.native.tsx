@@ -7,6 +7,7 @@ import { hideSplash } from 'react-native-splash-view';
 
 import BottomSheetContainer from '../../base/dialog/components/native/BottomSheetContainer';
 import DialogContainer from '../../base/dialog/components/native/DialogContainer';
+import { appType } from '../../base/config/AppType';
 import { updateFlags } from '../../base/flags/actions';
 import { CALL_INTEGRATION_ENABLED } from '../../base/flags/constants';
 import { clientResized, setSafeAreaInsets } from '../../base/responsive-ui/actions';
@@ -115,6 +116,24 @@ export class App extends AbstractApp<IProps> {
         const { dispatch, getState } = this.state.store ?? {};
         const { flags = {}, url, userInfo } = this.props;
         let callIntegrationEnabled = flags[CALL_INTEGRATION_ENABLED as keyof typeof flags];
+
+        // Read isFishMeet from url.config and set it globally
+        console.log('[App.native.tsx] _extraInit - 开始处理 isFishMeet 配置');
+        console.log('[App.native.tsx] url 对象:', url);
+        if (typeof url === 'object' && url !== null && 'config' in url) {
+            const configObj: any = url?.config;
+
+            console.log('[App.native.tsx] url.config:', configObj);
+            console.log('[App.native.tsx] configObj.isFishMeet:', configObj?.isFishMeet);
+            if (configObj && typeof configObj.isFishMeet !== 'undefined') {
+                appType.isFishMeet = configObj.isFishMeet;
+                console.log('[App.native.tsx] ✅ appType.isFishMeet 已设置为:', appType.isFishMeet);
+            } else {
+                console.log('[App.native.tsx] ⚠️ configObj.isFishMeet 未定义，保持默认值:', appType.isFishMeet);
+            }
+        } else {
+            console.log('[App.native.tsx] ⚠️ url 中没有 config 对象');
+        }
 
         // CallKit does not work on the simulator, make sure we disable it.
         if (Platform.OS === 'ios' && DeviceInfo.isEmulatorSync()) {
