@@ -285,7 +285,7 @@ class Conference extends AbstractConference<IProps, State> {
         return (
             <Container
                 style = { [
-                    styles.conference,
+                    appType.isFishMeet ? fishMeetStyles.fishMeetConference : styles.conference,
                     _brandingStyles
                 ] }>
                 <BrandingImageBackground />
@@ -434,12 +434,18 @@ class Conference extends AbstractConference<IProps, State> {
 
                     {
                         _shouldDisplayTileView
-                        || (_isDisplayNameVisible && (
+                        || (appType.isFishMeet ? (
+                            <Container style = { styles.displayNameContainer }>
+                                <DisplayNameLabel
+                                    participantId = { _largeVideoParticipantId }
+                                    contained = { true } />
+                            </Container>
+                        ) : (_isDisplayNameVisible && (
                             <Container style = { styles.displayNameContainer }>
                                 <DisplayNameLabel
                                     participantId = { _largeVideoParticipantId } />
                             </Container>
-                        ))
+                        )))
                     }
 
                     { !_shouldDisplayTileView && <LonelyMeetingExperience /> }
