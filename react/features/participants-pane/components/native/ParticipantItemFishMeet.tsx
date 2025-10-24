@@ -11,11 +11,11 @@ import {
 import { Text } from 'react-native-paper';
 
 import Avatar from '../../../base/avatar/components/Avatar';
-import { appType } from '../../../base/config/AppType';
-import { AudioStateIcons, MEDIA_STATE, type MediaState, VideoStateIcons } from '../../constants';
+import { MEDIA_STATE, type MediaState } from '../../constants';
+import { FishmeetAudioStateIcons, FishmeetVideoStateIcons } from '../../fishMeetConstants';
 
-import ParticipantItemFishMeet from './ParticipantItemFishMeet';
 import { RaisedHandIndicator } from './RaisedHandIndicator';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 interface IProps {
@@ -77,11 +77,11 @@ interface IProps {
 }
 
 /**
- * Participant item.
+ * FishMeet participant item.
  *
  * @returns {React$Element<any>}
  */
-function ParticipantItem({
+function ParticipantItemFishMeet({
     children,
     displayName,
     disableModeratorIndicator,
@@ -95,24 +95,6 @@ function ParticipantItem({
     videoMediaState = MEDIA_STATE.NONE
 }: IProps) {
 
-    if (appType.isFishMeet) {
-        return (
-            <ParticipantItemFishMeet
-                audioMediaState = { audioMediaState }
-                disableModeratorIndicator = { disableModeratorIndicator }
-                displayName = { displayName }
-                isKnockingParticipant = { isKnockingParticipant }
-                isModerator = { isModerator }
-                local = { local }
-                onPress = { onPress }
-                participantID = { participantID }
-                raisedHand = { raisedHand }
-                videoMediaState = { videoMediaState }>
-                {children}
-            </ParticipantItemFishMeet>
-        );
-    }
-
     const { t } = useTranslation();
     const participantNameContainerStyles
         = isKnockingParticipant ? styles.lobbyParticipantNameContainer : styles.participantNameContainer;
@@ -121,11 +103,11 @@ function ParticipantItem({
         <View style = { styles.participantContainer as StyleProp<ViewStyle> } >
             <TouchableOpacity
                 onPress = { onPress }
-                style = { styles.participantContent as StyleProp<ViewStyle> }>
+                style = { fishMeetStyles.fishMeetParticipantContent as StyleProp<ViewStyle> }>
                 <Avatar
                     displayName = { displayName }
                     participantId = { participantID }
-                    size = { 32 } />
+                    size = { 50 } />
                 <View
                     style = { [
                         styles.participantDetailsContainer,
@@ -133,33 +115,34 @@ function ParticipantItem({
                     ] as StyleProp<ViewStyle> }>
                     <View style = { participantNameContainerStyles as StyleProp<ViewStyle> }>
                         <Text
-                            numberOfLines = { 1 }
+                            numberOfLines = { 2 }
                             style = { styles.participantName as StyleProp<TextStyle> }>
-                            { displayName }
-                            { local && ` (${t('chat.you')})` }
+                            {displayName}
+                            {local && ` (${t('chat.you')})`}
                         </Text>
                     </View>
                     {
                         isModerator && !disableModeratorIndicator
                         && <Text style = { styles.moderatorLabel as StyleProp<TextStyle> }>
-                            { t('videothumbnail.moderator') }
+                            {t('videothumbnail.moderator')}
                         </Text>
                     }
                 </View>
                 {
                     !isKnockingParticipant
                     && <>
-                        { raisedHand && <RaisedHandIndicator /> }
+                        {raisedHand && <RaisedHandIndicator />}
                         <View style = { styles.participantStatesContainer as StyleProp<ViewStyle> }>
-                            <View style = { styles.participantStateVideo }>{ VideoStateIcons[videoMediaState] }</View>
-                            <View>{ AudioStateIcons[audioMediaState] }</View>
+                            <View style = { styles.participantStateVideo }>{FishmeetVideoStateIcons[videoMediaState]}</View>
+                            <View>{FishmeetAudioStateIcons[audioMediaState]}</View>
                         </View>
                     </>
                 }
             </TouchableOpacity>
-            { !local && children }
+            {!local && children}
         </View>
     );
 }
 
-export default ParticipantItem;
+export default ParticipantItemFishMeet;
+
