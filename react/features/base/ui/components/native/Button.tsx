@@ -9,6 +9,7 @@ import BaseTheme from '../BaseTheme.native';
 import { IButtonProps } from '../types';
 
 import styles from './buttonStyles';
+import fishMeetButtonStyles from './fishMeetButtonStyles';
 
 
 export interface IProps extends IButtonProps {
@@ -35,7 +36,14 @@ const Button: React.FC<IProps> = ({
     type
 }: IProps) => {
     const { t } = useTranslation();
-    const { DESTRUCTIVE, PRIMARY, SECONDARY, TERTIARY } = BUTTON_TYPES;
+    const { DESTRUCTIVE,
+        PRIMARY,
+        SECONDARY,
+        TERTIARY,
+        FISHMEET_PRIMARY,
+        FISHMEET_SECONDARY,
+        FISHMEET_TERTIARY
+    } = BUTTON_TYPES;
     const { CONTAINED, TEXT } = BUTTON_MODES;
 
     let buttonLabelStyles;
@@ -55,6 +63,15 @@ const Button: React.FC<IProps> = ({
             ? styles.buttonLabelDestructiveText
             : styles.buttonLabelDestructive;
         color = mode === CONTAINED && BaseTheme.palette.actionDanger;
+    } else if (type === FISHMEET_PRIMARY) {
+        buttonLabelStyles = fishMeetButtonStyles.fishMeetButtonLabelPrimaryText;
+        color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor01;
+    } else if (type === FISHMEET_SECONDARY) {
+        buttonLabelStyles = fishMeetButtonStyles.fishMeetButtonLabelPrimaryText;
+        color = mode === CONTAINED && BaseTheme.palette.fishMeetAction01;
+    } else if (type === FISHMEET_TERTIARY) {
+        buttonLabelStyles = fishMeetButtonStyles.fishMeetButtonLabelPrimaryText;
+        color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor02;
     } else {
         color = buttonColor;
         buttonLabelStyles = styles.buttonLabel;

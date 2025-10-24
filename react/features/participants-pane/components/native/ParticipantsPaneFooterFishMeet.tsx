@@ -5,15 +5,12 @@ import { View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
-import { appType } from '../../../base/config/AppType';
 import { openDialog, openSheet } from '../../../base/dialog/actions';
 import {
     BREAKOUT_ROOMS_BUTTON_ENABLED
 } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
-import Icon from '../../../base/icons/components/Icon';
-import { IconDotsHorizontal, IconRingGroup } from '../../../base/icons/svg';
-import BaseTheme from '../../../base/ui/components/BaseTheme.native';
+import { IconFishmeetDotsHorizontal } from '../../../base/icons/svg';
 import Button from '../../../base/ui/components/native/Button';
 import IconButton from '../../../base/ui/components/native/IconButton';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
@@ -23,23 +20,20 @@ import {
 import { screen } from '../../../mobile/navigation/routes';
 // @ts-ignore
 import MuteEveryoneDialog from '../../../video-menu/components/native/MuteEveryoneDialog';
+import MuteEveryonesVideoDialog
+    from '../../../video-menu/components/native/MuteEveryonesVideoDialog';
 import { isMoreActionsVisible, isMuteAllVisible } from '../../functions';
 
 import { ContextMenuMore } from './ContextMenuMore';
-import ParticipantsPaneFooterFishMeet from './ParticipantsPaneFooterFishMeet';
 import styles from './styles';
 
 
 /**
- * Implements the participants pane footer component.
+ * Implements the FishMeet participants pane footer component.
  *
- * @returns { JSX.Element} - The participants pane footer component.
+ * @returns { JSX.Element} - The FishMeet participants pane footer component.
  */
-const ParticipantsPaneFooter = (): JSX.Element => {
-    if (appType.isFishMeet) {
-        return <ParticipantsPaneFooterFishMeet />;
-    }
-
+const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
     const dispatch = useDispatch();
     const isBreakoutRoomsSupported = useSelector((state: IReduxState) =>
         state['features/base/conference'].conference?.getBreakoutRooms()?.isSupported()
@@ -53,25 +47,24 @@ const ParticipantsPaneFooter = (): JSX.Element => {
     const showMoreActions = useSelector(isMoreActionsVisible);
     const showMuteAll = useSelector(isMuteAllVisible);
 
+    // Gracetech
+    const muteAllVideo = useCallback(() => {
+        dispatch(openDialog(MuteEveryonesVideoDialog));
+    }, [ dispatch ]);
+
     return (
         <View style = { styles.participantsPaneFooterContainer as ViewStyle }>
             {
+                // Temporarily disable this feature via styles.breakoutRoomsButton
                 isBreakoutRoomsSupported
                 && isBreakoutRoomsEnabled
                 && <Button
                     accessibilityLabel = 'participantsPane.actions.breakoutRooms'
-                    // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
-                    icon = { () => (
-                        <Icon
-                            color = { BaseTheme.palette.icon04 }
-                            size = { 20 }
-                            src = { IconRingGroup } />
-                    ) }
                     labelKey = 'participantsPane.actions.breakoutRooms'
-                    // eslint-disable-next-line react/jsx-no-bind, no-confusing-arrow
-                    onClick = { () => navigate(screen.conference.breakoutRooms) }
+                    // eslint-disable-next-line react/jsx-no-bind
+                    onClick = { () => navigate(screen.conference.fishMeetBreakoutRooms) }
                     style = { styles.breakoutRoomsButton }
-                    type = { BUTTON_TYPES.SECONDARY } />
+                    type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
             }
 
             <View style = { styles.participantsPaneFooter as ViewStyle }>
@@ -81,16 +74,22 @@ const ParticipantsPaneFooter = (): JSX.Element => {
                             accessibilityLabel = 'participantsPane.actions.muteAll'
                             labelKey = 'participantsPane.actions.muteAll'
                             onClick = { muteAll }
-                            type = { BUTTON_TYPES.SECONDARY } />
+                            type = { BUTTON_TYPES.FISHMEET_PRIMARY } />
                     )
                 }
+                <Button
+                    accessibilityLabel = 'participantsPane.actions.stopEveryonesVideo'
+                    labelKey = 'participantsPane.actions.stopEveryonesVideo'
+                    onClick = { muteAllVideo }
+                    style = { styles.moreButton }
+                    type = { BUTTON_TYPES.FISHMEET_PRIMARY } />
                 {
                     showMoreActions && (
                         <IconButton
                             onPress = { openMoreMenu }
-                            src = { IconDotsHorizontal }
+                            src = { IconFishmeetDotsHorizontal }
                             style = { styles.moreButton }
-                            type = { BUTTON_TYPES.SECONDARY } />
+                            type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
                     )
                 }
             </View>
@@ -98,4 +97,5 @@ const ParticipantsPaneFooter = (): JSX.Element => {
     );
 };
 
-export default ParticipantsPaneFooter;
+export default ParticipantsPaneFooterFishMeet;
+
