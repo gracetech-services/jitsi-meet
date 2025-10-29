@@ -18,4 +18,3 @@ export const fishMeetChatTabBarOptions = {
         borderBottomWidth: 0.4
     }
 };
-

@@ -47,6 +47,7 @@ import { default as IconFishmeetClose } from './fishmeet-close.svg';
 import { default as IconFishmeetDotsHorizontal } from './fishmeet-dots-horizontal.svg';
 import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
 import { default as IconFishmeetRaiseHand } from './fishmeet-raise-hand.svg';
+import { default as IconFishmeetSend } from './fishmeet-send.svg';
 import { default as IconFishmeetUsers } from './fishmeet-users.svg';
 import { default as IconFishmeetVolumeUp } from './fishmeet-volume-up.svg';
 import { default as IconGear } from './gear.svg';
@@ -175,6 +176,7 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconFishmeetDotsHorizontal,
     IconFishmeetHangup,
     IconFishmeetRaiseHand,
+    IconFishmeetSend,
     IconFishmeetUsers,
     IconFishmeetVolumeUp,
     IconGear,
