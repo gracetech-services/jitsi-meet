@@ -1,1 +1,0 @@
-make && cp fishmeet/*.* ./libs
