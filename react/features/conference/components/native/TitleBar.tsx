@@ -85,7 +85,6 @@ const TitleBar = (props: IProps) => {
 
     if (appType.isFishMeet) {
         const fishMeetProps = {
-            _conferenceTimerEnabled: props._conferenceTimerEnabled,
             _createOnPress: props._createOnPress,
             _isParticipantsPaneEnabled: props._isParticipantsPaneEnabled,
             _meetingName: props._meetingName,

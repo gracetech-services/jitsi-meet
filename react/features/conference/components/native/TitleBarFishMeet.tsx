@@ -5,18 +5,12 @@ import AudioDeviceToggleButton from '../../../mobile/audio-mode/components/Audio
 import PictureInPictureButton from '../../../mobile/picture-in-picture/components/PictureInPictureButton';
 import ParticipantsPaneButton from '../../../participants-pane/components/native/ParticipantsPaneButton';
 import ToggleCameraButton from '../../../toolbox/components/native/ToggleCameraButton';
-import ConferenceTimer from '../ConferenceTimer';
 
 import Labels from './Labels';
 import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 interface IProps {
-
-    /**
-     * Whether displaying the current conference timer is enabled or not.
-     */
-    _conferenceTimerEnabled: boolean;
 
     /**
      * Creates a function to be invoked when the onPress of the touchables are
@@ -68,12 +62,6 @@ const TitleBarFishMeet = (props: IProps) => {
             <View
                 pointerEvents = 'box-none'
                 style = { styles.roomNameWrapper as ViewStyle }>
-                {
-                    props._conferenceTimerEnabled
-                    && <View style = { styles.roomTimerView as ViewStyle }>
-                        <ConferenceTimer textStyle = { styles.roomTimer } />
-                    </View>
-                }
                 {
                     props._roomNameEnabled
                     && <View
