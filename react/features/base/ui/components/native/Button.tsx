@@ -1,9 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleProp, TouchableHighlight } from 'react-native';
+import { StyleProp, TouchableHighlight, View } from 'react-native';
 import { Button as NativePaperButton, Text } from 'react-native-paper';
 import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
+import { appType } from '../../../config/AppType';
 import { BUTTON_MODES, BUTTON_TYPES } from '../../constants.native';
 import BaseTheme from '../BaseTheme.native';
 import { IButtonProps } from '../types';
@@ -108,6 +109,46 @@ const Button: React.FC<IProps> = ({
             </TouchableHighlight>
         );
     }
+
+    if (appType.isFishMeet && (
+        type === DESTRUCTIVE
+    || type === SECONDARY
+    || type === FISHMEET_PRIMARY
+    || type === FISHMEET_SECONDARY
+    || type === FISHMEET_TERTIARY
+    )) {
+        // Override buttonStyles for FishMeet
+        if (disabled) {
+            buttonStyles = fishMeetButtonStyles.fishMeetButtonDisabled;
+        } else {
+            buttonStyles = fishMeetButtonStyles.fishMeetButton;
+        }
+
+        return (
+            <TouchableHighlight
+                accessibilityLabel = { accessibilityLabel }
+                disabled = { disabled }
+                id = { id }
+                onPress = { onPress }
+                style = { [
+                    buttonStyles,
+                    style,
+                    { backgroundColor: color }
+                ] }
+                underlayColor = { color }>
+                <View>
+                    <Text
+                        style = { [
+                            buttonLabelStyles,
+                            labelStyle
+                        ] }>
+                        {t(labelKey ?? '')}
+                    </Text>
+                </View>
+            </TouchableHighlight>
+        );
+    }
+
 
     return (
         <NativePaperButton
