@@ -78,6 +78,7 @@ export const FishmeetVideoStateIcons = {
     [MEDIA_STATE.UNMUTED]: (
         <View style = { fishMeetStyles.fishMeetIconState as ViewStyle }>
             <Icon
+                color = 'transparent'
                 size = { 16 }
                 src = { IconFishmeetVideo } />
         </View>
