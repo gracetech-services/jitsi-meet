@@ -170,7 +170,7 @@ config.disableThirdPartyRequests = true;
 
     // Application logo url
 //config.defaultLogoUrl = 'images/watermark.svg';
-config.defaultLogoUrl = 'fishmeet.jpg';
+config.defaultLogoUrl = '';
 
     // Default language for the user interface. Cannot be overwritten.
     // DEPRECATED! Use the `lang` iframe option directly instead.
@@ -758,8 +758,8 @@ interfaceConfig.HIDE_DEEP_LINKING_LOGO = true;
 
     // Please use defaultLogoUrl from config.js
     //DEFAULT_LOGO_URL: 'images/watermark.svg',
-interfaceConfig.DEFAULT_LOGO_URL = 'fishmeet.jpg';
-interfaceConfig.JITSI_WATERMARK_LINK = 'https://fishmeet.top'
+interfaceConfig.DEFAULT_LOGO_URL = '';
+interfaceConfig.JITSI_WATERMARK_LINK = ''
 
     // Please use defaultRemoteDisplayName from config.js
     // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
