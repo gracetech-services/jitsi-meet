@@ -4,6 +4,7 @@ import { FlatList, Text, TextStyle, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import Icon from '../../../base/icons/components/Icon';
 import { IconAddUser } from '../../../base/icons/svg';
 import {
@@ -26,6 +27,7 @@ import { iAmVisitor } from '../../../visitors/functions';
 import { participantMatchesSearch, shouldRenderInviteButton } from '../../functions';
 
 import MeetingParticipantItem from './MeetingParticipantItem';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -99,8 +101,9 @@ const MeetingParticipantList = () => {
             <Input
                 clearable = { true }
                 customStyles = {{
-                    container: styles.inputContainer,
-                    input: styles.centerInput }}
+                    container: appType.isFishMeet ? fishMeetStyles.fishMeetInputContainer : styles.inputContainer,
+                    input: appType.isFishMeet ? fishMeetStyles.fishMeetLeftInput : styles.centerInput
+                }}
                 onChange = { onSearchStringChange }
                 placeholder = { t('participantsPane.search') }
                 value = { searchString } />

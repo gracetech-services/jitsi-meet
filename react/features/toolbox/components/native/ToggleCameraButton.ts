@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { translate } from '../../../base/i18n/functions';
-import { IconCameraRefresh } from '../../../base/icons/svg';
+import { IconCameraRefresh, IconFishmeetCameraRefresh } from '../../../base/icons/svg';
 import { toggleCameraFacingMode } from '../../../base/media/actions';
 import { MEDIA_TYPE } from '../../../base/media/constants';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
@@ -29,7 +30,7 @@ interface IProps extends AbstractButtonProps {
  */
 class ToggleCameraButton extends AbstractButton<IProps> {
     override accessibilityLabel = 'toolbar.accessibilityLabel.toggleCamera';
-    override icon = IconCameraRefresh;
+    override icon = appType.isFishMeet ? IconFishmeetCameraRefresh : IconCameraRefresh;
     override label = 'toolbar.toggleCamera';
 
     /**

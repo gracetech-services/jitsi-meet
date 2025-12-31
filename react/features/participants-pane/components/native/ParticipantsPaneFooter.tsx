@@ -5,6 +5,7 @@ import { View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
+import { appType } from '../../../base/config/AppType';
 import { openDialog, openSheet } from '../../../base/dialog/actions';
 import {
     BREAKOUT_ROOMS_BUTTON_ENABLED
@@ -25,6 +26,7 @@ import MuteEveryoneDialog from '../../../video-menu/components/native/MuteEveryo
 import { isMoreActionsVisible, isMuteAllVisible } from '../../functions';
 
 import { ContextMenuMore } from './ContextMenuMore';
+import ParticipantsPaneFooterFishMeet from './ParticipantsPaneFooterFishMeet';
 import styles from './styles';
 
 
@@ -34,6 +36,10 @@ import styles from './styles';
  * @returns { JSX.Element} - The participants pane footer component.
  */
 const ParticipantsPaneFooter = (): JSX.Element => {
+    if (appType.isFishMeet) {
+        return <ParticipantsPaneFooterFishMeet />;
+    }
+
     const dispatch = useDispatch();
     const isBreakoutRoomsSupported = useSelector((state: IReduxState) =>
         state['features/base/conference'].conference?.getBreakoutRooms()?.isSupported()

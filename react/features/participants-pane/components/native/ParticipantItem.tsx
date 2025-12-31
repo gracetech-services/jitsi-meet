@@ -11,8 +11,10 @@ import {
 import { Text } from 'react-native-paper';
 
 import Avatar from '../../../base/avatar/components/Avatar';
+import { appType } from '../../../base/config/AppType';
 import { AudioStateIcons, MEDIA_STATE, type MediaState, VideoStateIcons } from '../../constants';
 
+import ParticipantItemFishMeet from './ParticipantItemFishMeet';
 import { RaisedHandIndicator } from './RaisedHandIndicator';
 import styles from './styles';
 
@@ -92,6 +94,24 @@ function ParticipantItem({
     audioMediaState = MEDIA_STATE.NONE,
     videoMediaState = MEDIA_STATE.NONE
 }: IProps) {
+
+    if (appType.isFishMeet) {
+        return (
+            <ParticipantItemFishMeet
+                audioMediaState = { audioMediaState }
+                disableModeratorIndicator = { disableModeratorIndicator }
+                displayName = { displayName }
+                isKnockingParticipant = { isKnockingParticipant }
+                isModerator = { isModerator }
+                local = { local }
+                onPress = { onPress }
+                participantID = { participantID }
+                raisedHand = { raisedHand }
+                videoMediaState = { videoMediaState }>
+                {children}
+            </ParticipantItemFishMeet>
+        );
+    }
 
     const { t } = useTranslation();
     const participantNameContainerStyles

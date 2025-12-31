@@ -1,0 +1,148 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+    GestureResponderEvent,
+    StyleProp,
+    TextStyle,
+    TouchableOpacity,
+    View,
+    ViewStyle
+} from 'react-native';
+import { Text } from 'react-native-paper';
+
+import Avatar from '../../../base/avatar/components/Avatar';
+import { MEDIA_STATE, type MediaState } from '../../constants';
+import { FishmeetAudioStateIcons, FishmeetVideoStateIcons } from '../../fishMeetConstants';
+
+import { RaisedHandIndicator } from './RaisedHandIndicator';
+import fishMeetStyles from './fishMeetStyles';
+import styles from './styles';
+
+interface IProps {
+
+    /**
+     * Media state for audio.
+     */
+    audioMediaState?: MediaState;
+
+    /**
+     * React children.
+     */
+    children?: React.ReactNode;
+
+    /**
+     * Whether or not to disable the moderator indicator.
+     */
+    disableModeratorIndicator?: boolean;
+
+    /**
+     * The name of the participant. Used for showing lobby names.
+     */
+    displayName: string;
+
+    /**
+     * Is the participant waiting?
+     */
+    isKnockingParticipant?: boolean;
+
+    /**
+     * Whether or not the user is a moderator.
+     */
+    isModerator?: boolean;
+
+    /**
+     * True if the participant is local.
+     */
+    local?: boolean;
+
+    /**
+     * Callback to be invoked on pressing the participant item.
+     */
+    onPress?: (e?: GestureResponderEvent) => void;
+
+    /**
+     * The ID of the participant.
+     */
+    participantID: string;
+
+    /**
+     * True if the participant have raised hand.
+     */
+    raisedHand?: boolean;
+
+    /**
+     * Media state for video.
+     */
+    videoMediaState?: MediaState;
+}
+
+/**
+ * FishMeet participant item.
+ *
+ * @returns {React$Element<any>}
+ */
+function ParticipantItemFishMeet({
+    children,
+    displayName,
+    disableModeratorIndicator,
+    isKnockingParticipant = false,
+    isModerator,
+    local,
+    onPress,
+    participantID,
+    raisedHand,
+    audioMediaState = MEDIA_STATE.NONE,
+    videoMediaState = MEDIA_STATE.NONE
+}: IProps) {
+
+    const { t } = useTranslation();
+    const participantNameContainerStyles
+        = isKnockingParticipant ? styles.lobbyParticipantNameContainer : styles.participantNameContainer;
+
+    return (
+        <View style = { styles.participantContainer as StyleProp<ViewStyle> } >
+            <TouchableOpacity
+                onPress = { onPress }
+                style = { fishMeetStyles.fishMeetParticipantContent as StyleProp<ViewStyle> }>
+                <Avatar
+                    displayName = { displayName }
+                    participantId = { participantID }
+                    size = { 50 } />
+                <View
+                    style = { [
+                        styles.participantDetailsContainer,
+                        raisedHand && styles.participantDetailsContainerRaisedHand
+                    ] as StyleProp<ViewStyle> }>
+                    <View style = { participantNameContainerStyles as StyleProp<ViewStyle> }>
+                        <Text
+                            numberOfLines = { 2 }
+                            style = { styles.participantName as StyleProp<TextStyle> }>
+                            {displayName}
+                            {local && ` (${t('chat.you')})`}
+                        </Text>
+                    </View>
+                    {
+                        isModerator && !disableModeratorIndicator
+                        && <Text style = { styles.moderatorLabel as StyleProp<TextStyle> }>
+                            {t('videothumbnail.moderator')}
+                        </Text>
+                    }
+                </View>
+                {
+                    !isKnockingParticipant
+                    && <>
+                        {raisedHand && <RaisedHandIndicator />}
+                        <View style = { styles.participantStatesContainer as StyleProp<ViewStyle> }>
+                            <View style = { styles.participantStateVideo }>{FishmeetVideoStateIcons[videoMediaState]}</View>
+                            <View>{FishmeetAudioStateIcons[audioMediaState]}</View>
+                        </View>
+                    </>
+                }
+            </TouchableOpacity>
+            {!local && children}
+        </View>
+    );
+}
+
+export default ParticipantItemFishMeet;
+

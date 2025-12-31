@@ -1,5 +1,6 @@
 import { IReduxState, IStore } from '../app/types';
 import { TILE_VIEW_ENABLED } from '../base/flags/constants';
+import { appType } from '../base/config/AppType';
 import { getFeatureFlag } from '../base/flags/functions';
 import { pinParticipant } from '../base/participants/actions';
 import { getParticipantCount, getPinnedParticipant } from '../base/participants/functions';
@@ -97,7 +98,7 @@ export function shouldDisplayTileView(state: IReduxState) {
         || getPinnedParticipant(state)
 
         // It's a 1-on-1 meeting
-        || participantCount < 3
+        || (!appType.isFishMeet && participantCount < 3)
 
         // There is a shared YouTube video in the meeting
         || isVideoPlaying(state)

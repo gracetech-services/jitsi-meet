@@ -6,6 +6,11 @@ export const colorMap = {
     //  - JitsiMeetView.m
     //  - JitsiMeetView.java
     uiBackground: 'surface01',
+    fishMeetUiBackground: '#42434F',
+    fishMeetMainColor01: '#FE9C75',
+    fishMeetMainColor02: '#C8D7EC',
+    fishMeetAction01: '#E7EEF2',
+    fishMeetText01: '#424350',
 
     // Container backgrounds
     ui01: 'surface02',

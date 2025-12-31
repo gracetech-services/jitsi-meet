@@ -13,6 +13,15 @@ import { IGetVisibleNativeButtonsParams, IToolboxNativeButton } from './types';
 
 export * from './functions.any';
 
+// Screen width thresholds for different icon counts
+const WIDTH = {
+    FIT_9_ICONS: 520,
+    FIT_8_ICONS: 470,
+    FIT_7_ICONS: 420,
+    FIT_6_ICONS: 370,
+    FIT_5_ICONS: 320
+};
+
 /**
  * Indicates if the desktop share button is disabled or not.
  *
@@ -122,4 +131,38 @@ export function getVisibleNativeButtons(
         mainMenuButtons,
         overflowMenuButtons
     };
+}
+
+/**
+ * Returns the buttons that should be displayed based on screen width for FishMeet layout.
+ *
+ * @param {number} width - The width of the screen.
+ * @returns {Set<string>} - A set of button keys that should be displayed.
+ */
+export function getMovableButtons(width: number): Set<string> {
+    let buttons: string[] = [];
+
+    switch (true) {
+    case width >= WIDTH.FIT_9_ICONS: {
+        buttons = [ 'chat', 'togglecamera', 'screensharing', 'raisehand', 'audionly', 'tileview' ];
+        break;
+    }
+    case width >= WIDTH.FIT_8_ICONS: {
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly', 'tileview' ];
+        break;
+    }
+    case width >= WIDTH.FIT_7_ICONS: {
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly', 'tileview' ];
+        break;
+    }
+    case width >= WIDTH.FIT_6_ICONS: {
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly' ];
+        break;
+    }
+    default: {
+        buttons = [ 'chat', 'togglecamera', 'raisehand', 'audionly' ];
+    }
+    }
+
+    return new Set(buttons);
 }

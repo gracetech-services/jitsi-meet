@@ -1,6 +1,9 @@
 import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry';
 import { schemeColor } from '../../../base/color-scheme/functions';
+import { appType } from '../../../base/config/AppType';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
+
+import { registerFishMeetToolboxStyles } from './stylesFishMeet';
 
 const BUTTON_SIZE = 48;
 
@@ -214,3 +217,16 @@ ColorSchemeRegistry.register('Toolbox', {
         underlayColor: 'transparent'
     }
 });
+
+/**
+ * If FishMeet mode is enabled, override with FishMeet-specific styles.
+ * This keeps FishMeet styles in a separate file (stylesFishMeet.ts) for easier maintenance.
+ * 
+ * During Jitsi upgrades:
+ * - Replace styles.ts with the new version from jitsi-meet
+ * - Keep stylesFishMeet.ts unchanged
+ * - Only need to preserve these 3 lines below
+ */
+if (appType.isFishMeet) {
+    registerFishMeetToolboxStyles();
+}

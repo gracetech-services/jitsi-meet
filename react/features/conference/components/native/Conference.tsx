@@ -15,6 +15,7 @@ import { connect, useDispatch } from 'react-redux';
 import { appNavigate } from '../../../app/actions.native';
 import { IReduxState, IStore } from '../../../app/types';
 import { CONFERENCE_BLURRED, CONFERENCE_FOCUSED } from '../../../base/conference/actionTypes';
+import { appType } from '../../../base/config/AppType';
 import { isDisplayNameVisible } from '../../../base/config/functions.native';
 import { FULLSCREEN_ENABLED } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
@@ -56,6 +57,7 @@ import ExpandedLabelPopup from './ExpandedLabelPopup';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import TitleBar from './TitleBar';
 import { EXPANDED_LABEL_TIMEOUT } from './constants';
+import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 /**
@@ -283,7 +285,7 @@ class Conference extends AbstractConference<IProps, State> {
         return (
             <Container
                 style = { [
-                    styles.conference,
+                    appType.isFishMeet ? fishMeetStyles.fishMeetConference : styles.conference,
                     _brandingStyles
                 ] }>
                 <BrandingImageBackground />
@@ -432,12 +434,18 @@ class Conference extends AbstractConference<IProps, State> {
 
                     {
                         _shouldDisplayTileView
-                        || (_isDisplayNameVisible && (
+                        || (appType.isFishMeet ? (
+                            <Container style = { styles.displayNameContainer }>
+                                <DisplayNameLabel
+                                    participantId = { _largeVideoParticipantId }
+                                    contained = { true } />
+                            </Container>
+                        ) : (_isDisplayNameVisible && (
                             <Container style = { styles.displayNameContainer }>
                                 <DisplayNameLabel
                                     participantId = { _largeVideoParticipantId } />
                             </Container>
-                        ))
+                        )))
                     }
 
                     { !_shouldDisplayTileView && <LonelyMeetingExperience /> }
@@ -456,7 +464,9 @@ class Conference extends AbstractConference<IProps, State> {
                     pointerEvents = 'box-none'
                     style = {
                         (_toolboxVisible
-                            ? styles.titleBarSafeViewColor
+                            ? appType.isFishMeet
+                                ? fishMeetStyles.fishMeetTitleBarSafeViewColor
+                                : styles.titleBarSafeViewColor
                             : styles.titleBarSafeViewTransparent) as ViewStyle }>
                     <TitleBar _createOnPress = { this._createOnPress } />
                 </SafeAreaView>
