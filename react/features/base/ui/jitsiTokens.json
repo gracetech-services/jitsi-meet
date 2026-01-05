@@ -14,5 +14,6 @@
 
     "fishMeetUiBackground": "#42434F",
     "fishMeetMainColor01": "#FE9C75",
-    "fishMeetMainColor02": "#C8D7EC"
+    "fishMeetMainColor02": "#C8D7EC",
+    "fishMeetText": "#424350"
 }

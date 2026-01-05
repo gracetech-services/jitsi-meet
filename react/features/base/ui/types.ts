@@ -61,6 +61,7 @@ export interface IPalette {
     fishMeetUiBackground: string;
     fishMeetMainColor01: string;
     fishMeetMainColor02: string;
+    fishMeetText: string;
 }
 
 export interface ITypography {

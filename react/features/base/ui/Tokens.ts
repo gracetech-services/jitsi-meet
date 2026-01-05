@@ -11,6 +11,7 @@ export const colorMap = {
     fishMeetUiBackground: 'fishMeetUiBackground',
     fishMeetMainColor01: 'fishMeetMainColor01',
     fishMeetMainColor02: 'fishMeetMainColor02',
+    fishMeetText: 'fishMeetText',
 
     // Container backgrounds
     ui01: 'surface02',
