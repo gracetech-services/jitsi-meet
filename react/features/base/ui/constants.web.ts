@@ -217,6 +217,10 @@ export const commonStyles = (theme: Theme) => {
             justifyContent: 'center',
             width: 48,
 
+            '& svg': {
+                fill: '#424350'
+            },
+
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
                     backgroundColor: theme.palette.ui04
@@ -254,8 +258,8 @@ export const commonStyles = (theme: Theme) => {
         },
 
         '.toolbox-content-items': {
-            background: theme.palette.ui01,
-            borderRadius: 6,
+            background: theme.palette.fishMeetMainColor02,
+            borderRadius: 32,
             margin: '0 auto',
             padding: 6,
             textAlign: 'center' as const,
@@ -269,6 +273,44 @@ export const commonStyles = (theme: Theme) => {
                 '&:last-of-type': {
                     marginRight: 0
                 }
+            }
+        },
+
+        '.hangup-button': {
+            backgroundColor: theme.palette.fishMeetMainColor01,
+            borderRadius: '50%',
+
+            '@media (hover: hover) and (pointer: fine)': {
+                '&:hover': {
+                    backgroundColor: theme.palette.fishMeetMainColor01
+                },
+
+                '&:active': {
+                    backgroundColor: theme.palette.fishMeetMainColor01
+                }
+            },
+
+            '& svg': {
+                fill: '#fff'
+            }
+        },
+
+        '.hangup-menu-button': {
+            backgroundColor: theme.palette.fishMeetMainColor01,
+            borderRadius: '50%',
+
+            '@media (hover: hover) and (pointer: fine)': {
+                '&:hover': {
+                    backgroundColor: theme.palette.fishMeetMainColor01
+                },
+
+                '&:active': {
+                    backgroundColor: theme.palette.fishMeetMainColor01
+                }
+            },
+
+            '& svg': {
+                fill: '#fff'
             }
         }
     };

@@ -58,6 +58,9 @@ export interface IPalette {
     uiBackground: string;
     warning01: string;
     warning02: string;
+    fishMeetUiBackground: string;
+    fishMeetMainColor01: string;
+    fishMeetMainColor02: string;
 }
 
 export interface ITypography {
