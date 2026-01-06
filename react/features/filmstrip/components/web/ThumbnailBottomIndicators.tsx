@@ -40,15 +40,23 @@ interface IProps {
     thumbnailType?: string;
 }
 
-const useStyles = makeStyles()(() => {
+const useStyles = makeStyles()(theme => {
     return {
         nameContainer: {
             display: 'flex',
             overflow: 'hidden',
+            background: theme.palette.fishMeetMainColor02,
+            borderRadius: 22,
+            padding: '4px 12px',
+            maxWidth: '100%',
 
             '&>div': {
                 display: 'flex',
                 overflow: 'hidden'
+            },
+
+            '& .displayname': {
+                color: theme.palette.fishMeetText || '#424350'
             }
         }
     };

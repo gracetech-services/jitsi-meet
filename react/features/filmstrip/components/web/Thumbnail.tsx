@@ -282,7 +282,7 @@ const defaultStyles = (theme: Theme) => {
         },
 
         indicatorsBackground: {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'transparent',
             borderRadius: '4px',
             display: 'flex',
             alignItems: 'center',
