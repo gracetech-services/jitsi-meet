@@ -9,6 +9,7 @@ import {
 } from '../../../base/config/functions.any';
 import { isScreenShareParticipantById } from '../../../base/participants/functions';
 import DisplayName from '../../../display-name/components/web/DisplayName';
+import { THUMBNAIL_TYPE } from '../../constants';
 
 import StatusIndicators from './StatusIndicators';
 
@@ -45,9 +46,6 @@ const useStyles = makeStyles()(theme => {
         nameContainer: {
             display: 'flex',
             overflow: 'hidden',
-            background: theme.palette.fishMeetMainColor02,
-            borderRadius: 22,
-            padding: '4px 12px',
             maxWidth: '100%',
 
             '&>div': {
@@ -57,6 +55,20 @@ const useStyles = makeStyles()(theme => {
 
             '& .displayname': {
                 color: theme.palette.fishMeetText || '#424350'
+            }
+        },
+        nameContainerWithBackground: {
+            background: theme.palette.fishMeetMainColor02,
+            borderRadius: 22,
+            padding: '4px 12px'
+        },
+        nameContainerVertical: {
+            background: 'transparent',
+            borderRadius: 0,
+            padding: 0,
+
+            '& .displayname': {
+                color: '#fff'
             }
         }
     };
@@ -70,6 +82,7 @@ const ThumbnailBottomIndicators = ({
     thumbnailType
 }: IProps) => {
     const { classes: styles, cx } = useStyles();
+    const isVertical = thumbnailType === THUMBNAIL_TYPE.VERTICAL;
     const _allowEditing = !useSelector(isNameReadOnly);
     const _defaultLocalDisplayName = interfaceConfig.DEFAULT_LOCAL_DISPLAY_NAME;
     const _showDisplayName = useSelector(isDisplayNameVisible);
@@ -88,7 +101,11 @@ const ThumbnailBottomIndicators = ({
         }
         {
             _showDisplayName && (
-                <span className = { styles.nameContainer }>
+                <span
+                    className = { cx(
+                        styles.nameContainer,
+                        isVertical ? styles.nameContainerVertical : styles.nameContainerWithBackground
+                    ) }>
                     <DisplayName
                         allowEditing = { local ? _allowEditing : false }
                         displayNameSuffix = { local ? _defaultLocalDisplayName : '' }
