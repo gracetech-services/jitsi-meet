@@ -145,7 +145,12 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
      */
     _renderIcon() {
         const { backgroundColor, customClass, disabled, icon, showLabel, toggled } = this.props;
+        // Check if this is a fishmeet icon by checking the icon's displayName or name
+        // withBranding sets displayName to iconName (e.g., "IconFishmeetMic")
+        const iconName = (icon as any)?.displayName || (icon as any)?.name || (icon as any)?.toString() || '';
+        const isFishmeetIcon = iconName.toLowerCase().includes('fishmeet');
         const iconComponent = (<Icon
+            className = { isFishmeetIcon ? 'fishmeet-icon' : undefined }
             size = { showLabel ? undefined : 24 }
             src = { icon } />);
         const elementType = showLabel ? 'span' : 'div';

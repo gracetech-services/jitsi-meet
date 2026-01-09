@@ -1,7 +1,7 @@
 import { createToolbarEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
 import { IReduxState } from '../../../app/types';
-import { IconRecord, IconStop } from '../../../base/icons/svg';
+import { IconFishmeetRecordVideo } from '../../../base/icons/svg';
 import { MEET_FEATURES } from '../../../base/jwt/constants';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
@@ -36,10 +36,10 @@ export interface IProps extends AbstractButtonProps {
 export default class AbstractRecordButton<P extends IProps> extends AbstractButton<P> {
     override accessibilityLabel = 'dialog.startRecording';
     override toggledAccessibilityLabel = 'dialog.stopRecording';
-    override icon = IconRecord;
+    override icon = IconFishmeetRecordVideo;
     override label = 'dialog.startRecording';
     override toggledLabel = 'dialog.stopRecording';
-    override toggledIcon = IconStop;
+    override toggledIcon = IconFishmeetRecordVideo;
 
     /**
      * Returns the tooltip that should be displayed when the button is disabled.

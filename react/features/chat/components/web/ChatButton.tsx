@@ -5,7 +5,7 @@ import { createToolbarEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
 import { IReduxState } from '../../../app/types';
 import { translate } from '../../../base/i18n/functions';
-import { IconMessage } from '../../../base/icons/svg';
+import { IconFishmeetMessage } from '../../../base/icons/svg';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { closeOverflowMenuIfOpen } from '../../../toolbox/actions.web';
 import { toggleChat } from '../../actions.web';
@@ -29,7 +29,7 @@ interface IProps extends AbstractButtonProps {
 class ChatButton extends AbstractButton<IProps> {
     override accessibilityLabel = 'toolbar.accessibilityLabel.openChat';
     override toggledAccessibilityLabel = 'toolbar.accessibilityLabel.closeChat';
-    override icon = IconMessage;
+    override icon = IconFishmeetMessage;
     override label = 'toolbar.openChat';
     override toggledLabel = 'toolbar.closeChat';
     override tooltip = 'toolbar.openChat';

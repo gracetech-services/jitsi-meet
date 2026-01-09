@@ -1,4 +1,4 @@
-import { IconMic, IconMicSlash } from '../../icons/svg';
+import { IconFishmeetMic, IconFishmeetMicSlash } from '../../icons/svg';
 
 import AbstractButton, { IProps } from './AbstractButton';
 
@@ -8,8 +8,8 @@ import AbstractButton, { IProps } from './AbstractButton';
 export default class BaseAudioMuteButton<P extends IProps, S=any>
     extends AbstractButton<P, S> {
 
-    override icon = IconMic;
-    override toggledIcon = IconMicSlash;
+    override icon = IconFishmeetMic;
+    override toggledIcon = IconFishmeetMicSlash;
 
     /**
      * Handles clicking / pressing the button, and toggles the audio mute state

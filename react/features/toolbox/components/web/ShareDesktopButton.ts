@@ -4,7 +4,7 @@ import { createToolbarEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
 import { IReduxState } from '../../../app/types';
 import { translate } from '../../../base/i18n/functions';
-import { IconScreenshare } from '../../../base/icons/svg';
+import { IconFishmeetShareScreen } from '../../../base/icons/svg';
 import JitsiMeetJS from '../../../base/lib-jitsi-meet/_';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { startScreenShareFlow } from '../../../screen-share/actions.web';
@@ -32,7 +32,7 @@ class ShareDesktopButton extends AbstractButton<IProps> {
     override accessibilityLabel = 'toolbar.accessibilityLabel.shareYourScreen';
     override toggledAccessibilityLabel = 'toolbar.accessibilityLabel.stopScreenSharing';
     override label = 'toolbar.startScreenSharing';
-    override icon = IconScreenshare;
+    override icon = IconFishmeetShareScreen;
     override toggledLabel = 'toolbar.stopScreenSharing';
 
     /**

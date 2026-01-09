@@ -217,10 +217,6 @@ export const commonStyles = (theme: Theme) => {
             justifyContent: 'center',
             width: 48,
 
-            '& svg': {
-                fill: '#424350'
-            },
-
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
                     backgroundColor: theme.palette.ui04
