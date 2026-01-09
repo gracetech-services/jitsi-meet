@@ -1,6 +1,18 @@
 import React, { Fragment } from 'react';
 
 import Icon from '../../icons/components/Icon';
+import {
+    IconFishmeetDisplayModeHover,
+    IconFishmeetHangupHover,
+    IconFishmeetMessageHover,
+    IconFishmeetMicHover,
+    IconFishmeetPartictantHover,
+    IconFishmeetRaiseHandHover,
+    IconFishmeetRecordVideoHover,
+    IconFishmeetShareScreenHover,
+    IconFishmeetVideoHover,
+    IconFishmeetVideoStreamHover
+} from '../../icons/svg';
 import Tooltip from '../../tooltip/components/Tooltip';
 import ContextMenuItem from '../../ui/components/web/ContextMenuItem';
 
@@ -33,6 +45,22 @@ interface IProps extends AbstractToolboxItemProps {
 }
 
 /**
+ * Map of fishmeet icons to their hover versions.
+ */
+const FISHMEET_HOVER_ICON_MAP: { [key: string]: any; } = {
+    'IconFishmeetDisplayMode': IconFishmeetDisplayModeHover,
+    'IconFishmeetHangup': IconFishmeetHangupHover,
+    'IconFishmeetMessage': IconFishmeetMessageHover,
+    'IconFishmeetMic': IconFishmeetMicHover,
+    'IconFishmeetPartictant': IconFishmeetPartictantHover,
+    'IconFishmeetRaiseHand': IconFishmeetRaiseHandHover,
+    'IconFishmeetRecordVideo': IconFishmeetRecordVideoHover,
+    'IconFishmeetShareScreen': IconFishmeetShareScreenHover,
+    'IconFishmeetVideo': IconFishmeetVideoHover,
+    'IconFishmeetVideoStream': IconFishmeetVideoStreamHover
+};
+
+/**
  * Web implementation of {@code AbstractToolboxItem}.
  */
 export default class ToolboxItem extends AbstractToolboxItem<IProps> {
@@ -45,7 +73,16 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
         super(props);
 
         this._onKeyPress = this._onKeyPress.bind(this);
+        this._onMouseEnter = this._onMouseEnter.bind(this);
+        this._onMouseLeave = this._onMouseLeave.bind(this);
     }
+
+    /**
+     * State to track hover state for icon switching.
+     */
+    state = {
+        isHovered: false
+    };
 
     /**
      * Handles 'Enter' and Space key on the button to trigger onClick for accessibility.
@@ -59,6 +96,26 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
             event.preventDefault();
             this.props.onClick();
         }
+    }
+
+    /**
+     * Handles mouse enter event to switch to hover icon.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onMouseEnter() {
+        this.setState({ isHovered: true });
+    }
+
+    /**
+     * Handles mouse leave event to switch back to normal icon.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onMouseLeave() {
+        this.setState({ isHovered: false });
     }
 
     /**
@@ -94,6 +151,8 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
             onClick: disabled ? undefined : onClick,
             onKeyDown: disabled ? undefined : onKeyDown,
             onKeyPress: this._onKeyPress,
+            onMouseEnter: this._onMouseEnter,
+            onMouseLeave: this._onMouseLeave,
             tabIndex: 0,
             role: 'button'
         };
@@ -145,14 +204,23 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
      */
     _renderIcon() {
         const { backgroundColor, customClass, disabled, icon, showLabel, toggled } = this.props;
+        const { isHovered } = this.state;
         // Check if this is a fishmeet icon by checking the icon's displayName or name
         // withBranding sets displayName to iconName (e.g., "IconFishmeetMic")
         const iconName = (icon as any)?.displayName || (icon as any)?.name || (icon as any)?.toString() || '';
         const isFishmeetIcon = iconName.toLowerCase().includes('fishmeet');
+
+        // Check if this icon has a hover version and we're hovering (and not toggled)
+        // Exclude icons that already contain "hover" or "slash" in their name
+        const hasHoverVersion = FISHMEET_HOVER_ICON_MAP[iconName] !== undefined;
+        const isHoverIcon = iconName.toLowerCase().includes('hover') || iconName.toLowerCase().includes('slash');
+        const shouldUseHoverIcon = hasHoverVersion && isHovered && !toggled && !isHoverIcon;
+        const iconToRender = shouldUseHoverIcon ? FISHMEET_HOVER_ICON_MAP[iconName] : icon;
+
         const iconComponent = (<Icon
             className = { isFishmeetIcon ? 'fishmeet-icon' : undefined }
             size = { showLabel ? undefined : 24 }
-            src = { icon } />);
+            src = { iconToRender } />);
         const elementType = showLabel ? 'span' : 'div';
         const className = `${showLabel ? 'overflow-menu-item-icon' : 'toolbox-icon'} ${
             toggled ? 'toggled' : ''} ${disabled ? 'disabled' : ''} ${customClass ?? ''}`;

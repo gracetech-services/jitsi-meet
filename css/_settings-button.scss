@@ -3,10 +3,19 @@
 
     .toolbox-icon {
         align-items: center;
-        border-radius: 3px;
+        border-radius: 50%;
         cursor: pointer;
         display: flex;
         justify-content: center;
+
+        &:hover {
+            border-radius: 50%;
+            background-color: #525252 !important; // ui04 - same as other toolbox icons
+        }
+
+        &.toggled:hover {
+            background-color: #525252 !important; // ui04 - ensure toggled state also uses same hover color
+        }
 
         &.disabled, .disabled & {
             cursor: initial;

@@ -210,7 +210,7 @@ export const commonStyles = (theme: Theme) => {
 
         '.toolbox-icon': {
             display: 'flex',
-            borderRadius: 3,
+            borderRadius: '50%',
             flexDirection: 'column' as const,
             fontSize: 24,
             height: 48,
@@ -219,11 +219,13 @@ export const commonStyles = (theme: Theme) => {
 
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
-                    backgroundColor: theme.palette.ui04
+                    backgroundColor: theme.palette.ui04,
+                    borderRadius: '50%'
                 },
 
                 '&:active': {
-                    backgroundColor: theme.palette.ui03
+                    backgroundColor: theme.palette.ui03,
+                    borderRadius: '50%'
                 }
             },
             [theme.breakpoints.down(320)]: {
@@ -232,7 +234,15 @@ export const commonStyles = (theme: Theme) => {
             },
 
             '&.toggled': {
-                backgroundColor: theme.palette.ui03
+                backgroundColor: theme.palette.ui03,
+                borderRadius: '50%',
+
+                '@media (hover: hover) and (pointer: fine)': {
+                    '&:hover': {
+                        backgroundColor: theme.palette.ui04,
+                        borderRadius: '50%'
+                    }
+                }
             },
 
             '&.disabled': {
