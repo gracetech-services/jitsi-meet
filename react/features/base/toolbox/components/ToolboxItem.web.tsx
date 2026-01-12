@@ -240,9 +240,12 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
 
         const iconToRender = shouldUseHoverIcon ? FISHMEET_HOVER_ICON_MAP[baseIconName] : icon;
 
+        // Check if this is a hangup button
+        const isHangupButton = customClass === 'hangup-button' || iconName.toLowerCase().includes('hangup');
+
         const iconComponent = (<Icon
             className = { isFishmeetIcon ? 'fishmeet-icon' : undefined }
-            size = { showLabel ? undefined : 24 }
+            size = { showLabel ? undefined : (isHangupButton ? 44 : 24) }
             src = { iconToRender } />);
         const elementType = showLabel ? 'span' : 'div';
         const className = `${showLabel ? 'overflow-menu-item-icon' : 'toolbox-icon'} ${

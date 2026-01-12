@@ -11,10 +11,14 @@
         &:hover {
             border-radius: 50%;
             background-color: #525252 !important; // ui04 - same as other toolbox icons
+            padding: 6px;
+            margin: -6px;
         }
 
         &.toggled:hover {
             background-color: #525252 !important; // ui04 - ensure toggled state also uses same hover color
+            padding: 6px;
+            margin: -6px;
         }
 
         &.disabled, .disabled & {

@@ -220,7 +220,9 @@ export const commonStyles = (theme: Theme) => {
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
                     backgroundColor: theme.palette.ui04,
-                    borderRadius: '50%'
+                    borderRadius: '50%',
+                    padding: '6px',
+                    margin: '-6px'
                 },
 
                 '&:active': {
@@ -240,7 +242,9 @@ export const commonStyles = (theme: Theme) => {
                 '@media (hover: hover) and (pointer: fine)': {
                     '&:hover': {
                         backgroundColor: theme.palette.ui04,
-                        borderRadius: '50%'
+                        borderRadius: '50%',
+                        padding: '6px',
+                        margin: '-6px'
                     }
                 }
             },
@@ -283,16 +287,16 @@ export const commonStyles = (theme: Theme) => {
         },
 
         '.hangup-button': {
-            backgroundColor: theme.palette.fishMeetMainColor01,
+            backgroundColor: 'transparent',
             borderRadius: '50%',
 
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
-                    backgroundColor: theme.palette.fishMeetMainColor01
+                    backgroundColor: 'transparent'
                 },
 
                 '&:active': {
-                    backgroundColor: theme.palette.fishMeetMainColor01
+                    backgroundColor: 'transparent'
                 }
             },
 
@@ -302,16 +306,18 @@ export const commonStyles = (theme: Theme) => {
         },
 
         '.hangup-menu-button': {
-            backgroundColor: theme.palette.fishMeetMainColor01,
+            backgroundColor: 'transparent',
             borderRadius: '50%',
 
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
-                    backgroundColor: theme.palette.fishMeetMainColor01
+                    backgroundColor: theme.palette.ui04,
+                    padding: '6px',
+                    margin: '-6px'
                 },
 
                 '&:active': {
-                    backgroundColor: theme.palette.fishMeetMainColor01
+                    backgroundColor: 'transparent'
                 }
             },
 
