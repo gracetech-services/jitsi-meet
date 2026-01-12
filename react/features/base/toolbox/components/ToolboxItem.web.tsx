@@ -61,6 +61,15 @@ const FISHMEET_HOVER_ICON_MAP: { [key: string]: any; } = {
 };
 
 /**
+ * Map of toggled icons to their base icons (for finding hover versions).
+ * This helps us find the hover icon when a button is in toggled state.
+ */
+const TOGGLED_TO_BASE_ICON_MAP: { [key: string]: string; } = {
+    'IconFishmeetMicSlash': 'IconFishmeetMic',
+    'IconFishmeetVideoOff': 'IconFishmeetVideo'
+};
+
+/**
  * Web implementation of {@code AbstractToolboxItem}.
  */
 export default class ToolboxItem extends AbstractToolboxItem<IProps> {
@@ -210,12 +219,26 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
         const iconName = (icon as any)?.displayName || (icon as any)?.name || (icon as any)?.toString() || '';
         const isFishmeetIcon = iconName.toLowerCase().includes('fishmeet');
 
-        // Check if this icon has a hover version and we're hovering (and not toggled)
-        // Exclude icons that already contain "hover" or "slash" in their name
-        const hasHoverVersion = FISHMEET_HOVER_ICON_MAP[iconName] !== undefined;
-        const isHoverIcon = iconName.toLowerCase().includes('hover') || iconName.toLowerCase().includes('slash');
-        const shouldUseHoverIcon = hasHoverVersion && isHovered && !toggled && !isHoverIcon;
-        const iconToRender = shouldUseHoverIcon ? FISHMEET_HOVER_ICON_MAP[iconName] : icon;
+        // Check if this is a mic or video button (excluding videostream) - these should not use hover in toggled state
+        const isMicOrVideoButton = iconName.toLowerCase().includes('mic')
+            || (iconName.toLowerCase().includes('video') && !iconName.toLowerCase().includes('videostream'));
+
+        // Get the base icon name for hover lookup
+        // If this is a toggled icon (like IconFishmeetMicSlash), find its base icon
+        const baseIconName = TOGGLED_TO_BASE_ICON_MAP[iconName] || iconName;
+
+        // Check if this icon has a hover version
+        const hasHoverVersion = FISHMEET_HOVER_ICON_MAP[baseIconName] !== undefined;
+        const isHoverIcon = iconName.toLowerCase().includes('hover');
+
+        // Determine when to use hover icon:
+        // 1. If hovering and not toggled: show hover icon
+        // 2. If toggled and NOT mic/video button: show hover icon (instead of regular icon)
+        // 3. If toggled and IS mic/video button: show toggled icon (already passed as icon prop)
+        const shouldUseHoverIcon = hasHoverVersion && !isHoverIcon
+            && ((isHovered && !toggled) || (toggled && !isMicOrVideoButton));
+
+        const iconToRender = shouldUseHoverIcon ? FISHMEET_HOVER_ICON_MAP[baseIconName] : icon;
 
         const iconComponent = (<Icon
             className = { isFishmeetIcon ? 'fishmeet-icon' : undefined }
