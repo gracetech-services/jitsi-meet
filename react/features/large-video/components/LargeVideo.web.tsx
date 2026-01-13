@@ -324,7 +324,7 @@ class LargeVideo extends Component<IProps> {
             _visibleFilmstrip
         } = this.props;
 
-        styles.backgroundColor = _customBackgroundColor || this.props._theme.palette.fishMeetUiBackground;
+        styles.backgroundColor = _customBackgroundColor || this.props._theme.palette.fishMeetUiBackground02;
 
         if (this.props._backgroundAlpha !== undefined) {
             const alphaColor = setColorAlpha(styles.backgroundColor, this.props._backgroundAlpha);

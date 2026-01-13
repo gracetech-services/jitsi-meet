@@ -20,6 +20,12 @@ export interface IPalette {
     actionDangerHover: string;
     disabled01: string;
     field01: string;
+    fishMeetColor03: string;
+    fishMeetMainColor01: string;
+    fishMeetMainColor02: string;
+    fishMeetText: string;
+    fishMeetUiBackground: string;
+    fishMeetUiBackground02: string;
     focus01: string;
     icon01: string;
     icon02: string;
@@ -58,10 +64,6 @@ export interface IPalette {
     uiBackground: string;
     warning01: string;
     warning02: string;
-    fishMeetUiBackground: string;
-    fishMeetMainColor01: string;
-    fishMeetMainColor02: string;
-    fishMeetText: string;
 }
 
 export interface ITypography {

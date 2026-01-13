@@ -10,7 +10,8 @@ import { createBreakoutRoom } from '../../../../../breakout-rooms/actions';
 const useStyles = makeStyles()(theme => {
     return {
         button: {
-            marginTop: theme.spacing(3)
+            marginTop: theme.spacing(3),
+            borderRadius: '32px !important'
         }
     };
 });

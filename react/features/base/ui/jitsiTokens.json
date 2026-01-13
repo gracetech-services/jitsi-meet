@@ -13,7 +13,9 @@
     "warning06": "#FFD600",
 
     "fishMeetUiBackground": "#42434F",
+    "fishMeetUiBackground02": "#5A5C6C",
     "fishMeetMainColor01": "#FE9C75",
     "fishMeetMainColor02": "#C8D7EC",
-    "fishMeetText": "#424350"
+    "fishMeetText": "#424350",
+    "fishMeetColor03": "#424350"
 }
