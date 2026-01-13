@@ -122,6 +122,10 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
 
             '& > *:not(:last-child)': {
                 marginRight: theme.spacing(3)
+            },
+
+            '& button': {
+                borderRadius: '32px !important'
             }
         },
 

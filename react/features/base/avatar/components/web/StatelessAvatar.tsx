@@ -137,10 +137,10 @@ const StatelessAvatar = ({
     const theme = useTheme();
 
     const _getAvatarStyle = (backgroundColor?: string) => {
-        // Use fishMeetMainColor01 for all participant avatars (dominantSpeakerAvatar and userAvatar)
+        // Use fishMeetColor01 for all participant avatars (dominantSpeakerAvatar and userAvatar)
         const isParticipantAvatar = id === 'dominantSpeakerAvatar' || className?.includes('userAvatar');
         const finalBackgroundColor = isParticipantAvatar
-            ? (theme?.palette?.fishMeetMainColor01 || '#FE9C75')
+            ? (theme?.palette?.fishMeetColor01 || '#FFE8A3')
             : (backgroundColor || undefined);
 
         return {

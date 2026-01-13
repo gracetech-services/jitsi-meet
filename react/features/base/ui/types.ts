@@ -20,6 +20,7 @@ export interface IPalette {
     actionDangerHover: string;
     disabled01: string;
     field01: string;
+    fishMeetColor01: string;
     fishMeetColor03: string;
     fishMeetMainColor01: string;
     fishMeetMainColor02: string;
