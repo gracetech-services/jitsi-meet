@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material/styles';
 import React, { useCallback } from 'react';
 import { makeStyles } from 'tss-react/mui';
 
@@ -134,17 +133,10 @@ const StatelessAvatar = ({
     useCORS
 }: IProps) => {
     const { classes, cx } = useStyles();
-    const theme = useTheme();
 
     const _getAvatarStyle = (backgroundColor?: string) => {
-        // Use fishMeetColor01 for all participant avatars (dominantSpeakerAvatar and userAvatar)
-        const isParticipantAvatar = id === 'dominantSpeakerAvatar' || className?.includes('userAvatar');
-        const finalBackgroundColor = isParticipantAvatar
-            ? (theme?.palette?.fishMeetColor01 || '#FFE8A3')
-            : (backgroundColor || undefined);
-
         return {
-            background: finalBackgroundColor,
+            background: backgroundColor || undefined,
             fontSize: size ? size * 0.4 : '180%',
             height: size || '100%',
             width: size || '100%'

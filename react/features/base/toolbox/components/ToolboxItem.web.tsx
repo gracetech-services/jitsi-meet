@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import Icon from '../../icons/components/Icon';
 import {
     IconFishmeetDisplayModeHover,
+    IconFishmeetHangup,
     IconFishmeetHangupHover,
     IconFishmeetMessageHover,
     IconFishmeetMicHover,
@@ -214,9 +215,19 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
     _renderIcon() {
         const { backgroundColor, customClass, disabled, icon, showLabel, toggled } = this.props;
         const { isHovered } = this.state;
+        
+        // Check if this is a hangup button - if so, always use IconFishmeetHangup and IconFishmeetHangupHover
+        const isHangupButton = customClass === 'hangup-button' || customClass === 'hangup-menu-button';
+        
+        // For hangup buttons, always use IconFishmeetHangup as base icon
+        let baseIcon = icon;
+        if (isHangupButton) {
+            baseIcon = IconFishmeetHangup;
+        }
+        
         // Check if this is a fishmeet icon by checking the icon's displayName or name
         // withBranding sets displayName to iconName (e.g., "IconFishmeetMic")
-        const iconName = (icon as any)?.displayName || (icon as any)?.name || (icon as any)?.toString() || '';
+        const iconName = (baseIcon as any)?.displayName || (baseIcon as any)?.name || (baseIcon as any)?.toString() || '';
         const isFishmeetIcon = iconName.toLowerCase().includes('fishmeet');
 
         // Check if this is a mic or video button (excluding videostream) - these should not use hover in toggled state
@@ -235,13 +246,15 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
         // 1. If hovering and not toggled: show hover icon
         // 2. If toggled and NOT mic/video button: show hover icon (instead of regular icon)
         // 3. If toggled and IS mic/video button: show toggled icon (already passed as icon prop)
-        const shouldUseHoverIcon = hasHoverVersion && !isHoverIcon
-            && ((isHovered && !toggled) || (toggled && !isMicOrVideoButton));
+        // For hangup buttons, always use hover icon when hovering or toggled
+        const shouldUseHoverIcon = isHangupButton
+            ? (isHovered || toggled)
+            : (hasHoverVersion && !isHoverIcon
+                && ((isHovered && !toggled) || (toggled && !isMicOrVideoButton)));
 
-        const iconToRender = shouldUseHoverIcon ? FISHMEET_HOVER_ICON_MAP[baseIconName] : icon;
-
-        // Check if this is a hangup button
-        const isHangupButton = customClass === 'hangup-button' || iconName.toLowerCase().includes('hangup');
+        const iconToRender = shouldUseHoverIcon && isHangupButton
+            ? IconFishmeetHangupHover
+            : (shouldUseHoverIcon ? FISHMEET_HOVER_ICON_MAP[baseIconName] : baseIcon);
 
         const iconComponent = (<Icon
             className = { isFishmeetIcon ? 'fishmeet-icon' : undefined }
