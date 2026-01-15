@@ -13,7 +13,7 @@ import { IReduxState, IStore } from '../../../app/types';
 import { isMobileBrowser } from '../../../base/environment/utils';
 import { translate } from '../../../base/i18n/functions';
 import Icon from '../../../base/icons/components/Icon';
-import { IconArrowDown, IconArrowUp } from '../../../base/icons/svg';
+import { IconFishmeetPolygonLeft, IconFishmeetPolygonRight } from '../../../base/icons/svg';
 import { isNarrowScreenWithChatOpen } from '../../../base/responsive-ui/functions';
 import { getHideSelfView } from '../../../base/settings/functions.any';
 import { registerShortcut, unregisterShortcut } from '../../../keyboard-shortcuts/actions';
@@ -67,7 +67,7 @@ function styles(theme: Theme, props: IProps) {
             flexWrap: 'nowrap' as const,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: BACKGROUND_COLOR,
+            backgroundColor: 'transparent',
             width: '32px',
             height: '24px',
             position: 'absolute' as const,
@@ -79,7 +79,7 @@ function styles(theme: Theme, props: IProps) {
             zIndex: 1,
 
             '&:hover, &:focus-within': {
-                backgroundColor: theme.palette.ui02
+                backgroundColor: 'transparent'
             }
         },
 
@@ -97,14 +97,20 @@ function styles(theme: Theme, props: IProps) {
             '-webkit-appearance': 'none',
 
             '& svg': {
-                fill: theme.palette.icon01
+                fill: 'none'
+            }
+        },
+
+        toggleVerticalFilmstripButton: {
+            '& svg': {
+                transform: 'rotate(90deg)'
             }
         },
 
         toggleVerticalFilmstripContainer: {
             transform: 'rotate(-90deg)',
             left: 'calc(-24px - 2px - 4px)',
-            top: 'calc(50% - 12px)'
+            top: 'calc(50% - 4px)'
         },
 
         toggleTopPanelContainer: {
@@ -198,7 +204,7 @@ function styles(theme: Theme, props: IProps) {
 
             '&:hover': {
                 '& .dragHandle': {
-                    backgroundColor: theme.palette.icon01
+                    backgroundColor: theme.palette.fishMeetMainColor01
                 }
             },
 
@@ -206,7 +212,7 @@ function styles(theme: Theme, props: IProps) {
                 visibility: 'visible' as const,
 
                 '& .dragHandle': {
-                    backgroundColor: theme.palette.icon01
+                    backgroundColor: theme.palette.fishMeetMainColor01
                 }
             },
 
@@ -224,7 +230,7 @@ function styles(theme: Theme, props: IProps) {
         },
 
         dragHandle: {
-            backgroundColor: theme.palette.icon02,
+            backgroundColor: theme.palette.fishMeetMainColor01,
             height: '100px',
             width: '3px',
             borderRadius: '1px'
@@ -1049,7 +1055,11 @@ class Filmstrip extends PureComponent <IProps, IState> {
             _topPanelVisible
         } = this.props;
         const classes = withStyles.getClasses(this.props);
-        const icon = (_topPanelFilmstrip ? _topPanelVisible : _mainFilmstripVisible) ? IconArrowDown : IconArrowUp;
+        // For vertical filmstrip, the container is rotated -90deg, but we counter-rotate the icon by +90deg
+        // So the icon maintains its left/right orientation
+        // visible -> left (hide), hidden -> right (show)
+        const isVisible = _topPanelFilmstrip ? _topPanelVisible : _mainFilmstripVisible;
+        const icon = isVisible ? IconFishmeetPolygonLeft : IconFishmeetPolygonRight;
         const actions = isMobileBrowser()
             ? { onTouchStart: this._onToggleButtonTouch }
             : { onClick: this._onToolbarToggleFilmstrip };
@@ -1064,14 +1074,15 @@ class Filmstrip extends PureComponent <IProps, IState> {
                 <button
                     aria-expanded = { this.props._mainFilmstripVisible }
                     aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                    className = { classes.toggleFilmstripButton }
+                    className = { clsx(classes.toggleFilmstripButton,
+                        _isVerticalFilmstrip && classes.toggleVerticalFilmstripButton) }
                     id = 'toggleFilmstripButton'
                     onFocus = { this._onTabIn }
                     tabIndex = { 0 }
                     { ...actions }>
                     <Icon
                         aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                        size = { 24 }
+                        size = { 48 }
                         src = { icon } />
                 </button>
             </div>

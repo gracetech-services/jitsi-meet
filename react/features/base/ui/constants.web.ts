@@ -210,7 +210,7 @@ export const commonStyles = (theme: Theme) => {
 
         '.toolbox-icon': {
             display: 'flex',
-            borderRadius: 3,
+            borderRadius: '50%',
             flexDirection: 'column' as const,
             fontSize: 24,
             height: 48,
@@ -219,11 +219,15 @@ export const commonStyles = (theme: Theme) => {
 
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
-                    backgroundColor: theme.palette.ui04
+                    backgroundColor: theme.palette.ui04,
+                    borderRadius: '50%',
+                    padding: '6px',
+                    margin: '-6px'
                 },
 
                 '&:active': {
-                    backgroundColor: theme.palette.ui03
+                    backgroundColor: theme.palette.ui03,
+                    borderRadius: '50%'
                 }
             },
             [theme.breakpoints.down(320)]: {
@@ -232,7 +236,17 @@ export const commonStyles = (theme: Theme) => {
             },
 
             '&.toggled': {
-                backgroundColor: theme.palette.ui03
+                backgroundColor: theme.palette.ui03,
+                borderRadius: '50%',
+
+                '@media (hover: hover) and (pointer: fine)': {
+                    '&:hover': {
+                        backgroundColor: theme.palette.ui04,
+                        borderRadius: '50%',
+                        padding: '6px',
+                        margin: '-6px'
+                    }
+                }
             },
 
             '&.disabled': {
@@ -254,8 +268,8 @@ export const commonStyles = (theme: Theme) => {
         },
 
         '.toolbox-content-items': {
-            background: theme.palette.ui01,
-            borderRadius: 6,
+            background: theme.palette.fishMeetMainColor02,
+            borderRadius: 32,
             margin: '0 auto',
             padding: 6,
             textAlign: 'center' as const,
@@ -269,6 +283,72 @@ export const commonStyles = (theme: Theme) => {
                 '&:last-of-type': {
                     marginRight: 0
                 }
+            }
+        },
+
+        '.hangup-button': {
+            backgroundColor: 'transparent',
+            borderRadius: '50%',
+
+            '@media (hover: hover) and (pointer: fine)': {
+                '&:hover': {
+                    backgroundColor: 'transparent'
+                },
+
+                '&:active': {
+                    backgroundColor: 'transparent'
+                }
+            },
+
+            '& svg': {
+                fill: '#fff'
+            }
+        },
+
+        '.toolbox-icon.hangup-button': {
+            '@media (hover: hover) and (pointer: fine)': {
+                '&:hover': {
+                    position: 'relative' as const,
+                    backgroundColor: theme.palette.ui04,
+                    padding: '6px',
+                    margin: '-6px',
+                    '&::before': {
+                        content: '""',
+                        position: 'absolute' as const,
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '50%',
+                        backgroundColor: '#fff',
+                        zIndex: -1
+                    },
+                    '& svg': {
+                        fill: '#F24D5F'
+                    }
+                }
+            }
+        },
+
+        '.hangup-menu-button': {
+            backgroundColor: 'transparent',
+            borderRadius: '50%',
+
+            '@media (hover: hover) and (pointer: fine)': {
+                '&:hover': {
+                    backgroundColor: theme.palette.ui04,
+                    padding: '6px',
+                    margin: '-6px'
+                },
+
+                '&:active': {
+                    backgroundColor: 'transparent'
+                }
+            },
+
+            '& svg': {
+                fill: '#fff'
             }
         }
     };

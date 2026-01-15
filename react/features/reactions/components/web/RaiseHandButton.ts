@@ -4,7 +4,7 @@ import { createToolbarEvent } from '../../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../../analytics/functions';
 import { IReduxState, IStore } from '../../../app/types';
 import { translate } from '../../../base/i18n/functions';
-import { IconRaiseHand } from '../../../base/icons/svg';
+import { IconFishmeetRaiseHand } from '../../../base/icons/svg';
 import { raiseHand } from '../../../base/participants/actions';
 import { getLocalParticipant, hasRaisedHand } from '../../../base/participants/functions';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
@@ -37,7 +37,7 @@ interface IProps extends AbstractButtonProps {
 class RaiseHandButton extends AbstractButton<IProps> {
     override accessibilityLabel = 'toolbar.accessibilityLabel.raiseHand';
     override toggledAccessibilityLabel = 'toolbar.accessibilityLabel.lowerHand';
-    override icon = IconRaiseHand;
+    override icon = IconFishmeetRaiseHand;
     override label = 'toolbar.raiseHand';
     override toggledLabel = 'toolbar.lowerYourHand';
     override tooltip = 'toolbar.raiseHand';

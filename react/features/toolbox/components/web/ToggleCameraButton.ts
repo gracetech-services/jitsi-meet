@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import { translate } from '../../../base/i18n/functions';
-import { IconCameraRefresh } from '../../../base/icons/svg';
+import { IconFishmeetCameraRefresh } from '../../../base/icons/svg';
 import { MEDIA_TYPE } from '../../../base/media/constants';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { toggleCamera } from '../../../base/tracks/actions';
@@ -30,7 +30,7 @@ interface IProps extends AbstractButtonProps {
  */
 class ToggleCameraButton extends AbstractButton<IProps> {
     override accessibilityLabel = 'toolbar.accessibilityLabel.toggleCamera';
-    override icon = IconCameraRefresh;
+    override icon = IconFishmeetCameraRefresh;
     override label = 'toolbar.toggleCamera';
 
     /**

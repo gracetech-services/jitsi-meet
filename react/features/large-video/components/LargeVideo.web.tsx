@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Theme } from '@mui/material';
 
 // @ts-expect-error
 import VideoLayout from '../../../../modules/UI/videolayout/VideoLayout';
 import { IReduxState, IStore } from '../../app/types';
+import BaseTheme from '../../base/ui/components/BaseTheme.web';
 import { isDisplayNameVisible } from '../../base/config/functions.web';
 import { VIDEO_TYPE } from '../../base/media/constants';
 import { getLocalParticipant } from '../../base/participants/functions';
@@ -124,6 +126,11 @@ interface IProps {
      * Whether or not the whiteboard is ready to be used.
      */
     _whiteboardEnabled: boolean;
+
+    /**
+     * The theme object.
+     */
+    _theme: Theme;
 
     /**
      * The Redux dispatch function.
@@ -317,7 +324,7 @@ class LargeVideo extends Component<IProps> {
             _visibleFilmstrip
         } = this.props;
 
-        styles.backgroundColor = _customBackgroundColor || interfaceConfig.DEFAULT_BACKGROUND;
+        styles.backgroundColor = _customBackgroundColor || this.props._theme.palette.fishMeetUiBackground02;
 
         if (this.props._backgroundAlpha !== undefined) {
             const alphaColor = setColorAlpha(styles.backgroundColor, this.props._backgroundAlpha);
@@ -367,7 +374,7 @@ class LargeVideo extends Component<IProps> {
  */
 function _mapStateToProps(state: IReduxState) {
     const testingConfig = state['features/base/config'].testing;
-    const { backgroundColor, backgroundImageUrl } = state['features/dynamic-branding'];
+    const { backgroundColor, backgroundImageUrl, muiBrandedTheme } = state['features/dynamic-branding'];
     const { isOpen: isChatOpen } = state['features/chat'];
     const { width: verticalFilmstripWidth, visible } = state['features/filmstrip'];
     const { hideDominantSpeakerBadge } = state['features/base/config'];
@@ -399,7 +406,8 @@ function _mapStateToProps(state: IReduxState) {
         _verticalFilmstripWidth: verticalFilmstripWidth.current,
         _verticalViewMaxWidth: getVerticalViewMaxWidth(state),
         _visibleFilmstrip: visible,
-        _whiteboardEnabled: isWhiteboardEnabled(state)
+        _whiteboardEnabled: isWhiteboardEnabled(state),
+        _theme: (typeof muiBrandedTheme === 'object' ? muiBrandedTheme : BaseTheme) as Theme
     };
 }
 

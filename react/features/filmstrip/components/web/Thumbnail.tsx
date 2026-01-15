@@ -282,7 +282,7 @@ const defaultStyles = (theme: Theme) => {
         },
 
         indicatorsBackground: {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'transparent',
             borderRadius: '4px',
             display: 'flex',
             alignItems: 'center',
@@ -1100,7 +1100,11 @@ class Thumbnail extends Component<IProps, IState> {
                 {!_gifSrc && (local
                     ? <span id = 'localVideoWrapper'>{video}</span>
                     : video)}
-                <div className = { classes.containerBackground } />
+                <div
+                    className = { classes.containerBackground }
+                    style = { _thumbnailType === THUMBNAIL_TYPE.TILE
+                        ? { backgroundColor: '#424350' } // fishMeetColor03
+                        : undefined } />
                 {/* put the bottom container before the top container in the dom,
                 because it contains the participant name that should be announced first by screen readers */}
                 <div

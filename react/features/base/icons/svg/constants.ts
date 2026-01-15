@@ -42,6 +42,38 @@ import { default as IconFaceSmile } from './face-smile.svg';
 import { default as IconFavoriteSolid } from './favorite-solid.svg';
 import { default as IconFavorite } from './favorite.svg';
 import { default as IconFeedback } from './feedback.svg';
+import { default as IconFishmeetArrowDown } from './fishmeet-arrow-down.svg';
+import { default as IconFishmeetArrowUp } from './fishmeet-arrow-up.svg';
+import { default as IconFishmeetCameraRefresh } from './fishmeet-camera-refresh.svg';
+import { default as IconFishmeetPolygonLeft } from './fishmeet-PolygonLeft.svg';
+import { default as IconFishmeetPolygonRight } from './fishmeet-PolygonRight.svg';
+import { default as IconFishmeetClose } from './fishmeet-close.svg';
+import { default as IconFishmeetDotsHorizontal } from './fishmeet-dots-horizontal.svg';
+import { default as IconFishmeetHangup } from './fishmeet-hangup.svg';
+import { default as IconFishmeetHangupHover } from './fishmeet-hangup-hover.svg';
+import { default as IconFishmeetMessage } from './fishmeet-message.svg';
+import { default as IconFishmeetMicHover } from './fishmeet-mic-hover.svg';
+import { default as IconFishmeetMicSlash } from './fishmeet-mic-slash.svg';
+import { default as IconFishmeetMic } from './fishmeet-mic.svg';
+import { default as IconFishmeetRaiseHand } from './fishmeet-raise-hand.svg';
+import { default as IconFishmeetSend } from './fishmeet-send.svg';
+import { default as IconFishmeetUsers } from './fishmeet-users.svg';
+import { default as IconFishmeetVideoOff } from './fishmeet-video-off.svg';
+import { default as IconFishmeetVideo } from './fishmeet-video.svg';
+import { default as IconFishmeetVolumeUp } from './fishmeet-volume-up.svg';
+import { default as IconFishmeetVideoStream } from './fishmeet-VideoStream.svg';
+import { default as IconFishmeetShareScreen } from './fishmeet-ShareScreen.svg';
+import { default as IconFishmeetPartictant } from './fishmeet-partictant.svg';
+import { default as IconFishmeetDisplayMode } from './fishmeet-DisplayMode.svg';
+import { default as IconFishmeetDisplayModeHover } from './fishmeet-DisplayMode-hover.svg';
+import { default as IconFishmeetMessageHover } from './fishmeet-message-hover.svg';
+import { default as IconFishmeetPartictantHover } from './fishmeet-partictant-hover.svg';
+import { default as IconFishmeetRaiseHandHover } from './fishmeet-raise-hand-hover.svg';
+import { default as IconFishmeetShareScreenHover } from './fishmeet-ShareScreen-hover.svg';
+import { default as IconFishmeetVideoHover } from './fishmeet-video-hover.svg';
+import { default as IconFishmeetVideoStreamHover } from './fishmeet-VideoStream-hover.svg';
+import { default as IconFishmeetRecordVideo } from './fishmeet-RecordVideo.svg';
+import { default as IconFishmeetRecordVideoHover } from './fishmeet-RecordVideo-hover.svg';
 import { default as IconGear } from './gear.svg';
 import { default as IconGoogle } from './google.svg';
 import { default as IconHangup } from './hangup.svg';
@@ -158,6 +190,37 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconFavorite,
     IconFavoriteSolid,
     IconFeedback,
+    IconFishmeetArrowDown,
+    IconFishmeetArrowUp,
+    IconFishmeetCameraRefresh,
+    IconFishmeetClose,
+    IconFishmeetPolygonLeft,
+    IconFishmeetPolygonRight,
+    IconFishmeetDotsHorizontal,
+    IconFishmeetHangup,
+    IconFishmeetHangupHover,
+    IconFishmeetMessage,
+    IconFishmeetMessageHover,
+    IconFishmeetMic,
+    IconFishmeetMicHover,
+    IconFishmeetMicSlash,
+    IconFishmeetRaiseHand,
+    IconFishmeetRaiseHandHover,
+    IconFishmeetSend,
+    IconFishmeetUsers,
+    IconFishmeetVideo,
+    IconFishmeetVideoOff,
+    IconFishmeetVolumeUp,
+    IconFishmeetVideoStream,
+    IconFishmeetVideoStreamHover,
+    IconFishmeetShareScreen,
+    IconFishmeetShareScreenHover,
+    IconFishmeetPartictant,
+    IconFishmeetPartictantHover,
+    IconFishmeetDisplayMode,
+    IconFishmeetDisplayModeHover,
+    IconFishmeetRecordVideo,
+    IconFishmeetRecordVideoHover,
     IconGear,
     IconGoogle,
     IconHangup,

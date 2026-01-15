@@ -48,7 +48,7 @@ interface IStylesProps {
 const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
     return {
         participantsPane: {
-            backgroundColor: theme.palette.ui01,
+            backgroundColor: theme.palette.fishMeetColor03,
             flexShrink: 0,
             position: 'relative',
             transition: 'width .16s ease-in-out',
@@ -122,6 +122,10 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
 
             '& > *:not(:last-child)': {
                 marginRight: theme.spacing(3)
+            },
+
+            '& button': {
+                borderRadius: '32px !important'
             }
         },
 

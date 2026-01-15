@@ -1,7 +1,7 @@
 import { IReduxState } from '../../app/types';
 import { VIDEO_STREAM_OFF_BUTTON_ENABLED } from '../../base/flags/constants';
 import { getFeatureFlag } from '../../base/flags/functions';
-import { IconVideoStreamOff, IconVideoStreamOn } from '../../base/icons/svg';
+import { IconFishmeetVideoStream } from '../../base/icons/svg';
 import { IProps as AbstractButtonProps } from '../../base/toolbox/components/AbstractButton';
 import BaseVideoMuteButton from '../../base/toolbox/components/BaseVideoMuteButton';
 import { toggleVideoStream } from '../../base/video-stream/actions';
@@ -35,8 +35,8 @@ export default class AbstractToggleVideoStreamButton<P extends IProps> extends B
     override tooltip = 'toolbar.videoStreamTurnOff';
     override toggledTooltip = 'toolbar.videoStreamTurnOn';
 
-    override icon = IconVideoStreamOn;
-    override toggledIcon = IconVideoStreamOff;
+    override icon = IconFishmeetVideoStream;
+    override toggledIcon = IconFishmeetVideoStream;
 
     /**
      * Indicates if video is currently disabled or not.
