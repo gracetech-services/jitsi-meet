@@ -407,7 +407,7 @@ function _mapStateToProps(state: IReduxState) {
         _verticalViewMaxWidth: getVerticalViewMaxWidth(state),
         _visibleFilmstrip: visible,
         _whiteboardEnabled: isWhiteboardEnabled(state),
-        _theme: muiBrandedTheme || BaseTheme
+        _theme: (typeof muiBrandedTheme === 'object' ? muiBrandedTheme : BaseTheme) as Theme
     };
 }
 

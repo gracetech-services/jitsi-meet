@@ -219,8 +219,6 @@ export const DEFAULT_ICON: Record<string, any> = {
     IconFishmeetPartictantHover,
     IconFishmeetDisplayMode,
     IconFishmeetDisplayModeHover,
-    IconFishmeetVideo,
-    IconFishmeetVideoHover,
     IconFishmeetRecordVideo,
     IconFishmeetRecordVideoHover,
     IconGear,

@@ -308,13 +308,13 @@ export const commonStyles = (theme: Theme) => {
         '.toolbox-icon.hangup-button': {
             '@media (hover: hover) and (pointer: fine)': {
                 '&:hover': {
-                    position: 'relative',
+                    position: 'relative' as const,
                     backgroundColor: theme.palette.ui04,
                     padding: '6px',
                     margin: '-6px',
                     '&::before': {
                         content: '""',
-                        position: 'absolute',
+                        position: 'absolute' as const,
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',

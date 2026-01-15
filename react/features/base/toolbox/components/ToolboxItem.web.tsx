@@ -90,7 +90,7 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
     /**
      * State to track hover state for icon switching.
      */
-    state = {
+    override state = {
         isHovered: false
     };
 
@@ -215,16 +215,17 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
     _renderIcon() {
         const { backgroundColor, customClass, disabled, icon, showLabel, toggled } = this.props;
         const { isHovered } = this.state;
-        
+
         // Check if this is a hangup button - if so, always use IconFishmeetHangup and IconFishmeetHangupHover
         const isHangupButton = customClass === 'hangup-button' || customClass === 'hangup-menu-button';
-        
+
         // For hangup buttons, always use IconFishmeetHangup as base icon
         let baseIcon = icon;
+
         if (isHangupButton) {
             baseIcon = IconFishmeetHangup;
         }
-        
+
         // Check if this is a fishmeet icon by checking the icon's displayName or name
         // withBranding sets displayName to iconName (e.g., "IconFishmeetMic")
         const iconName = (baseIcon as any)?.displayName || (baseIcon as any)?.name || (baseIcon as any)?.toString() || '';
