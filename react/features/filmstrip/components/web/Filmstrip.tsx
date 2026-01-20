@@ -1057,9 +1057,9 @@ class Filmstrip extends PureComponent <IProps, IState> {
         const classes = withStyles.getClasses(this.props);
         // For vertical filmstrip, the container is rotated -90deg, but we counter-rotate the icon by +90deg
         // So the icon maintains its left/right orientation
-        // visible -> left (hide), hidden -> right (show)
+        // visible -> right (hide), hidden -> left (show)
         const isVisible = _topPanelFilmstrip ? _topPanelVisible : _mainFilmstripVisible;
-        const icon = isVisible ? IconFishmeetPolygonLeft : IconFishmeetPolygonRight;
+        const icon = isVisible ? IconFishmeetPolygonRight : IconFishmeetPolygonLeft;
         const actions = isMobileBrowser()
             ? { onTouchStart: this._onToggleButtonTouch }
             : { onClick: this._onToolbarToggleFilmstrip };
