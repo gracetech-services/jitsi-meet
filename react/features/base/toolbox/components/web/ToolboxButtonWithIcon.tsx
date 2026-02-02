@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { NOTIFY_CLICK_MODE } from '../../../../toolbox/types';
 import Icon from '../../../icons/components/Icon';
@@ -42,14 +42,14 @@ interface IProps {
     icon: Function;
 
     /**
-     * Hover icon of the button (optional).
-     */
-    iconHover?: Function;
-
-    /**
      * Flag used for disabling the small icon.
      */
     iconDisabled: boolean;
+
+    /**
+     * Hover icon of the button (optional).
+     */
+    iconHover?: Function;
 
     /**
      * The ID of the icon button.
@@ -108,7 +108,7 @@ export default function ToolboxButtonWithIcon(props: IProps) {
         iconId
     } = props;
 
-    const [isHovered, setIsHovered] = useState(false);
+    const [ isHovered, setIsHovered ] = useState(false);
 
     const iconProps: {
         ariaControls?: string;
@@ -151,13 +151,13 @@ export default function ToolboxButtonWithIcon(props: IProps) {
     const iconToRender = (iconHover && isHovered && !iconDisabled) ? iconHover : icon;
 
     // Handle mouse enter/leave for hover state - attach directly to icon element
-    const handleMouseEnter = () => {
+    const handleMouseEnter = useCallback(() => {
         setIsHovered(true);
-    };
+    }, []);
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = useCallback(() => {
         setIsHovered(false);
-    };
+    }, []);
 
     // Add hover handlers to iconProps so they're attached to the Icon element directly
     if (!iconDisabled) {
@@ -176,10 +176,9 @@ export default function ToolboxButtonWithIcon(props: IProps) {
                 content = { iconTooltip }
                 position = 'top'>
                 <div
-                    className = { className }
+                    className = { `${className} settings-button-hover-container` }
                     onMouseEnter = { handleMouseEnter }
-                    onMouseLeave = { handleMouseLeave }
-                    style = {{ position: 'relative' }}>
+                    onMouseLeave = { handleMouseLeave }>
                     <Icon
                         { ...iconProps }
                         ariaHasPopup = { ariaHasPopup }

@@ -1,17 +1,17 @@
+import { Theme } from '@mui/material';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Theme } from '@mui/material';
 
 // @ts-expect-error
 import VideoLayout from '../../../../modules/UI/videolayout/VideoLayout';
 import { IReduxState, IStore } from '../../app/types';
-import BaseTheme from '../../base/ui/components/BaseTheme.web';
 import { isDisplayNameVisible } from '../../base/config/functions.web';
 import { VIDEO_TYPE } from '../../base/media/constants';
 import { getLocalParticipant } from '../../base/participants/functions';
 import Watermarks from '../../base/react/components/web/Watermarks';
 import { getHideSelfView } from '../../base/settings/functions.any';
 import { getVideoTrackByParticipant } from '../../base/tracks/functions.web';
+import BaseTheme from '../../base/ui/components/BaseTheme.web';
 import { setColorAlpha } from '../../base/util/helpers';
 import { isSpotTV } from '../../base/util/spot';
 import StageParticipantNameLabel from '../../display-name/components/web/StageParticipantNameLabel';
@@ -108,6 +108,11 @@ interface IProps {
     _showSubtitles?: boolean;
 
     /**
+     * The theme object.
+     */
+    _theme: Theme;
+
+    /**
      * The width of the vertical filmstrip (user resized).
      */
     _verticalFilmstripWidth?: number | null;
@@ -126,11 +131,6 @@ interface IProps {
      * Whether or not the whiteboard is ready to be used.
      */
     _whiteboardEnabled: boolean;
-
-    /**
-     * The theme object.
-     */
-    _theme: Theme;
 
     /**
      * The Redux dispatch function.

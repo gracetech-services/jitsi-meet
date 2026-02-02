@@ -133,8 +133,8 @@ class AudioSettingsButton extends Component<IProps> {
                     ariaLabel = { t('toolbar.audioSettings') }
                     buttonKey = { buttonKey }
                     icon = { IconFishmeetAVsetting }
-                    iconHover = { IconFishmeetAVsettingHover }
                     iconDisabled = { settingsDisabled || gumPending !== IGUMPendingState.NONE }
+                    iconHover = { IconFishmeetAVsettingHover }
                     iconId = 'audio-settings-button'
                     iconTooltip = { t('toolbar.audioSettings') }
                     notifyMode = { notifyMode }

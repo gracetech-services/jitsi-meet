@@ -149,8 +149,8 @@ class VideoSettingsButton extends Component<IProps> {
                     ariaLabel = { this.props.t('toolbar.videoSettings') }
                     buttonKey = { buttonKey }
                     icon = { IconFishmeetAVsetting }
-                    iconHover = { IconFishmeetAVsettingHover }
                     iconDisabled = { this._isIconDisabled() || gumPending !== IGUMPendingState.NONE }
+                    iconHover = { IconFishmeetAVsettingHover }
                     iconId = 'video-settings-button'
                     iconTooltip = { t('toolbar.videoSettings') }
                     notifyMode = { notifyMode }

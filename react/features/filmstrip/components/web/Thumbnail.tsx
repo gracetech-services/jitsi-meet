@@ -308,6 +308,10 @@ const defaultStyles = (theme: Theme) => {
             backgroundColor: theme.palette.ui02
         },
 
+        containerBackgroundTile: {
+            backgroundColor: theme.palette.fishMeetColor03
+        },
+
         borderIndicator: {
             position: 'absolute' as const,
             width: '100%',
@@ -1101,10 +1105,8 @@ class Thumbnail extends Component<IProps, IState> {
                     ? <span id = 'localVideoWrapper'>{video}</span>
                     : video)}
                 <div
-                    className = { classes.containerBackground }
-                    style = { _thumbnailType === THUMBNAIL_TYPE.TILE
-                        ? { backgroundColor: '#424350' } // fishMeetColor03
-                        : undefined } />
+                    className = { clsx(classes.containerBackground,
+                        _thumbnailType === THUMBNAIL_TYPE.TILE && classes.containerBackgroundTile) } />
                 {/* put the bottom container before the top container in the dom,
                 because it contains the participant name that should be announced first by screen readers */}
                 <div

@@ -42,6 +42,11 @@
     position: absolute;
     right: -4px;
     top: -3px;
+}
+
+.settings-button-hover-container {
+    position: relative;
+}
 
     &:hover {
         background: transparent;
