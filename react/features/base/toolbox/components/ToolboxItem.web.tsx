@@ -248,10 +248,11 @@ export default class ToolboxItem extends AbstractToolboxItem<IProps> {
         // 2. If toggled and NOT mic/video button: show hover icon (instead of regular icon)
         // 3. If toggled and IS mic/video button: show toggled icon (already passed as icon prop)
         // For hangup buttons, always use hover icon when hovering or toggled
+        const standardHover = hasHoverVersion && !isHoverIcon
+            && ((isHovered && !toggled) || (toggled && !isMicOrVideoButton));
         const shouldUseHoverIcon = isHangupButton
             ? (isHovered || toggled)
-            : (hasHoverVersion && !isHoverIcon
-                && ((isHovered && !toggled) || (toggled && !isMicOrVideoButton)));
+            : standardHover;
 
         const iconToRender = shouldUseHoverIcon && isHangupButton
             ? IconFishmeetHangupHover

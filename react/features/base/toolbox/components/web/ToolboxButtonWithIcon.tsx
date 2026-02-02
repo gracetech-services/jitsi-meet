@@ -116,8 +116,6 @@ export default function ToolboxButtonWithIcon(props: IProps) {
         containerId?: string;
         onClick?: (e?: React.MouseEvent) => void;
         onKeyDown?: Function;
-        onMouseEnter?: () => void;
-        onMouseLeave?: () => void;
         role?: string;
         tabIndex?: number;
     } = {};
@@ -150,7 +148,7 @@ export default function ToolboxButtonWithIcon(props: IProps) {
     // Determine which icon to use based on hover state
     const iconToRender = (iconHover && isHovered && !iconDisabled) ? iconHover : icon;
 
-    // Handle mouse enter/leave for hover state - attach directly to icon element
+    // Handle mouse enter/leave for hover state
     const handleMouseEnter = useCallback(() => {
         setIsHovered(true);
     }, []);
@@ -158,12 +156,6 @@ export default function ToolboxButtonWithIcon(props: IProps) {
     const handleMouseLeave = useCallback(() => {
         setIsHovered(false);
     }, []);
-
-    // Add hover handlers to iconProps so they're attached to the Icon element directly
-    if (!iconDisabled) {
-        iconProps.onMouseEnter = handleMouseEnter;
-        iconProps.onMouseLeave = handleMouseLeave;
-    }
 
     return (
         <div
