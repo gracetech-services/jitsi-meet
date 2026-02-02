@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { IReduxState } from '../../../app/types';
 import { isMobileBrowser } from '../../../base/environment/utils';
 import { translate } from '../../../base/i18n/functions';
-import { IconArrowUp } from '../../../base/icons/svg';
+import { IconFishmeetAVsetting, IconFishmeetAVsettingHover } from '../../../base/icons/svg';
 import { IGUMPendingState } from '../../../base/media/types';
 import ToolboxButtonWithIcon from '../../../base/toolbox/components/web/ToolboxButtonWithIcon';
 import { getLocalJitsiVideoTrack } from '../../../base/tracks/functions.web';
@@ -148,7 +148,8 @@ class VideoSettingsButton extends Component<IProps> {
                     ariaHasPopup = { true }
                     ariaLabel = { this.props.t('toolbar.videoSettings') }
                     buttonKey = { buttonKey }
-                    icon = { IconArrowUp }
+                    icon = { IconFishmeetAVsetting }
+                    iconHover = { IconFishmeetAVsettingHover }
                     iconDisabled = { this._isIconDisabled() || gumPending !== IGUMPendingState.NONE }
                     iconId = 'video-settings-button'
                     iconTooltip = { t('toolbar.videoSettings') }

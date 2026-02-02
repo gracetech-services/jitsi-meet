@@ -323,13 +323,13 @@ const defaultStyles = (theme: Theme) => {
 
         activeSpeaker: {
             '& .active-speaker-indicator': {
-                boxShadow: `inset 0px 0px 0px 3px ${theme.palette.action01Hover} !important`
+                boxShadow: `inset 0px 0px 0px 3px ${theme.palette.fishMeetMainColor01} !important`
             }
         },
 
         raisedHand: {
             '& .raised-hand-border': {
-                boxShadow: `inset 0px 0px 0px 2px ${theme.palette.warning02} !important`
+                boxShadow: `inset 0px 0px 0px 2px ${theme.palette.fishMeetMainColor01} !important`
             }
         },
 

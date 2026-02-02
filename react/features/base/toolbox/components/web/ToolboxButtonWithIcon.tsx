@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { NOTIFY_CLICK_MODE } from '../../../../toolbox/types';
 import Icon from '../../../icons/components/Icon';
@@ -40,6 +40,11 @@ interface IProps {
      * Icon of the button.
      */
     icon: Function;
+
+    /**
+     * Hover icon of the button (optional).
+     */
+    iconHover?: Function;
 
     /**
      * Flag used for disabling the small icon.
@@ -88,6 +93,7 @@ export default function ToolboxButtonWithIcon(props: IProps) {
     const {
         children,
         icon,
+        iconHover,
         iconDisabled,
         iconTooltip,
         buttonKey,
@@ -102,12 +108,16 @@ export default function ToolboxButtonWithIcon(props: IProps) {
         iconId
     } = props;
 
+    const [isHovered, setIsHovered] = useState(false);
+
     const iconProps: {
         ariaControls?: string;
         ariaExpanded?: boolean;
         containerId?: string;
         onClick?: (e?: React.MouseEvent) => void;
         onKeyDown?: Function;
+        onMouseEnter?: () => void;
+        onMouseLeave?: () => void;
         role?: string;
         tabIndex?: number;
     } = {};
@@ -137,6 +147,23 @@ export default function ToolboxButtonWithIcon(props: IProps) {
         iconProps.containerId = iconId;
     }
 
+    // Determine which icon to use based on hover state
+    const iconToRender = (iconHover && isHovered && !iconDisabled) ? iconHover : icon;
+
+    // Handle mouse enter/leave for hover state - attach directly to icon element
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+    // Add hover handlers to iconProps so they're attached to the Icon element directly
+    if (!iconDisabled) {
+        iconProps.onMouseEnter = handleMouseEnter;
+        iconProps.onMouseLeave = handleMouseLeave;
+    }
 
     return (
         <div
@@ -144,19 +171,23 @@ export default function ToolboxButtonWithIcon(props: IProps) {
             style = { styles }>
             {children}
 
-            <div>
-                <Tooltip
-                    containerClassName = { className }
-                    content = { iconTooltip }
-                    position = 'top'>
+            <Tooltip
+                containerClassName = { className }
+                content = { iconTooltip }
+                position = 'top'>
+                <div
+                    className = { className }
+                    onMouseEnter = { handleMouseEnter }
+                    onMouseLeave = { handleMouseLeave }
+                    style = {{ position: 'relative' }}>
                     <Icon
                         { ...iconProps }
                         ariaHasPopup = { ariaHasPopup }
                         ariaLabel = { ariaLabel }
                         size = { 16 }
-                        src = { icon } />
-                </Tooltip>
-            </div>
+                        src = { iconToRender } />
+                </div>
+            </Tooltip>
         </div>
     );
 }

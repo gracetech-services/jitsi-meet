@@ -64,6 +64,9 @@ config.welcomePage = { ...config.welcomePage,
 
 config.disableShortcuts = true;
 
+    // Disables the reactions feature.
+config.disableReactions = true;
+
     // Enabling the close page will ignore the welcome page redirection when
     // a call is hangup.
 config.enableClosePage = true;

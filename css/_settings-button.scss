@@ -34,8 +34,8 @@
 }
 
 .settings-button-small-icon {
-    background: #36383C;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    box-shadow: none;
     border-radius: 3px;
     cursor: pointer;
     padding: 1px;
@@ -44,28 +44,17 @@
     top: -3px;
 
     &:hover {
-        background: #F2F3F4;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
-
-        & svg {
-            fill: #040404;
-        }
-
-        &.settings-button-small-icon--disabled {
-            background: #36383C;
-
-            & svg {
-                fill: #929292;
-            }
-        }
+        background: transparent;
+        box-shadow: none;
     }
 
-    & svg {
-        fill: #fff;
-    }
+    // Don't override SVG fill colors - let the SVG use its own colors
+    // & svg {
+    //     fill: #fff;
+    // }
 
     &--disabled {
-        background-color: #36383c;
+        background-color: transparent;
         cursor: default;
 
         & svg {
