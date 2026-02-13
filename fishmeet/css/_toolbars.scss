@@ -84,7 +84,7 @@
     margin: 0 auto;
     max-width: 100%;
     pointer-events: all;
-    border-radius: 6px;
+    border-radius: 32px;
 
     .toolbox-content-items {
         @include ltr;
@@ -104,39 +104,36 @@
 }
 
 div.hangup-button {
-    background-color: #CB2233;
+    background-color: #FE9C75;
+    border-radius: 50%;
+
+    .jitsi-icon {
+        color: #424350;
+    }
+
+    // Scale up the phone handle to fill ~95% of the button
+    svg {
+        transform: scale(2.0);
+    }
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            background-color: #E04757;
+            background-color: #fff;
+            box-shadow: inset 0 0 0 9px #424350;
+
+            .jitsi-icon {
+                color: #F24D5F;
+            }
         }
 
         &:active {
-            background-color: #A21B29;
+            background-color: #fff;
         }
-    }
-
-    svg {
-        fill: #fff;
     }
 }
 
 div.hangup-menu-button {
-    background-color: #CB2233;
-
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            background-color: #E04757;
-        }
-
-        &:active {
-            background-color: #A21B29;
-        }
-    }
-
-    svg {
-        fill: #fff;
-    }
+    border-radius: 50%;
 }
 
 .profile-button-avatar {

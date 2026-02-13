@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { IReduxState } from '../../../app/types';
 import { isMobileBrowser } from '../../../base/environment/utils';
 import { translate } from '../../../base/i18n/functions';
-import { IconFishmeetAVsetting, IconFishmeetAVsettingHover } from '../../../base/icons/svg';
+import { IconArrowUp } from '../../../base/icons/svg';
 import JitsiMeetJS from '../../../base/lib-jitsi-meet/_';
 import { IGUMPendingState } from '../../../base/media/types';
 import ToolboxButtonWithIcon from '../../../base/toolbox/components/web/ToolboxButtonWithIcon';
@@ -132,9 +132,8 @@ class AudioSettingsButton extends Component<IProps> {
                     ariaHasPopup = { true }
                     ariaLabel = { t('toolbar.audioSettings') }
                     buttonKey = { buttonKey }
-                    icon = { IconFishmeetAVsetting }
+                    icon = { IconArrowUp }
                     iconDisabled = { settingsDisabled || gumPending !== IGUMPendingState.NONE }
-                    iconHover = { IconFishmeetAVsettingHover }
                     iconId = 'audio-settings-button'
                     iconTooltip = { t('toolbar.audioSettings') }
                     notifyMode = { notifyMode }

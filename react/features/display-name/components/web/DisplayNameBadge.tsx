@@ -4,13 +4,13 @@ import { makeStyles } from 'tss-react/mui';
 import { DISPLAY_NAME_VERTICAL_PADDING } from './styles';
 
 const useStyles = makeStyles()(theme => {
-    const { fishMeetMainColor02, fishMeetText } = theme.palette;
+    const { text01 } = theme.palette;
 
     return {
         badge: {
-            background: fishMeetMainColor02,
-            borderRadius: 22,
-            color: fishMeetText,
+            background: 'rgba(0, 0, 0, 0.6)',
+            borderRadius: '3px',
+            color: text01,
             maxWidth: '50%',
             overflow: 'hidden',
             padding: `${DISPLAY_NAME_VERTICAL_PADDING / 2}px 16px`,

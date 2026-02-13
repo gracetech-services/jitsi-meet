@@ -41,9 +41,7 @@ const useStyles = makeStyles()(theme => {
 
             '& input': {
                 textAlign: 'center',
-                paddingRight: '16px',
-                borderRadius: '32px !important',
-                backgroundColor: `${theme.palette.fishMeetUiBackground02} !important`
+                paddingRight: '16px'
             }
         }
     };

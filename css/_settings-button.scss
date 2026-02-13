@@ -3,23 +3,10 @@
 
     .toolbox-icon {
         align-items: center;
-        border-radius: 50%;
+        border-radius: 3px;
         cursor: pointer;
         display: flex;
         justify-content: center;
-
-        &:hover {
-            border-radius: 50%;
-            background-color: #525252 !important; // ui04 - same as other toolbox icons
-            padding: 6px;
-            margin: -6px;
-        }
-
-        &.toggled:hover {
-            background-color: #525252 !important; // ui04 - ensure toggled state also uses same hover color
-            padding: 6px;
-            margin: -6px;
-        }
 
         &.disabled, .disabled & {
             cursor: initial;
@@ -34,8 +21,8 @@
 }
 
 .settings-button-small-icon {
-    background: transparent;
-    box-shadow: none;
+    background: #36383C;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     cursor: pointer;
     padding: 1px;
@@ -44,27 +31,34 @@
     top: -3px;
 
     &:hover {
-        background: transparent;
-        box-shadow: none;
+        background: #F2F3F4;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+
+        & svg {
+            fill: #040404;
+        }
+
+        &.settings-button-small-icon--disabled {
+            background: #36383C;
+
+            & svg {
+                fill: #929292;
+            }
+        }
     }
 
-    // Don't override SVG fill colors - let the SVG use its own colors
-    // & svg {
-    //     fill: #fff;
-    // }
+    & svg {
+        fill: #fff;
+    }
 
     &--disabled {
-        background-color: transparent;
+        background-color: #36383c;
         cursor: default;
 
         & svg {
             fill: #929292;
         }
     }
-}
-
-.settings-button-hover-container {
-    position: relative;
 }
 
 .settings-button-small-icon-container {

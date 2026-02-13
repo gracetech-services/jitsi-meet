@@ -10,7 +10,7 @@ const useStyles = makeStyles()(theme => {
             ...withPixelLineHeight(theme.typography.labelRegular),
             color: '#000',
             padding: '6px 8px',
-            backgroundColor: theme.palette.fishMeetMainColor01,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
             boxSizing: 'border-box',
             height: '28px',
             borderRadius: 32,

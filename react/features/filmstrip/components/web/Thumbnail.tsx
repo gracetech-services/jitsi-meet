@@ -308,9 +308,7 @@ const defaultStyles = (theme: Theme) => {
             backgroundColor: theme.palette.ui02
         },
 
-        containerBackgroundTile: {
-            backgroundColor: theme.palette.fishMeetColor03
-        },
+        containerBackgroundTile: {},
 
         borderIndicator: {
             position: 'absolute' as const,
@@ -327,13 +325,13 @@ const defaultStyles = (theme: Theme) => {
 
         activeSpeaker: {
             '& .active-speaker-indicator': {
-                boxShadow: `inset 0px 0px 0px 3px ${theme.palette.fishMeetMainColor01} !important`
+                boxShadow: `inset 0px 0px 0px 3px ${theme.palette.action01Hover} !important`
             }
         },
 
         raisedHand: {
             '& .raised-hand-border': {
-                boxShadow: `inset 0px 0px 0px 2px ${theme.palette.fishMeetMainColor01} !important`
+                boxShadow: `inset 0px 0px 0px 2px ${theme.palette.warning02} !important`
             }
         },
 

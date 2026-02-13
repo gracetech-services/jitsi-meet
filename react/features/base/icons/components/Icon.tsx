@@ -170,13 +170,7 @@ export default function Icon(props: IProps) {
         }
     }, [ onClick, onKeyPress ]);
 
-    // Check if this is a fishmeet icon by checking the IconComponent's displayName or name
-    // withBranding sets displayName to iconName (e.g., "IconFishmeetMic")
-    const iconName = (IconComponent as any)?.displayName || (IconComponent as any)?.name || '';
-    const isFishmeetIcon = iconName.toLowerCase().includes('fishmeet') || className?.includes('fishmeet-icon');
-    const jitsiIconClassName = isFishmeetIcon
-        ? 'fishmeet-icon'
-        : (calculatedColor ? 'jitsi-icon' : 'jitsi-icon jitsi-icon-default');
+    const jitsiIconClassName = calculatedColor ? 'jitsi-icon' : 'jitsi-icon jitsi-icon-default';
 
     const iconProps = alt ? {
         'aria-label': alt,
@@ -206,7 +200,7 @@ export default function Icon(props: IProps) {
             tabIndex = { tabIndex }>
             <IconComponent
                 { ...iconProps }
-                { ...(isFishmeetIcon ? {} : { fill: calculatedColor }) }
+                fill = { calculatedColor }
                 height = { calculatedSize }
                 id = { id }
                 width = { calculatedSize } />

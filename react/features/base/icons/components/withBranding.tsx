@@ -13,27 +13,20 @@ import SvgXmlIcon from './SvgXmlIcon';
 const withBranding = ({ DefaultIcon, iconName }: {
     DefaultIcon: any;
     iconName: string;
-}) => {
-    const WrappedIcon = (props: any) => {
-        const src = useSelector((state: IReduxState) =>
-            state['features/dynamic-branding']?.brandedIcons?.[iconName]
+}) => (props: any) => {
+    const src = useSelector((state: IReduxState) =>
+        state['features/dynamic-branding']?.brandedIcons?.[iconName]
+    );
+
+    if (src) {
+        return (
+            <SvgXmlIcon
+                src = { src }
+                { ...props } />
         );
+    }
 
-        if (src) {
-            return (
-                <SvgXmlIcon
-                    src = { src }
-                    { ...props } />
-            );
-        }
-
-        return <DefaultIcon { ...props } />;
-    };
-
-    // Set displayName to iconName so we can identify fishmeet icons
-    WrappedIcon.displayName = iconName;
-
-    return WrappedIcon;
+    return <DefaultIcon { ...props } />;
 };
 
 export default withBranding;

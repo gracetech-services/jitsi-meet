@@ -13,7 +13,7 @@ import { IReduxState, IStore } from '../../../app/types';
 import { isMobileBrowser } from '../../../base/environment/utils';
 import { translate } from '../../../base/i18n/functions';
 import Icon from '../../../base/icons/components/Icon';
-import { IconFishmeetPolygonLeft, IconFishmeetPolygonRight } from '../../../base/icons/svg';
+import { IconArrowDown, IconArrowUp } from '../../../base/icons/svg';
 import { isNarrowScreenWithChatOpen } from '../../../base/responsive-ui/functions';
 import { getHideSelfView } from '../../../base/settings/functions.any';
 import { registerShortcut, unregisterShortcut } from '../../../keyboard-shortcuts/actions';
@@ -67,7 +67,7 @@ function styles(theme: Theme, props: IProps) {
             flexWrap: 'nowrap' as const,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'transparent',
+            backgroundColor: BACKGROUND_COLOR,
             width: '32px',
             height: '24px',
             position: 'absolute' as const,
@@ -79,7 +79,7 @@ function styles(theme: Theme, props: IProps) {
             zIndex: 1,
 
             '&:hover, &:focus-within': {
-                backgroundColor: 'transparent'
+                backgroundColor: theme.palette.ui02
             }
         },
 
@@ -97,20 +97,14 @@ function styles(theme: Theme, props: IProps) {
             '-webkit-appearance': 'none',
 
             '& svg': {
-                fill: 'none'
-            }
-        },
-
-        toggleVerticalFilmstripButton: {
-            '& svg': {
-                transform: 'rotate(90deg)'
+                fill: theme.palette.icon01
             }
         },
 
         toggleVerticalFilmstripContainer: {
             transform: 'rotate(-90deg)',
             left: 'calc(-24px - 2px - 4px)',
-            top: 'calc(50% - 4px)'
+            top: 'calc(50% - 12px)'
         },
 
         toggleTopPanelContainer: {
@@ -204,7 +198,7 @@ function styles(theme: Theme, props: IProps) {
 
             '&:hover': {
                 '& .dragHandle': {
-                    backgroundColor: theme.palette.fishMeetMainColor01
+                    backgroundColor: theme.palette.icon01
                 }
             },
 
@@ -212,7 +206,7 @@ function styles(theme: Theme, props: IProps) {
                 visibility: 'visible' as const,
 
                 '& .dragHandle': {
-                    backgroundColor: theme.palette.fishMeetMainColor01
+                    backgroundColor: theme.palette.icon01
                 }
             },
 
@@ -230,7 +224,7 @@ function styles(theme: Theme, props: IProps) {
         },
 
         dragHandle: {
-            backgroundColor: theme.palette.fishMeetMainColor01,
+            backgroundColor: theme.palette.icon02,
             height: '100px',
             width: '3px',
             borderRadius: '1px'
@@ -283,6 +277,11 @@ export interface IProps extends WithTranslation {
      * Whether vertical/horizontal filmstrip is disabled through config.
      */
     _filmstripDisabled: boolean;
+
+    /**
+     * Custom icon URLs for filmstrip toggle button [visibleIconUrl, hiddenIconUrl].
+     */
+    _filmstripToggleIcons?: string[];
 
     /**
      * The height of the filmstrip.
@@ -1049,20 +1048,41 @@ class Filmstrip extends PureComponent <IProps, IState> {
     _renderToggleButton() {
         const {
             t,
+            _filmstripToggleIcons,
             _isVerticalFilmstrip,
             _mainFilmstripVisible,
             _topPanelFilmstrip,
             _topPanelVisible
         } = this.props;
         const classes = withStyles.getClasses(this.props);
-        // For vertical filmstrip, the container is rotated -90deg, but we counter-rotate the icon by +90deg
-        // So the icon maintains its left/right orientation
-        // visible -> right (hide), hidden -> left (show)
         const isVisible = _topPanelFilmstrip ? _topPanelVisible : _mainFilmstripVisible;
-        const icon = isVisible ? IconFishmeetPolygonRight : IconFishmeetPolygonLeft;
         const actions = isMobileBrowser()
             ? { onTouchStart: this._onToggleButtonTouch }
             : { onClick: this._onToolbarToggleFilmstrip };
+
+        // Use custom icon URLs if configured, otherwise use default icons
+        let iconElement;
+
+        if (_filmstripToggleIcons && Array.isArray(_filmstripToggleIcons) && _filmstripToggleIcons.length >= 2) {
+            const iconUrl = isVisible ? _filmstripToggleIcons[0] : _filmstripToggleIcons[1];
+
+            iconElement = (
+                <img
+                    alt = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                    height = { 48 }
+                    src = { iconUrl }
+                    width = { 48 } />
+            );
+        } else {
+            const icon = isVisible ? IconArrowDown : IconArrowUp;
+
+            iconElement = (
+                <Icon
+                    aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
+                    size = { 24 }
+                    src = { icon } />
+            );
+        }
 
         return (
             <div
@@ -1074,16 +1094,12 @@ class Filmstrip extends PureComponent <IProps, IState> {
                 <button
                     aria-expanded = { this.props._mainFilmstripVisible }
                     aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                    className = { clsx(classes.toggleFilmstripButton,
-                        _isVerticalFilmstrip && classes.toggleVerticalFilmstripButton) }
+                    className = { classes.toggleFilmstripButton }
                     id = 'toggleFilmstripButton'
                     onFocus = { this._onTabIn }
                     tabIndex = { 0 }
                     { ...actions }>
-                    <Icon
-                        aria-label = { t('toolbar.accessibilityLabel.toggleFilmstrip') }
-                        size = { 48 }
-                        src = { icon } />
+                    { iconElement }
                 </button>
             </div>
         );
@@ -1101,7 +1117,7 @@ class Filmstrip extends PureComponent <IProps, IState> {
 function _mapStateToProps(state: IReduxState, ownProps: any) {
     const { _hasScroll = false, filmstripType, _topPanelFilmstrip, _remoteParticipants } = ownProps;
     const { toolbarButtons } = state['features/toolbox'];
-    const { iAmRecorder, filmstrip: { alwaysShowResizeBar } = {} } = state['features/base/config'];
+    const { iAmRecorder, filmstrip: { alwaysShowResizeBar } = {}, filmstripToggleIcons } = state['features/base/config'];
     const { topPanelHeight, topPanelVisible, visible, width: verticalFilmstripWidth } = state['features/filmstrip'];
     const { localScreenShare } = state['features/base/participants'];
     const reduceHeight = state['features/toolbox'].visible && toolbarButtons?.length;
@@ -1155,7 +1171,8 @@ function _mapStateToProps(state: IReduxState, ownProps: any) {
         _verticalFilmstripWidth: verticalFilmstripWidth.current,
         _verticalViewMaxWidth: getVerticalViewMaxWidth(state),
         _videosClassName: videosClassName,
-        _alwaysShowResizeBar: alwaysShowResizeBar
+        _alwaysShowResizeBar: alwaysShowResizeBar,
+        _filmstripToggleIcons: filmstripToggleIcons
     };
 }
 
