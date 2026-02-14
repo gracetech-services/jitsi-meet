@@ -279,14 +279,14 @@ export interface IProps extends WithTranslation {
     _filmstripDisabled: boolean;
 
     /**
-     * Custom icon URLs for filmstrip toggle button [visibleIconUrl, hiddenIconUrl].
-     */
-    _filmstripToggleIcons?: string[];
-
-    /**
      * The height of the filmstrip.
      */
     _filmstripHeight: number;
+
+    /**
+     * Custom icon URLs for filmstrip toggle button [visibleIconUrl, hiddenIconUrl].
+     */
+    _filmstripToggleIcons?: string[];
 
     /**
      * The width of the filmstrip.
