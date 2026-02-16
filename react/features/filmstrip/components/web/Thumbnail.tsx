@@ -282,7 +282,7 @@ const defaultStyles = (theme: Theme) => {
         },
 
         indicatorsBackground: {
-            backgroundColor: 'transparent',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
             borderRadius: '4px',
             display: 'flex',
             alignItems: 'center',
@@ -307,8 +307,6 @@ const defaultStyles = (theme: Theme) => {
             borderRadius: '4px',
             backgroundColor: theme.palette.ui02
         },
-
-        containerBackgroundTile: {},
 
         borderIndicator: {
             position: 'absolute' as const,
@@ -1102,9 +1100,7 @@ class Thumbnail extends Component<IProps, IState> {
                 {!_gifSrc && (local
                     ? <span id = 'localVideoWrapper'>{video}</span>
                     : video)}
-                <div
-                    className = { clsx(classes.containerBackground,
-                        _thumbnailType === THUMBNAIL_TYPE.TILE && classes.containerBackgroundTile) } />
+                <div className = { classes.containerBackground } />
                 {/* put the bottom container before the top container in the dom,
                 because it contains the participant name that should be announced first by screen readers */}
                 <div

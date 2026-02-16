@@ -598,7 +598,7 @@ config.tileView = {...config.tileView, numberOfVisibleTiles: 9}; // Zoom offers 
 
     //**** ????  */
     // If true remove the tint foreground on focused user camera in filmstrip
-    // disableCameraTintForeground: false,
+    config.disableCameraTintForeground = true;
 
     // List of pre meeting screens buttons to hide. The values must be one or more of the 5 allowed buttons:
     // 'microphone', 'camera', 'select-background', 'invite', 'settings'
