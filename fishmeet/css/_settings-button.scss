@@ -34,19 +34,13 @@
 }
 
 .settings-button-small-icon {
-    background: transparent;
-    box-shadow: none;
     border-radius: 3px;
     cursor: pointer;
     padding: 1px;
     position: absolute;
     right: -4px;
     top: -3px;
-
-    &:hover {
-        background: transparent;
-        box-shadow: none;
-    }
+    @extend %ear-icon-styles;
 
     &--disabled {
         background-color: transparent;
@@ -54,6 +48,11 @@
 
         & svg {
             fill: #929292;
+        }
+
+        &:hover {
+            background-color: transparent;
+            box-shadow: none;
         }
     }
 }
@@ -89,11 +88,6 @@
             color: #000 !important;
         }
     }
-}
-
-.settings-button-hover-container {
-    position: relative;
-    @extend %ear-icon-styles;
 }
 
 .settings-button-small-icon-container {

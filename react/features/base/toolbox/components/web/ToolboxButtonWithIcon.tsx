@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 
 import { NOTIFY_CLICK_MODE } from '../../../../toolbox/types';
 import Icon from '../../../icons/components/Icon';
@@ -47,11 +47,6 @@ interface IProps {
     iconDisabled: boolean;
 
     /**
-     * Hover icon of the button (optional).
-     */
-    iconHover?: Function;
-
-    /**
      * The ID of the icon button.
      */
     iconId: string;
@@ -93,7 +88,6 @@ export default function ToolboxButtonWithIcon(props: IProps) {
     const {
         children,
         icon,
-        iconHover,
         iconDisabled,
         iconTooltip,
         buttonKey,
@@ -107,8 +101,6 @@ export default function ToolboxButtonWithIcon(props: IProps) {
         ariaExpanded,
         iconId
     } = props;
-
-    const [ isHovered, setIsHovered ] = useState(false);
 
     const iconProps: {
         ariaControls?: string;
@@ -145,17 +137,6 @@ export default function ToolboxButtonWithIcon(props: IProps) {
         iconProps.containerId = iconId;
     }
 
-    // Determine which icon to use based on hover state
-    const iconToRender = (iconHover && isHovered && !iconDisabled) ? iconHover : icon;
-
-    // Handle mouse enter/leave for hover state
-    const handleMouseEnter = useCallback(() => {
-        setIsHovered(true);
-    }, []);
-
-    const handleMouseLeave = useCallback(() => {
-        setIsHovered(false);
-    }, []);
 
     return (
         <div
@@ -163,22 +144,19 @@ export default function ToolboxButtonWithIcon(props: IProps) {
             style = { styles }>
             {children}
 
-            <Tooltip
-                containerClassName = { className }
-                content = { iconTooltip }
-                position = 'top'>
-                <div
-                    className = { `${className} settings-button-hover-container` }
-                    onMouseEnter = { handleMouseEnter }
-                    onMouseLeave = { handleMouseLeave }>
+            <div>
+                <Tooltip
+                    containerClassName = { className }
+                    content = { iconTooltip }
+                    position = 'top'>
                     <Icon
                         { ...iconProps }
                         ariaHasPopup = { ariaHasPopup }
                         ariaLabel = { ariaLabel }
                         size = { 16 }
-                        src = { iconToRender } />
-                </div>
-            </Tooltip>
+                        src = { icon } />
+                </Tooltip>
+            </div>
         </div>
     );
 }
