@@ -1,4 +1,3 @@
-import { Theme } from '@mui/material';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -11,7 +10,6 @@ import { getLocalParticipant } from '../../base/participants/functions';
 import Watermarks from '../../base/react/components/web/Watermarks';
 import { getHideSelfView } from '../../base/settings/functions.any';
 import { getVideoTrackByParticipant } from '../../base/tracks/functions.web';
-import BaseTheme from '../../base/ui/components/BaseTheme.web';
 import { setColorAlpha } from '../../base/util/helpers';
 import { isSpotTV } from '../../base/util/spot';
 import StageParticipantNameLabel from '../../display-name/components/web/StageParticipantNameLabel';
@@ -106,11 +104,6 @@ interface IProps {
      * Whether or not to show subtitles button.
      */
     _showSubtitles?: boolean;
-
-    /**
-     * The theme object.
-     */
-    _theme: Theme;
 
     /**
      * The width of the vertical filmstrip (user resized).
@@ -374,7 +367,7 @@ class LargeVideo extends Component<IProps> {
  */
 function _mapStateToProps(state: IReduxState) {
     const testingConfig = state['features/base/config'].testing;
-    const { backgroundColor, backgroundImageUrl, muiBrandedTheme } = state['features/dynamic-branding'];
+    const { backgroundColor, backgroundImageUrl } = state['features/dynamic-branding'];
     const { isOpen: isChatOpen } = state['features/chat'];
     const { width: verticalFilmstripWidth, visible } = state['features/filmstrip'];
     const { hideDominantSpeakerBadge } = state['features/base/config'];
@@ -406,8 +399,7 @@ function _mapStateToProps(state: IReduxState) {
         _verticalFilmstripWidth: verticalFilmstripWidth.current,
         _verticalViewMaxWidth: getVerticalViewMaxWidth(state),
         _visibleFilmstrip: visible,
-        _whiteboardEnabled: isWhiteboardEnabled(state),
-        _theme: (typeof muiBrandedTheme === 'object' ? muiBrandedTheme : BaseTheme) as Theme
+        _whiteboardEnabled: isWhiteboardEnabled(state)
     };
 }
 
