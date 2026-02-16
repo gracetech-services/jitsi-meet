@@ -6,22 +6,22 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FISHMEET_DIR="$PROJECT_DIR/fishmeet"
 
 echo "=== Fishmeet Build ==="
 echo "Project directory: $PROJECT_DIR"
 
 # Copy CSS overrides
-if [ -d "$SCRIPT_DIR/css" ]; then
+if [ -d "$FISHMEET_DIR/css" ]; then
     echo "Copying CSS overrides from fishmeet/css/ to css/..."
-    cp -v "$SCRIPT_DIR/css/"_*.scss "$PROJECT_DIR/css/"
+    cp -v "$FISHMEET_DIR/css/"_*.scss "$PROJECT_DIR/css/"
 fi
 
 # Copy SVG overrides
-if [ -d "$SCRIPT_DIR/react/features/base/icons/svg" ]; then
+if [ -d "$FISHMEET_DIR/react/features/base/icons/svg" ]; then
     echo "Copying SVG overrides..."
-    cp -v "$SCRIPT_DIR/react/features/base/icons/svg/"*.svg "$PROJECT_DIR/react/features/base/icons/svg/"
+    cp -v "$FISHMEET_DIR/react/features/base/icons/svg/"*.svg "$PROJECT_DIR/react/features/base/icons/svg/"
 fi
 
 # Run make
