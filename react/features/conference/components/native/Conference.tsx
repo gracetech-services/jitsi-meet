@@ -432,18 +432,13 @@ class Conference extends AbstractConference<IProps, State> {
 
                     {
                         _shouldDisplayTileView
-                        || (appType.isFishMeet ? (
+                        || (((styles as any).displayNameProps?.show ?? _isDisplayNameVisible) && (
                             <Container style = { styles.displayNameContainer }>
                                 <DisplayNameLabel
                                     participantId = { _largeVideoParticipantId }
-                                    contained = { true } />
+                                    contained = { (styles as any).displayNameProps?.contained } />
                             </Container>
-                        ) : (_isDisplayNameVisible && (
-                            <Container style = { styles.displayNameContainer }>
-                                <DisplayNameLabel
-                                    participantId = { _largeVideoParticipantId } />
-                            </Container>
-                        )))
+                        ))
                     }
 
                     { !_shouldDisplayTileView && <LonelyMeetingExperience /> }

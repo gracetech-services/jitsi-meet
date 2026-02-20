@@ -47,6 +47,12 @@ export default {
         margin: BaseTheme.spacing[3]
     },
 
+    // fishmeet: always show display name label with contained layout
+    displayNameProps: {
+        show: true,
+        contained: true
+    },
+
     /**
      * View that contains the indicators.
      */
