@@ -10,7 +10,6 @@ import BaseTheme from '../BaseTheme.native';
 import { IButtonProps } from '../types';
 
 import styles from './buttonStyles';
-import fishMeetButtonStyles from './fishMeetButtonStyles';
 
 
 export interface IProps extends IButtonProps {
@@ -65,13 +64,13 @@ const Button: React.FC<IProps> = ({
             : styles.buttonLabelDestructive;
         color = mode === CONTAINED && BaseTheme.palette.actionDanger;
     } else if (type === FISHMEET_PRIMARY) {
-        buttonLabelStyles = fishMeetButtonStyles.fishMeetButtonLabelPrimaryText;
+        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
         color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor01;
     } else if (type === FISHMEET_SECONDARY) {
-        buttonLabelStyles = fishMeetButtonStyles.fishMeetButtonLabelPrimaryText;
+        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
         color = mode === CONTAINED && BaseTheme.palette.fishMeetAction01;
     } else if (type === FISHMEET_TERTIARY) {
-        buttonLabelStyles = fishMeetButtonStyles.fishMeetButtonLabelPrimaryText;
+        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
         color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor02;
     } else {
         color = buttonColor;
@@ -119,9 +118,9 @@ const Button: React.FC<IProps> = ({
     )) {
         // Override buttonStyles for FishMeet
         if (disabled) {
-            buttonStyles = fishMeetButtonStyles.fishMeetButtonDisabled;
+            buttonStyles = styles.fishMeetButtonDisabled;
         } else {
-            buttonStyles = fishMeetButtonStyles.fishMeetButton;
+            buttonStyles = styles.fishMeetButton;
         }
 
         return (
