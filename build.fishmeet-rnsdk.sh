@@ -24,14 +24,13 @@ FISHMEET_DIR="$PROJECT_DIR/fishmeet"
 echo "=== Fishmeet React Native SDK Build ==="
 echo "Project directory: $PROJECT_DIR"
 
-# Apply fishmeet SVG overrides.
+# Apply fishmeet react/ overrides (SVGs, styles, components, etc.).
 # CSS overrides (fishmeet/css/) are web-only and are not needed here.
-if [ -d "$FISHMEET_DIR/react/features/base/icons/svg" ]; then
-    echo "Copying fishmeet SVG overrides..."
-    cp -v "$FISHMEET_DIR/react/features/base/icons/svg/"*.svg \
-          "$PROJECT_DIR/react/features/base/icons/svg/"
+if [ -d "$FISHMEET_DIR/react" ]; then
+    echo "Copying fishmeet react/ overrides..."
+    rsync -r "$FISHMEET_DIR/react/" "$PROJECT_DIR/react/"
 else
-    echo "Warning: fishmeet SVG override directory not found, skipping."
+    echo "Warning: fishmeet/react directory not found, skipping."
 fi
 
 # Pack the SDK.  Forward all arguments so callers can pass --pack-destination

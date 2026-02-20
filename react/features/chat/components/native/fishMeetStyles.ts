@@ -48,11 +48,6 @@ export default {
         fontSize: 13
     },
 
-    fishMeetChatContainer: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
-        flex: 1
-    },
-
     fishMeetSenderDisplayName: {
         ...BaseTheme.typography.bodyShortBold,
         color: BaseTheme.palette.fishMeetText02
