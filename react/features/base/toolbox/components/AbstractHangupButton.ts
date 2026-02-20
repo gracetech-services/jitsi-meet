@@ -1,5 +1,4 @@
-import { appType } from '../../config/AppType';
-import { IconFishmeetHangup, IconHangup } from '../../icons/svg';
+import { IconHangup } from '../../icons/svg';
 
 import AbstractButton, { IProps } from './AbstractButton';
 
@@ -9,7 +8,7 @@ import AbstractButton, { IProps } from './AbstractButton';
 export default class AbstractHangupButton<P extends IProps, S=any>
     extends AbstractButton<P, S> {
 
-    override icon = appType.isFishMeet ? IconFishmeetHangup : IconHangup;
+    override icon = IconHangup;
 
     /**
      * Handles clicking / pressing the button, and disconnects the conference.

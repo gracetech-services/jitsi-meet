@@ -2,9 +2,8 @@ import React from 'react';
 import { View, ViewStyle } from 'react-native';
 import { connect } from 'react-redux';
 
-import { appType } from '../../../base/config/AppType';
 import { translate } from '../../../base/i18n/functions';
-import { IconFishmeetUsers, IconUsers } from '../../../base/icons/svg';
+import { IconUsers } from '../../../base/icons/svg';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 import { navigate }
     from '../../../mobile/navigation/components/conference/ConferenceNavigationContainerRef';
@@ -19,7 +18,7 @@ import styles from './styles';
  */
 class ParticipantsPaneButton extends AbstractButton<AbstractButtonProps> {
     accessibilityLabel = 'toolbar.accessibilityLabel.participants';
-    icon = appType.isFishMeet ? IconFishmeetUsers : IconUsers;
+    icon = IconUsers;
     label = 'toolbar.participants';
 
     /**

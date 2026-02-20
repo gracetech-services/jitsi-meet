@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 
-import { appType } from '../../../base/config/AppType';
 import { openSheet } from '../../../base/dialog/actions';
 import { translate } from '../../../base/i18n/functions';
-import { IconFishmeetVolumeUp, IconVolumeUp } from '../../../base/icons/svg';
+import { IconVolumeUp } from '../../../base/icons/svg';
 import AbstractButton, { IProps as AbstractButtonProps } from '../../../base/toolbox/components/AbstractButton';
 
 import AudioRoutePickerDialog from './AudioRoutePickerDialog';
@@ -13,7 +12,7 @@ import AudioRoutePickerDialog from './AudioRoutePickerDialog';
  */
 class AudioDeviceToggleButton extends AbstractButton<AbstractButtonProps> {
     accessibilityLabel = 'toolbar.accessibilityLabel.audioRoute';
-    icon = appType.isFishMeet ? IconFishmeetVolumeUp : IconVolumeUp;
+    icon = IconVolumeUp;
     label = 'toolbar.accessibilityLabel.audioRoute';
 
     /**

@@ -1,5 +1,4 @@
-import { appType } from '../../config/AppType';
-import { IconFishmeetVideo, IconFishmeetVideoOff, IconVideo, IconVideoOff } from '../../icons/svg';
+import { IconVideo, IconVideoOff } from '../../icons/svg';
 
 import AbstractButton, { IProps } from './AbstractButton';
 
@@ -9,8 +8,8 @@ import AbstractButton, { IProps } from './AbstractButton';
 export default class BaseVideoMuteButton<P extends IProps, S=any>
     extends AbstractButton<P, S> {
 
-    override icon = appType.isFishMeet ? IconFishmeetVideo : IconVideo;
-    override toggledIcon = appType.isFishMeet ? IconFishmeetVideoOff : IconVideoOff;
+    override icon = IconVideo;
+    override toggledIcon = IconVideoOff;
 
     /**
      * Handles clicking / pressing the button, and toggles the video mute state

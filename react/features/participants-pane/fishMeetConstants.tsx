@@ -3,10 +3,10 @@ import { View, ViewStyle } from 'react-native';
 
 import Icon from '../base/icons/components/Icon';
 import {
-    IconFishmeetMic,
-    IconFishmeetMicSlash,
-    IconFishmeetVideo,
-    IconFishmeetVideoOff
+    IconMic,
+    IconMicSlash,
+    IconVideo,
+    IconVideoOff
 } from '../base/icons/svg';
 
 import fishMeetStyles from './components/native/fishMeetStyles';
@@ -22,7 +22,7 @@ export const FishmeetAudioStateIcons = {
                 className = 'jitsi-icon-dominant-speaker'
                 color = 'transparent'
                 size = { 16 }
-                src = { IconFishmeetMic } />
+                src = { IconMic } />
         </View>
     ),
     [MEDIA_STATE.FORCE_MUTED]: (
@@ -30,7 +30,7 @@ export const FishmeetAudioStateIcons = {
             <Icon
                 color = 'transparent'
                 size = { 16 }
-                src = { IconFishmeetMicSlash } />
+                src = { IconMicSlash } />
         </View>
     ),
     [MEDIA_STATE.MUTED]: (
@@ -38,7 +38,7 @@ export const FishmeetAudioStateIcons = {
             <Icon
                 color = 'transparent'
                 size = { 16 }
-                src = { IconFishmeetMicSlash } />
+                src = { IconMicSlash } />
         </View>
     ),
     [MEDIA_STATE.UNMUTED]: (
@@ -46,7 +46,7 @@ export const FishmeetAudioStateIcons = {
             <Icon
                 color = 'transparent'
                 size = { 16 }
-                src = { IconFishmeetMic } />
+                src = { IconMic } />
         </View>
     ),
     [MEDIA_STATE.NONE]: null
@@ -63,7 +63,7 @@ export const FishmeetVideoStateIcons = {
                 color = 'transparent'
                 id = 'videoMuted'
                 size = { 16 }
-                src = { IconFishmeetVideoOff } />
+                src = { IconVideoOff } />
         </View>
     ),
     [MEDIA_STATE.MUTED]: (
@@ -72,7 +72,7 @@ export const FishmeetVideoStateIcons = {
                 color = 'transparent'
                 id = 'videoMuted'
                 size = { 16 }
-                src = { IconFishmeetVideoOff } />
+                src = { IconVideoOff } />
         </View>
     ),
     [MEDIA_STATE.UNMUTED]: (
@@ -80,7 +80,7 @@ export const FishmeetVideoStateIcons = {
             <Icon
                 color = 'transparent'
                 size = { 16 }
-                src = { IconFishmeetVideo } />
+                src = { IconVideo } />
         </View>
     ),
     [MEDIA_STATE.NONE]: null

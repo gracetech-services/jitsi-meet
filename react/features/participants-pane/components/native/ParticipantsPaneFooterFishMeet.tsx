@@ -10,7 +10,7 @@ import {
     BREAKOUT_ROOMS_BUTTON_ENABLED
 } from '../../../base/flags/constants';
 import { getFeatureFlag } from '../../../base/flags/functions';
-import { IconFishmeetDotsHorizontal } from '../../../base/icons/svg';
+import { IconDotsHorizontal } from '../../../base/icons/svg';
 import Button from '../../../base/ui/components/native/Button';
 import IconButton from '../../../base/ui/components/native/IconButton';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
@@ -87,7 +87,7 @@ const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
                     showMoreActions && (
                         <IconButton
                             onPress = { openMoreMenu }
-                            src = { IconFishmeetDotsHorizontal }
+                            src = { IconDotsHorizontal }
                             style = { styles.moreButton }
                             type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
                     )

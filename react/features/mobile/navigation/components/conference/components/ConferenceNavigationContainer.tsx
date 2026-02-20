@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 import { appType } from '../../../../../base/config/AppType';
 import Icon from '../../../../../base/icons/components/Icon';
-import { IconFishmeetClose } from '../../../../../base/icons/svg';
+import { IconCloseLarge } from '../../../../../base/icons/svg';
 
 import BreakoutRooms
 // @ts-ignore
@@ -103,7 +103,7 @@ export const fishMeetHeaderOptions = (title: string) => {
                     style = { styleHeader.touchStyle as ViewStyle }>
                     <Icon
                         size = { 16 }
-                        src = { IconFishmeetClose } />
+                        src = { IconCloseLarge } />
                 </TouchableOpacity>
             </View >
         )

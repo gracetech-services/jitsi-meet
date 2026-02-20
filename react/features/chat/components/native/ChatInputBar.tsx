@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { IReduxState } from '../../../app/types';
 import { appType } from '../../../base/config/AppType';
 import { translate } from '../../../base/i18n/functions';
-import { IconFishmeetSend, IconSend } from '../../../base/icons/svg';
+import { IconSend } from '../../../base/icons/svg';
 import { ASPECT_RATIO_WIDE } from '../../../base/responsive-ui/constants';
 import IconButton from '../../../base/ui/components/native/IconButton';
 import Input from '../../../base/ui/components/native/Input';
@@ -138,7 +138,7 @@ class ChatInputBar extends Component<IProps, IState> {
                     id = { this.props.t('chat.sendButton') }
                     onPress = { this._onSubmit }
                     size = { appType.isFishMeet ? 12 : undefined }
-                    src = { appType.isFishMeet ? IconFishmeetSend : IconSend }
+                    src = { IconSend }
                     type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_TERTIARY : BUTTON_TYPES.PRIMARY } />
             </View>
         );
