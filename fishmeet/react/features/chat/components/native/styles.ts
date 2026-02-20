@@ -139,7 +139,7 @@ export default {
     inputBarNarrow: {
         ...inputBar,
         height: 112,
-        marginHorizontal: BaseTheme.spacing[3]
+        marginHorizontal: BaseTheme.spacing[4]  // fishmeet: was spacing[3]
     },
 
     inputBarWide: {
@@ -149,7 +149,15 @@ export default {
     },
 
     customInputContainer: {
-        width: '75%'
+        width: '80%'  // fishmeet: was '75%'
+    },
+
+    // fishmeet: input field styling
+    customInput: {
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
+        borderColor: BaseTheme.palette.fishMeetMainColor02,
+        borderRadius: 30,
+        borderWidth: 1
     },
 
     messageBubble: {

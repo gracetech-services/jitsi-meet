@@ -1,11 +1,5 @@
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
-const inputBar = {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-};
-
 /**
  * The styles of the feature chat.
  *
@@ -24,23 +18,6 @@ export default {
     fishMeetChatMessage: {
         ...BaseTheme.typography.bodyShortRegular,
         color: BaseTheme.palette.fishMeetText02
-    },
-
-    fishMeetInputBarNarrow: {
-        ...inputBar,
-        height: 112,
-        marginHorizontal: BaseTheme.spacing[4]
-    },
-
-    fishMeetCustomInputContainer: {
-        width: '80%'
-    },
-
-    fishMeetCustomInput: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
-        borderColor: BaseTheme.palette.fishMeetMainColor02,
-        borderRadius: 30,
-        borderWidth: 1
     },
 
     fishMeetTimeText: {

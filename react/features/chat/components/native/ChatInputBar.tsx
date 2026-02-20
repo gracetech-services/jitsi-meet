@@ -5,7 +5,6 @@ import { Text } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
-import { appType } from '../../../base/config/AppType';
 import { translate } from '../../../base/i18n/functions';
 import { IconSend } from '../../../base/icons/svg';
 import { ASPECT_RATIO_WIDE } from '../../../base/responsive-ui/constants';
@@ -14,7 +13,6 @@ import Input from '../../../base/ui/components/native/Input';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
 import { isSendGroupChatDisabled } from '../../functions';
 
-import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 interface IProps extends WithTranslation {
@@ -92,9 +90,7 @@ class ChatInputBar extends Component<IProps, IState> {
         if (this.props.aspectRatio === ASPECT_RATIO_WIDE) {
             inputBarStyles = styles.inputBarWide;
         } else {
-            inputBarStyles = appType.isFishMeet
-                ? fishMeetStyles.fishMeetInputBarNarrow
-                : styles.inputBarNarrow;
+            inputBarStyles = styles.inputBarNarrow;
         }
 
         if (this.props._isSendGroupChatDisabled && !this.props._privateMessageRecipientId) {
@@ -119,10 +115,8 @@ class ChatInputBar extends Component<IProps, IState> {
                 <Input
                     blurOnSubmit = { false }
                     customStyles = {{
-                        container: appType.isFishMeet
-                            ? fishMeetStyles.fishMeetCustomInputContainer
-                            : styles.customInputContainer,
-                        input: appType.isFishMeet && fishMeetStyles.fishMeetCustomInput
+                        container: styles.customInputContainer,
+                        input: styles.customInput
                     }}
                     id = 'chat-input-messagebox'
                     multiline = { false }
@@ -137,9 +131,9 @@ class ChatInputBar extends Component<IProps, IState> {
                     disabled = { !this.state.message }
                     id = { this.props.t('chat.sendButton') }
                     onPress = { this._onSubmit }
-                    size = { appType.isFishMeet ? 12 : undefined }
+                    size = { 12 }
                     src = { IconSend }
-                    type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_TERTIARY : BUTTON_TYPES.PRIMARY } />
+                    type = { BUTTON_TYPES.FISHMEET_TERTIARY } />
             </View>
         );
     }
