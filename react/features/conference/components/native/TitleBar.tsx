@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import { getConferenceName, getConferenceTimestamp } from '../../../base/conference/functions';
-import { appType } from '../../../base/config/AppType';
 import {
     AUDIO_DEVICE_BUTTON_ENABLED,
     CONFERENCE_TIMER_ENABLED,
@@ -22,7 +21,6 @@ import ConferenceTimer from '../ConferenceTimer';
 
 import Labels from './Labels';
 import styles from './styles';
-import TitleBarFishMeet from './TitleBarFishMeet';
 
 
 interface IProps {
@@ -81,17 +79,6 @@ const TitleBar = (props: IProps) => {
 
     if (!_visible) {
         return null;
-    }
-
-    if (appType.isFishMeet) {
-        const fishMeetProps = {
-            _createOnPress: props._createOnPress,
-            _isParticipantsPaneEnabled: props._isParticipantsPaneEnabled,
-            _meetingName: props._meetingName,
-            _roomNameEnabled: props._roomNameEnabled,
-            _visible: props._visible
-        };
-        return <TitleBarFishMeet {...fishMeetProps} />;
     }
 
     return (
