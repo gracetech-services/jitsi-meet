@@ -24,6 +24,14 @@ if [ -d "$FISHMEET_DIR/react/features/base/icons/svg" ]; then
     cp -v "$FISHMEET_DIR/react/features/base/icons/svg/"*.svg "$PROJECT_DIR/react/features/base/icons/svg/"
 fi
 
+# Stamp build date into index.html
+# The fishmeet/index.html has a %%BUILD_DATE%% placeholder that gets replaced
+# with the actual build timestamp when copied to the project root.
+BUILD_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')
+echo "Stamping build date: $BUILD_DATE"
+cp "$FISHMEET_DIR/index.html" "$PROJECT_DIR/index.html"
+sed -i "s/%%BUILD_DATE%%/$BUILD_DATE/" "$PROJECT_DIR/index.html"
+
 # Run make
 echo "Running make..."
 cd "$PROJECT_DIR"
