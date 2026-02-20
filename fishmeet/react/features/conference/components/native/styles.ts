@@ -72,7 +72,7 @@ export default {
 
     titleBarButton: {
         iconStyle: {
-            color: BaseTheme.palette.icon01,
+            color: 'transparent',  // fishmeet: was icon01
             padding: 12,
             fontSize: TITLE_BAR_BUTTON_SIZE
         },
@@ -165,7 +165,7 @@ export default {
     },
 
     roomNameView: {
-        backgroundColor: 'rgba(0,0,0,0.6)',
+        // fishmeet: no background overlay
         borderBottomLeftRadius: 3,
         borderTopLeftRadius: 3,
         flexShrink: 1,
