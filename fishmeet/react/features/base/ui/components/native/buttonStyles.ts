@@ -1,3 +1,4 @@
+import { BUTTON_TYPES } from '../../constants.native';
 import BaseTheme from '../../../ui/components/BaseTheme.native';
 
 const BUTTON_HEIGHT = BaseTheme.spacing[7];
@@ -99,5 +100,21 @@ export default {
         ...buttonLabel,
         textTransform: 'capitalize',
         color: BaseTheme.palette.fishMeetText01
-    }
+    },
+
+    // fishmeet: type → background color map for FISHMEET_* button types
+    fishMeetTypeColors: {
+        [BUTTON_TYPES.FISHMEET_PRIMARY]: BaseTheme.palette.fishMeetMainColor01,
+        [BUTTON_TYPES.FISHMEET_SECONDARY]: BaseTheme.palette.fishMeetAction01,
+        [BUTTON_TYPES.FISHMEET_TERTIARY]: BaseTheme.palette.fishMeetMainColor02
+    },
+
+    // fishmeet: button types that render as TouchableHighlight instead of NativePaperButton
+    touchableHighlightTypes: new Set([
+        BUTTON_TYPES.DESTRUCTIVE,
+        BUTTON_TYPES.SECONDARY,
+        BUTTON_TYPES.FISHMEET_PRIMARY,
+        BUTTON_TYPES.FISHMEET_SECONDARY,
+        BUTTON_TYPES.FISHMEET_TERTIARY
+    ])
 };

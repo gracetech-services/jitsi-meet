@@ -4,7 +4,6 @@ import { StyleProp, TouchableHighlight } from 'react-native';
 import { Button as NativePaperButton, Text } from 'react-native-paper';
 import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
-import { appType } from '../../../config/AppType';
 import { BUTTON_MODES, BUTTON_TYPES } from '../../constants.native';
 import BaseTheme from '../BaseTheme.native';
 import { IButtonProps } from '../types';
@@ -63,15 +62,9 @@ const Button: React.FC<IProps> = ({
             ? styles.buttonLabelDestructiveText
             : styles.buttonLabelDestructive;
         color = mode === CONTAINED && BaseTheme.palette.actionDanger;
-    } else if (type === FISHMEET_PRIMARY) {
+    } else if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
         buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
-        color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor01;
-    } else if (type === FISHMEET_SECONDARY) {
-        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
-        color = mode === CONTAINED && BaseTheme.palette.fishMeetAction01;
-    } else if (type === FISHMEET_TERTIARY) {
-        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
-        color = mode === CONTAINED && BaseTheme.palette.fishMeetMainColor02;
+        color = mode === CONTAINED && (styles as any).fishMeetTypeColors?.[type as string];
     } else {
         color = buttonColor;
         buttonLabelStyles = styles.buttonLabel;
@@ -109,13 +102,7 @@ const Button: React.FC<IProps> = ({
         );
     }
 
-    if (appType.isFishMeet && (
-        type === DESTRUCTIVE
-    || type === SECONDARY
-    || type === FISHMEET_PRIMARY
-    || type === FISHMEET_SECONDARY
-    || type === FISHMEET_TERTIARY
-    )) {
+    if ((styles as any).touchableHighlightTypes?.has(type)) {
         // Override buttonStyles for FishMeet
         if (disabled) {
             buttonStyles = styles.fishMeetButtonDisabled;
