@@ -1,5 +1,6 @@
 import { BoxModel } from '../../../base/styles/components/styles/BoxModel';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
+import { BUTTON_TYPES } from '../../../base/ui/constants.native';
 
 const BUBBLE_RADIUS = 8;
 
@@ -211,6 +212,12 @@ export default {
     timeText: {
         color: BaseTheme.palette.text03,
         fontSize: 13
+    },
+
+    // fishmeet: send button props (spread onto IconButton via styles.sendButtonProps)
+    sendButtonProps: {
+        size: 12,
+        type: BUTTON_TYPES.FISHMEET_TERTIARY
     },
 
     // fishmeet: use brand background instead of ui01

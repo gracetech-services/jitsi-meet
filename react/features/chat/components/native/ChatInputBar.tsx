@@ -131,9 +131,9 @@ class ChatInputBar extends Component<IProps, IState> {
                     disabled = { !this.state.message }
                     id = { this.props.t('chat.sendButton') }
                     onPress = { this._onSubmit }
-                    size = { 12 }
                     src = { IconSend }
-                    type = { BUTTON_TYPES.FISHMEET_TERTIARY } />
+                    type = { BUTTON_TYPES.PRIMARY }
+                    { ...(styles as any).sendButtonProps } />
             </View>
         );
     }
