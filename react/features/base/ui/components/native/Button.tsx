@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleProp, TouchableHighlight, View } from 'react-native';
+import { StyleProp, TouchableHighlight } from 'react-native';
 import { Button as NativePaperButton, Text } from 'react-native-paper';
 import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
@@ -135,15 +135,13 @@ const Button: React.FC<IProps> = ({
                     { backgroundColor: color }
                 ] }
                 underlayColor = { color }>
-                <View>
-                    <Text
-                        style = { [
-                            buttonLabelStyles,
-                            labelStyle
-                        ] }>
-                        {t(labelKey ?? '')}
-                    </Text>
-                </View>
+                <Text
+                    style = { [
+                        buttonLabelStyles,
+                        labelStyle
+                    ] }>
+                    {t(labelKey ?? '')}
+                </Text>
             </TouchableHighlight>
         );
     }
