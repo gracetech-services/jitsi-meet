@@ -1,0 +1,124 @@
+.settings-button-container {
+    position: relative;
+
+    .toolbox-icon {
+        align-items: center;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+
+        &:hover {
+            border-radius: 50%;
+            background-color: #3D3D3D !important; // ui04 - same as other toolbox icons
+            padding: 6px;
+            margin: -6px;
+        }
+
+        &.toggled:hover {
+            background-color: #3D3D3D !important; // ui04 - ensure toggled state also uses same hover color
+            padding: 6px;
+            margin: -6px;
+        }
+
+        &.disabled, .disabled & {
+            cursor: initial;
+            color: #929292;
+            background-color: #36383c;
+
+            &:hover {
+                background-color: #36383c;
+            }
+        }
+    }
+}
+
+.settings-button-small-icon {
+    cursor: pointer;
+    position: absolute;
+    right: -4px;
+    top: -3px;
+    @extend %ear-icon-styles;
+
+    &--disabled {
+        background-color: #929292 !important;
+        cursor: default;
+
+        &:hover {
+            background-color: #929292 !important;
+            box-shadow: none;
+        }
+    }
+}
+
+// Shared ear icon styling - dark circle with white arrow (matches participant count badge color)
+%ear-icon-styles {
+    background-color: #3D3D3D;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // Hide the SVG's built-in circle, use container background instead
+    svg circle {
+        display: none;
+    }
+
+    // Widen chevron to ~95° apex angle to match design
+    svg path {
+        transform: scaleX(1.4) scaleY(0.7);
+        transform-origin: center;
+    }
+
+    // Arrow color: white on dark background
+    .jitsi-icon {
+        color: #fff !important;
+    }
+
+    // Hover: outline circle with dark arrow
+    &:hover {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 1px #3D3D3D;
+
+        .jitsi-icon {
+            color: #3D3D3D !important;
+        }
+    }
+}
+
+.settings-button-small-icon-container {
+    position: absolute;
+    right: -4px;
+    top: -3px;
+    @extend %ear-icon-styles;
+
+    // The Popover injects an anonymous wrapper div between this container and the Icon.
+    // Force it to fill the circle and flex-center its content, matching the mic/cam ear layout.
+    > * {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100%;
+        height: 100%;
+    }
+
+    & .settings-button-small-icon {
+        position: relative;
+        top: 0;
+        right: 0;
+        background-color: transparent; // container provides the dark bg
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        // Suppress inner element hover ring - outer container handles the hover state
+        &:hover {
+            box-shadow: none;
+            background-color: transparent;
+        }
+    }
+}

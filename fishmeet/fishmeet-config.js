@@ -16,6 +16,25 @@ config.websocket = 'ws://localhost:5280/xmpp-websocket';
 */
 
 config.disableSelfView = false;
+
+// Filmstrip toggle icons [visibleIconUrl, hiddenIconUrl]
+// When set, these image URLs are used instead of the default arrow icons
+config.filmstripToggleIcons = ['fishmeet/PolygonRight.svg', 'fishmeet/PolygonLeft.svg'];
+
+// Custom theme overrides using existing Jitsi palette tokens
+// For visual styling, use fishmeet-overrides.css
+config.customTheme = {
+    ...config.customTheme,
+    palette: {
+        ...config.customTheme?.palette,
+        // Override action colors (used for active speaker, links, etc.)
+        action01: '#FE9C75',
+        action01Hover: '#E88B64',
+        // Override warning colors (used for raised hand)
+        warning02: '#FE9C75'
+    }
+};
+
 config.disableSelfViewSettings = true;
 
     // Enabling this will show a "Save Logs" link in the GSM popover that can be
@@ -63,6 +82,9 @@ config.welcomePage = { ...config.welcomePage,
 //==
 
 config.disableShortcuts = true;
+
+    // Enable the reactions feature.
+config.disableReactions = false;
 
     // Enabling the close page will ignore the welcome page redirection when
     // a call is hangup.
@@ -170,7 +192,7 @@ config.disableThirdPartyRequests = true;
 
     // Application logo url
 //config.defaultLogoUrl = 'images/watermark.svg';
-config.defaultLogoUrl = 'fishmeet.jpg';
+config.defaultLogoUrl = '';
 
     // Default language for the user interface. Cannot be overwritten.
     // DEPRECATED! Use the `lang` iframe option directly instead.
@@ -576,7 +598,7 @@ config.tileView = {...config.tileView, numberOfVisibleTiles: 9}; // Zoom offers 
 
     //**** ????  */
     // If true remove the tint foreground on focused user camera in filmstrip
-    // disableCameraTintForeground: false,
+    config.disableCameraTintForeground = true;
 
     // List of pre meeting screens buttons to hide. The values must be one or more of the 5 allowed buttons:
     // 'microphone', 'camera', 'select-background', 'invite', 'settings'
@@ -758,8 +780,8 @@ interfaceConfig.HIDE_DEEP_LINKING_LOGO = true;
 
     // Please use defaultLogoUrl from config.js
     //DEFAULT_LOGO_URL: 'images/watermark.svg',
-interfaceConfig.DEFAULT_LOGO_URL = 'fishmeet.jpg';
-interfaceConfig.JITSI_WATERMARK_LINK = 'https://fishmeet.top'
+interfaceConfig.DEFAULT_LOGO_URL = '';
+interfaceConfig.JITSI_WATERMARK_LINK = ''
 
     // Please use defaultRemoteDisplayName from config.js
     // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
