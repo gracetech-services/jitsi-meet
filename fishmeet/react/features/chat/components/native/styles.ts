@@ -69,7 +69,7 @@ export default {
     },
 
     remoteMessageBubble: {
-        backgroundColor: BaseTheme.palette.ui02,
+        backgroundColor: '#ffffff',  // fishmeet: was ui02
         borderTopLeftRadius: 0
     },
 
@@ -101,7 +101,7 @@ export default {
 
     chatMessage: {
         ...BaseTheme.typography.bodyShortRegular,
-        color: BaseTheme.palette.text01
+        color: BaseTheme.palette.fishMeetText02  // fishmeet: was text01
     },
 
     /**
@@ -210,7 +210,7 @@ export default {
      * Text node for the timestamp.
      */
     timeText: {
-        color: BaseTheme.palette.text03,
+        color: BaseTheme.palette.fishMeetMainColor02,  // fishmeet: was text03
         fontSize: 13
     },
 
@@ -258,11 +258,11 @@ export default {
 
     senderDisplayName: {
         ...BaseTheme.typography.bodyShortBold,
-        color: BaseTheme.palette.text02
+        color: BaseTheme.palette.fishMeetText02  // fishmeet: was text02
     },
 
     localMessageBubble: {
-        backgroundColor: BaseTheme.palette.ui04,
+        backgroundColor: BaseTheme.palette.fishMeetMainColor02,  // fishmeet: was ui04
         borderTopRightRadius: 0
     },
 
