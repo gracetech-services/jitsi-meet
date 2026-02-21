@@ -151,7 +151,8 @@ Keep these to a minimum — each tsx override is a maintenance liability.
 
 | Override file | What it replaces | Why a tsx override was needed |
 |---|---|---|
-| `fishmeet/react/features/toolbox/components/native/Toolbox.tsx` | Core `Toolbox.tsx` | Fishmeet uses a fixed pill-shaped layout (audio, video, chat, raise hand) instead of the configurable dynamic button list |
+| `fishmeet/react/features/toolbox/components/native/Toolbox.tsx` | Core `Toolbox.tsx` | Fishmeet uses a fixed pill-shaped layout (audio, video, remote-video toggle, chat, raise hand) instead of the configurable dynamic button list |
+| `fishmeet/react/features/toolbox/components/native/ToggleVideoStreamButton.tsx` | *(new, no core equivalent)* | Native wrapper for `AbstractToggleVideoStreamButton`; wires `toggleVideoStream` action to a pill button that sets `lastN=0` when off |
 | `fishmeet/react/features/conference/components/native/TitleBar.tsx` | Core `TitleBar.tsx` | Custom title bar layout with fishmeet buttons |
 | `fishmeet/react/features/participants-pane/components/native/ParticipantsPaneFooter.tsx` | Core `ParticipantsPaneFooter.tsx` | Fishmeet breakout rooms navigation replaces standard footer |
 | `fishmeet/react/features/toolbox/functions.native.ts` | Core `functions.native.ts` | Adds `getMovableButtons` (width-based button visibility for the fishmeet pill toolbox) |

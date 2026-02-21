@@ -48,7 +48,7 @@ const fishMeetStyles = {
         flexDirection: 'row',
         backgroundColor: BaseTheme.palette.fishMeetMainColor02,
         borderRadius: 30,
-        paddingLeft: 8,  // fishmeet: was 10 — reduced to fit 5 buttons on 375pt screens
+        paddingLeft: 8, // fishmeet: was 10 — reduced to fit 5 buttons on 375pt screens
         paddingRight: 8, // fishmeet: was 10 — reduced to fit 5 buttons on 375pt screens
         marginRight: 15,
         marginBottom: 10,
