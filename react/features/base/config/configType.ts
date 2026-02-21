@@ -350,6 +350,7 @@ export interface IConfig {
     };
     enableCalendarIntegration?: boolean;
     enableClosePage?: boolean;
+    enableTileViewOneOnOne?: boolean;
     enableDisplayNameInStats?: boolean;
     enableEmailInStats?: boolean;
     enableEncodedTransformSupport?: boolean;
