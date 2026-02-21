@@ -35,6 +35,9 @@ export const navigationContainerTheme = {
     }
 };
 
+// Re-export FishMeet navigation container theme
+export { fishMeetNavigationContainerTheme } from './fishMeetScreenOptions';
+
 /**
  * Screen options for welcome page.
  */
@@ -66,11 +69,11 @@ export const visitorsScreenOptions = fullScreenOptions;
 export const chatTabBarOptions = {
     swipeEnabled: false,
     tabBarIndicatorStyle: {
-        backgroundColor: BaseTheme.palette.link01Active
+        backgroundColor: BaseTheme.palette.fishMeetMainColor02
     },
     tabBarStyle: {
-        backgroundColor: BaseTheme.palette.ui01,
-        borderBottomColor: BaseTheme.palette.ui06,
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
+        borderBottomColor: '#C8D7EC80',
         borderBottomWidth: 0.4
     }
 };
