@@ -2,6 +2,8 @@ import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry'
 import { schemeColor } from '../../../base/color-scheme/functions';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
+import { fishMeetToolbarButton, fishMeetToolbarButtonIcon } from './fishMeetStyles';
+
 const BUTTON_SIZE = 48;
 
 // Toolbox, toolbar:
@@ -117,21 +119,21 @@ const styles = {
 export default styles;
 
 /**
- * Color schemed styles for the @{Toolbox} component.
+ * Color schemed styles for the @{Toolbox} component (fishmeet).
  */
 ColorSchemeRegistry.register('Toolbox', {
     /**
      * Styles for buttons in the toolbar.
      */
     buttonStyles: {
-        iconStyle: toolbarButtonIcon,
+        iconStyle: fishMeetToolbarButtonIcon,
         style: toolbarButton
     },
 
     buttonStylesBorderless: {
-        iconStyle: whiteToolbarButtonIcon,
+        iconStyle: fishMeetToolbarButtonIcon,
         style: {
-            ...toolbarButton,
+            ...fishMeetToolbarButton,
             backgroundColor: 'transparent'
         },
         underlayColor: 'transparent'
@@ -155,7 +157,8 @@ ColorSchemeRegistry.register('Toolbox', {
     hangupButtonStyles: {
         iconStyle: whiteToolbarButtonIcon,
         style: {
-            ...toolbarButton,
+            ...fishMeetToolbarButton,
+            borderRadius: BUTTON_SIZE / 2.0,
             backgroundColor: schemeColor('hangup')
         },
         underlayColor: BaseTheme.palette.ui04
@@ -168,22 +171,19 @@ ColorSchemeRegistry.register('Toolbox', {
         backgroundColor: 'transparent'
     },
 
-    overflowReactionMenu: {
-        ...reactionMenu,
-        padding: BaseTheme.spacing[3]
-    },
+    overflowReactionMenu: reactionMenu,
 
     reactionMenu: {
         ...reactionMenu,
-        paddingHorizontal: BaseTheme.spacing[3],
         borderRadius: 3,
         width: 360
     },
 
     reactionRow: {
-        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%'
     },
 
     reactionButton: {
@@ -207,9 +207,9 @@ ColorSchemeRegistry.register('Toolbox', {
      * Styles for toggled buttons in the toolbar.
      */
     toggledButtonStyles: {
-        iconStyle: whiteToolbarButtonIcon,
+        iconStyle: fishMeetToolbarButtonIcon,
         style: {
-            ...toolbarButton
+            ...fishMeetToolbarButton
         },
         underlayColor: 'transparent'
     }

@@ -1,15 +1,3 @@
-/**
- * FishMeet Toolbox Component
- * 
- * This file contains the FishMeet-specific UI layout for the Toolbox.
- * Kept separate from the main Toolbox.tsx to facilitate Jitsi upgrades.
- * 
- * When upgrading Jitsi:
- * - Toolbox.tsx can be replaced directly from jitsi-meet
- * - This file (ToolboxFishMeet.tsx) remains unchanged
- * - Only the import/selection logic in Toolbox.tsx needs to be preserved
- */
-
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -32,7 +20,7 @@ import VideoMuteButton from './VideoMuteButton';
 import fishMeetStyles from './fishMeetStyles';
 
 /**
- * The type of {@link ToolboxFishMeet}'s React {@code Component} props.
+ * The type of {@link Toolbox}'s React {@code Component} props.
  */
 interface IProps {
 
@@ -68,14 +56,12 @@ interface IProps {
 }
 
 /**
- * Implements the FishMeet conference Toolbox on React Native.
- * This component is a separate implementation from the default Toolbox
- * to maintain FishMeet-specific UI while allowing easy Jitsi upgrades.
+ * Implements the conference Toolbox on React Native (fishmeet).
  *
  * @param {Object} props - The props of the component.
  * @returns {React$Element}
  */
-function ToolboxFishMeet(props: IProps) {
+function Toolbox(props: IProps) {
     const { _endConferenceSupported, _shouldDisplayReactionsButtons, _styles, _visible, _iAmVisitor, _width } = props;
 
     if (!_visible) {
@@ -145,11 +131,11 @@ function ToolboxFishMeet(props: IProps) {
 }
 
 /**
- * Maps parts of the redux state to {@link ToolboxFishMeet} (React {@code Component})
+ * Maps parts of the redux state to {@link Toolbox} (React {@code Component})
  * props.
  *
  * @param {Object} state - The redux state of which parts are to be mapped to
- * {@code ToolboxFishMeet} props.
+ * {@code Toolbox} props.
  * @private
  * @returns {IProps}
  */
@@ -167,5 +153,4 @@ function _mapStateToProps(state: IReduxState) {
     };
 }
 
-export default connect(_mapStateToProps)(ToolboxFishMeet);
-
+export default connect(_mapStateToProps)(Toolbox);
