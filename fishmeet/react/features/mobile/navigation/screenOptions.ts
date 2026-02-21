@@ -36,9 +36,6 @@ export const navigationContainerTheme = {
     }
 };
 
-// Re-export FishMeet navigation container theme
-export { fishMeetNavigationContainerTheme } from './fishMeetScreenOptions';
-
 /**
  * Screen options for welcome page.
  */
