@@ -97,8 +97,8 @@ export default {
 
     participantContent: {
         alignItems: 'center',
-        borderBottomColor: BaseTheme.palette.ui02,
-        borderBottomWidth: 2.4,
+        borderBottomColor: '#ffffff',  // fishmeet: was ui02
+        borderBottomWidth: 1,          // fishmeet: was 2.4
         display: 'flex',
         flexDirection: 'row',
         height: '100%',
