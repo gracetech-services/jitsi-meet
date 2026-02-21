@@ -435,8 +435,8 @@ class Conference extends AbstractConference<IProps, State> {
                         || (((styles as any).displayNameProps?.show ?? _isDisplayNameVisible) && (
                             <Container style = { styles.displayNameContainer }>
                                 <DisplayNameLabel
-                                    participantId = { _largeVideoParticipantId }
-                                    contained = { (styles as any).displayNameProps?.contained } />
+                                    contained = { (styles as any).displayNameProps?.contained }
+                                    participantId = { _largeVideoParticipantId } />
                             </Container>
                         ))
                     }

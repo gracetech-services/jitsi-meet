@@ -350,7 +350,6 @@ export interface IConfig {
     };
     enableCalendarIntegration?: boolean;
     enableClosePage?: boolean;
-    enableTileViewOneOnOne?: boolean;
     enableDisplayNameInStats?: boolean;
     enableEmailInStats?: boolean;
     enableEncodedTransformSupport?: boolean;
@@ -364,6 +363,7 @@ export interface IConfig {
     enableSaveLogs?: boolean;
     enableTalkWhileMuted?: boolean;
     enableTcc?: boolean;
+    enableTileViewOneOnOne?: boolean;
     enableWebHIDFeature?: boolean;
     enableWelcomePage?: boolean;
     etherpad_base?: string;

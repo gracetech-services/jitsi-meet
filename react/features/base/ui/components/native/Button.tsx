@@ -43,6 +43,7 @@ const Button: React.FC<IProps> = ({
     let color;
 
     const typeConfig = (styles as any).buttonTypeConfig?.[type as string];
+
     if (typeConfig) {
         buttonLabelStyles = typeConfig.labelStyle;
         color = mode === CONTAINED && typeConfig.color;

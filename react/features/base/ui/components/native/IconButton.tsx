@@ -27,6 +27,7 @@ const IconButton: React.FC<IIconButtonProps> = ({
     let iconButtonContainerStyles;
 
     const typeConfig = (styles as any).iconButtonTypeConfig?.[type as string];
+
     if (typeConfig) {
         color = typeConfig.color;
         iconButtonContainerStyles = typeConfig.containerStyle;
