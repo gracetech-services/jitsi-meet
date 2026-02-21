@@ -11,7 +11,6 @@ export default class BaseAudioMuteButton<P extends IProps, S=any>
     override icon = IconMic;
     override toggledIcon = IconMicSlash;
 
-
     /**
      * Handles clicking / pressing the button, and toggles the audio mute state
      * accordingly.
