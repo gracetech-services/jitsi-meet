@@ -276,14 +276,18 @@ export default {
     },
 
     inputContainer: {
-        marginLeft: BaseTheme.spacing[4],
+        marginLeft: BaseTheme.spacing[1],  // fishmeet: was spacing[4]
         marginRight: BaseTheme.spacing[3],
         marginBottom: BaseTheme.spacing[4]
     },
 
     centerInput: {
         paddingRight: BaseTheme.spacing[3],
-        textAlign: 'center'
+        textAlign: 'left',  // fishmeet: was 'center'
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground,
+        borderColor: '#fff',
+        borderWidth: 0.5,
+        borderRadius: 30
     },
 
     visitorsLabel: {
