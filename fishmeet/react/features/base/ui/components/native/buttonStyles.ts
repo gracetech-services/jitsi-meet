@@ -1,5 +1,5 @@
-import { BUTTON_TYPES } from '../../constants.native';
 import BaseTheme from '../../../ui/components/BaseTheme.native';
+import { BUTTON_TYPES } from '../../constants.native';
 
 const BUTTON_HEIGHT = BaseTheme.spacing[7];
 

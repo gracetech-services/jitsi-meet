@@ -39,7 +39,7 @@ export default {
      */
     conference: {
         alignSelf: 'stretch',
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,  // fishmeet: was uiBackground
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground, // fishmeet: was uiBackground
         flex: 1
     },
 
@@ -72,7 +72,7 @@ export default {
 
     titleBarButton: {
         iconStyle: {
-            color: 'transparent',  // fishmeet: was icon01
+            color: 'transparent', // fishmeet: was icon01
             padding: 12,
             fontSize: TITLE_BAR_BUTTON_SIZE
         },
@@ -112,7 +112,7 @@ export default {
 
     titleBarSafeViewColor: {
         ...titleBarSafeView,
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground  // fishmeet: was uiBackground
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground // fishmeet: was uiBackground
     },
 
     titleBarSafeViewTransparent: {

@@ -1,5 +1,5 @@
-import { BUTTON_TYPES } from '../../../ui/constants.native';
 import BaseTheme from '../../../ui/components/BaseTheme.native';
+import { BUTTON_TYPES } from '../../../ui/constants.native';
 
 const OVERLAY_FONT_COLOR = 'rgba(255, 255, 255, 0.6)';
 const BUTTON_HEIGHT = BaseTheme.spacing[7];

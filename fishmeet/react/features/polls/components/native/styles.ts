@@ -228,7 +228,7 @@ export const pollsStyles = createStyleSheet({
     },
 
     pollPaneContainer: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,  // fishmeet: was ui01
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground, // fishmeet: was ui01
         flex: 1
     },
 

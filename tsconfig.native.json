@@ -1,5 +1,5 @@
 {
-    "include": ["react/features/**/*.ts", "react/features/**/*.tsx", "./custom.d.ts", "./globals.native.d.ts"],
+    "include": ["react/features/**/*.ts", "react/features/**/*.tsx", "fishmeet/react/features/**/*.ts", "fishmeet/react/features/**/*.tsx", "./custom.d.ts", "./globals.native.d.ts"],
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "target": "es2020",

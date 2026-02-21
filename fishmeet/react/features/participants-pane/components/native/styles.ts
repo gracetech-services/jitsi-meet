@@ -97,8 +97,8 @@ export default {
 
     participantContent: {
         alignItems: 'center',
-        borderBottomColor: '#ffffff',  // fishmeet: was ui02
-        borderBottomWidth: 1,          // fishmeet: was 2.4
+        borderBottomColor: '#ffffff', // fishmeet: was ui02
+        borderBottomWidth: 1, // fishmeet: was 2.4
         display: 'flex',
         flexDirection: 'row',
         height: '100%',
@@ -193,7 +193,7 @@ export default {
     },
 
     participantsPaneContainer: {
-        backgroundColor: BaseTheme.palette.fishMeetUiBackground,  // fishmeet: was ui01
+        backgroundColor: BaseTheme.palette.fishMeetUiBackground, // fishmeet: was ui01
         flex: 1,
         flexDirection: 'column',
         paddingVertical: BaseTheme.spacing[2]
@@ -276,14 +276,14 @@ export default {
     },
 
     inputContainer: {
-        marginLeft: BaseTheme.spacing[1],  // fishmeet: was spacing[4]
+        marginLeft: BaseTheme.spacing[1], // fishmeet: was spacing[4]
         marginRight: BaseTheme.spacing[3],
         marginBottom: BaseTheme.spacing[4]
     },
 
     centerInput: {
         paddingRight: BaseTheme.spacing[3],
-        textAlign: 'left',  // fishmeet: was 'center'
+        textAlign: 'left', // fishmeet: was 'center'
         backgroundColor: BaseTheme.palette.fishMeetUiBackground,
         borderColor: '#fff',
         borderWidth: 0.5,
