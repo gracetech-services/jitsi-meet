@@ -217,7 +217,7 @@ export default {
     // fishmeet: send button props (spread onto IconButton via styles.sendButtonProps)
     sendButtonProps: {
         size: 12,
-        type: BUTTON_TYPES.FISHMEET_TERTIARY
+        type: BUTTON_TYPES.TERTIARY
     },
 
     // fishmeet: use brand background instead of ui01

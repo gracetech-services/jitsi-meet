@@ -1,3 +1,4 @@
+import { BUTTON_TYPES } from '../../../ui/constants.native';
 import BaseTheme from '../../../ui/components/BaseTheme.native';
 
 const OVERLAY_FONT_COLOR = 'rgba(255, 255, 255, 0.6)';
@@ -107,6 +108,26 @@ const SECTION_LIST_STYLES = {
     }
 };
 
+export const TINTED_VIEW_DEFAULT = {
+    backgroundColor: BaseTheme.palette.uiBackground,
+    opacity: 0.8
+};
+
+export const BASE_INDICATOR = {
+    alignItems: 'center',
+    justifyContent: 'center'
+};
+
+const iconButtonContainer = {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: BaseTheme.shape.borderRadius,
+    height: BUTTON_HEIGHT,
+    width: BUTTON_WIDTH
+};
+
+// fishmeet: pill-shaped icon button container
 const iconFishmeetButtonContainer = {
     alignItems: 'center',
     display: 'flex',
@@ -123,18 +144,65 @@ const iconFishmeetButtonContainer = {
 export default {
     ...SECTION_LIST_STYLES,
 
-    iconFishmeetButtonContainerPrimary: {
-        ...iconFishmeetButtonContainer,
-        backgroundColor: BaseTheme.palette.fishMeetMainColor01
+    iconButtonContainer: {
+        ...iconButtonContainer
     },
 
-    iconFishmeetButtonContainerTertiary: {
-        ...iconFishmeetButtonContainer,
-        backgroundColor: BaseTheme.palette.fishMeetMainColor02
+    iconButtonContainerPrimary: {
+        ...iconButtonContainer,
+        backgroundColor: BaseTheme.palette.action01
     },
 
-    fishMeetIconButtonContainerDisabled: {
-        ...iconFishmeetButtonContainer,
+    iconButtonContainerSecondary: {
+        ...iconButtonContainer,
+        backgroundColor: BaseTheme.palette.action02
+    },
+
+    iconButtonContainerDisabled: {
+        ...iconButtonContainer,
         backgroundColor: BaseTheme.palette.disabled01
+    },
+
+    // per-type icon button config: color, container shape/color, underlay, and disabled state
+    iconButtonTypeConfig: {
+        [BUTTON_TYPES.PRIMARY]: {
+            color: 'transparent',
+            containerStyle: {
+                ...iconFishmeetButtonContainer,
+                backgroundColor: BaseTheme.palette.fishMeetMainColor01
+            },
+            underlayColor: BaseTheme.palette.fishMeetMainColor01,
+            disabledColor: 'transparent',
+            disabledContainerStyle: {
+                ...iconFishmeetButtonContainer,
+                backgroundColor: BaseTheme.palette.disabled01
+            }
+        },
+        [BUTTON_TYPES.SECONDARY]: {
+            color: BaseTheme.palette.fishMeetText01,
+            containerStyle: {
+                ...iconFishmeetButtonContainer,
+                backgroundColor: BaseTheme.palette.fishMeetMainColor01
+            },
+            underlayColor: BaseTheme.palette.fishMeetMainColor01,
+            disabledColor: 'transparent',
+            disabledContainerStyle: {
+                ...iconFishmeetButtonContainer,
+                backgroundColor: BaseTheme.palette.disabled01
+            }
+        },
+        [BUTTON_TYPES.TERTIARY]: {
+            color: 'transparent',
+            containerStyle: {
+                ...iconFishmeetButtonContainer,
+                backgroundColor: BaseTheme.palette.fishMeetMainColor02
+            },
+            underlayColor: BaseTheme.palette.fishMeetMainColor02,
+            disabledColor: 'transparent',
+            disabledContainerStyle: {
+                ...iconFishmeetButtonContainer,
+                backgroundColor: BaseTheme.palette.disabled01
+            }
+        }
     }
 };

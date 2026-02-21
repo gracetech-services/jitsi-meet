@@ -29,11 +29,11 @@ import styles from './styles';
 
 
 /**
- * Implements the FishMeet participants pane footer component.
+ * Implements the participants pane footer component for FishMeet.
  *
- * @returns { JSX.Element} - The FishMeet participants pane footer component.
+ * @returns { JSX.Element} - The participants pane footer component.
  */
-const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
+const ParticipantsPaneFooter = (): JSX.Element => {
     const dispatch = useDispatch();
     const isBreakoutRoomsSupported = useSelector((state: IReduxState) =>
         state['features/base/conference'].conference?.getBreakoutRooms()?.isSupported()
@@ -47,7 +47,6 @@ const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
     const showMoreActions = useSelector(isMoreActionsVisible);
     const showMuteAll = useSelector(isMuteAllVisible);
 
-    // Gracetech
     const muteAllVideo = useCallback(() => {
         dispatch(openDialog(MuteEveryonesVideoDialog));
     }, [ dispatch ]);
@@ -64,7 +63,7 @@ const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
                     // eslint-disable-next-line react/jsx-no-bind
                     onClick = { () => navigate(screen.conference.fishMeetBreakoutRooms) }
                     style = { styles.breakoutRoomsButton }
-                    type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+                    type = { BUTTON_TYPES.SECONDARY } />
             }
 
             <View style = { styles.participantsPaneFooter as ViewStyle }>
@@ -74,7 +73,7 @@ const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
                             accessibilityLabel = 'participantsPane.actions.muteAll'
                             labelKey = 'participantsPane.actions.muteAll'
                             onClick = { muteAll }
-                            type = { BUTTON_TYPES.FISHMEET_PRIMARY } />
+                            type = { BUTTON_TYPES.PRIMARY } />
                     )
                 }
                 <Button
@@ -82,14 +81,14 @@ const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
                     labelKey = 'participantsPane.actions.stopEveryonesVideo'
                     onClick = { muteAllVideo }
                     style = { styles.moreButton }
-                    type = { BUTTON_TYPES.FISHMEET_PRIMARY } />
+                    type = { BUTTON_TYPES.PRIMARY } />
                 {
                     showMoreActions && (
                         <IconButton
                             onPress = { openMoreMenu }
                             src = { IconDotsHorizontal }
                             style = { styles.moreButton }
-                            type = { BUTTON_TYPES.FISHMEET_SECONDARY } />
+                            type = { BUTTON_TYPES.SECONDARY } />
                     )
                 }
             </View>
@@ -97,5 +96,4 @@ const ParticipantsPaneFooterFishMeet = (): JSX.Element => {
     );
 };
 
-export default ParticipantsPaneFooterFishMeet;
-
+export default ParticipantsPaneFooter;

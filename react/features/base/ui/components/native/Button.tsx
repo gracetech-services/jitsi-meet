@@ -35,21 +35,18 @@ const Button: React.FC<IProps> = ({
     type
 }: IProps) => {
     const { t } = useTranslation();
-    const { DESTRUCTIVE,
-        PRIMARY,
-        SECONDARY,
-        TERTIARY,
-        FISHMEET_PRIMARY,
-        FISHMEET_SECONDARY,
-        FISHMEET_TERTIARY
-    } = BUTTON_TYPES;
+    const { DESTRUCTIVE, PRIMARY, SECONDARY, TERTIARY } = BUTTON_TYPES;
     const { CONTAINED, TEXT } = BUTTON_MODES;
 
     let buttonLabelStyles;
     let buttonStyles;
     let color;
 
-    if (type === PRIMARY) {
+    const typeConfig = (styles as any).buttonTypeConfig?.[type as string];
+    if (typeConfig) {
+        buttonLabelStyles = typeConfig.labelStyle;
+        color = mode === CONTAINED && typeConfig.color;
+    } else if (type === PRIMARY) {
         buttonLabelStyles = mode === TEXT
             ? styles.buttonLabelPrimaryText
             : styles.buttonLabelPrimary;
@@ -62,9 +59,6 @@ const Button: React.FC<IProps> = ({
             ? styles.buttonLabelDestructiveText
             : styles.buttonLabelDestructive;
         color = mode === CONTAINED && BaseTheme.palette.actionDanger;
-    } else if (type === FISHMEET_PRIMARY || type === FISHMEET_SECONDARY || type === FISHMEET_TERTIARY) {
-        buttonLabelStyles = styles.fishMeetButtonLabelPrimaryText;
-        color = mode === CONTAINED && (styles as any).fishMeetTypeColors?.[type as string];
     } else {
         color = buttonColor;
         buttonLabelStyles = styles.buttonLabel;
@@ -101,38 +95,6 @@ const Button: React.FC<IProps> = ({
             </TouchableHighlight>
         );
     }
-
-    if ((styles as any).touchableHighlightTypes?.has(type)) {
-        // Override buttonStyles for FishMeet
-        if (disabled) {
-            buttonStyles = styles.fishMeetButtonDisabled;
-        } else {
-            buttonStyles = styles.fishMeetButton;
-        }
-
-        return (
-            <TouchableHighlight
-                accessibilityLabel = { accessibilityLabel }
-                disabled = { disabled }
-                id = { id }
-                onPress = { onPress }
-                style = { [
-                    buttonStyles,
-                    style,
-                    { backgroundColor: color }
-                ] }
-                underlayColor = { color }>
-                <Text
-                    style = { [
-                        buttonLabelStyles,
-                        labelStyle
-                    ] }>
-                    {t(labelKey ?? '')}
-                </Text>
-            </TouchableHighlight>
-        );
-    }
-
 
     return (
         <NativePaperButton

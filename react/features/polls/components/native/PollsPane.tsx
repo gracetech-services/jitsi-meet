@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
-import { appType } from '../../../base/config/AppType';
 import JitsiScreen from '../../../base/modal/components/JitsiScreen';
 import { StyleType } from '../../../base/styles/functions.any';
 import Button from '../../../base/ui/components/native/Button';
@@ -19,7 +18,6 @@ import {
 
 import PollCreate from './PollCreate';
 import PollsList from './PollsList';
-import { fishMeetChatStyles } from './fishMeetStyles';
 import { pollsStyles } from './styles';
 
 const PollsPane = (props: AbstractProps) => {
@@ -52,9 +50,7 @@ const PollsPane = (props: AbstractProps) => {
             contentContainerStyle = { pollsStyles.pollPane as StyleType }
             disableForcedKeyboardDismiss = { true }
             hasExtraHeaderHeight = { true }
-            style = { (appType.isFishMeet
-                ? fishMeetChatStyles.fishMeetPollPaneContainer
-                : pollsStyles.pollPaneContainer) as StyleType }>
+            style = { pollsStyles.pollPaneContainer as StyleType }>
             {
                 createMode
                     ? <PollCreate setCreateMode = { setCreateMode } />
@@ -66,7 +62,7 @@ const PollsPane = (props: AbstractProps) => {
                             labelKey = 'polls.create.create'
                             onClick = { onCreate }
                             style = { createPollButtonStyles }
-                            type = { appType.isFishMeet ? BUTTON_TYPES.FISHMEET_SECONDARY : BUTTON_TYPES.PRIMARY } />}
+                            type = { BUTTON_TYPES.PRIMARY } />}
                     </>
             }
         </JitsiScreen>

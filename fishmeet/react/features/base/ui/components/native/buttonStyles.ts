@@ -4,18 +4,6 @@ import BaseTheme from '../../../ui/components/BaseTheme.native';
 const BUTTON_HEIGHT = BaseTheme.spacing[7];
 
 const button = {
-    borderRadius: BaseTheme.shape.borderRadius,
-    display: 'flex',
-    height: BUTTON_HEIGHT,
-    justifyContent: 'center'
-};
-
-const buttonLabel = {
-    ...BaseTheme.typography.bodyShortBold
-};
-
-// fishmeet: pill-shaped button
-const fishMeetButton = {
     borderRadius: BUTTON_HEIGHT / 2.0,
     display: 'flex',
     height: BUTTON_HEIGHT,
@@ -23,6 +11,16 @@ const fishMeetButton = {
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12
+};
+
+const buttonLabel = {
+    ...BaseTheme.typography.bodyShortBold
+};
+
+const pillButtonLabel = {
+    ...buttonLabel,
+    textTransform: 'capitalize',
+    color: BaseTheme.palette.fishMeetText01
 };
 
 export default {
@@ -86,35 +84,23 @@ export default {
         textAlign: 'center'
     },
 
-    // fishmeet button styles
-    fishMeetButton: {
-        ...fishMeetButton
-    },
-
-    fishMeetButtonDisabled: {
-        ...fishMeetButton,
-        backgroundColor: BaseTheme.palette.ui08
-    },
-
-    fishMeetButtonLabelPrimaryText: {
-        ...buttonLabel,
-        textTransform: 'capitalize',
-        color: BaseTheme.palette.fishMeetText01
-    },
-
-    // fishmeet: type → background color map for FISHMEET_* button types
-    fishMeetTypeColors: {
-        [BUTTON_TYPES.FISHMEET_PRIMARY]: BaseTheme.palette.fishMeetMainColor01,
-        [BUTTON_TYPES.FISHMEET_SECONDARY]: BaseTheme.palette.fishMeetAction01,
-        [BUTTON_TYPES.FISHMEET_TERTIARY]: BaseTheme.palette.fishMeetMainColor02
-    },
-
-    // fishmeet: button types that render as TouchableHighlight instead of NativePaperButton
-    touchableHighlightTypes: new Set([
-        BUTTON_TYPES.DESTRUCTIVE,
-        BUTTON_TYPES.SECONDARY,
-        BUTTON_TYPES.FISHMEET_PRIMARY,
-        BUTTON_TYPES.FISHMEET_SECONDARY,
-        BUTTON_TYPES.FISHMEET_TERTIARY
-    ])
+    // per-type config: label style and background color for NativePaperButton
+    buttonTypeConfig: {
+        [BUTTON_TYPES.PRIMARY]: {
+            color: BaseTheme.palette.fishMeetMainColor01,
+            labelStyle: pillButtonLabel
+        },
+        [BUTTON_TYPES.SECONDARY]: {
+            color: BaseTheme.palette.fishMeetAction01,
+            labelStyle: pillButtonLabel
+        },
+        [BUTTON_TYPES.TERTIARY]: {
+            color: BaseTheme.palette.fishMeetMainColor02,
+            labelStyle: pillButtonLabel
+        },
+        [BUTTON_TYPES.DESTRUCTIVE]: {
+            color: BaseTheme.palette.actionDanger,
+            labelStyle: pillButtonLabel
+        }
+    }
 };
