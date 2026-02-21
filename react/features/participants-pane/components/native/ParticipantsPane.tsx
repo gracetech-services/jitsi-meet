@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { appType } from '../../../base/config/AppType';
 import JitsiScreen from '../../../base/modal/components/JitsiScreen';
 import { isLocalParticipantModerator } from '../../../base/participants/functions';
 
@@ -10,7 +9,6 @@ import LobbyParticipantList from './LobbyParticipantList';
 import MeetingParticipantList from './MeetingParticipantList';
 import ParticipantsPaneFooter from './ParticipantsPaneFooter';
 import VisitorsList from './VisitorsList';
-import fishMeetStyles from './fishMeetStyles';
 import styles from './styles';
 
 
@@ -34,9 +32,7 @@ const ParticipantsPane = () => {
     return (
         <JitsiScreen
             footerComponent = { isLocalModerator ? ParticipantsPaneFooter : undefined }
-            style = { appType.isFishMeet
-                ? fishMeetStyles.fishMeetParticipantsPaneContainer
-                : styles.participantsPaneContainer }>
+            style = { styles.participantsPaneContainer }>
 
             { /* Fixes warning regarding nested lists */ }
             <FlatList
