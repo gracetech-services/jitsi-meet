@@ -16,6 +16,7 @@ import HangupButton from '../HangupButton';
 import AudioMuteButton from './AudioMuteButton';
 import HangupMenuButton from './HangupMenuButton';
 import RaiseHandButton from './RaiseHandButton';
+import ToggleVideoStreamButton from './ToggleVideoStreamButton';
 import VideoMuteButton from './VideoMuteButton';
 import fishMeetStyles from './fishMeetStyles';
 
@@ -100,6 +101,14 @@ function Toolbox(props: IProps) {
                 {!_iAmVisitor && (
                     <>
                         <VideoMuteButton
+                            styles = { buttonStylesBorderless }
+                            toggledStyles = { toggledButtonStyles } />
+                        <View style = { fishMeetStyles.fishMeetToolSeparator } />
+                    </>
+                )}
+                {!_iAmVisitor && (
+                    <>
+                        <ToggleVideoStreamButton
                             styles = { buttonStylesBorderless }
                             toggledStyles = { toggledButtonStyles } />
                         <View style = { fishMeetStyles.fishMeetToolSeparator } />
