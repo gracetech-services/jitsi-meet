@@ -10,7 +10,7 @@ export const fishMeetToolbarButton = {
     flexDirection: 'row',
     height: BUTTON_SIZE,
     justifyContent: 'center',
-    marginHorizontal: 6,
+    marginHorizontal: 4, // fishmeet: was 6 — reduced to fit 5 buttons on 375pt screens
     marginVertical: 2,
     width: BUTTON_SIZE
 };
@@ -48,8 +48,8 @@ const fishMeetStyles = {
         flexDirection: 'row',
         backgroundColor: BaseTheme.palette.fishMeetMainColor02,
         borderRadius: 30,
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 8,  // fishmeet: was 10 — reduced to fit 5 buttons on 375pt screens
+        paddingRight: 8, // fishmeet: was 10 — reduced to fit 5 buttons on 375pt screens
         marginRight: 15,
         marginBottom: 10,
         flexWrap: 'wrap'
