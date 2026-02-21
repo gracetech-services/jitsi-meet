@@ -73,16 +73,16 @@ export function getVisibleNativeButtons(
         && isButtonEnabled(key, toolbarButtons));
 
     if (iAmVisitor) {
-        filteredButtons = VISITORS_MODE_BUTTONS.filter(button => filteredButtons.indexOf(button) > -1);
+        filteredButtons = VISITORS_MODE_BUTTONS.filter((button: string) => filteredButtons.indexOf(button) > -1);
     }
 
-    const { order } = mainToolbarButtonsThresholds.find(({ width }) => clientWidth > width)
+    const { order } = mainToolbarButtonsThresholds.find(({ width }: { width: number; }) => clientWidth > width)
     || mainToolbarButtonsThresholds[mainToolbarButtonsThresholds.length - 1];
 
     const mainToolbarButtonKeysOrder = [
-        ...order.filter(key => filteredButtons.includes(key)),
-        ...MAIN_TOOLBAR_BUTTONS_PRIORITY.filter(key => !order.includes(key) && filteredButtons.includes(key)),
-        ...filteredButtons.filter(key => !order.includes(key) && !MAIN_TOOLBAR_BUTTONS_PRIORITY.includes(key))
+        ...order.filter((key: string) => filteredButtons.includes(key)),
+        ...MAIN_TOOLBAR_BUTTONS_PRIORITY.filter((key: string) => !order.includes(key) && filteredButtons.includes(key)),
+        ...filteredButtons.filter((key: string) => !order.includes(key) && !MAIN_TOOLBAR_BUTTONS_PRIORITY.includes(key))
     ];
 
     const mainButtonsKeys = mainToolbarButtonKeysOrder.slice(0, order.length);
