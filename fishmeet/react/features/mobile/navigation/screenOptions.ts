@@ -5,6 +5,7 @@ import BaseTheme from '../../base/ui/components/BaseTheme.native';
 
 import { goBack } from './components/conference/ConferenceNavigationContainerRef';
 import { goBack as goBackToLobbyScreen } from './components/lobby/LobbyNavigationContainerRef';
+import { fishMeetHeaderOptions } from './fishMeetHeaderOptions';
 import { lobbyScreenHeaderCloseButton, screenHeaderCloseButton } from './functions';
 import { goBack as goBackToWelcomeScreen } from './rootNavigationContainerRef';
 
@@ -31,7 +32,7 @@ export const fullScreenOptions = {
  */
 export const navigationContainerTheme = {
     colors: {
-        background: BaseTheme.palette.uiBackground
+        background: 'transparent'
     }
 };
 
@@ -107,7 +108,10 @@ export const carmodeScreenOptions = presentationScreenOptions;
 /**
  * Screen options for chat.
  */
-export const chatScreenOptions = presentationScreenOptions;
+export const chatScreenOptions = {
+    ...presentationScreenOptions,
+    ...fishMeetHeaderOptions
+};
 
 /**
  * Dial-IN Info screen options and transition types.
@@ -130,7 +134,10 @@ export const liveStreamScreenOptions = presentationScreenOptions;
 /**
  * Screen options for participants modal.
  */
-export const participantsScreenOptions = presentationScreenOptions;
+export const participantsScreenOptions = {
+    ...presentationScreenOptions,
+    ...fishMeetHeaderOptions
+};
 
 /**
  * Screen options for speaker stats modal.

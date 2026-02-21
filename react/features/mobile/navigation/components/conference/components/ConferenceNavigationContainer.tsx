@@ -4,12 +4,7 @@ import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { useSelector } from 'react-redux';
-
-import { appType } from '../../../../../base/config/AppType';
-import Icon from '../../../../../base/icons/components/Icon';
-import { IconCloseLarge } from '../../../../../base/icons/svg';
 
 import BreakoutRooms
 // @ts-ignore
@@ -60,7 +55,6 @@ import {
     inviteScreenOptions,
     liveStreamScreenOptions,
     lobbyNavigationContainerScreenOptions,
-    fishMeetNavigationContainerTheme,
     navigationContainerTheme,
     participantsScreenOptions,
     recordingScreenOptions,
@@ -84,31 +78,8 @@ import {
     // @ts-ignore
 } from '../ConferenceNavigationContainerRef';
 
-import { styleHeader } from './fishMeetNavigationStyles';
-
 
 const ConferenceStack = createStackNavigator();
-
-const handleGoBack = (navigation: any) => () => navigation.goBack();
-
-export const fishMeetHeaderOptions = (title: string) => {
-    return {
-        header: ({ navigation }: any) => (
-            <View style = { styleHeader.viewStyle as ViewStyle }>
-                <Text style = { styleHeader.textStyle }>
-                    {title}
-                </Text>
-                <TouchableOpacity
-                    onPress = { handleGoBack(navigation) }
-                    style = { styleHeader.touchStyle as ViewStyle }>
-                    <Icon
-                        size = { 16 }
-                        src = { IconCloseLarge } />
-                </TouchableOpacity>
-            </View >
-        )
-    };
-};
 
 
 const ConferenceNavigationContainer = () => {
@@ -132,15 +103,10 @@ const ConferenceNavigationContainer = () => {
         <NavigationContainer
             independent = { true }
             ref = { conferenceNavigationRef }
-            theme = { (appType.isFishMeet ? fishMeetNavigationContainerTheme : navigationContainerTheme) as Theme }>
+            theme = { navigationContainerTheme as Theme }>
             <ConferenceStack.Navigator
                 screenOptions = {{
-                    presentation: 'modal',
-                    ...(appType.isFishMeet && {
-                        cardStyle: {
-                            backgroundColor: 'transparent'
-                        }
-                    })
+                    presentation: 'modal'
                 }}>
                 <ConferenceStack.Screen
                     component = { Conference }
@@ -149,29 +115,17 @@ const ConferenceNavigationContainer = () => {
                 <ConferenceStack.Screen
                     component = { ChatScreen }
                     name = { chatScreenName }
-                    options = { appType.isFishMeet
-                        ? {
-                            ...chatScreenOptions,
-                            ...fishMeetHeaderOptions(t(chatTitleString))
-                        }
-                        : {
-                            ...chatScreenOptions,
-                            title: t(chatTitleString)
-                        } } />
+                    options = {{
+                        ...chatScreenOptions,
+                        title: t(chatTitleString)
+                    }} />
                 <ConferenceStack.Screen
                     component = { ParticipantsPane }
                     name = { screen.conference.participants }
-                    options = {
-                        appType.isFishMeet
-                            ? {
-                                ...participantsScreenOptions,
-                                ...fishMeetHeaderOptions(t('participantsPane.title'))
-                            }
-                            : {
-                                ...participantsScreenOptions,
-                                title: t('participantsPane.title')
-                            }
-                    } />
+                    options = {{
+                        ...participantsScreenOptions,
+                        title: t('participantsPane.title')
+                    }} />
                 <ConferenceStack.Screen
                     component = { SecurityDialog }
                     name = { screen.conference.security }
