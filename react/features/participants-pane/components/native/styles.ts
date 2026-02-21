@@ -109,7 +109,7 @@ export default {
     participantDetailsContainer: {
         display: 'flex',
         flexDirection: 'column',
-        width: '38%'
+        width: '73%'
     },
 
     participantDetailsContainerRaisedHand: {
@@ -117,7 +117,8 @@ export default {
     },
 
     participantNameContainer: {
-        ...participantNameContainer
+        ...participantNameContainer,
+        width: '100%'
     },
 
     lobbyParticipantNameContainer: {
@@ -141,7 +142,7 @@ export default {
         display: 'flex',
         flexDirection: 'row',
         marginLeft: 'auto',
-        alignItems: 'center'
+        width: '15%'
     },
 
     participantStateVideo: {
@@ -211,7 +212,7 @@ export default {
     participantsPaneFooter: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         paddingBottom: BaseTheme.spacing[3],
         width: '100%'
     },
@@ -224,9 +225,7 @@ export default {
 
     breakoutRoomsButton: {
         marginBottom: BaseTheme.spacing[2],
-        width: '100%',
-        opacity: 0, // Temporarily disable
-        pointerEvents: 'none'
+        width: '100%'
     },
 
     moreButton: {
@@ -276,7 +275,7 @@ export default {
     },
 
     inputContainer: {
-        marginLeft: BaseTheme.spacing[4],
+        marginLeft: BaseTheme.spacing[3],
         marginRight: BaseTheme.spacing[3],
         marginBottom: BaseTheme.spacing[4]
     },
