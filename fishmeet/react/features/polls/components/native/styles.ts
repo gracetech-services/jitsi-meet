@@ -135,13 +135,20 @@ export const pollsStyles = createStyleSheet({
     },
 
     pollItemContainer: {
-        backgroundColor: BaseTheme.palette.uiBackground,
-        borderColor: BaseTheme.palette.ui06,
-        borderRadius: BaseTheme.shape.borderRadius,
-        boxShadow: BaseTheme.shape.boxShadow,
+        backgroundColor: BaseTheme.palette.fishMeetText03,
+        borderColor: BaseTheme.palette.fishMeetText03,
+        borderRadius: 30,
         borderWidth: 1,
         padding: BaseTheme.spacing[2],
         margin: BaseTheme.spacing[3]
+    },
+
+    switchProps: {
+        thumbColor: BaseTheme.palette.fishMeetText03,
+        trackColor: {
+            true: BaseTheme.palette.fishMeetMainColor02,
+            false: '#C8D7EC80'
+        }
     },
 
     pollCreateContainer: {
