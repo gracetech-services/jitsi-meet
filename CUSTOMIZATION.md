@@ -30,6 +30,78 @@ files under `fishmeet/react/` are fishmeet-specific.
 
 ---
 
+## Local Development with `./dev.sh`
+
+`./dev.sh` is the entry point for running the web app locally. It applies the
+fishmeet overrides and then starts the webpack dev server pointed at a chosen
+backend.
+
+### What it does
+
+1. **Copies fishmeet overrides** into the working tree:
+   ```bash
+   cp fishmeet/css/_*.scss css/
+   rsync -r fishmeet/react/ react/
+   ```
+2. **Copies backend-specific local config** from `fishmeet/local/pointing2*/`
+   into the project root (overwrites `index.html` and the local config JS).
+3. **Runs `make dev`** (webpack dev server with hot reload).
+
+### Usage
+
+```bash
+./dev.sh
+```
+
+An interactive menu appears:
+
+```
+================================
+    Backend Selection Menu
+================================
+1. Against Fishmeet Backend
+2. Against Jitsi Backend
+3. Against Localhost Backend
+4. Exit
+================================
+```
+
+| Option | Backend target | Local config applied |
+|--------|---------------|----------------------|
+| 1 | `https://m.fishmeet.top` | `fishmeet/local/pointing2fishmeetOnline/` |
+| 2 | Jitsi (alpha.jitsi.net) | `fishmeet/local/pointing2jitsi/` |
+| 3 | Localhost | `fishmeet/local/pointing2localhost/` |
+
+Pick the option that matches the backend you want to test against, then open
+`https://localhost:8080` in a browser.
+
+### Adding a new backend config
+
+1. Create a subdirectory under `fishmeet/local/`, e.g. `pointing2staging/`.
+2. Add an `index.html` (copy from an existing `pointing2*/` dir) and a JS
+   config file (e.g. `staging.js`) that sets `var config = { ... }` for
+   that environment.
+3. Add a new script under `fishmeet/scripts/`, e.g. `staging_backend.sh`:
+   ```bash
+   export WEBPACK_DEV_SERVER_PROXY_TARGET='https://your-staging-host'
+   cp fishmeet/local/*.* .
+   cp fishmeet/local/pointing2staging/index.html .
+   make dev
+   export WEBPACK_DEV_SERVER_PROXY_TARGET=
+   ```
+4. Add a menu entry in `dev.sh` following the existing `case` block pattern.
+
+### Important: overrides are applied once at startup
+
+`dev.sh` runs the rsync/copy **before** starting the dev server. If you edit a
+file under `fishmeet/react/` or `fishmeet/css/` while the dev server is
+running, the change will **not** be picked up automatically — you need to
+restart `dev.sh`. Changes directly to `react/` or `css/` are picked up by
+webpack hot reload as normal, but remember those edits will be overwritten the
+next time `dev.sh` (or a build script) runs the rsync step.
+
+---
+
 ## What Lives Where
 
 ### `fishmeet/react/` — Override files (the preferred place for all customizations)
