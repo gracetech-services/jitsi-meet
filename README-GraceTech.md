@@ -1,5 +1,8 @@
 # GraceTech Jitsi Meet SDK
 
+## Read CUSTOMIZATION.md first if you are doing customization work in jitsi-meet UI
+### Make sure you are following the principles and guidelines in your customizastion work
+
 ## Instructions
 
 ### 1. Create new SDK version
