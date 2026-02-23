@@ -33,10 +33,16 @@ else
     echo "Warning: fishmeet/react directory not found, skipping."
 fi
 
+# Populate real dependency versions from the root package.json into the SDK
+# package.json (replaces 0.0.0 placeholders).  This mirrors what
+# resources/update-mobile-rnsdk-version.sh does before a release.
+echo "Updating SDK dependency versions..."
+cd "$PROJECT_DIR/react-native-sdk"
+node update_sdk_dependencies.js
+
 # Pack the SDK.  Forward all arguments so callers can pass --pack-destination
 # or any other npm-pack flags.
 echo "Packing React Native SDK..."
-cd "$PROJECT_DIR/react-native-sdk"
 npm pack "$@"
 
 echo "=== Fishmeet React Native SDK Build Complete ==="
