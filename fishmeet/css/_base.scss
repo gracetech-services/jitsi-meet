@@ -204,6 +204,53 @@ form {
     background-color: #5A5C6C !important;
 }
 
+/* Filmstrip thumbnail tiles: rounded corners per Figma.
+   display:block required so overflow:hidden actually clips children (span is inline by default).
+   Also apply border-radius directly to inner elements because the tss-react containerBackground
+   div has its own border-radius:4px that overrides the parent clip at corners. */
+.filmstrip__videos .videocontainer {
+    display: block !important;
+    border-radius: 13px !important;
+    overflow: hidden !important;
+}
+
+.filmstrip__videos .videocontainer > div,
+.filmstrip__videos .videocontainer video {
+    border-radius: 13px !important;
+}
+
+/* Filmstrip thumbnail bottom indicator bar */
+/* Stretch the bottom indicator container to full thumbnail width */
+.videocontainer div:has(> .bottom-indicators) {
+    left: 0 !important;
+    right: 0 !important;
+}
+
+/* Bottom indicator bar: transparent, all items left-aligned */
+.bottom-indicators {
+    background: transparent !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+
+    /* Icons: white, fixed size */
+    .jitsi-icon {
+        color: #FFFFFF !important;
+
+        svg {
+            width: 16px !important;
+            height: 16px !important;
+        }
+    }
+}
+
+.bottom-indicators .displayname {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
 /* Stage participant name label - left-aligned */
 [data-testid="stage-display-name"] {
     justify-content: flex-start !important;
