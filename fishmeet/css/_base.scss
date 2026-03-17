@@ -208,6 +208,13 @@ form {
 [data-testid="stage-display-name"] {
     justify-content: flex-start !important;
     padding-left: 10px !important;
+
+    /* Name badge pill styling */
+    > div {
+        background: #C8D7EC !important;
+        border-radius: 22px !important;
+        color: #424350 !important;
+    }
 }
 
 /* Thumbnail indicator background */
