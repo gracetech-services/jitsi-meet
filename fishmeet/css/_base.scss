@@ -311,6 +311,16 @@ form {
     box-shadow: 0px 2px 8px 4px rgba(0, 0, 0, 0.15), 0px 0px 0px 1px rgba(0, 0, 0, 0.08) !important;
 }
 
+/* Filmstrip drag handle (vertical bar) - match toggle icon stroke color */
+.dragHandle {
+    background-color: #FE9C75 !important;
+}
+
+/* Filmstrip vertical toggle icon - nudge down to align with drag bar center */
+.filmstrip:has(.dragHandleContainer) .toggleFilmstripContainer {
+    top: calc(50% - 4px) !important;
+}
+
 /* Filmstrip toggle container - transparent background */
 .toggleFilmstripContainer {
     background-color: transparent !important;
