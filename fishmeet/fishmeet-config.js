@@ -634,6 +634,8 @@ interfaceConfig.ENABLE_DIAL_OUT = false;
     //TODO
     //FILM_STRIP_MAX_HEIGHT: 120,
 
+interfaceConfig.LOCAL_THUMBNAIL_RATIO = 1; // 1:1 square, matching remote thumbnails
+
 interfaceConfig.HIDE_INVITE_MORE_HEADER = true;
 
     //TODO:
