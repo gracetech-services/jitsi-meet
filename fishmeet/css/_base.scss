@@ -32,7 +32,7 @@ body {
     font-weight: 400;
     overflow: hidden;
     color: #F1F1F1;
-    background: #040404; // should match DEFAULT_BACKGROUND from interface_config
+    background: #5A5C6C; // outer frame background
 }
 
 /**
@@ -199,9 +199,21 @@ form {
  * Fishmeet branding overrides
  */
 
-/* Large video container background */
+/* Avatar initials circle - consistent Figma colors */
+.avatar {
+    background-color: #FFE8A3 !important;
+    color: #424350 !important;
+}
+
+/* Large video inner card - dark background with frame effect */
 #largeVideoContainer {
-    background-color: #5A5C6C !important;
+    background-color: #424350 !important;
+    border-radius: 13px !important;
+    /* Frame inset: uniform 12px gap on all sides */
+    left: 12px !important;
+    top: 12px !important;
+    height: calc(100% - 24px) !important;
+    /* width controlled by JS (accounts for filmstrip width + 24px padding) */
 }
 
 /* Filmstrip thumbnail tiles: rounded corners per Figma.
@@ -316,9 +328,69 @@ form {
     background-color: #FE9C75 !important;
 }
 
-/* Filmstrip vertical toggle icon - nudge down to align with drag bar center */
+/* Filmstrip toggle icon (expanded): push image left so it doesn't overlap drag bar.
+   Image is 48px wide; left:-40px puts image right edge at filmstrip left (= video edge). */
 .filmstrip:has(.dragHandleContainer) .toggleFilmstripContainer {
     top: calc(50% - 4px) !important;
+    left: -40px !important;
+}
+
+/* Collapsed filmstrip: only 12px strip remains visible (right:-128px instead of -140px),
+   keeping the drag bar at the video edge. Toggle centered on filmstrip left = video edge.
+   filmstrip_left = viewport_w - 12px; left:-16px → center at viewport_w - 12px. */
+.filmstrip.hidden {
+    right: -128px !important;
+}
+
+/* Collapsed filmstrip: maintain 12px right margin on large video.
+   left:12px (CSS) + width:calc(100%-24px) → right edge at viewport - 12px. */
+body:has(.filmstrip.hidden) #largeVideoContainer {
+    width: calc(100% - 24px) !important;
+}
+
+/* Filmstrip background: transparent so the body #5A5C6C shows through, blending it
+   with the outer frame. Also clear hover-triggered backgrounds. */
+.vertical-filmstrip .filmstrip,
+.stage-filmstrip .filmstrip {
+    background-color: transparent !important;
+
+    &:hover,
+    &:focus-within {
+        background-color: transparent !important;
+
+        .resizable-filmstrip,
+        .filmstrip-hover {
+            background-color: transparent !important;
+        }
+    }
+}
+
+/* The filmstrip uses align-items:flex-end (column-reverse), which makes
+   .resizable-filmstrip right-aligned and content-sized (~138px) instead of
+   filling the full 140px filmstrip width. Force it to stretch so its left
+   edge is flush with the filmstrip left edge (= large video right edge). */
+.dragHandleContainer {
+    flex-shrink: 0 !important;
+    justify-content: flex-start !important;
+}
+
+/* Filmstrip inner container: stretch to full 140px filmstrip width.
+   No padding here — drag bar sits flush with the large video right edge. */
+.resizable-filmstrip {
+    align-self: stretch !important;
+}
+
+/* 3px padding after drag handle so tiles start at 9+3=12px from filmstrip edge. */
+.resizable-filmstrip #remoteVideos {
+    padding-left: 3px !important;
+}
+
+/* Me tile: 12px right gap from screen edge without clipping rounded corners.
+   filmstrip=140px, left_gap=12px → tile must be 116px for right_gap=12px.
+   Override the React inline width:120px/min-width:120px on the videocontainer. */
+#filmstripLocalVideoThumbnail .videocontainer {
+    width: 116px !important;
+    min-width: 116px !important;
 }
 
 /* Filmstrip toggle container - transparent background */

@@ -197,6 +197,7 @@ export interface IConfig {
     autoCaptionOnRecord?: boolean;
     autoKnockLobby?: boolean;
     backgroundAlpha?: number;
+    largeVideoHorizontalPadding?: number;
     bosh?: string;
     brandingDataUrl?: string;
     brandingRoomAlias?: string;
