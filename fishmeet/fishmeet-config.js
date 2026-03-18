@@ -620,7 +620,7 @@ var interfaceConfig;
 
 interfaceConfig.APP_NAME = 'Fishmeet';
 interfaceConfig.BRAND_WATERMARK_LINK = ''; // TODO:
-interfaceConfig.DEFAULT_BACKGROUND = '#040404'; // TODO
+interfaceConfig.DEFAULT_BACKGROUND = '#424350';
 interfaceConfig.DISABLE_TRANSCRIPTION_SUBTITLES = true;
 
     /**
@@ -635,6 +635,10 @@ interfaceConfig.ENABLE_DIAL_OUT = false;
     //FILM_STRIP_MAX_HEIGHT: 120,
 
 interfaceConfig.LOCAL_THUMBNAIL_RATIO = 1; // 1:1 square, matching remote thumbnails
+
+// Large video card: horizontal padding (px) applied on each side. CSS also applies
+// left/top offsets of the same value to create the framed card look.
+config.largeVideoHorizontalPadding = 12;
 
 // Fishmeet: given JWT context.user, return avatar URL.
 // (1) Respect existing avatar if already set.
