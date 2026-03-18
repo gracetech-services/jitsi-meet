@@ -636,6 +636,25 @@ interfaceConfig.ENABLE_DIAL_OUT = false;
 
 interfaceConfig.LOCAL_THUMBNAIL_RATIO = 1; // 1:1 square, matching remote thumbnails
 
+// Fishmeet: given JWT context.user, return avatar URL.
+// (1) Respect existing avatar if already set.
+// (2) Construct from user id using the app domain.
+// (3) Domain defaults to 'fishmeet.top'; real domains use last two parts (e.g. m.fishmeet.top → fishmeet.top).
+config.fishmeetGetAvatarUrl = function(jwtUser) {
+    if (!jwtUser) { return undefined; }
+    if (jwtUser.avatar) { return jwtUser.avatar; }
+    // Prefer explicit id, fall back to parsing userId from email (e.g. "12345@idigest.app")
+    const userId = jwtUser.id || (jwtUser.email && jwtUser.email.split('@')[0]);
+    if (!userId) { return undefined; }
+    const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+    let domain = 'fishmeet.top';
+    if (hostname && hostname !== 'localhost' && !/^[\d.]+$/.test(hostname)) {
+        const parts = hostname.split('.');
+        if (parts.length >= 2) { domain = parts.slice(-2).join('.'); }
+    }
+    return `https://${domain}/user/avatar/${userId}`;
+};
+
 interfaceConfig.HIDE_INVITE_MORE_HEADER = true;
 
     //TODO:
