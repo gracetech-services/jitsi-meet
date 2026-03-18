@@ -98,6 +98,7 @@ export function commonUserJoinedHandling(
             botType: user.getBotType(),
             conference,
             id,
+            jwtId: user.getIdentity()?.user?.id,
             name: displayName,
             presence: user.getStatus(),
             role: user.getRole(),
