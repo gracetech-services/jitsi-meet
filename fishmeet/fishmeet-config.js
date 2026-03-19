@@ -188,7 +188,10 @@ config.mainToolbarButtons = [
 //config.p2p = {/*...config.p2p, */enabled: false };
 
 config.feedbackPercentage = 100; // means 100%, it could be 0. ???? where is the feedback sent?
-config.disableThirdPartyRequests = true;
+// Disable Gravatar lookups (privacy: avoids leaking email to gravatar.com).
+// Note: do NOT set disableThirdPartyRequests=true here — that also blocks
+// loading avatar URLs set via JWT (fishmeetGetAvatarUrl), which are first-party.
+config.gravatar = { ...config.gravatar, disabled: true };
 
     // Application logo url
 //config.defaultLogoUrl = 'images/watermark.svg';
@@ -645,6 +648,7 @@ config.largeVideoHorizontalPadding = 12;
 // (2) Construct from user id using the app domain.
 // (3) Domain defaults to 'fishmeet.top'; real domains use last two parts (e.g. m.fishmeet.top → fishmeet.top).
 config.fishmeetGetAvatarUrl = function(jwtUser) {
+    console.log('[fishmeet] fishmeetGetAvatarUrl called with:', jwtUser);
     if (!jwtUser) { return undefined; }
     if (jwtUser.avatar) { return jwtUser.avatar; }
     // Prefer explicit id, fall back to parsing userId from email (e.g. "12345@idigest.app")
@@ -656,7 +660,9 @@ config.fishmeetGetAvatarUrl = function(jwtUser) {
         const parts = hostname.split('.');
         if (parts.length >= 2) { domain = parts.slice(-2).join('.'); }
     }
-    return `https://${domain}/user/avatar/${userId}`;
+    const url = `https://${domain}/user/avatar/${userId}`;
+    console.log('[fishmeet] fishmeetGetAvatarUrl returning:', url);
+    return url;
 };
 
 interfaceConfig.HIDE_INVITE_MORE_HEADER = true;
