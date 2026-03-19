@@ -197,7 +197,6 @@ export interface IConfig {
     autoCaptionOnRecord?: boolean;
     autoKnockLobby?: boolean;
     backgroundAlpha?: number;
-    largeVideoHorizontalPadding?: number;
     bosh?: string;
     brandingDataUrl?: string;
     brandingRoomAlias?: string;
@@ -394,6 +393,7 @@ export interface IConfig {
         minParticipantCountForTopPanel?: number;
     };
     filmstripToggleIcons?: string[];
+    fishmeetGetAvatarUrl?: (user: object) => string | undefined;
     flags?: {
         ssrcRewritingEnabled: boolean;
     };
@@ -447,6 +447,7 @@ export interface IConfig {
     jaasConferenceCreatorUrl?: string;
     jaasFeedbackMetadataURL?: string;
     jaasTokenUrl?: string;
+    largeVideoHorizontalPadding?: number;
     legalUrls?: {
         helpCentre: string;
         privacy: string;

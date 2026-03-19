@@ -35,14 +35,6 @@ interface IProps {
     _backgroundAlpha?: number;
 
     /**
-     * Optional horizontal padding (px) applied on each side of the large video container.
-     * Used by fishmeet to create a framed card layout. When set, the container is also
-     * shifted left by this amount via CSS, so width is reduced by 2× this value plus
-     * the filmstrip width.
-     */
-    _largeVideoHPad?: number;
-
-    /**
      * The user selected background color.
      */
     _customBackgroundColor: string;
@@ -51,6 +43,14 @@ interface IProps {
      * The user selected background image url.
      */
     _customBackgroundImageUrl: string;
+
+    /**
+     * Optional horizontal padding (px) applied on each side of the large video container.
+     * Used by fishmeet to create a framed card layout. When set, the container is also
+     * shifted left by this amount via CSS, so width is reduced by 2× this value plus
+     * the filmstrip width.
+     */
+    _largeVideoHPad?: number;
 
     /**
      * Whether the screen-sharing placeholder should be displayed or not.
