@@ -45,14 +45,6 @@ interface IProps {
     _customBackgroundImageUrl: string;
 
     /**
-     * Optional horizontal padding (px) applied on each side of the large video container.
-     * Used by fishmeet to create a framed card layout. When set, the container is also
-     * shifted left by this amount via CSS, so width is reduced by 2× this value plus
-     * the filmstrip width.
-     */
-    _largeVideoHPad?: number;
-
-    /**
      * Whether the screen-sharing placeholder should be displayed or not.
      */
     _displayScreenSharingPlaceholder: boolean;
@@ -76,6 +68,14 @@ interface IProps {
      * Whether or not the local screen share is on large-video.
      */
     _isScreenSharing: boolean;
+
+    /**
+     * Optional horizontal padding (px) applied on each side of the large video container.
+     * Used by fishmeet to create a framed card layout. When set, the container is also
+     * shifted left by this amount via CSS, so width is reduced by 2× this value plus
+     * the filmstrip width.
+     */
+    _largeVideoHPad?: number;
 
     /**
      * The large video participant id.
