@@ -196,6 +196,21 @@ jitsi), behavior is unchanged. If it is present (set in a fishmeet stylesheet
 override), the fishmeet customization applies. This keeps the extension point
 generic and the core change minimal.
 
+
+Supplementary Note: Fishmeet for Web added 3 new features: **breakout-room-autosetup**, **breakout-room-presetup**, **toggle-video-stream**, which need to be configured and registered at all levels of Jisti, diff scope:
+- react/features/app/reducers.any.ts
+- react/features/app/reducers.any.ts
+- react/features/toolbox/hooks.web.ts
+- react/features/toolbox/types.ts
+- react/features/base/flags/constants.ts
+
+All the above diffs share the following characteristics:
+1. No logical operations are performed, only import or register actions.
+2. Only new additions are made with no modifications to existing content.
+3. The changes is small, less than 5 lines (excluding comment lines).
+
+If all above conditions are met, direct modifications can be made in the source code project as appropriate.
+
 ---
 
 ## Upgrade Playbook
