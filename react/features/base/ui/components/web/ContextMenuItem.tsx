@@ -123,7 +123,7 @@ const useStyles = makeStyles()(theme => {
             },
 
             '&:hover': {
-                backgroundColor: theme.palette.ui02
+                backgroundColor: theme.palette.fishMeetAction01 // fishmeet: was ui02
             },
 
             '&:active': {
@@ -147,7 +147,7 @@ const useStyles = makeStyles()(theme => {
 
         contextMenuItemIconDisabled: {
             '& svg': {
-                fill: `${theme.palette.text03} !important`
+                fill: `${theme.palette.fishMeetText01} !important`
             }
         },
 
@@ -168,6 +168,8 @@ const useStyles = makeStyles()(theme => {
         },
 
         contextMenuItemIcon: {
+            color: `${theme.palette.fishMeetText01} !important`, // fishmeet: was nil
+
             '& svg': {
                 fill: theme.palette.icon01
             }
@@ -175,7 +177,7 @@ const useStyles = makeStyles()(theme => {
 
         text: {
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
-            color: theme.palette.text01
+            color: theme.palette.fishMeetText01 // fishmeet: was icon01
         },
 
         drawerText: {
@@ -252,7 +254,7 @@ const ContextMenuItem = ({
             {customIcon ? customIcon
                 : icon && <Icon
                     className = { cx(styles.contextMenuItemIcon,
-                        disabled && styles.contextMenuItemIconDisabled) }
+                        disabled && styles.contextMenuItemIconDisabled, 'context-menu-icon') }
                     size = { 20 }
                     src = { icon } />}
             {text && (

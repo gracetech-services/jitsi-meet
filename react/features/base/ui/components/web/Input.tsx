@@ -65,8 +65,9 @@ const useStyles = makeStyles()(theme => {
         },
 
         input: {
-            backgroundColor: theme.palette.ui03,
-            background: theme.palette.ui03,
+            backgroundColor: theme.palette.fishMeetUiSecBackground, // fishmeet: was ui03
+            background: theme.palette.fishMeetUiSecBackground, // fishmeet: was ui03
+            boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`, // fishmeet: was nil
             color: theme.palette.text01,
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
             padding: '10px 16px',

@@ -48,7 +48,7 @@ interface IStylesProps {
 const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
     return {
         participantsPane: {
-            backgroundColor: theme.palette.ui01,
+            backgroundColor: theme.palette.fishMeetUiBackground, // fishmeet: was ui01
             flexShrink: 0,
             position: 'relative',
             transition: 'width .16s ease-in-out',
@@ -74,6 +74,7 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
         },
 
         container: {
+            overflow: 'visible !important', // fishmeet: nil
             boxSizing: 'border-box',
             flex: 1,
             position: 'relative',
@@ -98,7 +99,8 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
             alignItems: 'center',
             boxSizing: 'border-box',
             display: 'flex',
-            height: '60px',
+            height: 'min-content', // fishmeet: was 60px
+            marginTop: `${participantsPaneTheme.panePadding}px`, // fishmeet: was nil
             padding: `0 ${participantsPaneTheme.panePadding}px`,
             justifyContent: 'flex-end'
         },
@@ -187,7 +189,7 @@ const ParticipantsPane = () => {
 
     return (
         <div
-            className = { classes.participantsPane }
+            className = { `participants-pane ${classes.participantsPane}` }
             id = 'participants-pane'>
             <div className = { classes.header }>
                 <ClickableIcon

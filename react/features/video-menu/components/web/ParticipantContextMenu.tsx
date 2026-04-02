@@ -339,7 +339,7 @@ const ParticipantContextMenu = ({
 
     return (
         <ContextMenu
-            className = { className }
+            className = { `participant-ctx-menu ${className}` }
             entity = { participant }
             hidden = { thumbnailMenu ? false : undefined }
             inDrawer = { thumbnailMenu && _overflowDrawer }

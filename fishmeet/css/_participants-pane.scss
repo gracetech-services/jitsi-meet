@@ -1,0 +1,17 @@
+.participants-pane {
+    .jitsi-icon {
+        color: #F5F5F5;
+
+        &-default {
+            color: #F5F5F5;
+        }
+    }
+}
+
+
+.jitsi-icon {
+    &-dominant-speaker {
+        background-color: #1EC26A;
+        border-radius: 3px;
+    }
+}
