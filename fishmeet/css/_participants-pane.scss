@@ -4,11 +4,6 @@
 }
 
 #participants-pane .jitsi-icon {
-    color: #F5F5F5;
-
-    &-default {
-        color: #F5F5F5;
-    }
 
     &-dominant-speaker {
         background-color: #1EC26A;
@@ -45,11 +40,19 @@
         background-color: #656876;
     }
 
+    .breakout-room-container.list-item-container .arrow-container {
+        display: none;
+    }
+
+    .breakout-room-container.list-item-container .arrow-container .jitsi-icon {
+        color: #E7EEF2;
+    }
+
     /* Breakout rooms list button styling */
     #breakout-rooms-list button[type=button],
     .list-item-container .actions button[type=button] {
         background: transparent;
-        border: 1px solid #F5F5F5;
+        border: 1px solid #E7EEF2;
     }
 
     /* Participants list item actions container */
@@ -57,6 +60,16 @@
         box-shadow: none;
         background: transparent;
     }
+
+    /* Footer context menu text color */
+    .footer-ctx-menu span {
+        color: #424350;
+    }
+}
+
+/* Participants pane header close icon */
+.participants-pane-header .jitsi-icon {
+    color: #E7EEF2;
 }
 
 /* Participants pane container overflow handling */
@@ -66,4 +79,9 @@
 
 .participants-pane-container:has(.context-menu-hidden.participant-ctx-menu) {
     overflow-y: auto !important;
+}
+
+/* Audio settings dialog noise suppression checkbox color */
+#audio-settings-dialog .noise-suppression-checkbox {
+    color: #424350;
 }

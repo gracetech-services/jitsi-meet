@@ -190,7 +190,7 @@ const ParticipantsPane = () => {
         <div
             className = { classes.participantsPane }
             id = 'participants-pane'>
-            <div className = { classes.header }>
+            <div className = { `participants-pane-header ${classes.header}` }>
                 <ClickableIcon
                     accessibilityLabel = { t('participantsPane.close', 'Close') }
                     icon = { IconCloseLarge }

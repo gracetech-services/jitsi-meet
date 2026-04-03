@@ -138,7 +138,7 @@ const useStyles = makeStyles()(theme => {
         selected: {
             borderLeft: `3px solid ${theme.palette.action01Hover}`,
             paddingLeft: '13px',
-            backgroundColor: theme.palette.ui02
+            backgroundColor: theme.palette.fishMeetAction01 // fishmeet: was ui02
         },
 
         contextMenuItemDisabled: {
@@ -168,10 +168,8 @@ const useStyles = makeStyles()(theme => {
         },
 
         contextMenuItemIcon: {
-            color: `${theme.palette.fishMeetText01} !important`, // fishmeet: was nil
-
             '& svg': {
-                fill: theme.palette.icon01
+                // fill: theme.palette.icon01 /* fishmeet: was nil,  customized the background color, so there is no need to set the color here */
             }
         },
 
