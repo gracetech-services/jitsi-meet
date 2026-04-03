@@ -280,6 +280,18 @@ form {
             height: 16px !important;
         }
     }
+
+    /* Tile-view mode: displayname styling */
+    .tile-view-mode & {
+        margin: 0 0 16px 16px;
+
+        .displayname {
+            background: #C8D7EC;
+            padding: 4px 8px;
+            border-radius: 10px;
+            color: #424350;
+        }
+    }
 }
 
 .bottom-indicators .displayname {
@@ -428,19 +440,6 @@ body:has(.filmstrip.hidden) #largeVideoContainer {
     }
 }
 
-/* Participants pane styling */
-.participants_pane {
-    background-color: #424350 !important;
-}
-
-#participants-pane button {
-    border-radius: 32px !important;
-}
-
-#participants-search-input {
-    border-radius: 32px !important;
-}
-
 .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
@@ -454,11 +453,22 @@ body:has(.filmstrip.hidden) #largeVideoContainer {
     white-space: nowrap !important;
 }
 
-.context-menu-icon svg {
-    fill: transparent !important;
+
+svg {
+
+    /* Context menu  kickout anticipant icon */
+    .kicklink .context-menu-icon & {
+        fill: #D93B2C !important;
+    }
+
+    /* Participants pane stop video icon color */
+    .participants-pane-context-menu-stop-video & {
+        fill: transparent !important;
+    }
 }
 
-/* participants tile container */
+
+/* Conference participants tile container */
 .thumbnail-container {
 
     /* tile's gap */
@@ -472,6 +482,7 @@ body:has(.filmstrip.hidden) #largeVideoContainer {
         background-color: #42434F;
     }
 
+    /* tile's gap */
     .raised-hand-border,
     .active-speaker-indicator {
         position: absolute;

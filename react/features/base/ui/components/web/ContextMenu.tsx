@@ -394,7 +394,7 @@ const ContextMenu = ({
                 { ...aria }
                 aria-label = { accessibilityLabel }
                 className = { cx(styles.contextMenu,
-                isHidden && styles.contextMenuHidden,
+                isHidden && `context-menu-hidden ${styles.contextMenuHidden}`,
                 className
                 ) }
                 id = { id }

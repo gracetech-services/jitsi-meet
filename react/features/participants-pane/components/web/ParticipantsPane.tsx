@@ -74,7 +74,6 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
         },
 
         container: {
-            overflow: 'visible !important', // fishmeet: nil
             boxSizing: 'border-box',
             flex: 1,
             position: 'relative',
@@ -189,7 +188,7 @@ const ParticipantsPane = () => {
 
     return (
         <div
-            className = { `participants-pane ${classes.participantsPane}` }
+            className = { classes.participantsPane }
             id = 'participants-pane'>
             <div className = { classes.header }>
                 <ClickableIcon
@@ -197,7 +196,7 @@ const ParticipantsPane = () => {
                     icon = { IconCloseLarge }
                     onClick = { onClosePane } />
             </div>
-            <div className = { classes.container }>
+            <div className = { `participants-pane-container ${classes.container}` }>
                 <VisitorsList />
                 <br className = { classes.antiCollapse } />
                 <LobbyParticipants />
