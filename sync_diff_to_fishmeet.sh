@@ -13,7 +13,7 @@ sync_files() {
     echo "Start syncing $target_base directory..."
 
     # Iterate over all files under target_base
-    find "$target_base" -type f | while read file; do
+    find "$target_base" -type f -print0 | while IFS= read -r -d '' file; do
         # Get the path of the file relative to target_base
         relative_path="${file#$target_base/}"
 
