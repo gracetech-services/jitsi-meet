@@ -162,7 +162,7 @@ const useStyles = makeStyles()(theme => {
                 ...withPixelLineHeight(theme.typography.bodyShortRegularLarge),
 
                 '& svg': {
-                    fill: theme.palette.icon01
+                    // fill: theme.palette.icon01 // fishmeet: was nil,  customized the background color, so there is no need to set the color here */
                 }
             }
         }
@@ -395,7 +395,7 @@ const ContextMenu = ({
                 aria-label = { accessibilityLabel }
                 className = { cx(styles.contextMenu,
                 isHidden && `context-menu-hidden ${styles.contextMenuHidden}`,
-                className
+                className, 'context-menu'
                 ) }
                 id = { id }
                 onClick = { onClick }

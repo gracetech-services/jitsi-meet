@@ -127,7 +127,7 @@ const useStyles = makeStyles()(theme => {
             },
 
             '&:active': {
-                backgroundColor: theme.palette.ui03
+                backgroundColor: theme.palette.fishMeetAction01 // fishmeet: was ui03
             },
 
             '&.focus-visible': {

@@ -50,7 +50,7 @@ const useStyles = makeStyles()(theme => {
         },
 
         label: {
-            color: theme.palette.text01,
+            color: theme.palette.fishMeetText01, // fishmeet: was text01
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
             marginBottom: theme.spacing(2),
 
@@ -249,7 +249,7 @@ const Input = React.forwardRef<any, IProps>(({
                         autoComplete = { autoComplete }
                         autoFocus = { autoFocus }
                         className = { cx(styles.input, isMobile && 'is-mobile',
-                            error && 'error', showClearIcon && 'clearable-input', icon && 'icon-input') }
+                            error && 'error', showClearIcon && 'clearable-input', icon && 'icon-input', 'form-ctrl-input') }
                         data-testid = { testId }
                         disabled = { disabled }
                         id = { id }
