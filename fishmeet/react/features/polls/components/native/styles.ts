@@ -145,6 +145,7 @@ export const pollsStyles = createStyleSheet({
 
     switchProps: {
         thumbColor: BaseTheme.palette.fishMeetText03,
+        // @ts-ignore
         trackColor: {
             true: BaseTheme.palette.fishMeetMainColor02,
             false: '#C8D7EC80'
