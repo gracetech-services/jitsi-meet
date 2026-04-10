@@ -440,6 +440,8 @@
         "removeSharedVideoTitle": "移除分享的影像",
         "renameBreakoutRoomLabel": "分組討論室名稱",
         "renameBreakoutRoomTitle": "重新命名分組討論室",
+        "autoBreakoutRoomCountLabel": "分組討論室數量",
+        "autoBreakoutRoomCountTitle": "自動分組討論室",
         "reservationError": "預約系統錯誤",
         "reservationErrorMsg": "錯誤代碼：{{code}}，訊息：{{msg}}",
         "retry": "重試",

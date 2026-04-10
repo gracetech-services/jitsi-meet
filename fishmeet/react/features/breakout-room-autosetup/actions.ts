@@ -1,8 +1,9 @@
-import { isEmpty, map } from 'lodash-es';
+import { filter, isEmpty, map, size } from 'lodash-es';
 
 import { IStore } from '../app/types';
 import { autoAssignToBreakoutRooms, createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
 import { getBreakoutRooms, getMainRoom } from '../breakout-rooms/functions';
+import logger from '../breakout-rooms/logger';
 import { IRoomInfoParticipant } from '../breakout-rooms/types';
 
 import { _AVAILABLE_AUTO_SET_BREAKOUT_ROOMS, _AVAILABLE_REMOVE_ALL_BREAKOUT_ROOMS, _AVAILABLE_REMOVE_ALL_BREAKOUT_ROOMS_AND_ADD } from './actionTypes';
@@ -38,7 +39,6 @@ export function executeAutoBreakoutRoom() {
         dispatch(autoAssignToBreakoutRooms());
     };
 }
-
 
 export function sendAllParticipantsToMainRoom() {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
@@ -112,6 +112,38 @@ export function prepareReassignRemove(params: { assignRoomCount: number; }) {
             addReady: false,
             assignRoomCount: params.assignRoomCount,
         }));
+    };
+}
+
+export function launchAutoSetup(params: { assignRoomCount: number; }) {
+    const { assignRoomCount } = params;
+
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState'],) => {
+
+        const state = getState();
+        const { rooms } = state['features/breakout-rooms'];
+
+        const subRoomsSize = size(filter(rooms, room => !room.isMainRoom));
+        const shouldAssignRoomCount = parseInt(`${assignRoomCount}`, 10);
+
+        // Check whether the number of rooms to assign is valid
+        if (!shouldAssignRoomCount || isNaN(shouldAssignRoomCount)) {
+            return;
+        }
+
+        logger.debug('[GTS] AutoDiscuss click', { shouldAssignRoomCount, subRoomsSize });
+
+        if (shouldAssignRoomCount > subRoomsSize) {
+            dispatch(prepareReassignAdd({
+                assignRoomCount: shouldAssignRoomCount - subRoomsSize
+            }));
+        } else if (shouldAssignRoomCount === subRoomsSize) {
+            dispatch(autoAssignToBreakoutRooms());
+
+        } else {
+            // we'll close all rooms if there is too many, and then recreate
+            dispatch(triggerReassign({ assignRoomCount: shouldAssignRoomCount }));
+        }
     };
 }
 

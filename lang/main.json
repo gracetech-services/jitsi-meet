@@ -458,6 +458,8 @@
         "removeSharedVideoTitle": "Remove shared video",
         "renameBreakoutRoomLabel": "Room name",
         "renameBreakoutRoomTitle": "Rename breakout room",
+        "autoBreakoutRoomCountLabel": "Number of breakout rooms",
+        "autoBreakoutRoomCountTitle": "Auto breakout rooms",
         "reservationError": "Reservation system error",
         "reservationErrorMsg": "Error code: {{code}}, message: {{msg}}",
         "retry": "Retry",

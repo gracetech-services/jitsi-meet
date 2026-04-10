@@ -440,6 +440,8 @@
         "removeSharedVideoTitle": "移除共享的视频",
         "renameBreakoutRoomLabel": "分组讨论室名称",
         "renameBreakoutRoomTitle": "重命名分组讨论室",
+        "autoBreakoutRoomCountLabel": "分组讨论室数量",
+        "autoBreakoutRoomCountTitle": "自动分组讨论室",
         "reservationError": "预定系统错误",
         "reservationErrorMsg": "错误代码：{{code}}，提示信息：{{msg}}",
         "retry": "重试",
