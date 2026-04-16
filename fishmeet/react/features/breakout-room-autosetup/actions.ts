@@ -118,12 +118,12 @@ export function launchAutoSetup(params: { assignRoomCount: number; }) {
 
     return async (dispatch: IStore['dispatch'], getState: IStore['getState'],) => {
         const state = getState();
-        const { rooms } = state['features/breakout-rooms'];
 
+        const rooms = getBreakoutRooms(state);
         const subRoomsSize = size(filter(rooms, room => !room.isMainRoom));
 
         // Check whether the number of rooms to assign is valid
-        if (!assignRoomCount || isNaN(assignRoomCount)) {
+        if (!assignRoomCount || isNaN(assignRoomCount) || assignRoomCount < 1) {
             return;
         }
 

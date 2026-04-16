@@ -15,7 +15,7 @@ import { launchAutoSetup } from '../../../../../breakout-room-autosetup/actions'
  * @returns {JSX.Element}
  */
 const AutoBreakoutRoomCountPrompt = () => {
-    const [ roomCount, setRoomCount ] = useState<number>();
+    const [ roomCount, setRoomCount ] = useState<number | undefined>(1);
     const { t } = useTranslation();
     const okDisabled = !roomCount || roomCount < 1;
     const dispatch = useDispatch();
