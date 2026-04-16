@@ -32,8 +32,6 @@ export function availableReassign(value: IAutosetupBreakoutRoomsState['available
 
 export function executeAutoBreakoutRoom() {
     return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
-        dispatch(availableAutoToSetup(false));
-
         // even if waiting for the middleware callback, it still takes some time to create rooms
         await new Promise(r => setTimeout(r, 100));
         dispatch(autoAssignToBreakoutRooms());

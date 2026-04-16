@@ -21,13 +21,17 @@ const AutoBreakoutRoomCountPrompt = () => {
     const dispatch = useDispatch();
 
     const onBreakoutRoomCountChange = useCallback((newRoomCount: string) => {
-        const count = Number(newRoomCount);
+        if (newRoomCount === '') {
+            setRoomCount(undefined);
 
-        if (isNaN(count)) {
             return;
         }
 
-        setRoomCount(count);
+        const count = Number(newRoomCount);
+
+        if (!isNaN(count)) {
+            setRoomCount(count);
+        }
     }, []);
 
     const onSubmit = useCallback(() => {
