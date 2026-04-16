@@ -119,30 +119,28 @@ export function launchAutoSetup(params: { assignRoomCount: number; }) {
     const { assignRoomCount } = params;
 
     return async (dispatch: IStore['dispatch'], getState: IStore['getState'],) => {
-
         const state = getState();
         const { rooms } = state['features/breakout-rooms'];
 
         const subRoomsSize = size(filter(rooms, room => !room.isMainRoom));
-        const shouldAssignRoomCount = parseInt(`${assignRoomCount}`, 10);
 
         // Check whether the number of rooms to assign is valid
-        if (!shouldAssignRoomCount || isNaN(shouldAssignRoomCount)) {
+        if (!assignRoomCount || isNaN(assignRoomCount)) {
             return;
         }
 
-        logger.debug('[GTS] AutoDiscuss click', { shouldAssignRoomCount, subRoomsSize });
+        logger.debug('[GTS] AutoDiscuss click', { shouldAssignRoomCount: assignRoomCount, subRoomsSize });
 
-        if (shouldAssignRoomCount > subRoomsSize) {
+        if (assignRoomCount > subRoomsSize) {
             dispatch(prepareReassignAdd({
-                assignRoomCount: shouldAssignRoomCount - subRoomsSize
+                assignRoomCount: assignRoomCount - subRoomsSize
             }));
-        } else if (shouldAssignRoomCount === subRoomsSize) {
+        } else if (assignRoomCount === subRoomsSize) {
             dispatch(autoAssignToBreakoutRooms());
 
         } else {
             // we'll close all rooms if there is too many, and then recreate
-            dispatch(triggerReassign({ assignRoomCount: shouldAssignRoomCount }));
+            dispatch(triggerReassign({ assignRoomCount: assignRoomCount }));
         }
     };
 }

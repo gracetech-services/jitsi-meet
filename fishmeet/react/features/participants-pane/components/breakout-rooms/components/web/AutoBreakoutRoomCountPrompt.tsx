@@ -8,7 +8,7 @@ import { launchAutoSetup } from '../../../../../breakout-room-autosetup/actions'
 
 
 /**
- * Implements a React {@code Component} for displaying a dialog with an field
+ * Implements a React {@code Component} for displaying a dialog with a field
  * for setting a breakout room's count.
  *
  * @param {IProps} props - The props of the component.
@@ -17,7 +17,7 @@ import { launchAutoSetup } from '../../../../../breakout-room-autosetup/actions'
 const AutoBreakoutRoomCountPrompt = () => {
     const [ roomCount, setRoomCount ] = useState<number>();
     const { t } = useTranslation();
-    const okDisabled = !roomCount;
+    const okDisabled = !roomCount || roomCount < 1;
     const dispatch = useDispatch();
 
     const onBreakoutRoomCountChange = useCallback((newRoomCount: string) => {
