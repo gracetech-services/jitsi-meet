@@ -27,7 +27,7 @@ sync_files() {
                 # Ensure target directory exists
                 mkdir -p "$(dirname "$file")"
                 # Copy file
-                cp "$source_file" "$file"
+                cp -p "$source_file" "$file"
             # else
             #     echo "⛸️ Skipping file (content unchanged): $relative_path"
             fi
