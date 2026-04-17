@@ -112,7 +112,7 @@ in `react/` after rsync. The key categories:
 #### Design tokens / palette
 `fishmeet/react/features/base/ui/Tokens.ts`
 Overrides `BaseTheme.palette` to inject fishmeet brand colors
-(`fishMeetUiBackground`, `fishMeetMainColor02`, `fishMeetText03`, etc.).
+(`customizedUiBackground`, `customizedUiMainColor02`, `customizedUiText03`, etc.).
 This is the **single source of truth** for all brand colors — reference palette
 tokens in stylesheets rather than hardcoding hex values.
 
@@ -135,7 +135,7 @@ fishmeet-specific values. Changed properties are annotated with
 #### Constants overrides
 `fishmeet/react/features/participants-pane/constants.tsx`
 Replaces `AudioStateIcons` and `VideoStateIcons` with fishmeet circular icon
-containers (37×37 px, `fishMeetMainColor02` background).
+containers (37×37 px, `customizedUiMainColor02` background).
 
 #### Navigation overrides
 | Override file | What it customizes |

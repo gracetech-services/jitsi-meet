@@ -134,11 +134,11 @@ const MAX_HEIGHT = 400;
 const useStyles = makeStyles()(theme => {
     return {
         contextMenu: {
-            backgroundColor: theme.palette.fishMeetMainColor02, // fishmeet: was ui01
-            border: `1px solid ${theme.palette.fishMeetMainColor02}`, // fishmeet: was ui04
+            backgroundColor: theme.palette.customizedUiMainColor02, // fishmeet: was ui01
+            border: `1px solid ${theme.palette.customizedUiMainColor02}`, // fishmeet: was ui04
             borderRadius: `${Number(theme.shape.borderRadius)}px`,
             boxShadow: '0px 1px 2px rgba(41, 41, 41, 0.25)',
-            color: theme.palette.fishMeetText03, // fishmeet: was text01
+            color: theme.palette.customizedUiText03, // fishmeet: was text01
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
             marginTop: '48px',
             position: 'absolute',
