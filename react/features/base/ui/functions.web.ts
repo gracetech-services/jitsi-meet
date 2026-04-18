@@ -5,21 +5,21 @@ import { ITypography, IPalette as Palette1 } from '../ui/types';
 
 import { createColorTokens, createTypographyTokens } from './utils';
 
-/* fishmeet custom palette */
-type IFishMeetCustomPalette = {
-    fishMeetAction01: string;
-    fishMeetMainColor01: string;
-    fishMeetMainColor02: string;
-    fishMeetText01: string;
-    fishMeetText02: string;
-    fishMeetText03: string;
-    fishMeetUiBackground: string;
-    fishMeetUiSecBackground: string;
+/* GraceTech custom palette */
+type GraceTechCustomizedPalette = {
+    customizedUiAction01: string;
+    customizedUiBackground: string;
+    customizedUiMainColor01: string;
+    customizedUiMainColor02: string;
+    customizedUiSecBackground: string;
+    customizedUiText01: string;
+    customizedUiText02: string;
+    customizedUiText03: string;
 };
 
 declare module '@mui/material/styles' {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface Palette extends Palette1, IFishMeetCustomPalette {} // fishmeet: add IFishMeetCustomPalette
+    interface Palette extends Palette1, GraceTechCustomizedPalette {} // fishmeet: add GraceTechCustomizedPalette
 
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface TypographyVariants extends ITypography {}
