@@ -123,11 +123,11 @@ const useStyles = makeStyles()(theme => {
             },
 
             '&:hover': {
-                backgroundColor: theme.palette.fishMeetAction01 // fishmeet: was ui02
+                backgroundColor: theme.palette.customizedUiAction01 // fishmeet: was ui02
             },
 
             '&:active': {
-                backgroundColor: theme.palette.ui03
+                backgroundColor: theme.palette.customizedUiAction01 // fishmeet: was ui03
             },
 
             '&.focus-visible': {
@@ -138,7 +138,7 @@ const useStyles = makeStyles()(theme => {
         selected: {
             borderLeft: `3px solid ${theme.palette.action01Hover}`,
             paddingLeft: '13px',
-            backgroundColor: theme.palette.fishMeetAction01 // fishmeet: was ui02
+            backgroundColor: theme.palette.customizedUiAction01 // fishmeet: was ui02
         },
 
         contextMenuItemDisabled: {
@@ -147,7 +147,7 @@ const useStyles = makeStyles()(theme => {
 
         contextMenuItemIconDisabled: {
             '& svg': {
-                fill: `${theme.palette.fishMeetText01} !important`
+                fill: `${theme.palette.customizedUiText01} !important`
             }
         },
 
@@ -175,7 +175,7 @@ const useStyles = makeStyles()(theme => {
 
         text: {
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
-            color: theme.palette.fishMeetText01 // fishmeet: was icon01
+            color: theme.palette.customizedUiText01 // fishmeet: was icon01
         },
 
         drawerText: {

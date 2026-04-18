@@ -465,6 +465,13 @@ svg {
     .participants-pane-context-menu-stop-video & {
         fill: transparent !important;
     }
+
+    /* Chat tab icon color */
+    #polls-tab &,
+    #chat-tab & {
+        color: #E7EEF2 !important;
+        fill: #E7EEF2 !important;
+    }
 }
 
 
@@ -492,4 +499,53 @@ svg {
         height: calc(100% - 10px);
         width: calc(100% - 10px);
     }
+}
+
+/* Base dialog modal */
+.base-dialog-modal {
+    #modal-header-close-button:hover {
+        background-color: transparent;
+    }
+
+    /* Dialog footer buttons center */
+    .dialog-footer {
+        justify-content: center;
+    }
+
+    /* Dialog footer buttons style */
+    button[type="button"],
+    button[type="button"]:hover,
+    button[type="submit"],
+    button[type="submit"]:hover {
+        color: #424350;
+        background-color: #E7EEF2;
+        border-radius: 20px;
+        min-width: 8em;
+    }
+}
+
+.context-menu {
+
+    /* Context menu checkbox color */
+    .form-control-checkbox,
+    td {
+        color: #424350;
+    }
+}
+
+/* Chat input container icon color */
+.chat-input-container button .jitsi-icon {
+    color: transparent;
+
+    svg {
+        fill: #424350;
+    }
+}
+
+/* Base dialog modal form control input color */
+.base-dialog-modal .form-ctrl-input {
+    background-color: transparent;
+    color: #424350;
+    box-shadow: 0px 0px 0px 1px #424350;
+    border-radius: 20px;
 }

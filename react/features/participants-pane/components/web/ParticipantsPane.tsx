@@ -48,7 +48,7 @@ interface IStylesProps {
 const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
     return {
         participantsPane: {
-            backgroundColor: theme.palette.fishMeetUiBackground, // fishmeet: was ui01
+            backgroundColor: theme.palette.customizedUiBackground, // fishmeet: was ui01
             flexShrink: 0,
             position: 'relative',
             transition: 'width .16s ease-in-out',
