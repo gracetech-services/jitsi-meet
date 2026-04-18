@@ -50,7 +50,7 @@ const useStyles = makeStyles()(theme => {
         },
 
         label: {
-            color: theme.palette.fishMeetText01, // fishmeet: was text01
+            color: theme.palette.customizedUiText01, // fishmeet: was text01
             ...withPixelLineHeight(theme.typography.bodyShortRegular),
             marginBottom: theme.spacing(2),
 
@@ -65,8 +65,8 @@ const useStyles = makeStyles()(theme => {
         },
 
         input: {
-            backgroundColor: theme.palette.fishMeetUiSecBackground, // fishmeet: was ui03
-            background: theme.palette.fishMeetUiSecBackground, // fishmeet: was ui03
+            backgroundColor: theme.palette.customizedUiSecBackground, // fishmeet: was ui03
+            background: theme.palette.customizedUiSecBackground, // fishmeet: was ui03
             boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`, // fishmeet: was nil
             color: theme.palette.text01,
             ...withPixelLineHeight(theme.typography.bodyShortRegular),

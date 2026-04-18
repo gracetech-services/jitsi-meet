@@ -25,7 +25,7 @@ const useStyles = makeStyles()(theme => {
         },
 
         title: {
-            color: theme.palette.fishMeetText01, // fishmeet: was theme.palette.text01,
+            color: theme.palette.customizedUiText01, // fishmeet: was theme.palette.text01,
             ...withPixelLineHeight(theme.typography.heading5),
             margin: 0,
             padding: 0
