@@ -105,8 +105,6 @@ export function setNotificationsEnabled(enabled: boolean) {
  * }}
  */
 export function setBreakoutRoomParticipant(participants: IRoom['participants']) {
-    console.log('[GTS] notifications setBreakoutRoomParticipant:', participants);
-
     return {
         type: SET_BREAKOUT_ROOM_PARTICIPANT,
         participants

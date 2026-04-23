@@ -70,7 +70,7 @@ ReducerRegistry.register<INotificationsState>('features/notifications',
             };
 
         /**
-         * Sets the breakout room participants.
+         * Sets the breakout room participant.
          *
          * @param {IRoom['participants']} participants - The breakout room participants.
          * @returns {Object}
