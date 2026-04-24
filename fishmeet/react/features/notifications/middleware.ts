@@ -29,7 +29,7 @@ import {
 import {
     clearNotifications,
     hideNotification,
-    setBreakoutRoomParticipant,
+    setBreakoutRoomParticipants,
     showNotification,
     showParticipantJoinedNotification,
     showParticipantLeftNotification
@@ -236,7 +236,7 @@ StateListenerRegistry.register(
                     breakoutRoomParticipants
                 });
 
-                dispatch(setBreakoutRoomParticipant(breakoutRoomParticipants));
+                dispatch(setBreakoutRoomParticipants(breakoutRoomParticipants));
             }, 3000, {
                 leading: false,
                 trailing: true

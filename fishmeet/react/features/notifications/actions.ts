@@ -95,16 +95,16 @@ export function setNotificationsEnabled(enabled: boolean) {
 }
 
 /**
- * The type of (redux) action which signals that the breakout room participant
+ * The type of (redux) action which signals that the breakout room participants
  * should be updated.
  *
- * @param {Object} participants - The breakout room participant.
+ * @param {Object} participants - The breakout room participants.
  * @returns {{
- *     type: SET_BREAKOUT_ROOM_PARTICIPANT,
- *     participant: Object
+ *     type: SET_BREAKOUT_ROOM_PARTICIPANTS,
+ *     participants: Object
  * }}
  */
-export function setBreakoutRoomParticipant(participants: IRoom['participants']) {
+export function setBreakoutRoomParticipants(participants: IRoom['participants']) {
     return {
         type: SET_BREAKOUT_ROOM_PARTICIPANTS,
         participants
