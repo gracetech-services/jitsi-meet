@@ -1,3 +1,5 @@
+export const FEATURE_KEY = 'features/notifications';
+
 /**
  * The standard time when auto-disappearing notifications should disappear.
  */

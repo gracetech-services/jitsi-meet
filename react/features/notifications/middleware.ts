@@ -1,5 +1,8 @@
+import { throttle, values } from 'lodash-es';
+
 import { IReduxState, IStore } from '../app/types';
 import { getCurrentConference } from '../base/conference/functions';
+import { JitsiConferenceEvents } from '../base/lib-jitsi-meet';
 import {
     PARTICIPANT_JOINED,
     PARTICIPANT_LEFT,
@@ -15,6 +18,7 @@ import {
 } from '../base/participants/functions';
 import MiddlewareRegistry from '../base/redux/MiddlewareRegistry';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
+import type { IRooms } from '../breakout-rooms/types';
 import { PARTICIPANTS_PANE_OPEN } from '../participants-pane/actionTypes';
 
 import {
@@ -25,6 +29,7 @@ import {
 import {
     clearNotifications,
     hideNotification,
+    setBreakoutRoomParticipant,
     showNotification,
     showParticipantJoinedNotification,
     showParticipantLeftNotification
@@ -33,7 +38,8 @@ import {
     NOTIFICATION_TIMEOUT_TYPE,
     RAISE_HAND_NOTIFICATION_ID
 } from './constants';
-import { areThereNotifications, joinLeaveNotificationsDisabled } from './functions';
+import { areThereNotifications, isJoinFromBreakoutRoom, joinLeaveNotificationsDisabled } from './functions';
+import logger from './logger';
 
 /**
  * Map of timers.
@@ -131,6 +137,7 @@ MiddlewareRegistry.register(store => next => action => {
             && !isScreenShareParticipant(p)
             && !isWhiteboardParticipant(p)
             && !joinLeaveNotificationsDisabled()
+            && !isJoinFromBreakoutRoom(p, state)
             && !p.isReplacing) {
             dispatch(showParticipantJoinedNotification(
                 getParticipantDisplayName(state, p.id)
@@ -208,3 +215,31 @@ StateListenerRegistry.register(
         }
     }
 );
+
+/**
+ * StateListenerRegistry provides a reliable way to detect the breakout rooms updated event,
+ * where we need to update the breakout room participants.
+ */
+StateListenerRegistry.register(
+    state => state['features/base/conference'].conference,
+    (conference, { dispatch }, previousConference) => {
+        if (conference && !previousConference) {
+            conference.on(JitsiConferenceEvents.BREAKOUT_ROOMS_UPDATED, throttle((params: { rooms: IRooms; }) => {
+                const { rooms } = params;
+                const breakoutRoomParticipants = values(rooms).filter(room => !room.isMainRoom).reduce((acc, room) => ({
+                    ...acc,
+                    ...room?.participants
+                }), {});
+
+                logger.debug('[GTS] notifications Room Updated:', {
+                    rooms,
+                    breakoutRoomParticipants
+                });
+
+                dispatch(setBreakoutRoomParticipant(breakoutRoomParticipants));
+            }, 3000, {
+                leading: false,
+                trailing: true
+            }));
+        }
+    });

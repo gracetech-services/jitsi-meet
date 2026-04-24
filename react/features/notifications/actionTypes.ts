@@ -43,3 +43,14 @@ export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
  * }
  */
 export const SET_NOTIFICATIONS_ENABLED = 'SET_NOTIFICATIONS_ENABLED';
+
+/**
+ * The type of (redux) action which signals that the breakout room participant
+ * should be updated.
+ *
+ * {
+ *     type: SET_BREAKOUT_ROOM_PARTICIPANT,
+ *     participant: Object
+ * }
+ */
+export const SET_BREAKOUT_ROOM_PARTICIPANT = 'SET_BREAKOUT_ROOM_PARTICIPANT';

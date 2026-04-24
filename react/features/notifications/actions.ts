@@ -5,10 +5,12 @@ import { IConfig } from '../base/config/configType';
 import { NOTIFICATIONS_ENABLED } from '../base/flags/constants';
 import { getFeatureFlag } from '../base/flags/functions';
 import { getParticipantCount } from '../base/participants/functions';
+import { IRoom } from '../breakout-rooms/types';
 
 import {
     CLEAR_NOTIFICATIONS,
     HIDE_NOTIFICATION,
+    SET_BREAKOUT_ROOM_PARTICIPANT,
     SET_NOTIFICATIONS_ENABLED,
     SHOW_NOTIFICATION
 } from './actionTypes';
@@ -21,6 +23,7 @@ import {
     SILENT_LEFT_THRESHOLD
 } from './constants';
 import { INotificationProps } from './types';
+
 
 /**
  * Function that returns notification timeout value based on notification timeout type.
@@ -88,6 +91,23 @@ export function setNotificationsEnabled(enabled: boolean) {
     return {
         type: SET_NOTIFICATIONS_ENABLED,
         enabled
+    };
+}
+
+/**
+ * The type of (redux) action which signals that the breakout room participant
+ * should be updated.
+ *
+ * @param {Object} participants - The breakout room participant.
+ * @returns {{
+ *     type: SET_BREAKOUT_ROOM_PARTICIPANT,
+ *     participant: Object
+ * }}
+ */
+export function setBreakoutRoomParticipant(participants: IRoom['participants']) {
+    return {
+        type: SET_BREAKOUT_ROOM_PARTICIPANT,
+        participants
     };
 }
 

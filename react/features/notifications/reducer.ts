@@ -1,12 +1,15 @@
 import ReducerRegistry from '../base/redux/ReducerRegistry';
+import { IRoom } from '../breakout-rooms/types';
 
 import {
     CLEAR_NOTIFICATIONS,
     HIDE_NOTIFICATION,
+    SET_BREAKOUT_ROOM_PARTICIPANT,
     SET_NOTIFICATIONS_ENABLED,
     SHOW_NOTIFICATION
 } from './actionTypes';
 import { NOTIFICATION_TYPE_PRIORITIES } from './constants';
+
 
 /**
  * The initial state of the feature notifications.
@@ -15,7 +18,8 @@ import { NOTIFICATION_TYPE_PRIORITIES } from './constants';
  */
 const DEFAULT_STATE = {
     enabled: true,
-    notifications: []
+    notifications: [],
+    breakoutRoomParticipants: {}
 };
 
 interface INotification {
@@ -31,6 +35,7 @@ interface INotification {
 }
 
 export interface INotificationsState {
+    breakoutRoomParticipants: IRoom['participants'];
     enabled: boolean;
     notifications: INotification[];
 }
@@ -62,6 +67,18 @@ ReducerRegistry.register<INotificationsState>('features/notifications',
             return {
                 ...state,
                 enabled: action.enabled
+            };
+
+        /**
+         * Sets the breakout room participant.
+         *
+         * @param {IRoom['participants']} participants - The breakout room participants.
+         * @returns {Object}
+         */
+        case SET_BREAKOUT_ROOM_PARTICIPANT:
+            return {
+                ...state,
+                breakoutRoomParticipants: action.participants
             };
 
         case SHOW_NOTIFICATION:

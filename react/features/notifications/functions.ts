@@ -1,5 +1,8 @@
+import { find } from 'lodash-es';
+
 import { MODERATION_NOTIFICATIONS, MediaType } from '../av-moderation/constants';
 import { IStateful } from '../base/app/types';
+import { IParticipant } from '../base/participants/types';
 import { toState } from '../base/redux/functions';
 
 /**
@@ -38,4 +41,21 @@ export function isModerationNotificationDisplayed(mediaType: MediaType, stateful
     const { notifications } = state['features/notifications'];
 
     return Boolean(notifications.find(n => n.uid === MODERATION_NOTIFICATIONS[mediaType]));
+}
+
+/**
+ * Tells whether or not the participant participant is joining from a breakout room.
+ *
+ * @param {IParticipant} participant - The participant to check.
+ * @param {IStateful} stateful - The redux store state.
+ * @returns {boolean}
+ */
+export function isJoinFromBreakoutRoom(participant: IParticipant, stateful: IStateful): boolean {
+    const state = toState(stateful);
+
+    const { breakoutRoomParticipants } = state['features/notifications'];
+
+    const _isJoinFromBreakoutRoom = !!find(breakoutRoomParticipants, { displayName: participant.name });
+
+    return _isJoinFromBreakoutRoom;
 }
