@@ -53,14 +53,9 @@ export function isModerationNotificationDisplayed(mediaType: MediaType, stateful
  */
 export function isJoinFromBreakoutRoom(participant: IParticipant, stateful: IStateful): boolean {
     const state = toState(stateful);
-
     const { breakoutRoomParticipants } = state['features/notifications'];
 
-    const displayName = getParticipantDisplayName(stateful, participant.id);
-
-    console.log('[GTS isJoinFromBreakoutRoom]', { displayName });
-
-    const _isJoinFromBreakoutRoom = !!find(breakoutRoomParticipants, { displayName });
+    const _isJoinFromBreakoutRoom = !!find(breakoutRoomParticipants, { displayName: getParticipantDisplayName(stateful, participant.id) });
 
     return _isJoinFromBreakoutRoom;
 }
