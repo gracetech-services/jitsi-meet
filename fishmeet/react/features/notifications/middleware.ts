@@ -131,11 +131,6 @@ MiddlewareRegistry.register(store => next => action => {
         const { participant: p } = action;
         const { conference } = state['features/base/conference'];
 
-        console.log('[GTS notifications middleware] PARTICIPANT_JOINED', {
-            action,
-            participant: p
-        });
-
         // Do not display notifications for the virtual screenshare and whiteboard tiles.
         if (conference
             && !p.local
