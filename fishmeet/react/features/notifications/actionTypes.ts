@@ -49,8 +49,8 @@ export const SET_NOTIFICATIONS_ENABLED = 'SET_NOTIFICATIONS_ENABLED';
  * should be updated.
  *
  * {
- *     type: SET_BREAKOUT_ROOM_PARTICIPANT,
- *     participant: Object
+ *     type: SET_BREAKOUT_ROOM_PARTICIPANTS,
+ *     participants: IRoom['participants']
  * }
  */
-export const SET_BREAKOUT_ROOM_PARTICIPANT = 'SET_BREAKOUT_ROOM_PARTICIPANT';
+export const SET_BREAKOUT_ROOM_PARTICIPANTS = 'SET_BREAKOUT_ROOM_PARTICIPANTS';

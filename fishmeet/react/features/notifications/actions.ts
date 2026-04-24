@@ -10,7 +10,7 @@ import { IRoom } from '../breakout-rooms/types';
 import {
     CLEAR_NOTIFICATIONS,
     HIDE_NOTIFICATION,
-    SET_BREAKOUT_ROOM_PARTICIPANT,
+    SET_BREAKOUT_ROOM_PARTICIPANTS,
     SET_NOTIFICATIONS_ENABLED,
     SHOW_NOTIFICATION
 } from './actionTypes';
@@ -106,7 +106,7 @@ export function setNotificationsEnabled(enabled: boolean) {
  */
 export function setBreakoutRoomParticipant(participants: IRoom['participants']) {
     return {
-        type: SET_BREAKOUT_ROOM_PARTICIPANT,
+        type: SET_BREAKOUT_ROOM_PARTICIPANTS,
         participants
     };
 }

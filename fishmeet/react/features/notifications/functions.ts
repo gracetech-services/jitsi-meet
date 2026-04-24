@@ -2,6 +2,7 @@ import { find } from 'lodash-es';
 
 import { MODERATION_NOTIFICATIONS, MediaType } from '../av-moderation/constants';
 import { IStateful } from '../base/app/types';
+import { getParticipantDisplayName } from '../base/participants/functions';
 import { IParticipant } from '../base/participants/types';
 import { toState } from '../base/redux/functions';
 
@@ -55,7 +56,11 @@ export function isJoinFromBreakoutRoom(participant: IParticipant, stateful: ISta
 
     const { breakoutRoomParticipants } = state['features/notifications'];
 
-    const _isJoinFromBreakoutRoom = !!find(breakoutRoomParticipants, { displayName: participant.name });
+    const displayName = getParticipantDisplayName(stateful, participant.id);
+
+    console.log('[GTS isJoinFromBreakoutRoom]', { displayName });
+
+    const _isJoinFromBreakoutRoom = !!find(breakoutRoomParticipants, { displayName });
 
     return _isJoinFromBreakoutRoom;
 }
