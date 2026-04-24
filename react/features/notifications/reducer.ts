@@ -4,7 +4,7 @@ import { IRoom } from '../breakout-rooms/types';
 import {
     CLEAR_NOTIFICATIONS,
     HIDE_NOTIFICATION,
-    SET_BREAKOUT_ROOM_PARTICIPANT,
+    SET_BREAKOUT_ROOM_PARTICIPANTS,
     SET_NOTIFICATIONS_ENABLED,
     SHOW_NOTIFICATION
 } from './actionTypes';
@@ -75,7 +75,7 @@ ReducerRegistry.register<INotificationsState>('features/notifications',
          * @param {IRoom['participants']} participants - The breakout room participants.
          * @returns {Object}
          */
-        case SET_BREAKOUT_ROOM_PARTICIPANT:
+        case SET_BREAKOUT_ROOM_PARTICIPANTS:
             return {
                 ...state,
                 breakoutRoomParticipants: action.participants
