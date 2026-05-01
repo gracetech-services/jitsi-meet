@@ -1,6 +1,11 @@
 name: Lua CI
 
-on: [pull_request]
+on:
+  push:
+    branches: ["gracetech_master"]
+  pull_request:
+    branches: ["gracetech_master"]
+  workflow_dispatch:
 
 jobs:
   luacheck:
