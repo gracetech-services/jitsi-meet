@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -47,14 +47,12 @@ jobs:
         fi
     - run: npm run lint:ci && npm run tsc:ci
   frontend:
-    # disabled for gracetech to save GitHub action minutes
-    if: false
     name: Build Frontend
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [self-hosted]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -122,7 +120,7 @@ jobs:
     # disabled for gracetech to save GitHub action minutes
     if: false
     name: Build mobile SDK (Android)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: reactnativecommunity/react-native-android:v18.0
     steps:
     - uses: actions/checkout@v4
@@ -189,7 +187,7 @@ jobs:
     - run: ls -lR ios/sdk/out
   debian-build:
     name: Test Debian packages build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
