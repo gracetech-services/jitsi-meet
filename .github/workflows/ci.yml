@@ -51,13 +51,25 @@ jobs:
             rsync -r "fishmeet/react/" "react/"
         fi
     - run: npm run lint:ci && npm run tsc:ci
+  build-fishmeet-web:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+      - name: Build web
+        run: npm install && ./build.fishmeet.sh
   frontend:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Build Frontend
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [self-hosted]
+        os: [macos-latest, ubuntu-latest]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
