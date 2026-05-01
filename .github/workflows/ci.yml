@@ -203,6 +203,8 @@ jobs:
           -output ios/sdk/out/JitsiMeetSDK.xcframework
     - run: ls -lR ios/sdk/out
   debian-build:
+    # disabled for gracetech to save GitHub action minutes
+    if: false
     name: Test Debian packages build
     runs-on: self-hosted
     steps:
