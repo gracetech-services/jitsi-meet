@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -34,7 +34,7 @@ jobs:
     # disabled for gracetech to save GitHub action minutes
     if: false
     name: Build Frontend (Linux)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -60,7 +60,7 @@ jobs:
     # disabled for gracetech to save GitHub action minutes
     if: false
     name: Build mobile bundle (Android)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -95,7 +95,7 @@ jobs:
     - run: npx react-native bundle --entry-file react/index.native.js --platform ios --bundle-output /tmp/ios.bundle --reset-cache
   debian-build:
     name: Test Debian packages build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
