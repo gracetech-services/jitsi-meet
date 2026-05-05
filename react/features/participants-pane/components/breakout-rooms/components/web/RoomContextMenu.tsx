@@ -75,7 +75,7 @@ export const RoomContextMenu = ({
     }, [ dispatch, room ]);
 
     const onCloseBreakoutRoom = useCallback(() => {
-        dispatch(closeBreakoutRoom(room?.id ?? ''));
+        dispatch(removeBreakoutRoom(room?.jid ?? '')); // fishmeet: origin was dispatch(closeBreakoutRoom(room?.id ?? ''));
     }, [ dispatch, room ]);
 
     const isRoomEmpty = !(room?.participants && Object.keys(room.participants).length > 0);

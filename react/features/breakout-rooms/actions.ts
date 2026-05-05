@@ -11,6 +11,7 @@ import {
 } from '../base/conference/actions';
 import { CONFERENCE_LEAVE_REASONS } from '../base/conference/constants';
 import { getCurrentConference } from '../base/conference/functions';
+import { hangup } from '../base/connection/actions';
 import { setAudioMuted, setVideoMuted } from '../base/media/actions';
 import { MEDIA_TYPE } from '../base/media/constants';
 import { getRemoteParticipants } from '../base/participants/functions';
@@ -85,8 +86,10 @@ export function closeBreakoutRoom(roomId: string) {
                 prList.push(dispatch(sendParticipantToRoom(participant.jid, mainRoom.id)));
             });
 
-            // GTS: Return an asynchronous callback to make closeBreakoutRoom more predictable.
-            return Promise.all(prList);
+            // GTS: await an asynchronous callback to make closeBreakoutRoom more predictable.
+            await Promise.all(prList);
+
+            dispatch(removeBreakoutRoom(room.jid));
         }
     };
 }
@@ -127,9 +130,10 @@ export function removeBreakoutRoom(breakoutRoomJid: string) {
             return;
         }
 
-        if (Object.keys(room.participants).length > 0) {
-            await dispatch(closeBreakoutRoom(room.id));
-        }
+        // GTS: Close the room whatever it has participants.
+        // if (Object.keys(room.participants).length > 0) {
+        //     await dispatch(closeBreakoutRoom(room.id));
+        // }
 
         console.log('[GTS] getBreakoutRooms().removeBreakoutRoom: removing room', breakoutRoomJid);
 
@@ -338,4 +342,62 @@ function _findParticipantJid(getState: IStore['getState'], participantId: string
     }
 
     return participantJid;
+}
+
+let _rescueInProgress = false;
+
+export function rescueToMainRoom() {
+    return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
+        if (_rescueInProgress) {
+            logger.debug('Rescue in progress, skipping');
+
+            return;
+        }
+        _rescueInProgress = true;
+
+        try {
+            const mainRoomId = getMainRoom(getState)?.id;
+
+            if (!mainRoomId) {
+                logger.warn('Failed to rescue meeting to main meeting room: Main meeting room not found');
+                dispatch(hangup(true, i18next.t('dialog.sessTerminatedReason'), true));
+
+                return;
+            }
+
+            // Clear the sub-meeting room state
+            dispatch({ type: _RESET_BREAKOUT_ROOMS });
+
+            if (navigator.product === 'ReactNative') {
+                // Mobile process: Join the main meeting room if the sub-meeting room is destroyed
+                const { audio, video } = getState()['features/base/media'];
+
+                dispatch(clearNotifications());
+                dispatch(createConference(mainRoomId));
+                dispatch(setAudioMuted(audio.muted));
+                dispatch(setVideoMuted(Boolean(video.muted)));
+                dispatch(createDesiredLocalTracks());
+            } else {
+                // Web process: Attempt to leave the destroyed meeting room (failure may occur, which is normal)
+                try {
+                    await APP.conference.leaveRoom(
+                        false, CONFERENCE_LEAVE_REASONS.SWITCH_ROOM
+                    );
+                } catch (error) {
+                    logger.warn('Failed cue process: leaveRoom() failed (normal behavior when meeting room is destroyed):', error);
+                }
+
+                const localTracks = getLocalTracks(getState()['features/base/tracks']);
+
+                // Join the main meeting room
+                APP.conference.joinRoom(mainRoomId, {
+                    startWithAudioMuted: isLocalTrackMuted(localTracks, MEDIA_TYPE.AUDIO),
+                    startWithVideoMuted: isLocalTrackMuted(localTracks, MEDIA_TYPE.VIDEO)
+                });
+            }
+
+        } finally {
+            _rescueInProgress = false;
+        }
+    };
 }

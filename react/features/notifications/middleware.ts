@@ -77,6 +77,21 @@ const getNotifications = (state: IReduxState) => {
     return _visible ? notifications : [];
 };
 
+let suppressUntil = 0;
+
+StateListenerRegistry.register(
+    state =>
+        Object.values(state['features/breakout-rooms'].rooms ?? {}).filter(
+            (r: any) => !r.isMainRoom
+        ).length,
+    (count, _, prevCount) => {
+        if ((prevCount ?? 0) > count) {
+            suppressUntil = Date.now() + 5000;
+        }
+    }
+);
+
+
 /**
  * Middleware that captures actions to display notifications.
  *
@@ -131,7 +146,8 @@ MiddlewareRegistry.register(store => next => action => {
             && !isScreenShareParticipant(p)
             && !isWhiteboardParticipant(p)
             && !joinLeaveNotificationsDisabled()
-            && !p.isReplacing) {
+            && !p.isReplacing
+            && Date.now() > suppressUntil) {
             dispatch(showParticipantJoinedNotification(
                 getParticipantDisplayName(state, p.id)
             ));
