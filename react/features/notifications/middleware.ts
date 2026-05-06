@@ -29,6 +29,7 @@ import {
     showParticipantJoinedNotification,
     showParticipantLeftNotification
 } from './actions';
+import { recentlyLeftBreakout } from './breakoutNotifications';
 import {
     NOTIFICATION_TIMEOUT_TYPE,
     RAISE_HAND_NOTIFICATION_ID
@@ -132,6 +133,18 @@ MiddlewareRegistry.register(store => next => action => {
             && !isWhiteboardParticipant(p)
             && !joinLeaveNotificationsDisabled()
             && !p.isReplacing) {
+
+            const expiresAt = recentlyLeftBreakout.get(p.id);
+
+            if (expiresAt && expiresAt > Date.now()) {
+                // Returning from a breakout room — suppress.
+                return result;
+            }
+
+            if (expiresAt) {
+                recentlyLeftBreakout.delete(p.id);
+            }
+
             dispatch(showParticipantJoinedNotification(
                 getParticipantDisplayName(state, p.id)
             ));
