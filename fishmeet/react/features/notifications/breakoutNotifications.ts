@@ -1,5 +1,6 @@
 import { getCurrentConference } from '../base/conference/functions';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
+import { getBreakoutRooms } from '../breakout-rooms/functions';
 import { IRooms } from '../breakout-rooms/types';
 
 const SUPPRESS_NOTIFICATION_MS = 5000;
@@ -21,7 +22,7 @@ function collectBreakoutJids(rooms: IRooms | undefined): Set<string> {
 }
 
 StateListenerRegistry.register(
-    state => state['features/breakout-rooms'].rooms,
+    state => getBreakoutRooms(state),
     (rooms, _store, prevRooms) => {
         const prevJids = collectBreakoutJids(prevRooms);
         const currJids = collectBreakoutJids(rooms);
