@@ -1,13 +1,13 @@
 import { getCurrentConference } from '../base/conference/functions';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
-import { IRoom } from '../breakout-rooms/types';
+import { IRooms } from '../breakout-rooms/types';
 
 const SUPPRESS_NOTIFICATION_MS = 5000;
 
 // Map of resource-id (the part after '/' in a JID) → expiry timestamp.
 export const recentlyLeftBreakout = new Map<string, number>();
 
-function collectBreakoutJids(rooms: IRoom[] | undefined): Set<string> {
+function collectBreakoutJids(rooms: IRooms | undefined): Set<string> {
     const jids = new Set<string>();
 
     Object.values(rooms ?? {}).forEach((r: any) => {
