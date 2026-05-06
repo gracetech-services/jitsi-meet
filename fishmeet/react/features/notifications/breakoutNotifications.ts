@@ -1,3 +1,4 @@
+import { getCurrentConference } from '../base/conference/functions';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
 import { IRoom } from '../breakout-rooms/types';
 
@@ -33,5 +34,14 @@ StateListenerRegistry.register(
                 recentlyLeftBreakout.set(_jid, expiresAt);
             }
         });
+    }
+);
+
+StateListenerRegistry.register(
+    state => getCurrentConference(state),
+    conference => {
+        if (!conference) {
+            recentlyLeftBreakout.clear();
+        }
     }
 );
