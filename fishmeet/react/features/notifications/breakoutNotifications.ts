@@ -1,7 +1,7 @@
 import { getCurrentConference } from '../base/conference/functions';
 import StateListenerRegistry from '../base/redux/StateListenerRegistry';
 import { getBreakoutRooms } from '../breakout-rooms/functions';
-import { IRooms } from '../breakout-rooms/types';
+import { IRoom, IRooms } from '../breakout-rooms/types';
 
 const SUPPRESS_NOTIFICATION_MS = 5000;
 
@@ -11,7 +11,7 @@ export const recentlyLeftBreakout = new Map<string, number>();
 function collectBreakoutJids(rooms: IRooms | undefined): Set<string> {
     const jids = new Set<string>();
 
-    Object.values(rooms ?? {}).forEach((r: any) => {
+    Object.values(rooms ?? {}).forEach((r: IRoom) => {
         if (r?.isMainRoom) {
             return;
         }
