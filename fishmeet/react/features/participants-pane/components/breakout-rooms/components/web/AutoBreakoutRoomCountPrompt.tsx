@@ -46,7 +46,7 @@ const AutoBreakoutRoomCountPrompt = () => {
             assignRoomCount: roomCount,
             durationMs
         }));
-    }, [ roomCount ]);
+    }, [ roomCount, durationMin, dispatch ]);
 
     return (<Dialog
         ok = {{

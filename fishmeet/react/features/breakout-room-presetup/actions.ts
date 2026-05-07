@@ -19,7 +19,11 @@ import type { IBreakoutPayload, IMessageData } from './types';
  * @param {string} name - Room name, possibly containing encoding suffix.
  * @returns {string} Cleaned room name.
  */
-function stripTimeoutSuffix(name: string): string {
+function stripTimeoutSuffix(name: string | undefined | null): string {
+    if (!name) {
+        return '';
+    }
+
     const sepIdx = name.indexOf(TIMEOUT_SEPARATOR);
 
     return sepIdx === -1 ? name : name.slice(0, sepIdx);
@@ -194,7 +198,7 @@ export function executeBreakoutRoom(params?: { durationMs?: number; }) {
             }>, meetingRoom) => {
                 const targetRoom = meetingRoom.isMainRoom
                     ? getMainRoom(getState)
-                    : find(currentSubRooms, roomItem => stripTimeoutSuffix(roomItem.name) === stripTimeoutSuffix(meetingRoom.name ?? ''));
+                    : find(currentSubRooms, roomItem => stripTimeoutSuffix(roomItem.name) === stripTimeoutSuffix(meetingRoom.name));
 
                 if (!targetRoom) {
                     return result;
