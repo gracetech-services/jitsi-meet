@@ -1,7 +1,7 @@
 import Popover from '@mui/material/Popover';
 import React, { useState } from 'react';
-import { makeStyles } from 'tss-react/mui';
 import { useTranslation } from 'react-i18next';
+import { makeStyles } from 'tss-react/mui';
 
 import { withPixelLineHeight } from '../../../base/styles/functions.web';
 import { formatCountdown } from '../../functions';

@@ -86,20 +86,20 @@
             "joined": "正在加入\"{{name}}\"分组讨论室",
             "joinedMainRoom": "正在加入主会议室",
             "joinedTitle": "分组讨论室",
-            "timeUpTitle": "分组讨论室",
-            "timeUpDesc": "讨论时间已到"
+            "timeUpDesc": "讨论时间已到",
+            "timeUpTitle": "分组讨论室"
         },
         "prompts": {
             "EnterTotalRoom": "请输入分组讨论的房间总数"
         },
         "showParticipantList": "显示成员列表",
-        "title": "分组讨论室",
         "timer": {
             "remaining": "(剩余{{time}})",
-            "roomRemaining": "({{room}} 剩余{{time}})",
             "remainingNative": "（剩余{{time}}）",
+            "roomRemaining": "({{room}} 剩余{{time}})",
             "roomRemainingNative": "（{{room}} 剩余{{time}}）"
-        }
+        },
+        "title": "分组讨论室"
     },
     "calendarSync": {
         "addMeetingURL": "添加会议链接",
@@ -312,6 +312,8 @@
             "sharingTabs": "分享选项"
         },
         "add": "添加",
+        "addBreakoutRoomLabel": "分组讨论室名称",
+        "addBreakoutRoomTitle": "添加分组讨论室",
         "addMeetingNote": "添加本次会议的备注",
         "addOptionalNote": "添加备注（可选）：",
         "allow": "允许",
@@ -323,6 +325,8 @@
         "authenticationRequired": "需要身份验证",
         "autoBreakoutRoomCountLabel": "分组讨论室数量",
         "autoBreakoutRoomCountTitle": "自动分组讨论室",
+        "breakoutRoomDurationLabel": "持续时间（分钟）",
+        "breakoutRoomDurationPlaceholder": "留空表示无时间限制",
         "cameraConstraintFailedError": "你的摄像头未满足某些必要条件。",
         "cameraNotFoundError": "找不到摄像头",
         "cameraNotSendingData": "我们无法访问你的摄像头，请检查是否有其他应用程序正在使用此设备，从设置菜单中选择另一个设备，或尝试重新加载应用程序。",
@@ -449,10 +453,6 @@
         "removePassword": "移除$t(lockRoomPassword)",
         "removeSharedVideoMsg": "你确定要移除分享的视频吗？",
         "removeSharedVideoTitle": "移除共享的视频",
-        "addBreakoutRoomLabel": "分组讨论室名称",
-        "addBreakoutRoomTitle": "添加分组讨论室",
-        "breakoutRoomDurationLabel": "持续时间（分钟）",
-        "breakoutRoomDurationPlaceholder": "留空表示无时间限制",
         "renameBreakoutRoomLabel": "分组讨论室名称",
         "renameBreakoutRoomTitle": "重命名分组讨论室",
         "reservationError": "预定系统错误",

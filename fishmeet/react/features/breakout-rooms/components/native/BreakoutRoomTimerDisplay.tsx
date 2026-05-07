@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { AppState, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { AppState, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 import { formatCountdown } from '../../functions';

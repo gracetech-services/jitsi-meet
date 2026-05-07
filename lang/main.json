@@ -86,20 +86,20 @@
             "joined": "Joining the \"{{name}}\" breakout room",
             "joinedMainRoom": "Joining the main room",
             "joinedTitle": "Breakout Rooms",
-            "timeUpTitle": "Breakout Rooms",
-            "timeUpDesc": "Discussion time is up"
+            "timeUpDesc": "Discussion time is up",
+            "timeUpTitle": "Breakout Rooms"
         },
         "prompts": {
             "EnterTotalRoom": "Enter total number of rooms for breakout"
         },
         "showParticipantList": "Show participant list",
-        "title": "Breakout Rooms",
         "timer": {
             "remaining": "(Remaining {{time}})",
-            "roomRemaining": "({{room}} Remaining {{time}})",
             "remainingNative": "（Remaining {{time}}）",
+            "roomRemaining": "({{room}} Remaining {{time}})",
             "roomRemainingNative": "（{{room}} Remaining {{time}}）"
-        }
+        },
+        "title": "Breakout Rooms"
     },
     "calendarSync": {
         "addMeetingURL": "Add a meeting link",
@@ -312,6 +312,8 @@
             "sharingTabs": "Sharing options"
         },
         "add": "Add",
+        "addBreakoutRoomLabel": "Room name",
+        "addBreakoutRoomTitle": "Add breakout room",
         "addMeetingNote": "Add a note about this meeting",
         "addOptionalNote": "Add a note (optional):",
         "allow": "Allow",
@@ -323,6 +325,8 @@
         "authenticationRequired": "Authentication required",
         "autoBreakoutRoomCountLabel": "Number of breakout rooms",
         "autoBreakoutRoomCountTitle": "Auto breakout rooms",
+        "breakoutRoomDurationLabel": "Duration (minutes)",
+        "breakoutRoomDurationPlaceholder": "Leave empty for no time limit",
         "cameraCaptureDialog": {
             "description": "Take and send a picture using your mobile camera",
             "ok": "Open camera",
@@ -467,10 +471,6 @@
         "removePassword": "Remove $t(lockRoomPassword)",
         "removeSharedVideoMsg": "Are you sure you would like to remove your shared video?",
         "removeSharedVideoTitle": "Remove shared video",
-        "addBreakoutRoomLabel": "Room name",
-        "addBreakoutRoomTitle": "Add breakout room",
-        "breakoutRoomDurationLabel": "Duration (minutes)",
-        "breakoutRoomDurationPlaceholder": "Leave empty for no time limit",
         "renameBreakoutRoomLabel": "Room name",
         "renameBreakoutRoomTitle": "Rename breakout room",
         "reservationError": "Reservation system error",
