@@ -30,6 +30,7 @@ export type IPresetBreakoutRoomsState = {
     availableToSetup: {
         cleanRoomReady: boolean;
         createRoomReady: boolean;
+        durationMs?: number;
         participantsReady: boolean;
     };
     enablePresetBreakoutRoom: boolean;

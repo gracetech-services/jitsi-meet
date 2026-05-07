@@ -83,15 +83,23 @@
         "hideParticipantList": "隐藏成员列表",
         "mainRoom": "主会议室",
         "notifications": {
-            "joined": "正在加入“{{name}}”分组讨论室",
+            "joined": "正在加入\"{{name}}\"分组讨论室",
             "joinedMainRoom": "正在加入主会议室",
-            "joinedTitle": "分组讨论室"
+            "joinedTitle": "分组讨论室",
+            "timeUpTitle": "分组讨论室",
+            "timeUpDesc": "讨论时间已到"
         },
         "prompts": {
             "EnterTotalRoom": "请输入分组讨论的房间总数"
         },
         "showParticipantList": "显示成员列表",
-        "title": "分组讨论室"
+        "title": "分组讨论室",
+        "timer": {
+            "remaining": "(剩余{{time}})",
+            "roomRemaining": "({{room}} 剩余{{time}})",
+            "remainingNative": "（剩余{{time}}）",
+            "roomRemainingNative": "（{{room}} 剩余{{time}}）"
+        }
     },
     "calendarSync": {
         "addMeetingURL": "添加会议链接",
@@ -441,6 +449,10 @@
         "removePassword": "移除$t(lockRoomPassword)",
         "removeSharedVideoMsg": "你确定要移除分享的视频吗？",
         "removeSharedVideoTitle": "移除共享的视频",
+        "addBreakoutRoomLabel": "分组讨论室名称",
+        "addBreakoutRoomTitle": "添加分组讨论室",
+        "breakoutRoomDurationLabel": "持续时间（分钟）",
+        "breakoutRoomDurationPlaceholder": "留空表示无时间限制",
         "renameBreakoutRoomLabel": "分组讨论室名称",
         "renameBreakoutRoomTitle": "重命名分组讨论室",
         "reservationError": "预定系统错误",

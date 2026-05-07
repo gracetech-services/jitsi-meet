@@ -4,6 +4,7 @@ export const CONFERENCE_INFO = {
         'highlight-moment',
         'subject',
         'conference-timer',
+        'breakout-room-timer',
         'participants-count',
         'e2ee',
         'transcribing',

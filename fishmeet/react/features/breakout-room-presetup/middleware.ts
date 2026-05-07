@@ -80,11 +80,11 @@ StateListenerRegistry.register(
                 });
 
                 if (availableToSetup.participantsReady && availableToSetup.cleanRoomReady && !availableToSetup.createRoomReady) {
-                    dispatch(prepareBreakoutRoom());
+                    dispatch(prepareBreakoutRoom({ durationMs: availableToSetup.durationMs }));
                 }
 
                 if (availableToSetup.participantsReady && availableToSetup.cleanRoomReady && availableToSetup.createRoomReady) {
-                    dispatch(executeBreakoutRoom());
+                    dispatch(executeBreakoutRoom({ durationMs: availableToSetup.durationMs }));
                 }
             });
         }

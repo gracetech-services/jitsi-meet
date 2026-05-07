@@ -85,13 +85,21 @@
         "notifications": {
             "joined": "正在加入「{{name}}」分組討論室",
             "joinedMainRoom": "正在加入主會議室",
-            "joinedTitle": "分組討論室"
+            "joinedTitle": "分組討論室",
+            "timeUpTitle": "分組討論室",
+            "timeUpDesc": "討論時間已到"
         },
         "prompts": {
             "EnterTotalRoom": "請輸入分組討論的房間總數"
         },
         "showParticipantList": "顯示與會者列表",
-        "title": "分組討論室"
+        "title": "分組討論室",
+        "timer": {
+            "remaining": "(剩餘{{time}})",
+            "roomRemaining": "({{room}} 剩餘{{time}})",
+            "remainingNative": "（剩餘{{time}}）",
+            "roomRemainingNative": "（{{room}} 剩餘{{time}}）"
+        }
     },
     "calendarSync": {
         "addMeetingURL": "增加會議連結",
@@ -441,6 +449,10 @@
         "removePassword": "移除 $t(lockRoomPassword)",
         "removeSharedVideoMsg": "您確定要移除您分享的影像嗎？",
         "removeSharedVideoTitle": "移除分享的影像",
+        "addBreakoutRoomLabel": "分組討論室名稱",
+        "addBreakoutRoomTitle": "添加分組討論室",
+        "breakoutRoomDurationLabel": "持續時間（分鐘）",
+        "breakoutRoomDurationPlaceholder": "留空表示無限制",
         "renameBreakoutRoomLabel": "分組討論室名稱",
         "renameBreakoutRoomTitle": "重新命名分組討論室",
         "reservationError": "預約系統錯誤",

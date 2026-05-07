@@ -20,6 +20,8 @@ import '../base/testing/middleware';
 import '../base/tracks/middleware';
 import '../base/user-interaction/middleware';
 import '../breakout-rooms/middleware';
+import '../breakout-rooms/safetyNet'; // fishmeet breakoutRoomTimer safety-net
+import '../breakout-room-presetup/middleware'; // fishmeet register breakout room timer
 import '../calendar-sync/middleware';
 import '../chat/middleware';
 import '../conference/middleware';

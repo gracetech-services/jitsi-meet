@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
 
 import { IReduxState } from '../../app/types';
+import { openDialog } from '../../base/dialog/actions';
 import { getLocalParticipant, getRemoteParticipants } from '../../base/participants/functions';
 import { toState } from '../../base/redux/functions';
 import Button from '../../base/ui/components/web/Button';
@@ -14,8 +15,9 @@ import { getBreakoutRooms, getRoomsInfo } from '../../breakout-rooms/functions';
 import logger from '../../breakout-rooms/logger';
 import { getSortedParticipantIds } from '../../participants-pane/functions';
 import { getVisitorsList } from '../../visitors/functions';
-import { triggerBreakoutRoom } from '../actions';
 import { getAllParticipants, getPresetBreakoutRoomData } from '../functions';
+
+import LoadPresetBreakoutRoomDialog from './LoadPresetBreakoutRoomDialog';
 
 const useStyles = makeStyles()(theme => {
     return {
@@ -66,7 +68,7 @@ export const LoadPresetBreakoutRoomButton = () => {
             return dispatch(triggerRemoveAllRooms());
         }
 
-        dispatch(triggerBreakoutRoom());
+        dispatch(openDialog(LoadPresetBreakoutRoomDialog));
     }, [
         availableToSetup,
         rooms,

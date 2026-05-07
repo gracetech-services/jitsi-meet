@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { IReduxState, IStore } from '../../../app/types';
 import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
+// fishmeet register breakout room timer
+import BreakoutRoomTimer from '../../../breakout-rooms/components/BreakoutRoomTimer';
 import E2EELabel from '../../../e2ee/components/E2EELabel';
 import HighlightButton from '../../../recording/components/Recording/web/HighlightButton';
 import RecordingLabel from '../../../recording/components/web/RecordingLabel';
@@ -60,6 +62,10 @@ const COMPONENTS: Array<{
     {
         Component: ConferenceTimer,
         id: 'conference-timer'
+    },
+    { // fishmeet register breakout room timer
+        Component: BreakoutRoomTimer,
+        id: 'breakout-room-timer'
     },
     {
         Component: SpeakerStatsLabel,

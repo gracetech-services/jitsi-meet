@@ -85,13 +85,21 @@
         "notifications": {
             "joined": "Joining the \"{{name}}\" breakout room",
             "joinedMainRoom": "Joining the main room",
-            "joinedTitle": "Breakout Rooms"
+            "joinedTitle": "Breakout Rooms",
+            "timeUpTitle": "Breakout Rooms",
+            "timeUpDesc": "Discussion time is up"
         },
         "prompts": {
             "EnterTotalRoom": "Enter total number of rooms for breakout"
         },
         "showParticipantList": "Show participant list",
-        "title": "Breakout Rooms"
+        "title": "Breakout Rooms",
+        "timer": {
+            "remaining": "(Remaining {{time}})",
+            "roomRemaining": "({{room}} Remaining {{time}})",
+            "remainingNative": "（Remaining {{time}}）",
+            "roomRemainingNative": "（{{room}} Remaining {{time}}）"
+        }
     },
     "calendarSync": {
         "addMeetingURL": "Add a meeting link",
@@ -459,6 +467,10 @@
         "removePassword": "Remove $t(lockRoomPassword)",
         "removeSharedVideoMsg": "Are you sure you would like to remove your shared video?",
         "removeSharedVideoTitle": "Remove shared video",
+        "addBreakoutRoomLabel": "Room name",
+        "addBreakoutRoomTitle": "Add breakout room",
+        "breakoutRoomDurationLabel": "Duration (minutes)",
+        "breakoutRoomDurationPlaceholder": "Leave empty for no time limit",
         "renameBreakoutRoomLabel": "Room name",
         "renameBreakoutRoomTitle": "Rename breakout room",
         "reservationError": "Reservation system error",

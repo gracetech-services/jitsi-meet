@@ -113,8 +113,8 @@ export function prepareReassignRemove(params: { assignRoomCount: number; }) {
     };
 }
 
-export function launchAutoSetup(params: { assignRoomCount: number; }) {
-    const { assignRoomCount } = params;
+export function launchAutoSetup(params: { assignRoomCount: number; durationMs?: number; }) {
+    const { assignRoomCount, durationMs } = params;
 
     return async (dispatch: IStore['dispatch'], getState: IStore['getState'],) => {
         const state = getState();
@@ -131,7 +131,8 @@ export function launchAutoSetup(params: { assignRoomCount: number; }) {
 
         if (assignRoomCount > subRoomsSize) {
             dispatch(prepareReassignAdd({
-                assignRoomCount: assignRoomCount - subRoomsSize
+                assignRoomCount: assignRoomCount - subRoomsSize,
+                durationMs,
             }));
         } else if (assignRoomCount === subRoomsSize) {
             dispatch(autoAssignToBreakoutRooms());
@@ -143,9 +144,9 @@ export function launchAutoSetup(params: { assignRoomCount: number; }) {
     };
 }
 
-export function prepareReassignAdd(params: { assignRoomCount: number; }) {
+export function prepareReassignAdd(params: { assignRoomCount: number; durationMs?: number; }) {
     return async (dispatch: IStore['dispatch'], _getState: IStore['getState']) => {
-        await Promise.all(Array.from({ length: params.assignRoomCount }, () => dispatch(createBreakoutRoom())));
+        await Promise.all(Array.from({ length: params.assignRoomCount }, () => dispatch(createBreakoutRoom(undefined, params.durationMs))));
 
         dispatch(availableReassign({
             participantsReady: true,
