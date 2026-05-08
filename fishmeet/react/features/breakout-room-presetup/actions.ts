@@ -108,8 +108,9 @@ export function triggerBreakoutRoom(params?: { durationMs?: number; }) {
         logger.debug('[GTS-PBR] triggerBreakoutRoom', { meetingData });
 
         // 1、Send participants who are not in the preset rooms back to the main room.
+        const strippedPresetNames = presetSubRoomNameList.map(stripTimeoutSuffix);
         const toCleanSubRooms = filter(getBreakoutRooms(getState), room => !room.isMainRoom)
-            .filter(room => !presetSubRoomNameList.map(stripTimeoutSuffix).includes(stripTimeoutSuffix(room.name)));
+            .filter(room => !strippedPresetNames.includes(stripTimeoutSuffix(room.name)));
 
         const mainRoom = getMainRoom(getState);
 
@@ -235,8 +236,9 @@ export function executeBreakoutRoom(params?: { durationMs?: number; }) {
 
         // 5、Remove rooms that are not in the preset data
         const presetSubRoomNameList = filter(meetingData, room => !room.isMainRoom).map(room => room.name as string);
+        const strippedPresetNames = presetSubRoomNameList.map(stripTimeoutSuffix);
         const toCleanSubRooms = filter(getBreakoutRooms(getState), room => !room.isMainRoom)
-            .filter(room => !presetSubRoomNameList.map(stripTimeoutSuffix).includes(stripTimeoutSuffix(room.name)));
+            .filter(room => !strippedPresetNames.includes(stripTimeoutSuffix(room.name)));
 
         await Promise.all(map(toCleanSubRooms, room => dispatch(removeBreakoutRoom(room.jid))));
 
