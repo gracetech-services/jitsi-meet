@@ -71,6 +71,9 @@ const BreakoutRoomTimer = ({ textStyle }: IProps) => {
     // Track whether has expired, to prevent duplicate dispatch.
     const hasExpired = useRef(false);
 
+    // Track the setTimeout ID that returns automatically upon expiration, and clear it when the component unmounts
+    const autoReturnTimeout = useRef<ReturnType<typeof setTimeout>>();
+
     // Track latest inBreakoutRoom status, to validate participant presence.
     const inBreakoutRoomRef = useRef(inBreakoutRoom);
 
@@ -102,8 +105,10 @@ const BreakoutRoomTimer = ({ textStyle }: IProps) => {
                     appearance: NOTIFICATION_TYPE.WARNING
                 }, NOTIFICATION_TIMEOUT_TYPE.SHORT));
 
-                // setTimeout callback validates participant presence, to avoid duplicate dispatch moveToRoom
-                setTimeout(() => {
+                // fix: Verify in the setTimeout callback that the participant is still in the assigned room,
+                // Prevent repeated dispatch of moveToRoom after being relocated by the safety net
+                autoReturnTimeout.current = setTimeout(() => {
+                    autoReturnTimeout.current = undefined;
                     if (inBreakoutRoomRef.current) {
                         dispatch(moveToRoom());
                     }
@@ -168,12 +173,15 @@ const BreakoutRoomTimer = ({ textStyle }: IProps) => {
         // Immediately execute one update tick
         updateTimer();
 
-        // D-15: global setInterval, no window. prefix
+        // global setInterval, no window. prefix
         interval.current = setInterval(updateTimer, 1000);
 
         return () => {
             if (interval.current) {
                 clearInterval(interval.current);
+            }
+            if (autoReturnTimeout.current) {
+                clearTimeout(autoReturnTimeout.current);
             }
         };
     }, [ updateTimer ]);
