@@ -21,11 +21,11 @@ export const TIMEOUT_SEPARATOR = '\uE000';
 export const SAFETY_GRACE_MS = 5000;
 
 /**
- * Fishmeet: The countdown text turns red when the remaining time is below this threshold (milliseconds).
+ * Fishmeet: The countdown text turns red when the remaining time is below this threshold, in milliseconds.
  */
 export const WARNING_THRESHOLD_MS = 60000;
 
 /**
- * Fishmeet: Delay for auto-return to main room after countdown reaches zero (milliseconds).
+ * Fishmeet: Delay for auto-return to main room after countdown reaches zero, in milliseconds.
  */
 export const AUTO_RETURN_DELAY_MS = 1500;
