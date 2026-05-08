@@ -18,7 +18,8 @@ export default function CreateBreakoutRoomDialog() {
     const dispatch = useDispatch();
 
     const onSubmit = useCallback(() => {
-        const durationMs = durationMin ? parseInt(durationMin, 10) * 60000 : undefined;
+        const duration = parseInt(durationMin, 10);
+        const durationMs = !isNaN(duration) && duration > 0 ? duration * 60000 : undefined;
 
         dispatch(createBreakoutRoom(roomName.trim() || undefined, durationMs));
     }, [ roomName, durationMin, dispatch ]);

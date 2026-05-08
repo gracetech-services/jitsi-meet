@@ -241,6 +241,10 @@ export const getCurrentRoomExpiresAt = (stateful: IStateful): number | undefined
  * @returns {string} Formatted countdown string: mm:ss or h:mm:ss.
  */
 export const formatCountdown = (ms: number): string => {
+    if (isNaN(ms) || ms < 0) {
+        return '';
+    }
+
     const totalSeconds = Math.max(0, Math.floor(ms / 1000));
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);

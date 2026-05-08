@@ -38,7 +38,11 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
             parsedRooms[key] = sepIdx === -1 ? room : {
                 ...room,
                 name: room.name.slice(0, sepIdx),
-                expiresAt: Number(room.name.slice(sepIdx + 1)) || undefined
+                expiresAt: (() => {
+                    const val = Number(room.name.slice(sepIdx + 1));
+
+                    return (!isNaN(val) && val > 0) ? val : undefined;
+                })()
             };
         });
 

@@ -60,6 +60,7 @@ const AutoBreakoutRoomCountPrompt = () => {
             className = 'dialog-bottom-margin'
             id = 'breakout-rooms-count-input'
             label = { t('dialog.autoBreakoutRoomCountLabel') }
+            maxValue = { 10 }
             minValue = { 1 }
             mode = 'numeric'
             name = 'breakoutRoomCount'
