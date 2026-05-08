@@ -1,5 +1,5 @@
 import Popover from '@mui/material/Popover';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
 
@@ -86,13 +86,20 @@ export default function BreakoutRoomTimerDisplay({
         && roomsWithExpiry
         && roomsWithExpiry.length > 1;
 
-    const handleMouseEnter = canShowPopover
-        ? (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget)
-        : undefined;
+    const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLElement>) => {
+        if (canShowPopover) {
+            setAnchorEl(e.currentTarget);
+        }
+    }, [ canShowPopover ]);
 
-    const handleMouseLeave = canShowPopover
-        ? () => setAnchorEl(null)
-        : undefined;
+    const handleMouseLeave = useCallback(() => {
+        console.log('[GTS BreakoutRoomTimerDisplay handleMouseLeave]');
+        setAnchorEl(null);
+    }, []);
+
+    const handlePopoverClose = useCallback(() => {
+        setAnchorEl(null);
+    }, []);
 
     /**
      * SubRoom timer format — (Remaining mm:ss)
@@ -109,10 +116,7 @@ export default function BreakoutRoomTimerDisplay({
                     classes.container,
                     canShowPopover && classes.containerClickable
                 ) }
-                // eslint-disable-next-line react/jsx-no-bind
-                onMouseEnter = { handleMouseEnter }
-                // eslint-disable-next-line react/jsx-no-bind
-                onMouseLeave = { handleMouseLeave }>
+                onMouseEnter = { handleMouseEnter }>
                 <span
                     className = { cx(
                         classes.timer,
@@ -123,21 +127,23 @@ export default function BreakoutRoomTimerDisplay({
             </span>
             { canShowPopover && (
                 <Popover
+                    PaperProps = {{
+                        onMouseLeave: handleMouseLeave
+                    }}
                     anchorEl = { anchorEl }
                     anchorOrigin = {{
                         vertical: 'bottom',
                         horizontal: 'left'
                     }}
                     disableRestoreFocus = { true }
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onClose = { () => setAnchorEl(null) }
+                    onClose = { handlePopoverClose }
                     open = { Boolean(anchorEl) }
-                    sx = {{ '& .MuiPopover-paper': { pointerEvents: 'none' } }}
                     transformOrigin = {{
                         vertical: 'top',
                         horizontal: 'left'
                     }}>
-                    <div className = { classes.popover }>
+                    <div
+                        className = { classes.popover }>
                         { roomsWithExpiry!.map(room => (
                             <div
                                 className = { classes.roomItem }
