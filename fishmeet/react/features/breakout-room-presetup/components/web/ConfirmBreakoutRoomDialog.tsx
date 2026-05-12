@@ -4,15 +4,11 @@ import { useTranslation } from 'react-i18next';
 import Dialog from '../../../base/ui/components/web/Dialog';
 
 interface IProps {
-
-    /**
-     * 确认后执行的回调。
-     */
     onSubmit: () => void;
 }
 
 /**
- * Confirm to close the existing room-splitting dialog box (Web platform) .
+ * Confirm to close the existing room-splitting dialog box, Web platform.
  * When preset or auto breakout rooms are triggered, inform the user that all existing breakout rooms will be closed.
  *
  * @param {IProps} props - Component props.
