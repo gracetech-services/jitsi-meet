@@ -49,7 +49,7 @@ export function sendAllParticipantsToMainRoom() {
         const isEmptyToSend = isEmpty(toSendMainRoomParticipants);
 
         if (!isEmptyToSend) {
-            await toSendMainRoomParticipants.map(p => dispatch(sendParticipantToRoom(p.jid, mainRoom!.id)));
+            await Promise.all(toSendMainRoomParticipants.map(p => dispatch(sendParticipantToRoom(p.jid, mainRoom!.id))));
         }
 
         return {
@@ -102,7 +102,7 @@ export function prepareReassignRemove(params: { assignRoomCount: number; }) {
     return async (dispatch: IStore['dispatch'], getState: IStore['getState']) => {
         const rooms = getBreakoutRooms(getState);
 
-        await map(rooms, room => room).filter(room => !room.isMainRoom).map(room => dispatch(removeBreakoutRoom(room.jid)));
+        await Promise.all(map(rooms, room => room).filter(room => !room.isMainRoom).map(room => dispatch(removeBreakoutRoom(room.jid))));
 
         dispatch(availableReassign({
             participantsReady: true,

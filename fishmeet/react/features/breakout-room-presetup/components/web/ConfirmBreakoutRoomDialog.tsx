@@ -12,7 +12,7 @@ interface IProps {
 }
 
 /**
- * Confirm to close the existing room-splitting dialog box (Web platform).
+ * Confirm to close the existing room-splitting dialog box (Web platform) .
  * When preset or auto breakout rooms are triggered, inform the user that all existing breakout rooms will be closed.
  *
  * @param {IProps} props - Component props.
