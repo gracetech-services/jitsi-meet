@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, View } from 'react-native';
+import { Text, View, ViewStyle } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import InputDialog from '../../../base/dialog/components/native/InputDialog';
@@ -80,7 +80,7 @@ const AddBreakoutRoomButton = () => {
                 style = { styles.button }
                 type = { BUTTON_TYPES.SECONDARY } />
             { hasGlobalTimer && (
-                <View style = { styles.reuseTimerRow }>
+                <View style = { styles.reuseTimerRow as ViewStyle }>
                     <Text style = { styles.reuseTimerLabel }>
                         { t('breakoutRooms.timer.reuseTimer') }
                     </Text>
@@ -99,8 +99,7 @@ const AddBreakoutRoomButton = () => {
                 <InputDialog
                     descriptionKey = 'dialog.breakoutRoomDurationLabel'
                     onSubmit = { onDurationSubmit }
-                    placeholder = { t('dialog.breakoutRoomDurationPlaceholder') }
-                    textInputProps = {{ keyboardType: 'numeric' }} />
+                    textInputProps = {{ keyboardType: 'numeric', placeholder: t('dialog.breakoutRoomDurationPlaceholder') }} />
             )}
         </>
     );
