@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { showNotification } from '../../notifications/actions';
 import { NOTIFICATION_TIMEOUT_TYPE, NOTIFICATION_TYPE } from '../../notifications/constants';
 import { moveToRoom } from '../actions';
 import { AUTO_RETURN_DELAY_MS, WARNING_THRESHOLD_MS } from '../constants';
-import { formatCountdown, getBreakoutRooms, getCurrentRoomExpiresAt, isInBreakoutRoom } from '../functions';
+import { formatCountdown, getCurrentRoomExpiresAt, getGlobalExpiresAt, isInBreakoutRoom } from '../functions';
 
 import { BreakoutRoomTimerDisplay } from './index';
 
@@ -23,11 +23,6 @@ interface IProps {
 export interface IDisplayProps {
 
     /**
-     * Earliest breakout room name, or undefined in breakout room context.
-     */
-    earliestRoomName?: string;
-
-    /**
      * Current breakout room status.
      */
     isInBreakoutRoom?: boolean;
@@ -36,15 +31,6 @@ export interface IDisplayProps {
      * Warning status (remaining time <= 60 seconds).
      */
     isWarning?: boolean;
-
-    /**
-     * List of non-main rooms with expiry set, to display in expanded form.
-     */
-    roomsWithExpiry?: Array<{
-        expiresAt: number;
-        isMainRoom: boolean;
-        name: string;
-    }>;
 
     /**
      * Style object to pass to platform display component, for Native use.
@@ -59,7 +45,7 @@ export interface IDisplayProps {
 
 const BreakoutRoomTimer = ({ textStyle }: IProps) => {
     const currentExpiresAt = useSelector(getCurrentRoomExpiresAt);
-    const rooms = useSelector(getBreakoutRooms);
+    const globalExpiresAt = useSelector(getGlobalExpiresAt);
     const inBreakoutRoom = useSelector(isInBreakoutRoom);
     const dispatch = useDispatch();
 
@@ -118,53 +104,21 @@ const BreakoutRoomTimer = ({ textStyle }: IProps) => {
             return;
         }
 
-        // In main room: find earliest expiring breakout room
+        // Main room: show countdown for earliest expiring breakout room
         if (!inBreakoutRoom) {
-            const breakoutRooms = Object.values(rooms)
-                .filter(r => !r.isMainRoom && r.expiresAt);
-
-            if (breakoutRooms.length === 0) {
+            if (!globalExpiresAt) {
                 setTimerValue('');
                 setIsWarning(false);
 
                 return;
             }
 
-            // Find earliest expiring breakout room
-            // fix: use ?? Infinity to guard expiresAt being undefined
-            const earliest = breakoutRooms.reduce((prev, curr) =>
-                (prev.expiresAt ?? Infinity) < (curr.expiresAt ?? Infinity) ? prev : curr
-            );
-            const remainingMs = Math.max(0, (earliest.expiresAt ?? Date.now()) - Date.now());
+            const remainingMs = Math.max(0, globalExpiresAt - Date.now());
 
             setTimerValue(formatCountdown(remainingMs));
             setIsWarning(remainingMs > 0 && remainingMs <= WARNING_THRESHOLD_MS);
         }
-    }, [ currentExpiresAt, rooms, inBreakoutRoom, dispatch ]);
-
-    /**
-     * Calculate list of non-main rooms with expiry set, to display in expanded form.
-     * Fix: use useMemo to avoid re-creating object array every tick.
-     */
-    const roomsWithExpiry = useMemo(() =>
-        Object.values(rooms)
-            .filter(r => !r.isMainRoom && r.expiresAt)
-            .map(r => ({
-                name: r.name || '',
-                expiresAt: r.expiresAt ?? 0,
-                isMainRoom: r.isMainRoom || false
-            })),
-    [ rooms ]);
-
-    /**
-     * Calculate earliest expiring breakout room name in main room.
-     * Fix: calculate based on roomsWithExpiry, to avoid duplicate reduce logic.
-     */
-    const earliestRoomName = !inBreakoutRoom && roomsWithExpiry.length > 0
-        ? roomsWithExpiry.reduce((prev, curr) =>
-            prev.expiresAt < curr.expiresAt ? prev : curr
-        ).name
-        : undefined;
+    }, [ currentExpiresAt, globalExpiresAt, inBreakoutRoom, dispatch ]);
 
     useEffect(() => {
         // Reset expiration status (when expiresAt changes, e.g. when switching to new breakout room)
@@ -193,10 +147,8 @@ const BreakoutRoomTimer = ({ textStyle }: IProps) => {
 
     return (
         <BreakoutRoomTimerDisplay
-            earliestRoomName = { earliestRoomName }
             isInBreakoutRoom = { inBreakoutRoom }
             isWarning = { isWarning }
-            roomsWithExpiry = { roomsWithExpiry }
             textStyle = { textStyle }
             timerValue = { timerValue } />
     );

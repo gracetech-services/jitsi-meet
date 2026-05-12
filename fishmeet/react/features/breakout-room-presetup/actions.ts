@@ -192,7 +192,7 @@ export function executeBreakoutRoom(params?: { durationMs?: number; }) {
         logger.debug('[GTS-PBR] executeSetBreakoutRoom', { currentSubRooms, allParticipants, meetingData });
 
         // 4、According to the pre-breakout data, send participant to the corresponding room.
-        Promise.all(
+        await Promise.all(
             reduce(meetingData, (result: Array<{
                 participant: IParticipant;
                 room: IRoom;
@@ -232,7 +232,9 @@ export function executeBreakoutRoom(params?: { durationMs?: number; }) {
 
                 return dispatch(sendParticipantToRoom(participant.id, room.id));
             })
-        );
+        ).catch(error => {
+            logger.error('[GTS-PBR] Failed to send participants to rooms', error);
+        });
 
         // 5、Remove rooms that are not in the preset data
         const presetSubRoomNameList = filter(meetingData, room => !room.isMainRoom).map(room => room.name as string);

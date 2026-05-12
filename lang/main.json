@@ -96,6 +96,7 @@
         "timer": {
             "remaining": "(Remaining {{time}})",
             "remainingNative": "（Remaining {{time}}）",
+            "reuseTimer": "Reuse timer",
             "roomRemaining": "({{room}} Remaining {{time}})",
             "roomRemainingNative": "（{{room}} Remaining {{time}}）"
         },
@@ -342,12 +343,14 @@
         "cameraUnknownError": "Cannot use camera for an unknown reason.",
         "cameraUnsupportedResolutionError": "Your camera does not support required video resolution.",
         "close": "Close",
+        "closeBreakoutRoomsWarning": "All existing breakout rooms will be closed and participants will return to the main room.",
         "conferenceDisconnectMsg": "You may want to check your network connection. Reconnecting in {{seconds}} sec…",
         "conferenceDisconnectTitle": "You have been disconnected.",
         "conferenceReloadMsg": "We're trying to fix this. Reconnecting in {{seconds}} sec…",
         "conferenceReloadTitle": "Unfortunately, something went wrong.",
         "confirm": "Confirm",
         "confirmBack": "Back",
+        "confirmCloseBreakoutRooms": "Close existing breakout rooms?",
         "confirmNo": "No",
         "confirmYes": "Yes",
         "connectError": "Oops! Something went wrong and we couldn't connect to the conference.",

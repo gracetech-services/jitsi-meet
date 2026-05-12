@@ -96,6 +96,7 @@
         "timer": {
             "remaining": "(剩余{{time}})",
             "remainingNative": "（剩余{{time}}）",
+            "reuseTimer": "沿用定时器",
             "roomRemaining": "({{room}} 剩余{{time}})",
             "roomRemainingNative": "（{{room}} 剩余{{time}}）"
         },
@@ -336,12 +337,14 @@
         "cameraUnknownError": "由于未知错误，无法使用摄像头。",
         "cameraUnsupportedResolutionError": "你的摄像头不支持所需的视频分辨率。",
         "close": "关闭",
+        "closeBreakoutRoomsWarning": "所有现有分组讨论室将被关闭，参会人将返回主会议室。",
         "conferenceDisconnectMsg": "请检查你的网络连接，将在{{seconds}}秒后重新连接……",
         "conferenceDisconnectTitle": "你已断开连接。",
         "conferenceReloadMsg": "我们正在努力修复此问题，将在{{seconds}}秒后重新连接……",
         "conferenceReloadTitle": "糟了，好像有什么东西出错了。",
         "confirm": "确认",
         "confirmBack": "返回",
+        "confirmCloseBreakoutRooms": "关闭现有分组讨论室？",
         "confirmNo": "否",
         "confirmYes": "是",
         "connectError": "发生错误，无法连接至会议！",

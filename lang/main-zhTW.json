@@ -96,6 +96,7 @@
         "timer": {
             "remaining": "(剩餘{{time}})",
             "remainingNative": "（剩餘{{time}}）",
+            "reuseTimer": "沿用定時器",
             "roomRemaining": "({{room}} 剩餘{{time}})",
             "roomRemainingNative": "（{{room}} 剩餘{{time}}）"
         },
@@ -336,12 +337,14 @@
         "cameraUnknownError": "由於不明原因，無法存取網路攝影機。",
         "cameraUnsupportedResolutionError": "您的網路攝影機不支援所需的影像解析度。",
         "close": "關閉",
+        "closeBreakoutRoomsWarning": "所有現有分組討論室將被關閉，與會人將返回主會議。",
         "conferenceDisconnectMsg": "請檢查一下網路連線，將在 {{seconds}} 秒後重新連接…",
         "conferenceDisconnectTitle": "您已經被中斷連接。",
         "conferenceReloadMsg": "我們正試著修復狀況，將在 {{seconds}} 秒後重新連接…",
         "conferenceReloadTitle": "喔哦！好像有東西壞掉囉。",
         "confirm": "確認",
         "confirmBack": "返回",
+        "confirmCloseBreakoutRooms": "關閉現有分組討論室？",
         "confirmNo": "否",
         "confirmYes": "是",
         "connectError": "喔哦！發生錯誤，無法連接至會議。",

@@ -12,16 +12,15 @@ import logger from './logger';
 import { IRoom } from './types';
 
 /**
- * Map of safety net timers, keyed by room ID.
- * Stores timeout ID and the expiresAt value that was used to arm the timer,
- * so that if the moderator updates the duration, the timer is re-armed.
+ * Singleton Timer for Safety Net.
+ * In the global timer mode, all sub-rooms with expiresAt share the same expiresAt value,
+and only one setTimeout is needed to handle the expiration of all timed rooms.
  *
- * @type {Map<string, { timerId: ReturnType<typeof setTimeout>, expiresAt: number }>}
  */
-const roomTimers = new Map<string, { expiresAt: number; timerId: ReturnType<typeof setTimeout>; }>();
+let safetyTimer: { expiresAt: number; timerId: ReturnType<typeof setTimeout>; } | null = null;
 
 /**
- * Arms safety net timers for all breakout rooms that have an expiresAt.
+ * Arms safety net timer for the global expiresAt.
  * Called by both the StateListenerRegistry subscriber and the
  * CONNECTION_ESTABLISHED middleware handler.
  *
@@ -36,62 +35,63 @@ function _armSafetyNet({ dispatch, getState }: IStore) {
     }
 
     const rooms = getBreakoutRooms(getState());
-    const currentRoomIds = new Set<string>();
+    // Get the first non-main room with expiresAt
+    const timedRoom = Object.values(rooms).find((room: IRoom) => !room.isMainRoom && room.expiresAt);
 
-    Object.values(rooms ?? {}).forEach((room: IRoom) => {
-        // Skip the main room and rooms with no timeout settings
-        if (!room.expiresAt || room.isMainRoom) {
-            return;
+    if (!timedRoom?.expiresAt) {
+        // No timed rooms, clear the existing timer if it exists
+        if (safetyTimer) {
+            clearTimeout(safetyTimer.timerId);
+            safetyTimer = null;
+            logger.debug('[GTS-SN] Cleared timer (no timed rooms)');
         }
 
-        currentRoomIds.add(room.id);
-
-        // the existing timer and re-arm when expiresAt changes,
-        const existing = roomTimers.get(room.id);
-
-        if (existing && existing.expiresAt === room.expiresAt) {
-            return;
-        }
-
-        // Clear the old timer and re-arm when expiresAt changes
-        if (existing) {
-            clearTimeout(existing.timerId);
-            roomTimers.delete(room.id);
-            logger.debug(`[GTS-SN] Re-arming timer for room ${room.id} (expiresAt changed)`);
-        }
-
-        const delay = room.expiresAt + SAFETY_GRACE_MS - Date.now();
-
-        // Guard against NaN/Infinity (invalid expiresAt or clock anomaly), execute removeBreakoutRoom immediately
-        if (!Number.isFinite(delay) || delay <= 0) {
-            // Immediately dispatch removeBreakoutRoom for expired rooms
-            dispatch(removeBreakoutRoom(room.jid));
-
-            return;
-        }
-
-        const timerId = setTimeout(() => {
-            roomTimers.delete(room.id);
-            if (!isLocalParticipantModerator(getState())) {
-                logger.debug(`[GTS-SN] Skipping close for room ${room.id} — no longer moderator`);
-
-                return;
-            }
-            dispatch(removeBreakoutRoom(room.jid));
-        }, delay);
-
-        roomTimers.set(room.id, { timerId, expiresAt: room.expiresAt });
-        logger.debug(`[GTS-SN] Armed safety net for room ${room.id}, delay=${delay}ms`);
-    });
-
-    // Clear the timer when the room disappears from the state
-    for (const roomId of roomTimers.keys()) {
-        if (!currentRoomIds.has(roomId)) {
-            clearTimeout(roomTimers.get(roomId)?.timerId);
-            roomTimers.delete(roomId);
-            logger.debug(`[GTS-SN] Cleared timer for removed room ${roomId}`);
-        }
+        return;
     }
+
+    // No need to re-arm the timer if expiresAt hasn't changed
+    if (safetyTimer && safetyTimer.expiresAt === timedRoom.expiresAt) {
+        return;
+    }
+
+    // Clear the existing timer if it exists
+    if (safetyTimer) {
+        clearTimeout(safetyTimer.timerId);
+        logger.debug('[GTS-SN] Re-arming timer (expiresAt changed)');
+    }
+
+    const delay = timedRoom.expiresAt + SAFETY_GRACE_MS - Date.now();
+
+    if (!Number.isFinite(delay) || delay <= 0) {
+        // Immediately close all timed rooms
+        Object.values(rooms).forEach((room: IRoom) => {
+            if (!room.isMainRoom && room.expiresAt) {
+                dispatch(removeBreakoutRoom(room.jid));
+            }
+        });
+
+        return;
+    }
+
+    const timerId = setTimeout(() => {
+        safetyTimer = null;
+        if (!isLocalParticipantModerator(getState())) {
+            logger.debug('[GTS-SN] Skipping close — no longer moderator');
+
+            return;
+        }
+        // Close all timed rooms
+        const currentRooms = getBreakoutRooms(getState());
+
+        Object.values(currentRooms).forEach((room: IRoom) => {
+            if (!room.isMainRoom && room.expiresAt) {
+                dispatch(removeBreakoutRoom(room.jid));
+            }
+        });
+    }, delay);
+
+    safetyTimer = { timerId, expiresAt: timedRoom.expiresAt };
+    logger.debug(`[GTS-SN] Armed safety net, delay=${delay}ms`);
 }
 
 /**
@@ -114,12 +114,10 @@ StateListenerRegistry.register(
 StateListenerRegistry.register(
     state => getCurrentConference(state),
     conference => {
-        if (!conference && roomTimers.size > 0) {
-            for (const entry of roomTimers.values()) {
-                clearTimeout(entry.timerId);
-            }
-            roomTimers.clear();
-            logger.debug('[GTS-SN] Cleared all timers (conference ended)');
+        if (!conference && safetyTimer) {
+            clearTimeout(safetyTimer.timerId);
+            safetyTimer = null;
+            logger.debug('[GTS-SN] Cleared timer (conference ended)');
         }
     }
 );

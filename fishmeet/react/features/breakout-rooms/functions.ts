@@ -235,6 +235,23 @@ export const getCurrentRoomExpiresAt = (stateful: IStateful): number | undefined
 };
 
 /**
+ * Returns the expiresAt value of the global timer.
+ * Iterates over all non-main rooms, returning the first room with expiresAt.
+ *
+ * In the global timer mode, all rooms with timers are assigned the same expiresAt value.
+ * It may be modified in the future to allow multiple countdown rooms.
+ *
+ * @param {IStateful} stateful - The redux store, the redux
+ * {@code getState} function, or the redux state itself.
+ * @returns {number|undefined} Global expiresAt if any timed room exists, undefined otherwise.
+ */
+export const getGlobalExpiresAt = (stateful: IStateful): number | undefined => {
+    const rooms = getBreakoutRooms(stateful);
+
+    return Object.values(rooms).find(r => !r.isMainRoom && r.expiresAt)?.expiresAt;
+};
+
+/**
  * Format remaining milliseconds into a countdown string (decreasing format).
  *
  * @param {number} ms - Remaining milliseconds (may be negative, will be truncated to 0).

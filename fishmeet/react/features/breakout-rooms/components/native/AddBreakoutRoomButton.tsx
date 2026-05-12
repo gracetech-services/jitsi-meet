@@ -1,11 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import InputDialog from '../../../base/dialog/components/native/InputDialog';
 import Button from '../../../base/ui/components/native/Button';
+import Switch from '../../../base/ui/components/native/Switch';
 import { BUTTON_TYPES } from '../../../base/ui/constants.native';
 import { createBreakoutRoom } from '../../actions';
+import { getGlobalExpiresAt } from '../../functions';
 
 import styles from './styles';
 
@@ -20,9 +23,16 @@ const AddBreakoutRoomButton = () => {
     const [ showNameDialog, setShowNameDialog ] = useState(false);
     const [ showDurationDialog, setShowDurationDialog ] = useState(false);
     const [ roomName, setRoomName ] = useState<string>();
+    const globalExpiresAt = useSelector(getGlobalExpiresAt);
+    const [ reuseTimer, setReuseTimer ] = useState(false); // 默认 OFF — 不沿用定时器 (per D-02)
+    const reuseTimerRef = useRef(false); // 用 ref 跟踪 reuseTimer，避免闭包捕获过期值 (WR-03)
+
+    reuseTimerRef.current = reuseTimer;
+    const hasGlobalTimer = Boolean(globalExpiresAt);
 
     const onAdd = useCallback(() => {
         setRoomName(undefined);
+        setReuseTimer(false); // 重置 Switch 状态
         setShowDurationDialog(false);
         setShowNameDialog(true);
     }, []);
@@ -33,13 +43,24 @@ const AddBreakoutRoomButton = () => {
         if (trimmed) {
             setRoomName(trimmed);
             setShowNameDialog(false);
-            setShowDurationDialog(true);
+
+            if (hasGlobalTimer) {
+                // When there is a global timer: Read the latest value of reuseTimer via ref to avoid closure staleness
+                const durationMs = reuseTimerRef.current
+                    ? (globalExpiresAt! - Date.now())
+                    : undefined;
+                const safeDurationMs = durationMs && durationMs > 0 ? durationMs : undefined;
+
+                dispatch(createBreakoutRoom(trimmed || undefined, safeDurationMs));
+            } else {
+                setShowDurationDialog(true);
+            }
 
             return true;
         }
 
         return false;
-    }, []);
+    }, [ hasGlobalTimer, globalExpiresAt, dispatch ]);
 
     const onDurationSubmit = useCallback((duration: string) => {
         const durationMs = duration ? parseInt(duration, 10) * 60000 : undefined;
@@ -58,6 +79,17 @@ const AddBreakoutRoomButton = () => {
                 onClick = { onAdd }
                 style = { styles.button }
                 type = { BUTTON_TYPES.SECONDARY } />
+            { hasGlobalTimer && (
+                <View style = { styles.reuseTimerRow }>
+                    <Text style = { styles.reuseTimerLabel }>
+                        { t('breakoutRooms.timer.reuseTimer') }
+                    </Text>
+                    <Switch
+                        checked = { reuseTimer }
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onChange = { (checked?: boolean) => setReuseTimer(checked ?? false) } />
+                </View>
+            )}
             { showNameDialog && (
                 <InputDialog
                     descriptionKey = 'dialog.addBreakoutRoomLabel'
