@@ -75,7 +75,7 @@ function Toolbox(props: IProps) {
     const backgroundToggledStyle = {
         ...toggledButtonStyles,
         style: [
-            toggledButtonStyles.style,
+            toggledButtonStyles?.style,
             _styles.backgroundToggle
         ]
     };
