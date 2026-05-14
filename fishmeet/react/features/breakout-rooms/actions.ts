@@ -241,7 +241,7 @@ export function moveToRoom(roomId?: string) {
         const targetRoom = rooms[roomIdStr ?? ''];
 
         if (!targetRoom) {
-            logger.warn(`Unknown room: ${targetRoom}`);
+            logger.warn(`Unknown room: ${roomIdStr}`);
 
             return;
         }
