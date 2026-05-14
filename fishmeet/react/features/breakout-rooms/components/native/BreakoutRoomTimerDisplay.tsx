@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { AppState, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 import { IDisplayProps } from '../BreakoutRoomTimer';
@@ -44,32 +44,11 @@ export default function BreakoutRoomTimerDisplay({
     textStyle
 }: IDisplayProps) {
     const { t } = useTranslation();
-    const [ foregroundKey, setForegroundKey ] = useState(0);
 
-    /**
-     * Listen to AppState changes and force components to re-render when the App returns to the foreground.
-     * The parent component BreakoutRoomTimer recalculates the countdown every second using Date.now(),
-     * and the tick will be automatically corrected in the next second after returning to the foreground.
-     * This listening mechanism ensures that the component re-renders immediately when resuming to the foreground.
-     */
-    useEffect(() => {
-        const subscription = AppState.addEventListener('change', nextAppState => {
-            if (nextAppState === 'active') {
-                // Return to the foreground and increment the counter to trigger a real re-render
-                setForegroundKey(prev => prev + 1);
-            }
-        });
-
-        return () => subscription.remove();
-    }, []);
-
-    // 统一显示格式，不区分主房间/分房间 (per D-11)
     const displayText = t('breakoutRooms.timer.remainingNative', { time: timerValue });
 
     return (
-        <View
-            key = { foregroundKey }
-            style = { styles.container }>
+        <View style = { styles.container }>
             <View style = { styles.touchable }>
                 <Text
                     numberOfLines = { 1 }

@@ -7,6 +7,8 @@ import { moveToRoom } from '../actions';
 import { AUTO_RETURN_DELAY_MS, WARNING_THRESHOLD_MS } from '../constants';
 import { formatCountdown, getCurrentRoomExpiresAt, getGlobalExpiresAt, isInBreakoutRoom } from '../functions';
 
+import { useAppForeground } from './useAppForeground';
+
 import { BreakoutRoomTimerDisplay } from './index';
 
 /**
@@ -139,6 +141,8 @@ const BreakoutRoomTimer = ({ textStyle }: IProps) => {
             }
         };
     }, [ updateTimer ]);
+
+    useAppForeground(updateTimer);
 
     // No countdown when no breakout room
     if (!timerValue) {
