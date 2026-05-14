@@ -281,7 +281,7 @@ Is the structural difference so large that none of the above work?
 - **Do not** edit `fishmeet/react/` files during a jitsi upgrade — only edit
   them when intentionally changing fishmeet behavior.
 - **Do not** hardcode hex color values in fishmeet stylesheets. Reference
-  `BaseTheme.palette.fishMeet*` tokens defined in `fishmeet/Tokens.ts`.
+  `BaseTheme.palette.customizedUi*` tokens defined in `fishmeet/Tokens.ts`.
 
 ## Best Dev Workflow
 
