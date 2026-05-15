@@ -45,7 +45,7 @@ export default function BreakoutRoomTimerDisplay({
 }: IDisplayProps) {
     const { t } = useTranslation();
 
-    const displayText = t('breakoutRooms.timer.remainingNative', { time: timerValue });
+    const displayText = t('breakoutRooms.timer.remaining', { time: timerValue });
 
     return (
         <View style = { styles.container }>

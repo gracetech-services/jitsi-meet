@@ -95,10 +95,8 @@
         "showParticipantList": "Show participant list",
         "timer": {
             "remaining": "(Remaining {{time}})",
-            "remainingNative": "（Remaining {{time}}）",
             "reuseTimer": "Reuse timer",
-            "roomRemaining": "({{room}} Remaining {{time}})",
-            "roomRemainingNative": "（{{room}} Remaining {{time}}）"
+            "roomRemaining": "({{room}} Remaining {{time}})"
         },
         "title": "Breakout Rooms"
     },
