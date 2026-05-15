@@ -95,8 +95,10 @@
         "showParticipantList": "显示成员列表",
         "timer": {
             "remaining": "(剩余{{time}})",
+            "remainingNative": "剩余{{time}}",
             "reuseTimer": "沿用定时器",
-            "roomRemaining": "({{room}} 剩余{{time}})"
+            "roomRemaining": "({{room}} 剩余{{time}})",
+            "roomRemainingNative": "{{room}} 剩余{{time}}"
         },
         "title": "分组讨论室"
     },

@@ -11,7 +11,7 @@ import {
 import { IJitsiParticipant } from '../base/participants/types';
 import { toState } from '../base/redux/functions';
 
-import { FEATURE_KEY } from './constants';
+import { FEATURE_KEY, TIMEOUT_SEPARATOR } from './constants';
 import { IRoom, IRoomInfo, IRoomInfoParticipant, IRooms, IRoomsInfo } from './types';
 
 /**
@@ -217,6 +217,22 @@ export const isAutoAssignParticipantsVisible = (stateful: IStateful) => {
         && Object.keys(rooms).length > 1
         && !hideAutoAssignButton;
 };
+
+/**
+ * Strip timeout encoding from room name.
+ *
+ * @param {string} name - Room name, possibly containing encoding suffix.
+ * @returns {string} Cleaned room name.
+ */
+export function stripTimeoutSuffix(name: string | undefined | null): string {
+    if (!name) {
+        return '';
+    }
+
+    const sepIdx = name.indexOf(TIMEOUT_SEPARATOR);
+
+    return sepIdx === -1 ? name : name.slice(0, sepIdx);
+}
 
 /**
  * Returns the expiresAt timestamp of the current room the local participant is in.

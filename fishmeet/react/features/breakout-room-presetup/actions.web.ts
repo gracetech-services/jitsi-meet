@@ -3,8 +3,7 @@ import { filter, find, forEach, isEmpty, map, reduce } from 'lodash-es';
 import { IStore } from '../app/types';
 import { IParticipant } from '../base/participants/types';
 import { createBreakoutRoom, removeBreakoutRoom, sendParticipantToRoom } from '../breakout-rooms/actions';
-import { TIMEOUT_SEPARATOR } from '../breakout-rooms/constants';
-import { getBreakoutRooms, getMainRoom } from '../breakout-rooms/functions';
+import { getBreakoutRooms, getMainRoom, stripTimeoutSuffix } from '../breakout-rooms/functions';
 import logger from '../breakout-rooms/logger';
 import type { IRoom, IRoomInfoParticipant } from '../breakout-rooms/types';
 
@@ -12,22 +11,6 @@ import { _AVAILABLE_TO_SET_BREAKOUT_ROOMS, _ENABlE_PRESET_BREAKOUT_ROOMS, _PRESE
 import { getAllParticipants, getPresetBreakoutRoomData } from './functions';
 import type { IPresetBreakoutRoomsState } from './reducer';
 import type { IBreakoutPayload, IMessageData } from './types';
-
-/**
- * Strip timeout encoding from room name.
- *
- * @param {string} name - Room name, possibly containing encoding suffix.
- * @returns {string} Cleaned room name.
- */
-function stripTimeoutSuffix(name: string | undefined | null): string {
-    if (!name) {
-        return '';
-    }
-
-    const sepIdx = name.indexOf(TIMEOUT_SEPARATOR);
-
-    return sepIdx === -1 ? name : name.slice(0, sepIdx);
-}
 
 export function enablePresetFeature(value: boolean) {
     return {

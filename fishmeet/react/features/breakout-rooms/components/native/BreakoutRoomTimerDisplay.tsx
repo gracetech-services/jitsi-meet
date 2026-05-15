@@ -7,7 +7,8 @@ import { IDisplayProps } from '../BreakoutRoomTimer';
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'column'
+        flexDirection: 'column',
+        padding: 4
     },
 
     touchable: {
@@ -45,7 +46,7 @@ export default function BreakoutRoomTimerDisplay({
 }: IDisplayProps) {
     const { t } = useTranslation();
 
-    const displayText = t('breakoutRooms.timer.remaining', { time: timerValue });
+    const displayText = t('breakoutRooms.timer.remainingNative', { time: timerValue });
 
     return (
         <View style = { styles.container }>
