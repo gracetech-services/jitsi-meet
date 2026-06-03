@@ -2,7 +2,7 @@ import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry'
 import { schemeColor } from '../../../base/color-scheme/functions';
 import BaseTheme from '../../../base/ui/components/BaseTheme.native';
 
-import { fishMeetToolbarButton, fishMeetToolbarButtonIcon } from './fishMeetStyles';
+import { default as fishMeetStyles, fishMeetToolbarButton, fishMeetToolbarButtonIcon } from './fishMeetStyles';
 
 const BUTTON_SIZE = 48;
 
@@ -113,7 +113,9 @@ const styles = {
         height: BaseTheme.spacing[7],
         justifyContent: 'center',
         width: BaseTheme.spacing[7]
-    }
+    },
+
+    ...fishMeetStyles
 };
 
 export default styles;
@@ -140,7 +142,7 @@ ColorSchemeRegistry.register('Toolbox', {
     },
 
     backgroundToggle: {
-        backgroundColor: BaseTheme.palette.ui04
+        backgroundColor: BaseTheme.palette.customizedUiSecBackground
     },
 
     hangupMenuContainer: {
