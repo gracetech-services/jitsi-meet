@@ -1,0 +1,23 @@
+{
+  "skill_name": "git-diff-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Execute the git diff workflow and generate a diff branch",
+      "expected_output": "Completed git fetch, compared differences with gracetech_master, extracted files in the fishmeet directory, synchronized fishmeet files to the corresponding directories, created a new branch and committed changes",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Compare fishmeet file differences between the current branch and the main branch, create a new branch and commit",
+      "expected_output": "Correctly filter files prefixed with fishmeet, process the paths and commit to the new _for-diff branch",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Synchronize code and create a diff commit branch",
+      "expected_output": "Fully execute the 4 steps and handle various edge cases (e.g., branch name conflicts, non-existent files, etc.)",
+      "files": []
+    }
+  ]
+}
