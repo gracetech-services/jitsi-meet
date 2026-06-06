@@ -9,8 +9,12 @@ export const colorMap = {
 
     // GraceTech Customization design token
     // Do not hardcode the colors:
-    // define them at type GraceTechCustomizedPalette: react/features/base/ui/functions.web.ts:9
-    // config them at fishmeet-config.js -》 config.customTheme
+    // for Web：
+    //   define them at type GraceTechCustomizedPalette: react/features/base/ui/functions.web.ts:9
+    //   config them at fishmeet-config.js -》 config.customTheme
+    // for Native：
+    //   for now, the native side does not support reading direct color values from the config, requiring extensive modifications, especially on the consumer side.
+    //   so let's trade off, define & config them at: fishmeet/react/features/base/ui/jitsiTokens.json
     customizedUiBackground: 'customizedUiBackground',
     customizedUiSecBackground: 'customizedUiSecBackground',
     customizedUiMainColor01: 'customizedUiMainColor01',

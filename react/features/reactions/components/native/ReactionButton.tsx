@@ -78,7 +78,7 @@ interface IProps extends WithTranslation {
 function ReactionButton({
     children,
     onClick,
-    styles,
+    styles = {} as IReactionStyles, // fishmeet fix: NPE
     reaction,
     t
 }: IProps) {
