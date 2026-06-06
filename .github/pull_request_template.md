@@ -13,7 +13,7 @@
 - [ ] **No Branding Logic:** Did you avoid adding `if (appType.isFishMeet)` inside core files?
 
 ### 🎨 Styles & Assets
-- [ ] **Design Tokens:** Are all colors referencing `BaseTheme.palette.fishMeet*` (no hex values)?
+- [ ] **Design Tokens:** Are all colors referencing `BaseTheme.palette.customized*` (no hex values)?
 - [ ] **Annotations:** Are all overridden style properties annotated with `// fishmeet: was <original value>`?
 - [ ] **Icons:** Are new branded icons placed in `fishmeet/react/features/base/icons/svg/`?
 

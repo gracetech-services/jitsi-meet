@@ -5,17 +5,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
 
 import { IReduxState } from '../../app/types';
+import { openDialog } from '../../base/dialog/actions';
 import { getLocalParticipant, getRemoteParticipants } from '../../base/participants/functions';
 import { toState } from '../../base/redux/functions';
 import Button from '../../base/ui/components/web/Button';
 import { BUTTON_TYPES } from '../../base/ui/constants.web';
 import { triggerRemoveAllRooms } from '../../breakout-room-autosetup/actions';
+import ConfirmDialog from '../../breakout-rooms/components/web/ConfirmDialog';
 import { getBreakoutRooms, getRoomsInfo } from '../../breakout-rooms/functions';
 import logger from '../../breakout-rooms/logger';
 import { getSortedParticipantIds } from '../../participants-pane/functions';
 import { getVisitorsList } from '../../visitors/functions';
-import { triggerBreakoutRoom } from '../actions';
 import { getAllParticipants, getPresetBreakoutRoomData } from '../functions';
+
+
+import LoadPresetBreakoutRoomDialog from './LoadPresetBreakoutRoomDialog';
 
 const useStyles = makeStyles()(theme => {
     return {
@@ -40,7 +44,7 @@ export const LoadPresetBreakoutRoomButton = () => {
     const allParticipants = useSelector((state: IReduxState) => getAllParticipants(state));
 
     const onBtnClick = useCallback(() => {
-        if (Object.values(availableToSetup).some(value => !!value)) {
+        if (availableToSetup.participantsReady || availableToSetup.cleanRoomReady || availableToSetup.createRoomReady) {
             return;
         }
 
@@ -59,14 +63,15 @@ export const LoadPresetBreakoutRoomButton = () => {
         });
 
         if (size(subRooms) > 0) {
-            if (!confirm(t('presetBreakoutRooms.confirm.prompt'))) {
-                return;
-            }
+            dispatch(openDialog(ConfirmDialog, {
+                msg: t('presetBreakoutRooms.confirm.prompt'),
+                onSubmit: () => dispatch(triggerRemoveAllRooms()),
+            }));
 
-            return dispatch(triggerRemoveAllRooms());
+            return;
         }
 
-        dispatch(triggerBreakoutRoom());
+        dispatch(openDialog(LoadPresetBreakoutRoomDialog));
     }, [
         availableToSetup,
         rooms,

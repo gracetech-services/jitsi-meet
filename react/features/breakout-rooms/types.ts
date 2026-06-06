@@ -1,4 +1,9 @@
 export interface IRoom {
+    /**
+     * The timestamp when this room expires (unix ms).
+     * Encoded in room name with TIMEOUT_SEPARATOR, parsed by reducer.
+     */
+    expiresAt?: number;
     id: string;
     isMainRoom?: boolean;
     jid: string;

@@ -85,12 +85,21 @@
         "notifications": {
             "joined": "Joining the \"{{name}}\" breakout room",
             "joinedMainRoom": "Joining the main room",
-            "joinedTitle": "Breakout Rooms"
+            "joinedTitle": "Breakout Rooms",
+            "timeUpDesc": "Discussion time is up",
+            "timeUpTitle": "Breakout Rooms"
         },
         "prompts": {
             "EnterTotalRoom": "Enter total number of rooms for breakout"
         },
         "showParticipantList": "Show participant list",
+        "timer": {
+            "remaining": "(Remaining {{time}})",
+            "remainingNative": "Remaining {{time}}",
+            "reuseTimer": "Reuse timer",
+            "roomRemaining": "({{room}} Remaining {{time}})",
+            "roomRemainingNative": "{{room}} Remaining {{time}}"
+        },
         "title": "Breakout Rooms"
     },
     "calendarSync": {
@@ -304,6 +313,8 @@
             "sharingTabs": "Sharing options"
         },
         "add": "Add",
+        "addBreakoutRoomLabel": "Room name",
+        "addBreakoutRoomTitle": "Add breakout room",
         "addMeetingNote": "Add a note about this meeting",
         "addOptionalNote": "Add a note (optional):",
         "allow": "Allow",
@@ -315,6 +326,8 @@
         "authenticationRequired": "Authentication required",
         "autoBreakoutRoomCountLabel": "Number of breakout rooms",
         "autoBreakoutRoomCountTitle": "Auto breakout rooms",
+        "breakoutRoomDurationLabel": "Duration (minutes)",
+        "breakoutRoomDurationPlaceholder": "Leave empty for no time limit",
         "cameraCaptureDialog": {
             "description": "Take and send a picture using your mobile camera",
             "ok": "Open camera",
@@ -330,12 +343,14 @@
         "cameraUnknownError": "Cannot use camera for an unknown reason.",
         "cameraUnsupportedResolutionError": "Your camera does not support required video resolution.",
         "close": "Close",
+        "closeBreakoutRoomsWarning": "All existing breakout rooms will be closed and participants will return to the main room.",
         "conferenceDisconnectMsg": "You may want to check your network connection. Reconnecting in {{seconds}} sec…",
         "conferenceDisconnectTitle": "You have been disconnected.",
         "conferenceReloadMsg": "We're trying to fix this. Reconnecting in {{seconds}} sec…",
         "conferenceReloadTitle": "Unfortunately, something went wrong.",
         "confirm": "Confirm",
         "confirmBack": "Back",
+        "confirmCloseBreakoutRooms": "Close existing breakout rooms?",
         "confirmNo": "No",
         "confirmYes": "Yes",
         "connectError": "Oops! Something went wrong and we couldn't connect to the conference.",

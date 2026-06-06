@@ -27,6 +27,7 @@ import {
 } from '../../../base/responsive-ui/constants';
 import { StyleType } from '../../../base/styles/functions.any';
 import TestConnectionInfo from '../../../base/testing/components/TestConnectionInfo';
+import BreakoutRoomTimer from '../../../breakout-rooms/components/BreakoutRoomTimer';
 import { isCalendarEnabled } from '../../../calendar-sync/functions.native';
 import DisplayNameLabel from '../../../display-name/components/native/DisplayNameLabel';
 import BrandingImageBackground from '../../../dynamic-branding/components/native/BrandingImageBackground';
@@ -478,6 +479,8 @@ class Conference extends AbstractConference<IProps, State> {
                         style = { alwaysOnTitleBarStyles as ViewStyle }>
                         {/* eslint-disable-next-line react/jsx-no-bind */}
                         <AlwaysOnLabels createOnPress = { this._createOnPress } />
+                        {/* fishmeet register breakout room timer */}
+                        <BreakoutRoomTimer />
                     </View>
                 </SafeAreaView>
 

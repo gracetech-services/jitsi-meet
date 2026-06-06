@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import { getConferenceName } from '../../../base/conference/functions';
+import { stripTimeoutSuffix } from '../../../breakout-rooms/functions';
 import AudioDeviceToggleButton from '../../../mobile/audio-mode/components/AudioDeviceToggleButton';
 import PictureInPictureButton from '../../../mobile/picture-in-picture/components/PictureInPictureButton';
 import ParticipantsPaneButton from '../../../participants-pane/components/native/ParticipantsPaneButton';
@@ -102,7 +103,7 @@ const TitleBar = (props: IProps) => {
 function _mapStateToProps(state: IReduxState) {
     return {
         _isParticipantsPaneEnabled: isParticipantsPaneEnabled(state),
-        _meetingName: getConferenceName(state),
+        _meetingName: stripTimeoutSuffix(getConferenceName(state)),
         _roomNameEnabled: isRoomNameEnabled(state),
         _visible: isToolboxVisible(state)
     };

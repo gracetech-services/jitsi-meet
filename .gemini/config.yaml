@@ -1,6 +1,6 @@
 # Gemini Code Assist Configuration
 review:
-  # Minimum severity to post a comment on the PR. 
+  # Minimum severity to post a comment on the PR.
   # Set to MEDIUM to ensure style guide alignment is always reported.
   min_severity: "MEDIUM"
 
@@ -14,7 +14,7 @@ review:
     # Hardcoded hex colors instead of using the Fishmeet palette
     - pattern: "#[0-9a-fA-F]{3,6}"
       severity: "HIGH"
-      reason: "Branding must use BaseTheme.palette.fishMeet tokens."
+      reason: "Branding must use BaseTheme.palette.customizedUi tokens."
 
     # Missing fishmeet annotations in stylesheets
     - pattern: "styles.ts"

@@ -85,12 +85,20 @@
         "notifications": {
             "joined": "正在加入「{{name}}」分組討論室",
             "joinedMainRoom": "正在加入主會議室",
-            "joinedTitle": "分組討論室"
+            "joinedTitle": "分組討論室",
+            "timeUpDesc": "討論時間已到",
+            "timeUpTitle": "分組討論室"
         },
         "prompts": {
             "EnterTotalRoom": "請輸入分組討論的房間總數"
         },
         "showParticipantList": "顯示與會者列表",
+        "timer": {
+            "remaining": "(剩餘{{time}})",
+            "remainingNative": "剩餘{{time}}",
+            "roomRemaining": "({{room}} 剩餘{{time}})",
+            "roomRemainingNative": "{{room}} 剩餘{{time}}"
+        },
         "title": "分組討論室"
     },
     "calendarSync": {
@@ -304,6 +312,8 @@
             "sharingTabs": "分享選項"
         },
         "add": "新增",
+        "addBreakoutRoomLabel": "分組討論室名稱",
+        "addBreakoutRoomTitle": "添加分組討論室",
         "addMeetingNote": "新增此會議的備註",
         "addOptionalNote": "新增備註（選填）：",
         "allow": "允許",
@@ -315,6 +325,8 @@
         "authenticationRequired": "需要驗證",
         "autoBreakoutRoomCountLabel": "分組討論室數量",
         "autoBreakoutRoomCountTitle": "自動分組討論室",
+        "breakoutRoomDurationLabel": "持續時間（分鐘）",
+        "breakoutRoomDurationPlaceholder": "留空表示無限制",
         "cameraConstraintFailedError": "您的網路攝影機不符合要求。",
         "cameraNotFoundError": "找不到網路攝影機。",
         "cameraNotSendingData": "我們無法存取您的網路攝影機，請檢查是否有其他應用程式正在使用這個裝置，並從裝置選單裡選擇其他設備或者重新載入。",
@@ -324,12 +336,14 @@
         "cameraUnknownError": "由於不明原因，無法存取網路攝影機。",
         "cameraUnsupportedResolutionError": "您的網路攝影機不支援所需的影像解析度。",
         "close": "關閉",
+        "closeBreakoutRoomsWarning": "所有現有分組討論室將被關閉，與會人將返回主會議。",
         "conferenceDisconnectMsg": "請檢查一下網路連線，將在 {{seconds}} 秒後重新連接…",
         "conferenceDisconnectTitle": "您已經被中斷連接。",
         "conferenceReloadMsg": "我們正試著修復狀況，將在 {{seconds}} 秒後重新連接…",
         "conferenceReloadTitle": "喔哦！好像有東西壞掉囉。",
         "confirm": "確認",
         "confirmBack": "返回",
+        "confirmCloseBreakoutRooms": "關閉現有分組討論室？",
         "confirmNo": "否",
         "confirmYes": "是",
         "connectError": "喔哦！發生錯誤，無法連接至會議。",

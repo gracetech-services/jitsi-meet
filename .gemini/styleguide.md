@@ -12,7 +12,7 @@ If a developer *must* edit a core file, it must strictly follow these patterns:
 * **No Brand Logic**: Reject any PR that introduces `if (appType.isFishMeet)` or similar brand-specific branching inside core files.
 
 ## 3. Styling & Branding
-* **Token Usage**: Reject hardcoded hex colors. All branding must use `BaseTheme.palette.fishMeet*` tokens defined in `Tokens.ts`.
+* **Token Usage**: Reject hardcoded hex colors. All branding must use `BaseTheme.palette.customizedUi*` tokens defined in `Tokens.ts`.
 * **Mandatory Annotations**: When a stylesheet is overridden in `fishmeet/react/`, every changed property must be annotated with `// fishmeet: was <original value>` for upgrade tracking.
 * **Icon Replacements**: Custom icons must be placed in `fishmeet/react/features/base/icons/svg/`.
 
