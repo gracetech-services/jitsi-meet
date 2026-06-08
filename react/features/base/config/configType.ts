@@ -1,5 +1,6 @@
 import { ToolbarButton } from '../../toolbox/types';
 import { ILoggingConfig } from '../logging/types';
+import { IAudioSettings } from '../settings/reducer';
 import { DesktopSharingSourceType } from '../tracks/types';
 
 type ButtonsWithNotifyClick = 'camera' |
@@ -60,10 +61,10 @@ type NotifyClickButtonKey = string |
     ParticipantMenuButtonsWithNotifyClick;
 
 export type NotifyClickButton = NotifyClickButtonKey |
-    {
-        key: NotifyClickButtonKey;
-        preventExecution: boolean;
-    };
+{
+    key: NotifyClickButtonKey;
+    preventExecution: boolean;
+};
 
 export type Sounds = 'ASKED_TO_UNMUTE_SOUND' |
     'E2EE_OFF_SOUND' |
@@ -144,6 +145,7 @@ export interface IWhiteboardConfig {
     collabServerBaseUrl?: string;
     enabled?: boolean;
     limitUrl?: string;
+    storageBackendUrl?: string;
     userLimit?: number;
 }
 
@@ -164,6 +166,26 @@ export interface IWatchRTCConfiguration {
     rtcTags?: string[];
     rtcToken?: string;
     wsUrl?: string;
+}
+
+export interface IVirtualBackgroundAdvancedConfig {
+    edgeHigh?: number;
+    edgeLow?: number;
+    inferenceStride?: number;
+    segmentationHeight?: number;
+    segmentationWidth?: number;
+    targetFps?: number;
+    temporalBlendRatio?: number;
+    testMode?: boolean;
+    tierOverride?: 'high' | 'low' | 'medium';
+    useInsertableStreams?: boolean;
+}
+
+export interface IVirtualBackgroundConfig {
+    advanced?: IVirtualBackgroundAdvancedConfig;
+    disableAddingImages?: boolean;
+    disabled?: boolean;
+    enableV2?: boolean;
 }
 
 export interface IConfig {
@@ -191,10 +213,18 @@ export interface IConfig {
     appId?: string;
     audioLevelsInterval?: number;
     audioQuality?: {
+        enableAdvancedAudioSettings?: boolean;
         opusMaxAverageBitrate?: number | null;
         stereo?: boolean;
     };
+    /**
+     * @deprecated Use `transcription.autoTranscribeOnRecord` instead.
+     */
     autoCaptionOnRecord?: boolean;
+
+    /**
+     * @deprecated Use `lobby.autoKnock` instead.
+     */
     autoKnockLobby?: boolean;
     backgroundAlpha?: number;
     bosh?: string;
@@ -237,6 +267,7 @@ export interface IConfig {
         inactiveDisabled?: boolean;
     };
     constraints?: {
+        audio?: IAudioSettings;
         video?: {
             height?: {
                 ideal?: number;
@@ -279,18 +310,31 @@ export interface IConfig {
     disableAEC?: boolean;
     disableAGC?: boolean;
     disableAP?: boolean;
+
+    /**
+     * @deprecated Use `virtualBackground.disableAddingImages` instead.
+     */
     disableAddingBackgroundImages?: boolean;
     disableAudioLevels?: boolean;
     disableBeforeUnloadHandlers?: boolean;
     disableCameraTintForeground?: boolean;
+    disableChat?: boolean;
     disableChatSmileys?: boolean;
+    /**
+     * @deprecated Use `deeplinking.disabled` instead.
+     */
     disableDeepLinking?: boolean;
-    disableFilmstripAutohiding?: boolean;
     disableFocus?: boolean;
     disableIframeAPI?: boolean;
+    /**
+     * @deprecated Use `disabledSounds` instead.
+     */
     disableIncomingMessageSound?: boolean;
     disableInitialGUM?: boolean;
     disableInviteFunctions?: boolean;
+    /**
+     * @deprecated Use `disabledSounds` instead.
+     */
     disableJoinLeaveSounds?: boolean;
     disableLocalVideoFlip?: boolean;
     disableModeratorIndicator?: boolean;
@@ -300,9 +344,15 @@ export interface IConfig {
     disableReactions?: boolean;
     disableReactionsInChat?: boolean;
     disableReactionsModeration?: boolean;
+    /**
+     * @deprecated Use `disabledSounds` instead.
+     */
     disableRecordAudioNotification?: boolean;
     disableRemoteControl?: boolean;
     disableRemoteMute?: boolean;
+    /**
+     * @deprecated Use `raisedHands.disableRemoveRaisedHandOnFocus` instead.
+     */
     disableRemoveRaisedHandOnFocus?: boolean;
     disableResponsiveTiles?: boolean;
     disableRtx?: boolean;
@@ -312,10 +362,17 @@ export interface IConfig {
     disableShortcuts?: boolean;
     disableShowMoreStats?: boolean;
     disableSimulcast?: boolean;
+    /**
+     * @deprecated Use `speakerStats.disableSearch` instead.
+     */
     disableSpeakerStatsSearch?: boolean;
     disableThirdPartyRequests?: boolean;
     disableTileEnlargement?: boolean;
     disableTileView?: boolean;
+
+    /**
+     * @deprecated Use `virtualBackground.disabled` instead.
+     */
     disableVirtualBackground?: boolean;
     disabledNotifications?: Array<string>;
     disabledSounds?: Array<Sounds>;
@@ -356,6 +413,9 @@ export interface IConfig {
     enableEncodedTransformSupport?: boolean;
     enableForcedReload?: boolean;
     enableInsecureRoomNameWarning?: boolean;
+    /**
+     * @deprecated Use `lobby.enableChat` instead.
+     */
     enableLobbyChat?: boolean;
     enableNoAudioDetection?: boolean;
     enableNoisyMicDetection?: boolean;
@@ -366,6 +426,9 @@ export interface IConfig {
     enableTcc?: boolean;
     enableTileViewOneOnOne?: boolean;
     enableWebHIDFeature?: boolean;
+    /**
+     * @deprecated Use `welcomePage.disabled` instead.
+     */
     enableWelcomePage?: boolean;
     etherpad_base?: string;
     faceLandmarks?: {
@@ -377,7 +440,14 @@ export interface IConfig {
         faceCenteringThreshold?: number;
     };
     feedbackPercentage?: number;
+    /**
+     * @deprecated Use `recordingService.enabled` instead.
+     */
     fileRecordingsServiceEnabled?: boolean;
+
+    /**
+     * @deprecated Use `recordingService.sharingEnabled` instead.
+     */
     fileRecordingsServiceSharingEnabled?: boolean;
     fileSharing?: {
         apiUrl?: string;
@@ -392,6 +462,7 @@ export interface IConfig {
         disabled?: boolean;
         initialWidth?: number;
         minParticipantCountForTopPanel?: number;
+        stageFilmstripParticipants?: number;
     };
     filmstripToggleIcons?: string[];
     fishmeetGetAvatarUrl?: (user: object) => string | undefined;
@@ -413,18 +484,27 @@ export interface IConfig {
         baseUrl?: string;
         disabled?: boolean;
     };
+    /**
+     * @deprecated Use `gravatar.baseUrl` instead.
+     */
     gravatarBaseURL?: string;
     guestDialOutStatusUrl?: string;
     guestDialOutUrl?: string;
     helpCentreURL?: string;
     hiddenDomain?: string;
     hiddenPremeetingButtons?: Array<'microphone' | 'camera' | 'select-background' | 'invite' | 'settings'>;
+    /**
+     * @deprecated Use `breakoutRooms.hideAddRoomButton` instead.
+     */
     hideAddRoomButton?: boolean;
     hideConferenceSubject?: boolean;
     hideConferenceTimer?: boolean;
     hideDisplayName?: boolean;
     hideDominantSpeakerBadge?: boolean;
     hideEmailInSettings?: boolean;
+    /**
+     * @deprecated Use `securityUi.hideLobbyButton` instead.
+     */
     hideLobbyButton?: boolean;
     hideLoginButton?: boolean;
     hideParticipantsStats?: boolean;
@@ -462,10 +542,14 @@ export interface IConfig {
         termsLink?: string;
         validatorRegExpString?: string;
     };
+    /**
+     * @deprecated Use `liveStreaming.enabled` instead.
+     */
     liveStreamingEnabled?: boolean;
     lobby?: {
         autoKnock?: boolean;
         enableChat?: boolean;
+        showHangUp?: boolean;
     };
     localRecording?: {
         disable?: boolean;
@@ -516,8 +600,15 @@ export interface IConfig {
     peopleSearchQueryTypes?: string[];
     peopleSearchTokenLocation?: string;
     peopleSearchUrl?: string;
+    pip?: {
+        disabled?: boolean;
+        showOnPrejoin?: boolean;
+    };
     preferBosh?: boolean;
     preferVisitor?: boolean;
+    /**
+     * @deprecated Use `transcription.preferredLanguage` instead.
+     */
     preferredTranscribeLanguage?: string;
     prejoinConfig?: {
         enabled?: boolean;
@@ -525,6 +616,7 @@ export interface IConfig {
         hideExtraJoinButtons?: Array<string>;
         preCallTestEnabled?: boolean;
         preCallTestICEUrl?: string;
+        showHangUp?: boolean;
     };
     prejoinPageEnabled?: boolean;
     presetupBreakoutRooms?: {
@@ -537,11 +629,6 @@ export interface IConfig {
         disableRemoveRaisedHandOnFocus?: boolean;
     };
     readOnlyName?: boolean;
-    recordingLimit?: {
-        appName?: string;
-        appURL?: string;
-        limit?: number;
-    };
     recordingService?: {
         enabled?: boolean;
         hideStorageWarning?: boolean;
@@ -557,6 +644,8 @@ export interface IConfig {
         skipConsentInMeeting?: boolean;
         suggestRecording?: boolean;
     };
+    reducedUIEnabled?: boolean;
+    reducedUImainToolbarButtons?: Array<string>;
     remoteVideoMenu?: {
         disableDemote?: boolean;
         disableGrantModerator?: boolean;
@@ -579,12 +668,16 @@ export interface IConfig {
     };
     serviceUrl?: string;
     sharedVideoAllowedURLDomains?: Array<string>;
+    showChatPermissionsModeratorSetting?: boolean;
     sipInviteUrl?: string;
     speakerStats?: {
         disableSearch?: boolean;
         disabled?: boolean;
         order?: Array<'role' | 'name' | 'hasLeft'>;
     };
+    /**
+     * @deprecated Use `speakerStats.order` instead.
+     */
     speakerStatsOrder?: Array<'role' | 'name' | 'hasLeft'>;
     startAudioMuted?: number;
     startAudioOnly?: boolean;
@@ -611,8 +704,8 @@ export interface IConfig {
         disabled?: boolean;
         numberOfVisibleTiles?: number;
     };
+    tokenAuthInline?: boolean;
     tokenAuthUrl?: string;
-    tokenAuthUrlAutoRedirect?: string;
     tokenGetUserInfoOutOfContext?: boolean;
     tokenLogoutUrl?: string;
     tokenRespectTenant?: boolean;
@@ -620,18 +713,31 @@ export interface IConfig {
     toolbarConfig?: {
         alwaysVisible?: boolean;
         autoHideWhileChatIsOpen?: boolean;
+        /**
+         * Background color for the main toolbar. Accepts any valid CSS color.
+         */
+        backgroundColor?: string;
         initialTimeout?: number;
         timeout?: number;
     };
+    /**
+     * @deprecated Use `transcription.useAppLanguage` instead.
+     */
     transcribeWithAppLanguage?: boolean;
+
+    /**
+     * @deprecated Use `transcription.enabled` instead.
+     */
     transcribingEnabled?: boolean;
     transcription?: {
         autoCaptionOnTranscribe?: boolean;
         autoTranscribeOnRecord?: boolean;
+        customLanguages?: object;
         disableClosedCaptions?: boolean;
         enabled?: boolean;
-        inviteJigasiOnBackendTranscribing?: boolean;
         preferredLanguage?: string;
+        renderTranscriptDetails?: boolean;
+        translationEnabled?: boolean;
         translationLanguages?: Array<string>;
         translationLanguagesHead?: Array<string>;
         useAppLanguage?: boolean;
@@ -653,12 +759,15 @@ export interface IConfig {
         mobileCodecPreferenceOrder?: Array<string>;
         persist?: boolean;
     };
+    virtualBackground?: IVirtualBackgroundConfig;
     visitors?: {
         enableMediaOnPromote?: {
             audio?: boolean;
             video?: boolean;
         };
+        hideVisitorCountForVisitors?: boolean;
         queueService: string;
+        showJoinMeetingDialog?: boolean;
     };
     watchRTCConfigParams?: IWatchRTCConfiguration;
     webhookProxyUrl?: string;

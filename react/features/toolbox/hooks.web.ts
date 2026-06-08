@@ -12,11 +12,15 @@ import JitsiMeetJS from '../base/lib-jitsi-meet';
 import { raiseHand } from '../base/participants/actions';
 import { getLocalParticipant, hasRaisedHand } from '../base/participants/functions';
 import { isToggleCameraEnabled } from '../base/tracks/functions.web';
+import { isInBreakoutRoom } from '../breakout-rooms/functions';
 import { toggleChat } from '../chat/actions.web';
-import ChatButton from '../chat/components/web/ChatButton';
+import { isChatDisabled } from '../chat/functions';
+import { useChatButton } from '../chat/hooks.web';
+import { useCustomPanelButton } from '../custom-panel/hooks.web';
 import { useEmbedButton } from '../embed-meeting/hooks';
 import { useEtherpadButton } from '../etherpad/hooks';
 import { useFeedbackButton } from '../feedback/hooks.web';
+import { useFileSharingButton } from '../file-sharing/hooks.web';
 import { setGifMenuVisibility } from '../gifs/actions';
 import { isGifEnabled } from '../gifs/function.any';
 import InviteButton from '../invite/components/add-people-dialog/web/InviteButton';
@@ -32,6 +36,7 @@ import {
     isParticipantsPaneEnabled
 } from '../participants-pane/functions';
 import { useParticipantPaneButton } from '../participants-pane/hooks.web';
+import { usePollsButton } from '../polls/hooks.web';
 import { addReactionToBuffer } from '../reactions/actions.any';
 import { toggleReactionsMenuVisibility } from '../reactions/actions.web';
 import RaiseHandContainerButton from '../reactions/components/web/RaiseHandContainerButtons';
@@ -96,13 +101,6 @@ const videoStream = {
     key: 'videoStream',
     Content: ToggleVideoStreamButton,
     group: 0
-};
-
-
-const chat = {
-    key: 'chat',
-    Content: ChatButton,
-    group: 2
 };
 
 const desktop = {
@@ -271,6 +269,19 @@ function useHelpButton() {
 }
 
 /**
+ * Hide invite button for breakout-rooms.
+ *
+ * @returns {Object | undefined}
+ */
+function useInviteButton() {
+    const visible = useSelector((state: IReduxState) => !isInBreakoutRoom(state));
+
+    if (visible) {
+        return invite;
+    }
+}
+
+/**
 * Returns all buttons that could be rendered.
 *
 * @param {Object} _customToolbarButtons - An array containing custom buttons objects.
@@ -285,7 +296,10 @@ export function useToolboxButtons(
     const reactions = useReactionsButton();
     const participants = useParticipantPaneButton();
     const tileview = useTileViewButton();
+    const chat = useChatButton();
     const cc = useClosedCaptionButton();
+    const polls = usePollsButton();
+    const filesharing = useFileSharingButton();
     const recording = useRecordingButton();
     const liveStreaming = useLiveStreamingButton();
     const linktosalesforce = useLinkToSalesforceButton();
@@ -300,6 +314,8 @@ export function useToolboxButtons(
     const feedback = useFeedbackButton();
     const _download = useDownloadButton();
     const _help = useHelpButton();
+    const _invite = useInviteButton();
+    const customPanel = useCustomPanelButton();
 
     const buttons: { [key in ToolbarButton]?: IToolboxButton; } = {
         microphone,
@@ -311,13 +327,15 @@ export function useToolboxButtons(
         raisehand,
         reactions,
         'participants-pane': participants,
-        invite,
+        invite: _invite,
         tileview,
         'toggle-camera': toggleCameraButton,
         videoquality: videoQuality,
         fullscreen: _fullscreen,
         security,
         closedcaptions: cc,
+        polls,
+        filesharing,
         recording,
         livestreaming: liveStreaming,
         linktosalesforce,
@@ -333,7 +351,8 @@ export function useToolboxButtons(
         embedmeeting: embed,
         feedback,
         download: _download,
-        help: _help
+        help: _help,
+        'custom-panel': customPanel
     };
     const buttonKeys = Object.keys(buttons) as ToolbarButton[];
 
@@ -369,6 +388,7 @@ export const useKeyboardShortcuts = (toolbarButtons: Array<string>) => {
     const _toolbarButtons = useSelector(
         (state: IReduxState) => toolbarButtons || state['features/toolbox'].toolbarButtons);
     const chatOpen = useSelector((state: IReduxState) => state['features/chat'].isOpen);
+    const _isChatDisabled = useSelector(isChatDisabled);
     const desktopSharingButtonDisabled = useSelector(isDesktopShareButtonDisabled);
     const desktopSharingEnabled = JitsiMeetJS.isDesktopSharingEnabled();
     const fullScreen = useSelector((state: IReduxState) => state['features/toolbox'].fullScreen);
@@ -386,6 +406,11 @@ export const useKeyboardShortcuts = (toolbarButtons: Array<string>) => {
      * @returns {void}
      */
     function onToggleChat() {
+        // Don't toggle chat if it's disabled.
+        if (_isChatDisabled) {
+            return false;
+        }
+
         sendAnalytics(createShortcutEvent(
             'toggle.chat',
             ACTION_SHORTCUT_TRIGGERED,
@@ -435,7 +460,7 @@ export const useKeyboardShortcuts = (toolbarButtons: Array<string>) => {
     function onToggleVideoQuality() {
         sendAnalytics(createShortcutEvent('video.quality'));
 
-        dispatch(toggleDialog(VideoQualityDialog));
+        dispatch(toggleDialog('VideoQualityDialog', VideoQualityDialog));
     }
 
     /**
@@ -524,7 +549,7 @@ export const useKeyboardShortcuts = (toolbarButtons: Array<string>) => {
             'speaker.stats'
         ));
 
-        dispatch(toggleDialog(SpeakerStats, {
+        dispatch(toggleDialog('SpeakerStats', SpeakerStats, {
             conference: APP.conference
         }));
     }
@@ -536,7 +561,7 @@ export const useKeyboardShortcuts = (toolbarButtons: Array<string>) => {
                 exec: onToggleVideoQuality,
                 helpDescription: 'toolbar.callQuality'
             },
-            isButtonEnabled('chat', _toolbarButtons) && {
+            !_isChatDisabled && isButtonEnabled('chat', _toolbarButtons) && {
                 character: 'C',
                 exec: onToggleChat,
                 helpDescription: 'keyboardShortcuts.toggleChat'

@@ -84,6 +84,21 @@ const useStyles = makeStyles<IStylesProps>()((theme, { isChatOpen }) => {
 
             '&::-webkit-scrollbar': {
                 display: 'none'
+            },
+
+            // Temporary fix: Limit context menu width to prevent clipping
+            // TODO: Long-term fix would be to portal context menus outside the scrollable container
+            '& [class*="contextMenu"]': {
+                maxWidth: '285px',
+
+                '& [class*="contextMenuItem"]': {
+                    whiteSpace: 'normal',
+
+                    '& span': {
+                        whiteSpace: 'normal',
+                        wordBreak: 'break-word'
+                    }
+                }
             }
         },
 
@@ -175,7 +190,7 @@ const ParticipantsPane = () => {
     }, []);
 
     const onMuteAll = useCallback(() => {
-        dispatch(openDialog(MuteEveryoneDialog));
+        dispatch(openDialog('MuteEveryoneDialog', MuteEveryoneDialog));
     }, []);
 
     const onToggleContext = useCallback(() => {

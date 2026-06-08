@@ -1,4 +1,6 @@
 import '../base/app/middleware';
+import '../base/jwt/middleware.web';
+import '../base/config/middleware';
 import '../base/connection/middleware';
 import '../base/devices/middleware';
 import '../base/media/middleware';
@@ -13,6 +15,7 @@ import '../noise-detection/middleware';
 import '../breakout-room-presetup/middleware';
 import '../breakout-room-autosetup/middleware';
 import '../old-client-notification/middleware';
+import '../pip/middleware';
 import '../power-monitor/middleware';
 import '../prejoin/middleware';
 import '../remote-control/middleware';
@@ -26,5 +29,6 @@ import '../face-landmarks/middleware';
 import '../gifs/middleware';
 import '../whiteboard/middleware.web';
 import '../file-sharing/middleware.web';
+import '../custom-panel/middleware.web';
 
 import './middlewares.any';
