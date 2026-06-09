@@ -22,7 +22,7 @@ export const AddBreakoutRoomButton = () => {
     const dispatch = useDispatch();
 
     const onAdd = useCallback(() =>
-        dispatch(openDialog(CreateBreakoutRoomDialog))
+        dispatch(openDialog('CreateBreakoutRoomDialog', CreateBreakoutRoomDialog))
     , [ dispatch ]);
 
     return (

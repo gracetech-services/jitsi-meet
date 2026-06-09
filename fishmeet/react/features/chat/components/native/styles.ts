@@ -121,6 +121,16 @@ export default {
         maxWidth: '80%'
     },
 
+    emptyListStyle: {
+        flex: 1
+    },
+
+    emptyListContentContainer: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center'
+    },
+
     disabledSendWrapper: {
         alignSelf: 'center',
         flex: 0,
@@ -284,5 +294,130 @@ export default {
         ...BaseTheme.typography.bodyShortRegular,
         color: BaseTheme.palette.text01,
         flex: 1
+    }
+};
+
+/**
+ * Styles for the ClosedCaptions component.
+ */
+export const closedCaptionsStyles = {
+    container: {
+        backgroundColor: BaseTheme.palette.ui01,
+        flex: 1
+    },
+
+    emptyContentContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    emptyContent: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        padding: BaseTheme.spacing[3]
+    },
+
+    emptyStateText: {
+        ...BaseTheme.typography.bodyLongBold,
+        color: BaseTheme.palette.text02,
+        textAlign: 'center',
+        maxWidth: '80%'
+    },
+
+    transcribingContainer: {
+        flex: 1
+    },
+
+    languageButtonContainer: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        padding: BaseTheme.spacing[3]
+    },
+
+    languageButtonText: {
+        ...BaseTheme.typography.bodyShortRegularLarge,
+        color: BaseTheme.palette.text01,
+        marginHorizontal: BaseTheme.spacing[2]
+    },
+
+    languageButtonContent: {
+        flexDirection: 'row'
+    },
+
+    subtitleMessageContainer: {
+        backgroundColor: BaseTheme.palette.ui02,
+        borderRadius: BaseTheme.shape.borderRadius,
+        padding: BaseTheme.spacing[2],
+        maxWidth: '100%',
+        marginTop: BaseTheme.spacing[1]
+    },
+
+    subtitleMessageContent: {
+        maxWidth: '100%',
+        flex: 1
+    },
+
+    subtitleMessageHeader: {
+        ...BaseTheme.typography.labelBold,
+        color: BaseTheme.palette.text02,
+        marginBottom: BaseTheme.spacing[1],
+        maxWidth: 130
+    },
+
+    subtitleMessageText: {
+        ...BaseTheme.typography.bodyShortRegular,
+        color: BaseTheme.palette.text01
+    },
+
+    subtitleMessageTimestamp: {
+        ...BaseTheme.typography.labelRegular,
+        color: BaseTheme.palette.text03,
+        marginTop: BaseTheme.spacing[1]
+    },
+
+    subtitleMessageInterim: {
+        opacity: 0.7
+    },
+
+    subtitlesGroupContainer: {
+        flexDirection: 'row',
+        marginBottom: BaseTheme.spacing[3]
+    },
+
+    subtitlesGroupAvatar: {
+        marginBottom: BaseTheme.spacing[10],
+        marginRight: BaseTheme.spacing[2],
+        alignSelf: 'flex-start',
+        width: 32
+    },
+
+    subtitlesGroupMessagesContainer: {
+        flexDirection: 'column',
+        flex: 1,
+        maxWidth: '100%'
+    },
+
+    subtitlesMessagesContainer: {
+        flex: 1,
+        position: 'relative',
+        height: '100%'
+    },
+
+    subtitlesMessagesList: {
+        padding: BaseTheme.spacing[4]
+    },
+
+    newMessagesButtonContainer: {
+        position: 'absolute',
+        bottom: BaseTheme.spacing[3],
+        alignSelf: 'center'
+    },
+
+    messagesContainer: {
+        display: 'flex',
+        flex: 1,
+        overflow: 'hidden'
     }
 };

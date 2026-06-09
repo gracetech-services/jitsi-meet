@@ -43,6 +43,10 @@ const SECTION_LIST_STYLES = {
         flexDirection: 'column'
     },
 
+    listContentContainer: {
+        flexGrow: 1
+    },
+
     listItem: {
         alignItems: 'center',
         flex: 1,

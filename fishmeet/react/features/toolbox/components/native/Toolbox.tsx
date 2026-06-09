@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
@@ -84,9 +84,7 @@ function Toolbox(props: IProps) {
     return (
         <SafeAreaView
             accessibilityRole = 'toolbar'
-
-            // @ts-ignore
-            edges = { [ bottomEdge && 'bottom' ].filter(Boolean) }
+            edges = { [ bottomEdge && 'bottom' ].filter(Boolean) as Edge[] }
             pointerEvents = 'box-none'
             style = { style as ViewStyle }>
             <View style = { styles.fishMeetToolboxContainer as ViewStyle }>

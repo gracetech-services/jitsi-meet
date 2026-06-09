@@ -42,13 +42,13 @@ const ParticipantsPaneFooter = (): JSX.Element => {
         getFeatureFlag(state, BREAKOUT_ROOMS_BUTTON_ENABLED, true)
     );
     const openMoreMenu = useCallback(() => dispatch(openSheet(ContextMenuMore)), [ dispatch ]);
-    const muteAll = useCallback(() => dispatch(openDialog(MuteEveryoneDialog)),
+    const muteAll = useCallback(() => dispatch(openDialog('MuteEveryoneDialog', MuteEveryoneDialog)),
         [ dispatch ]);
     const showMoreActions = useSelector(isMoreActionsVisible);
     const showMuteAll = useSelector(isMuteAllVisible);
 
     const muteAllVideo = useCallback(() => {
-        dispatch(openDialog(MuteEveryonesVideoDialog));
+        dispatch(openDialog('MuteEveryonesVideoDialog', MuteEveryonesVideoDialog));
     }, [ dispatch ]);
 
     return (
