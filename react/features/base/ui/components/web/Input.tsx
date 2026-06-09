@@ -53,7 +53,7 @@ const useStyles = makeStyles()(theme => {
 
         label: {
             color: theme.palette.customizedUiText01, // fishmeet: was text01
-            ...withPixelLineHeight(theme.typography.bodyShortRegular),
+            ...theme.typography.bodyShortRegular,
             marginBottom: theme.spacing(2),
 
             '&.is-mobile': {
@@ -71,7 +71,7 @@ const useStyles = makeStyles()(theme => {
             background: theme.palette.customizedUiSecBackground, // fishmeet: was ui03
             boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`, // fishmeet: was nil
             color: theme.palette.text01,
-            ...withPixelLineHeight(theme.typography.bodyShortRegular),
+            ...theme.typography.bodyShortRegular,
             padding: '10px 16px',
             borderRadius: theme.shape.borderRadius,
             border: 0,
