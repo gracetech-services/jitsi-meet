@@ -23,7 +23,9 @@ const safeLangQueryDetector = {
     lookup() {
         const value = new URLSearchParams(window.location.search).get('lang');
 
-        const lang = value && SUPPORTED_LANGUAGES.get(value.toLowerCase());
+        // Compatible with the old camelCase format: zhCN → zh-CN
+        const normalized = value?.replace(/([a-z]{2})([A-Z]+)/, '$1-$2');
+        const lang = normalized && SUPPORTED_LANGUAGES.get(normalized.toLowerCase());
 
         if (lang) {
             return lang;
