@@ -15,12 +15,6 @@ const recipientContainer = {
     padding: BaseTheme.spacing[2]
 };
 
-const inputBar = {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-};
-
 /**
  * The styles of the feature chat.
  *
@@ -45,7 +39,8 @@ export default {
     },
 
     emptyComponentText: {
-        color: BaseTheme.palette.text03,
+        ...BaseTheme.typography.bodyLongBold,
+        color: BaseTheme.palette.text02,
         textAlign: 'center'
     },
 
@@ -114,10 +109,9 @@ export default {
     },
 
     emptyComponentWrapper: {
-        alignSelf: 'center',
-        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
         padding: BoxModel.padding,
-        paddingTop: '8%',
         maxWidth: '80%'
     },
 
@@ -144,23 +138,25 @@ export default {
      * A special padding to avoid issues on some devices (such as Android devices with custom suggestions bar).
      */
     extraBarPadding: {
-        paddingBottom: 30
+        paddingBottom: BaseTheme.spacing[6]
     },
 
-    inputBarNarrow: {
-        ...inputBar,
-        height: 112,
-        marginHorizontal: BaseTheme.spacing[4] // fishmeet: was spacing[3]
+    inputBar: {
+        alignSelf: 'stretch',
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center', // fishmeet: customized add
+        justifyContent: 'space-between' // fishmeet: customized add
     },
 
-    inputBarWide: {
-        ...inputBar,
-        height: 88,
-        marginHorizontal: BaseTheme.spacing[9]
+    sendButton: {
+        marginRight: BaseTheme.spacing[4],
+        marginLeft: BaseTheme.spacing[2]
     },
 
     customInputContainer: {
-        width: '80%' // fishmeet: was '75%'
+        width: '80%', // fishmeet: was 'marginLeft: BaseTheme.spacing[4]'，
+        flex: 1
     },
 
     // fishmeet: input field styling
@@ -228,12 +224,6 @@ export default {
     sendButtonProps: {
         size: 12,
         type: BUTTON_TYPES.TERTIARY
-    },
-
-    // fishmeet: use brand background instead of ui01
-    chatContainer: {
-        backgroundColor: BaseTheme.palette.customizedUiBackground,
-        flex: 1
     },
 
     tabContainer: {
