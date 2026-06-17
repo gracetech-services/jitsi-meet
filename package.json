@@ -108,7 +108,7 @@
     "react-native-splash-view": "0.0.18",
     "react-native-svg": "15.15.4",
     "react-native-svg-transformer": "1.2.0",
-    "react-native-tab-view": "3.5.2",
+    "react-native-tab-view": "^4.3.1",
     "react-native-url-polyfill": "2.0.0",
     "react-native-video": "6.18.0",
     "react-native-webrtc": "124.0.7",
