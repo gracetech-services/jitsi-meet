@@ -155,7 +155,7 @@ export default {
     },
 
     customInputContainer: {
-        width: '80%', // fishmeet: was 'marginLeft: BaseTheme.spacing[4]'，
+        marginLeft: BaseTheme.spacing[4],
         flex: 1
     },
 
