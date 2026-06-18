@@ -90,7 +90,7 @@ class ReactionMenuDialog extends PureComponent<IProps> {
                         _styles,
                         {
                             left: (_width - 360) / 2,
-                            top: _height - (_participantCount > 1 ? 144 : 80) - 80
+                            top: _height - (_participantCount > 1 ? 144 : 80) - 160 // fishmeet: - 80
                         } ] }>
                     <ReactionMenu
                         onCancel = { this._onCancel }

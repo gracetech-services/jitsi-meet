@@ -87,7 +87,13 @@ const TitleBar = (props: IProps) => {
             </View>
             <View style = { styles.titleBarButtonContainer }>
                 <AudioDeviceToggleButton
-                    styles = { styles.titleBarButton } />
+                    styles = {{
+                        ...styles.titleBarButton,
+                        iconStyle: {
+                            ...styles.titleBarButton.iconStyle,
+                            color: '#000'
+                        }
+                    }} />
             </View>
             {
                 _isParticipantsPaneEnabled
