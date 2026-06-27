@@ -128,7 +128,7 @@
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "7.25.9",
+    "@babel/core": "7.29.6",
     "@babel/plugin-transform-private-methods": "7.25.9",
     "@babel/preset-env": "7.25.9",
     "@babel/preset-react": "7.25.9",
