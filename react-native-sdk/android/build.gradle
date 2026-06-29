@@ -4,8 +4,15 @@ buildscript {
       mavenCentral()
   }
 
-  dependencies {
-    classpath "com.android.tools.build:gradle:$rootProject.ext.gradlePluginVersion"
+  // Only declare the AGP classpath when the consumer project exposes
+  // `gradlePluginVersion` (e.g. the jitsi-meet repo itself). EAS/Expo and
+  // other React Native projects do not set this ext property, so we skip the
+  // declaration and let the AGP classpath provided by the root project's
+  // buildscript block be used instead.
+  if (rootProject.ext.has('gradlePluginVersion')) {
+    dependencies {
+      classpath "com.android.tools.build:gradle:${rootProject.ext.get('gradlePluginVersion')}"
+    }
   }
 }
 

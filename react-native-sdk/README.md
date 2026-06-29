@@ -70,7 +70,7 @@ cd ios && pod install && cd ..
 ## Android
 
 - In your build.gradle have at least `minSdkVersion = 26`
-- In your build.gradle have `gradlePluginVersion = "8.4.2"` or higher
+- In your build.gradle have `gradlePluginVersion = "8.4.2"` or higher (optional, the SDK will use the root project's AGP version if not set)
 - In `android/app/src/debug/AndroidManifest.xml` and `android/app/src/main/AndroidManifest.xml`, under the `</application>` tag, include
   ```xml
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
