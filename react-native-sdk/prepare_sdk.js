@@ -122,7 +122,7 @@ fs.copyFileSync(
 );
 copyFolderRecursiveSync(
     `${androidSourcePath}/log`,
-     `${androidTargetPath}/log`
+     `${androidTargetPath}`
 );
 copyFolderRecursiveSync(
     `${androidMainSourcePath}/values`,
