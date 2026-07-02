@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import { IReduxState } from '../../../app/types';
 import ColorSchemeRegistry from '../../../base/color-scheme/ColorSchemeRegistry';
-import Platform from '../../../base/react/Platform.native';
 import ChatButton from '../../../chat/components/native/ChatButton';
 import ReactionsMenuButton from '../../../reactions/components/native/ReactionsMenuButton';
 import { shouldDisplayReactionsButtons } from '../../../reactions/functions.any';
@@ -69,7 +68,7 @@ function Toolbox(props: IProps) {
         return null;
     }
 
-    const bottomEdge = Platform.OS === 'ios' && _visible;
+    const bottomEdge = _visible;
     const { buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles } = _styles;
     const additionalButtons = getMovableButtons(_width);
     const backgroundToggledStyle = {
