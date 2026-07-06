@@ -6,9 +6,9 @@ export const styleHeader = {
         height: 60,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     textStyle: {
         color: BaseTheme.palette.text01,
@@ -16,9 +16,5 @@ export const styleHeader = {
         flex: 1,
         textAlign: 'center' as const
     },
-    touchStyle: {
-        position: 'absolute',
-        right: 30
-    }
 };
 
