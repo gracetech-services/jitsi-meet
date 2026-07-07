@@ -117,6 +117,16 @@ export const resultsStyles = createStyleSheet({
 
 export const pollsStyles = createStyleSheet({
 
+    emptyListStyle: {
+        flex: 1
+    },
+
+    emptyListContentContainer: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center'
+    },
+
     noPollContent: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -161,14 +171,8 @@ export const pollsStyles = createStyleSheet({
         marginTop: BaseTheme.spacing[3]
     },
 
-    pollCreateButtonsContainerAndroid: {
-        marginBottom: BaseTheme.spacing[8],
-        marginHorizontal: BaseTheme.spacing[3]
-    },
-
-    pollCreateButtonsContainerIos: {
-        marginBottom: BaseTheme.spacing[5],
-        marginHorizontal: BaseTheme.spacing[3]
+    pollCreateButtonsContainer: {
+        marginHorizontal: BaseTheme.spacing[2]
     },
 
     pollSendLabel: {
@@ -213,14 +217,8 @@ export const pollsStyles = createStyleSheet({
         color: BaseTheme.palette.action01
     },
 
-    createPollButtonIos: {
-        marginHorizontal: 20,
-        marginVertical: BaseTheme.spacing[5]
-    },
-
-    createPollButtonAndroid: {
-        marginHorizontal: 20,
-        marginVertical: BaseTheme.spacing[5]
+    createPollButton: {
+        marginHorizontal: BaseTheme.spacing[4],
     },
 
     pollPane: {

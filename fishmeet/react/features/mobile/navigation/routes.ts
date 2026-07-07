@@ -4,11 +4,12 @@ export const screen = {
         fishMeetBreakoutRooms: 'FishMeet Breakout Rooms',
         carmode: 'Car Mode',
         chat: 'Chat',
-        chatandpolls: {
-            main: 'Chat and Polls',
+        chatTabs: {
+            main: 'Chat tabs',
             tab: {
                 chat: 'Chat',
-                polls: 'Polls'
+                polls: 'Polls',
+                closedCaptions: 'Closed Captions'
             }
         },
         container: 'Conference container',

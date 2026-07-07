@@ -1,4 +1,5 @@
 import { IStore } from '../../app/types';
+import { requestMediaPermissions } from '../../mobile/permissions/functions';
 import JitsiMeetJS from '../lib-jitsi-meet';
 
 import { getCameraFacingMode } from './functions.any';
@@ -30,15 +31,20 @@ export function createLocalTracksF(options: ITrackOptions = {}, store: IStore) {
     } = state['features/base/config'];
     const constraints = options.constraints ?? state['features/base/config'].constraints;
 
-    return JitsiMeetJS.createLocalTracks(
-        {
-            cameraDeviceId,
-            constraints,
+    // Copy array to avoid mutations inside library.
+    const devices = options.devices?.slice(0);
 
-            // Copy array to avoid mutations inside library.
-            devices: options.devices?.slice(0),
-            facingMode: options.facingMode || getCameraFacingMode(state),
-            micDeviceId,
-            resolution
-        });
+    // Ensure the Android runtime permissions are requested (and the system
+    // dialog shown) before getUserMedia runs, so the flow does not depend on
+    // react-native-webrtc's internal serialized permission queue.
+    return requestMediaPermissions(devices).then(() =>
+        JitsiMeetJS.createLocalTracks(
+            {
+                cameraDeviceId,
+                constraints,
+                devices,
+                facingMode: options.facingMode || getCameraFacingMode(state),
+                micDeviceId,
+                resolution
+            }));
 }

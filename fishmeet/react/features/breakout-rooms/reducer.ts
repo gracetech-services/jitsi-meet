@@ -10,12 +10,20 @@ import { IRooms } from './types';
 
 const DEFAULT_STATE = {
     rooms: {},
-    roomCounter: 0
+    roomCounter: 0,
+    userContextCache: {}
 };
 
 export interface IBreakoutRoomsState {
     roomCounter: number;
     rooms: IRooms;
+    userContextCache: {
+        [participantId: string]: {
+            [key: string]: any;
+            id?: string;
+            name?: string;
+        };
+    };
 }
 
 /**
@@ -46,12 +54,13 @@ ReducerRegistry.register<IBreakoutRoomsState>(FEATURE_KEY, (state = DEFAULT_STAT
             };
         });
 
-        const { roomCounter, rooms } = { ...action, rooms: parsedRooms };
+        const { roomCounter, rooms, userContextCache } = { ...action, rooms: parsedRooms };
 
         return {
             ...state,
             roomCounter,
-            rooms
+            rooms,
+            userContextCache: userContextCache || state.userContextCache
         };
     }
     case _RESET_BREAKOUT_ROOMS: {

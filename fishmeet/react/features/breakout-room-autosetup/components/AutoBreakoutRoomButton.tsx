@@ -22,7 +22,7 @@ export const AutoBreakoutRoomButton = () => {
 
     const dispatch = useDispatch();
     const onAutoDiscussClick = useCallback(async () => {
-        dispatch(openDialog(AutoBreakoutRoomCountPrompt));
+        dispatch(openDialog('AutoBreakoutRoomCountPrompt', AutoBreakoutRoomCountPrompt));
     }, [
         dispatch,
     ]);

@@ -273,6 +273,7 @@ export function moveToRoom(roomId?: string) {
             }
 
             APP.conference.joinRoom(_roomId, {
+                isBreakoutRoom: true,
                 startWithAudioMuted: isAudioMuted,
                 startWithVideoMuted: isVideoMuted
             });

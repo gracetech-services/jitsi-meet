@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { WithTranslation } from 'react-i18next';
-import { Platform } from 'react-native';
 import { Edge, SafeAreaView } from 'react-native-safe-area-context';
 import { connect } from 'react-redux';
 
@@ -196,7 +195,7 @@ class NotificationsContainer extends Component<IProps> {
 
         return (
             <SafeAreaView
-                edges = { [ Platform.OS === 'ios' && 'bottom', 'left', 'right' ].filter(Boolean) as Edge[] }
+                edges = { [ 'bottom', 'left', 'right' ] as Edge[] }
                 style = { notificationsContainerStyle as any }>
                 <NotificationsTransition>
                     {

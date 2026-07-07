@@ -63,7 +63,7 @@ export const LoadPresetBreakoutRoomButton = () => {
         });
 
         if (size(subRooms) > 0) {
-            dispatch(openDialog(ConfirmDialog, {
+            dispatch(openDialog('ConfirmDialog', ConfirmDialog, {
                 msg: t('presetBreakoutRooms.confirm.prompt'),
                 onSubmit: () => dispatch(triggerRemoveAllRooms()),
             }));
@@ -71,7 +71,7 @@ export const LoadPresetBreakoutRoomButton = () => {
             return;
         }
 
-        dispatch(openDialog(LoadPresetBreakoutRoomDialog));
+        dispatch(openDialog('LoadPresetBreakoutRoomDialog', LoadPresetBreakoutRoomDialog));
     }, [
         availableToSetup,
         rooms,

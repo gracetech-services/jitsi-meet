@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import TextareaAutosize from 'react-textarea-autosize';
 import { makeStyles } from 'tss-react/mui';
 
 import { isMobileBrowser } from '../../../environment/utils';
 import Icon from '../../../icons/components/Icon';
 import { IconCloseCircle } from '../../../icons/svg';
-import { withPixelLineHeight } from '../../../styles/functions.web';
 import { IInputProps } from '../types';
 
 import { HiddenDescription } from './HiddenDescription';
@@ -16,6 +16,7 @@ interface IProps extends IInputProps {
     autoFocus?: boolean;
     bottomLabel?: string;
     className?: string;
+    describedBy?: string;
     hiddenDescription?: string; // Text that will be announced by screen readers but not displayed visually.
     iconClick?: () => void;
 
@@ -25,6 +26,7 @@ interface IProps extends IInputProps {
      * info (label, error) so that screen reader users don't get lost.
      */
     id: string;
+    invalidReason?: 'grammar' | 'spelling' | boolean;
     maxLength?: number;
     maxRows?: number;
     maxValue?: number;
@@ -51,11 +53,11 @@ const useStyles = makeStyles()(theme => {
 
         label: {
             color: theme.palette.customizedUiText01, // fishmeet: was text01
-            ...withPixelLineHeight(theme.typography.bodyShortRegular),
+            ...theme.typography.bodyShortRegular,
             marginBottom: theme.spacing(2),
 
             '&.is-mobile': {
-                ...withPixelLineHeight(theme.typography.bodyShortRegularLarge)
+                ...theme.typography.bodyShortRegularLarge
             }
         },
 
@@ -69,7 +71,7 @@ const useStyles = makeStyles()(theme => {
             background: theme.palette.customizedUiSecBackground, // fishmeet: was ui03
             boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`, // fishmeet: was nil
             color: theme.palette.text01,
-            ...withPixelLineHeight(theme.typography.bodyShortRegular),
+            ...theme.typography.bodyShortRegular,
             padding: '10px 16px',
             borderRadius: theme.shape.borderRadius,
             border: 0,
@@ -78,22 +80,26 @@ const useStyles = makeStyles()(theme => {
             width: '100%',
 
             '&::placeholder': {
-                color: theme.palette.text02
+                color: theme.palette.inputFieldPlaceholder
             },
 
             '&:focus': {
                 outline: 0,
-                boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`
+                boxShadow: `0px 0px 0px 2px ${theme.palette.inputFieldFocus}`,
+
+                '&::placeholder': {
+                    opacity: 0
+                }
             },
 
             '&:disabled': {
-                color: theme.palette.text03
+                color: theme.palette.inputFieldDisabled
             },
 
             '&.is-mobile': {
                 height: '48px',
                 padding: '13px 16px',
-                ...withPixelLineHeight(theme.typography.bodyShortRegularLarge)
+                ...theme.typography.bodyShortRegularLarge
             },
 
             '&.icon-input': {
@@ -101,7 +107,7 @@ const useStyles = makeStyles()(theme => {
             },
 
             '&.error': {
-                boxShadow: `0px 0px 0px 2px ${theme.palette.textError}`
+                boxShadow: `0px 0px 0px 2px ${theme.palette.inputFieldError}`
             },
             '&.clearable-input': {
                 paddingRight: '46px'
@@ -133,22 +139,22 @@ const useStyles = makeStyles()(theme => {
             right: '16px',
             top: '10px',
             cursor: 'pointer',
-            backgroundColor: theme.palette.action03,
+            backgroundColor: theme.palette.inputClearButton,
             border: 0,
             padding: 0
         },
 
         bottomLabel: {
             marginTop: theme.spacing(2),
-            ...withPixelLineHeight(theme.typography.labelRegular),
-            color: theme.palette.text02,
+            ...theme.typography.labelRegular,
+            color: theme.palette.inputBottomLabel,
 
             '&.is-mobile': {
-                ...withPixelLineHeight(theme.typography.bodyShortRegular)
+                ...theme.typography.bodyShortRegular
             },
 
             '&.error': {
-                color: theme.palette.textError
+                color: theme.palette.inputBottomLabelError
             }
         }
     };
@@ -162,11 +168,13 @@ const Input = React.forwardRef<any, IProps>(({
     className,
     clearable = false,
     disabled,
+    describedBy,
     error,
     hiddenDescription,
     icon,
     iconClick,
     id,
+    invalidReason,
     label,
     maxValue,
     maxLength,
@@ -188,6 +196,7 @@ const Input = React.forwardRef<any, IProps>(({
     value
 }: IProps, ref) => {
     const { classes: styles, cx } = useStyles();
+    const { t } = useTranslation();
     const isMobile = isMobileBrowser();
     const showClearIcon = clearable && value !== '' && !disabled;
     const inputAutoCompleteOff = autoComplete === 'off' ? { 'data-1p-ignore': '' } : {};
@@ -199,13 +208,32 @@ const Input = React.forwardRef<any, IProps>(({
     const hiddenDescriptionId = `${id}-hidden-description`;
     let ariaDescribedById: string | undefined;
 
-    if (bottomLabel) {
+    if (describedBy) {
+        ariaDescribedById = describedBy;
+    } else if (bottomLabel) {
         ariaDescribedById = `${id}-description`;
     } else if (hiddenDescription) {
         ariaDescribedById = hiddenDescriptionId;
     } else {
         ariaDescribedById = undefined;
     }
+
+    let ariaInvalid: 'grammar' | 'spelling' | boolean | undefined;
+
+    if (invalidReason) {
+        ariaInvalid = invalidReason;
+    } else if (error) {
+        ariaInvalid = error;
+    } else {
+        ariaInvalid = undefined;
+    }
+
+    const onKeyDownClearInput = useCallback((e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            clearInput();
+        }
+    }, [ clearInput ]);
 
     return (
         <div className = { cx(styles.inputContainer, className) }>
@@ -224,6 +252,7 @@ const Input = React.forwardRef<any, IProps>(({
                 {textarea ? (
                     <TextareaAutosize
                         aria-describedby = { ariaDescribedById }
+                        aria-invalid = { ariaInvalid }
                         aria-label = { accessibilityLabel }
                         autoComplete = { autoComplete }
                         autoFocus = { autoFocus }
@@ -245,6 +274,7 @@ const Input = React.forwardRef<any, IProps>(({
                 ) : (
                     <input
                         aria-describedby = { ariaDescribedById }
+                        aria-invalid = { ariaInvalid }
                         aria-label = { accessibilityLabel }
                         autoComplete = { autoComplete }
                         autoFocus = { autoFocus }
@@ -270,19 +300,23 @@ const Input = React.forwardRef<any, IProps>(({
                         type = { type }
                         value = { value } />
                 )}
-                {showClearIcon && <button className = { styles.clearButton }>
+                {showClearIcon && <button
+                    aria-label = { t('inputAction.deleteInput') }
+                    className = { styles.clearButton }
+                    onClick = { clearInput }
+                    onKeyDown = { onKeyDownClearInput }>
                     <Icon
-                        onClick = { clearInput }
                         size = { 20 }
                         src = { IconCloseCircle } />
                 </button>}
             </div>
             {bottomLabel && (
-                <span
+                <p
+                    aria-live = 'polite'
                     className = { cx(styles.bottomLabel, isMobile && 'is-mobile', error && 'error') }
-                    id = { `${id}-description` }>
-                    {bottomLabel}
-                </span>
+                    id = { `${id}-description` } >
+                    { bottomLabel }
+                </p>
             )}
             {!bottomLabel && hiddenDescription && <HiddenDescription id = { hiddenDescriptionId }>{ hiddenDescription }</HiddenDescription>}
         </div>

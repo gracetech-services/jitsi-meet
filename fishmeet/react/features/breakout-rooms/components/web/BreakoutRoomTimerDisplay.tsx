@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
 
-import { withPixelLineHeight } from '../../../base/styles/functions.web';
 import { IDisplayProps } from '../BreakoutRoomTimer';
 
 const useStyles = makeStyles()(theme => {
@@ -14,7 +13,7 @@ const useStyles = makeStyles()(theme => {
         },
 
         timer: {
-            ...withPixelLineHeight(theme.typography.labelRegular),
+            ...theme.typography.labelRegular,
             color: theme.palette.text01,
             padding: '2px 6px',
             borderRadius: 4

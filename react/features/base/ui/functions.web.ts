@@ -5,6 +5,8 @@ import { ITypography, IPalette as Palette1 } from '../ui/types';
 
 import { createColorTokens, createTypographyTokens } from './utils';
 
+export * from './functions.any';
+
 /* GraceTech custom palette */
 type GraceTechCustomizedPalette = {
     customizedUiAction01: string;
