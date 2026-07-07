@@ -16,6 +16,6 @@ export const styleHeader = {
         fontSize: 18,
         flex: 1,
         textAlign: 'center' as const
-    },
+    }
 };
 

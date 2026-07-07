@@ -19,9 +19,7 @@ export const fishMeetHeaderOptions = {
                 </Text>
                 <TouchableOpacity
                     // eslint-disable-next-line react/jsx-no-bind
-                    onPress = { () => navigation.goBack() }
-                    // eslint-disable-next-line react-native/no-inline-styles
-                    style = { [ styleHeader.touchStyle as ViewStyle ] }>
+                    onPress = { () => navigation.goBack() }>
                     <Icon
                         size = { 16 }
                         src = { IconCloseLarge } />
