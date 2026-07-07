@@ -6,6 +6,7 @@ export const styleHeader = {
         height: 60,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
+        paddingHorizontal: 16,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',

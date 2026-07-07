@@ -21,7 +21,7 @@ export const fishMeetHeaderOptions = {
                     // eslint-disable-next-line react/jsx-no-bind
                     onPress = { () => navigation.goBack() }
                     // eslint-disable-next-line react-native/no-inline-styles
-                    style = { [ styleHeader.touchStyle as ViewStyle, { top: top ? top + 10 : 10 } ] }>
+                    style = { [ styleHeader.touchStyle as ViewStyle ] }>
                     <Icon
                         size = { 16 }
                         src = { IconCloseLarge } />
