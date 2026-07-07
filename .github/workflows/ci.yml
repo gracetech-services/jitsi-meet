@@ -12,7 +12,7 @@ jobs:
     name: Lint
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -54,7 +54,7 @@ jobs:
   build-fishmeet-web:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -71,7 +71,7 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -90,7 +90,7 @@ jobs:
     name: Build mobile bundle (Android)
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -107,7 +107,7 @@ jobs:
     name: Build mobile bundle (iOS)
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -140,7 +140,7 @@ jobs:
     runs-on: self-hosted
     container: reactnativecommunity/react-native-android:v18.0
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -160,7 +160,7 @@ jobs:
     name: Build mobile SDK (iOS)
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
@@ -208,7 +208,7 @@ jobs:
     name: Test Debian packages build
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - uses: actions/setup-node@v4
       with:
         node-version-file: '.nvmrc'
