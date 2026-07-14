@@ -243,3 +243,47 @@ export function getJwtExpirationDate(jwt: string | undefined) {
         return new Date(exp * 1000);
     }
 }
+
+/**
+ * Fishmeet extension: generates avatar URL from JWT context.user.
+ *
+ * Used as a cross-platform fallback when {@code config.fishmeetGetAvatarUrl}
+ * is not available (e.g. on React Native where config cannot carry functions).
+ * The domain is derived from the conference location URL hostname, falling
+ * back to 'fishmeet.top' when the hostname is missing, localhost, or an IP.
+ *
+ * @param {Object} jwtUser - The JWT context.user object (may contain avatar, id, email).
+ * @param {URL} locationURL - The conference location URL, used to extract the domain.
+ * @returns {string|undefined} The avatar URL, or undefined if no user id can be derived.
+ */
+export function getFishmeetAvatarUrl(
+        jwtUser: { avatar?: string; email?: string; id?: string; } | undefined,
+        locationURL?: URL
+): string | undefined {
+    if (!jwtUser) {
+        return undefined;
+    }
+
+    if (jwtUser.avatar) {
+        return jwtUser.avatar;
+    }
+
+    const userId = jwtUser.id || jwtUser.email?.split('@')[0];
+
+    if (!userId) {
+        return undefined;
+    }
+
+    let domain = 'fishmeet.top';
+    const hostname = locationURL?.hostname;
+
+    if (hostname && hostname !== 'localhost' && !/^[\d.]+$/.test(hostname)) {
+        const parts = hostname.split('.');
+
+        if (parts.length >= 2) {
+            domain = parts.slice(-2).join('.');
+        }
+    }
+
+    return `https://${domain}/user/avatar/${userId}`;
+}
