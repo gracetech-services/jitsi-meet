@@ -28,9 +28,19 @@ fi
 # Replaces the entire "<!-- fishmeet build: ... -->" comment so repeated
 # builds work without needing to restore a placeholder.
 BUILD_DATE=$(date '+%Y-%m-%d %H:%M:%S %Z')
+ASSET_VERSION=$(date '+%Y%m%d%H%M%S')
 echo "Stamping build date: $BUILD_DATE"
+echo "Stamping asset version: $ASSET_VERSION"
 BUILD_STAMP="<!-- fishmeet build: $BUILD_DATE -->"
-sed -i "s|<!-- fishmeet build: .* -->|$BUILD_STAMP|" "$FISHMEET_DIR/index.html"
+perl -0pi -e "s|<!-- fishmeet build: .* -->|$BUILD_STAMP|g" "$FISHMEET_DIR/index.html"
+perl -0pi -e "s#(libs/(lib-jitsi-meet|app\\.bundle)\\.min\\.js\\?v=)[^\"]+#\${1}$ASSET_VERSION#g" "$FISHMEET_DIR/index.html"
+
+for asset in lib-jitsi-meet app.bundle; do
+    if ! grep -Fq "<script src=\"libs/$asset.min.js?v=$ASSET_VERSION\"></script>" "$FISHMEET_DIR/index.html"; then
+        echo "Failed to stamp asset version for $asset.min.js" >&2
+        exit 1
+    fi
+done
 
 # Run make
 echo "Running make..."

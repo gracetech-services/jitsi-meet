@@ -232,7 +232,7 @@ function getConfig(options = {}) {
         },
         output: {
             filename: `[name]${isProduction ? '.min' : ''}.js`,
-            chunkFilename: `chunks/[id]${isProduction ? '.min' : ''}.js`,
+            chunkFilename: `chunks/[id]${isProduction ? '.[contenthash].min' : ''}.js`,
             path: `${__dirname}/build`,
             publicPath: isProduction ? 'auto' : '/libs/',
             sourceMapFilename: '[file].map'
