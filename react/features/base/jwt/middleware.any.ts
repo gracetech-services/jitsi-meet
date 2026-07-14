@@ -192,7 +192,7 @@ function _setJWT(store: IStore, next: Function, action: AnyAction) {
                             newUser.avatarURL = fishmeetGetAvatarUrl(context.user) || newUser.avatarURL;
                         } else {
                             // Native (RN-SDK): config cannot carry functions, use inline implementation
-                            const { locationURL } = state['features/base/connection'];
+                            const { locationURL = { href: '' } as URL } = state['features/base/connection'];
 
                             newUser.avatarURL = getFishmeetAvatarUrl(context.user, locationURL) || newUser.avatarURL;
                         }
