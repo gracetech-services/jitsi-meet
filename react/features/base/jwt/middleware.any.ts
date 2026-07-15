@@ -17,7 +17,7 @@ import { parseURIString } from '../util/uri';
 
 import { SET_JWT } from './actionTypes';
 import { setDelayedLoadOfAvatarUrl, setJWT, setKnownAvatarUrl } from './actions';
-import { parseJWTFromURLParams } from './functions';
+import { getFishmeetAvatarUrl, parseJWTFromURLParams } from './functions';
 import logger from './logger';
 
 /**
@@ -186,8 +186,16 @@ function _setJWT(store: IStore, next: Function, action: AnyAction) {
                     // Fishmeet extension: delegate avatar URL resolution to config function
                     const { fishmeetGetAvatarUrl } = state['features/base/config'];
 
-                    if (fishmeetGetAvatarUrl && !newUser.avatarURL) {
-                        newUser.avatarURL = fishmeetGetAvatarUrl(context.user) || newUser.avatarURL;
+                    if (!newUser.avatarURL) {
+                        if (fishmeetGetAvatarUrl) {
+                            // Web: use the config-injected function (from fishmeet-config.js)
+                            newUser.avatarURL = fishmeetGetAvatarUrl(context.user) || newUser.avatarURL;
+                        } else {
+                            // Native (RN-SDK): config cannot carry functions, use inline implementation
+                            const { locationURL = { href: '' } as URL } = state['features/base/connection'];
+
+                            newUser.avatarURL = getFishmeetAvatarUrl(context.user, locationURL) || newUser.avatarURL;
+                        }
                     }
 
                     let features = context.features;
