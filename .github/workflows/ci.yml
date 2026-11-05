@@ -137,7 +137,7 @@ jobs:
     # disabled for gracetech to save GitHub action minutes
     if: false
     name: Build mobile SDK (Android)
-    runs-on: self-hosted
+    runs-on: docker # needs a Docker daemon (gtrunner `docker` scale set)
     container: reactnativecommunity/react-native-android:v18.0
     steps:
     - uses: actions/checkout@v4
